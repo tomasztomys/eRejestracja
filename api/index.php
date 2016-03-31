@@ -1,4 +1,5 @@
 <?php
+require 'vendor/autoload.php';
 
 function getRequest() {
     echo 'I\'m get request';
