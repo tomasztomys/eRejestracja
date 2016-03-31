@@ -1,5 +1,8 @@
 <?php
 require 'vendor/autoload.php';
+require_once 'AutoLoad.php';
+
+Autoload::run();
 
 function getRequest() {
     echo 'I\'m get request';
@@ -28,3 +31,6 @@ switch($_SERVER['REQUEST_METHOD']) {
         patchRequest();
         break;
 }
+
+$example=new Calls\Doctor();
+$example->run();
