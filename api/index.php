@@ -4,33 +4,35 @@ require_once 'AutoLoad.php';
 
 Autoload::run();
 
-function getRequest() {
-    echo 'I\'m get request';
-}
-function postRequest() {
-    echo 'I\'m post request';
-}
-function deleteRequest() {
-    echo 'I\'m delete request';
-}
-function patchRequest() {
-    echo 'I\'m patch request';
-}
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-switch($_SERVER['REQUEST_METHOD']) {
-    case 'GET':
-        getRequest();
-        break;
-    case 'POST':
-        postRequest();
-        break;
-    case 'DELETE':
-        deleteRequest();
-        break;
-    case 'PATCH':
-        patchRequest();
-        break;
-}
+$app = new \Slim\App;
+$app->get('/', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
 
-$example=new Calls\Doctor();
-$example->run();
+    return $response;
+});
+
+$app->post('/', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
+
+    return $response;
+});
+
+$app->delete('/', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
+
+    return $response;
+});
+
+$app->put('/', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
+
+    return $response;
+});
+$app->run();
