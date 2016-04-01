@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 require_once 'AutoLoad.php';
 
-Autoload::run(); 
+Autoload::run();
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
