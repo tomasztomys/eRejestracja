@@ -14,6 +14,6 @@ class Doctor
 
 
     public function run() {
-        
+        echo 'I\'m a doctor.';
     }
 }
