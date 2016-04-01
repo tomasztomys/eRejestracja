@@ -14,6 +14,7 @@ class Doctor
 
 
     public function run() {
-        
+echo "test";
+
     }
 }
