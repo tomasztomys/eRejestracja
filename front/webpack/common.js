@@ -7,6 +7,7 @@ var host = '0.0.0.0';
 var port = parseInt(process.env.PORT) || 3000;
 var rootPath = path.join(__dirname, '..');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -46,6 +47,7 @@ module.exports = {
       minChunks: function (module, count) {
         return module.resource && module.resource.indexOf(app_dir) === -1;
       }
-    })
+    }),
+    new OpenBrowserPlugin({ url: 'http://localhost:3000/' })
   ]
 };

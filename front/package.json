@@ -24,6 +24,7 @@
     "jsonfile": "^2.2.2",
     "lodash": "^3.10.1",
     "node-sass": "^3.4.1",
+    "open-browser-webpack-plugin": "0.0.2",
     "postcss-import": "^7.0.0",
     "postcss-loader": "^0.6.0",
     "precss": "^1.2.3",
