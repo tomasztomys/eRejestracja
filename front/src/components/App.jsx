@@ -3,7 +3,7 @@ import React from 'react';
 export default class App extends React.Component {
   render() {
     return (
-      <div>darek{ this.props.children }</div>
+      <div>{ this.props.children }</div>
     );
   }
 }
