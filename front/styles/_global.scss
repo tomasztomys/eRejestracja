@@ -1,0 +1,10 @@
+:global{
+  #root{
+    height:100%;
+
+    & > div, & > div > div{
+      height: 100%;
+    }
+  }
+
+}

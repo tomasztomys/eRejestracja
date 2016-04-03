@@ -1,0 +1,15 @@
+node_modules
+dist/*
+npm-debug.log
+.eslintrc
+jsconfig.json
+__tests__/data_from_api/*
+!__tests__/data_from_api/.empty
+test_reports/*
+!test_reports/setup_jasmine_junit_xml_reporter.js
+__tests__/api/token.txt
+src/AppConfig.js
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
