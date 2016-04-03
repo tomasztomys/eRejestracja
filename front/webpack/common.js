@@ -48,6 +48,6 @@ module.exports = {
         return module.resource && module.resource.indexOf(app_dir) === -1;
       }
     }),
-    new OpenBrowserPlugin({ url: 'http://localhost:3000/' })
+    new OpenBrowserPlugin({ url: 'http://localhost:3000/navigation' })
   ]
 };
