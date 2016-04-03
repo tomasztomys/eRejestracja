@@ -8,7 +8,6 @@ __tests__/data_from_api/*
 test_reports/*
 !test_reports/setup_jasmine_junit_xml_reporter.js
 __tests__/api/token.txt
-src/AppConfig.js
 .idea/
 .vscode/
 .DS_Store
