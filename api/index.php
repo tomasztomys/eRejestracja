@@ -7,32 +7,28 @@ Autoload::run();
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app = new \Slim\App;
-$app->get('/', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+$app = new \Slim\App($c);
 
-    return $response;
+
+$app->add(function (Request $request, Response $response, callable $next) {
+
+    $newResponse = $response->withHeader('Content-type', 'application/json');
+
+    return $next($request, $newResponse);
 });
 
-$app->post('/', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
-
-    return $response;
+$app->group('/authorizations', function () {
+    $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
 });
 
-$app->delete('/', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
-
-    return $response;
+$app->any('/', function () {
+    echo "eRejestracja";
 });
 
-$app->put('/', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write('It\'s a '.$request->getMethod().' request!');
-
-    return $response;
-});
 $app->run();
