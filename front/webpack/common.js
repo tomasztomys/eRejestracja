@@ -1,53 +1,68 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
-var postcssImport = require('postcss-import');
-var host = '0.0.0.0';
-var port = parseInt(process.env.PORT) || 3000;
-var rootPath = path.join(__dirname, '..');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+/* eslint-disable */
+
+var autoprefixer = require('autoprefixer')
+var htmlPlugin   = require('html-webpack-plugin')
+var path         = require('path')
+
+
 
 module.exports = {
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.scss', '.css']
-  },
-
+  context: path.resolve('./src'),
+  entry: [
+    './scripts/index.jsx'
+  ],
   module: {
-    loaders: [{
-      test: /(\.js|\.jsx)$/,
-      exclude: /node_modules/,
-      loaders: [ 'babel-loader?stage=0&optional[]=runtime' ],
-      include: path.join(rootPath, 'src'),
-      stage: 0
-    }, {
-      test: /(\.css|\.scss)$/,
-      loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap!toolbox')
-    }, {
-      test: /(\.png|\.jpg|\.gif)$/,
-      loader: 'url?limit=8192'
-    }, {
-      test: /\.svg$/,
-      loader: 'svg-inline'
-    }, {
-      test: /\.json$/,
-      loader: 'file'
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        include: /scripts/,
+        loaders: ['react-hot', 'babel'],
+      },
+      {
+        test: /\.(jpg|png|svg|woff)$/,
+        include: /assets/,
+        loader: 'file',
+        query: {
+          name: 'assets/[hash].[ext]',
+        },
+      },
+      {
+        test: /\.json$/,
+        include: /assets/,
+        loader: 'json',
+      },
+    ],
   },
-
-  toolbox: 'theme.scss',
-  postcss: [autoprefixer],
-
+  output: {
+    filename: '[hash].js',
+    path: path.resolve('./build'),
+  },
   plugins: [
-    new ExtractTextPlugin('style.css', { allChunks: true }),
-    new webpack.optimize.CommonsChunkPlugin(
-      "vendor",
-      "vendor.bundle.js", {
-      minChunks: function (module, count) {
-        return module.resource && module.resource.indexOf(app_dir) === -1;
-      }
+    new htmlPlugin({
+      minify: {
+        collapseWhitespace: true,
+        removeTagWhitespace: true,
+      },
+      template: 'index.html',
     }),
-    new OpenBrowserPlugin({ url: 'http://localhost:3000/navigation' })
-  ]
-};
+  ],
+  postcss: function() {
+    return [
+      autoprefixer,
+    ]
+  },
+  resolve: {
+    alias: {
+      assets: path.resolve('./src/assets'),
+      styles: path.resolve('./src/styles'),
+    },
+    extensions: [
+      '',
+      '.js',
+      '.jsx',
+      '.json',
+      '.sass',
+      '.scss',
+    ]
+  },
+}
