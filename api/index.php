@@ -26,6 +26,9 @@ $app->add(function (Request $request, Response $response, callable $next) {
 $app->group('/authorizations', function () {
     $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
 });
+$app->group('/user', function () {
+    $this->get('', '\Calls\User:user')->setName('user');
+});
 
 $app->any('/', function () {
     echo "eRejestracja";
