@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tomasz Tomys
- * Date: 06.04.2016
- * Time: 01:57
- */
 
 namespace Calls;
 
@@ -23,7 +17,8 @@ class User
             'name' => 'Tomasz',
             'surname' => 'Tomys',
             'email' => 'tomasz@tomys.pl',
-            'pesel' => '94050112153'
+            'pesel' => '94050112153',
+            'type' => 'doctor'
         ];
         return $response->withJson($userData);
     }
