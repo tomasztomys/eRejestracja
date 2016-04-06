@@ -11,7 +11,7 @@ class Doctors
         $this->ci = $ci;
     }
 
-    public function getDoctors($request, $response, $args) {
+    private function _getDoctors($specialization) : array {
         $doctor1 = [
             'id' => 1,
             'name' => 'Tomasz',
@@ -31,8 +31,8 @@ class Doctors
             'specialization' => 'stomatolog'
         ];
 
-        $params = $request->getParams();
-        switch($params['specialization']){
+
+        switch($specialization){
             case 'chirurg':
                 $doctors = [
                     'doctors' => [$doctor1]
@@ -54,6 +54,13 @@ class Doctors
                 ];
         }
 
-        return $response->withJson($doctors);
+        return $doctors;
+    }
+
+    public function getDoctors($request, $response, $args) {
+
+        $params = $request->getParams();
+        $specialization = $params['specialization'];
+        return $response->withJson($this->_getDoctors($specialization));
     }
 }
