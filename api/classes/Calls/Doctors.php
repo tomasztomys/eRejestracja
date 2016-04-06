@@ -30,9 +30,30 @@ class Doctors
             'type' => 'doctor',
             'specialization' => 'stomatolog'
         ];
-        $doctors = [
-            'doctors' => [ $doctor1, $doctor2 ]
-        ];
+
+        $params = $request->getParams();
+        switch($params['specialization']){
+            case 'chirurg':
+                $doctors = [
+                    'doctors' => [$doctor1]
+                ];
+                break;
+            case 'stomatolog':
+                $doctors = [
+                    'doctors' => [$doctor2]
+                ];
+                break;
+            case null:
+                $doctors = [
+                    'doctors' => [$doctor1, $doctor2]
+                ];
+                break;
+            default:
+                $doctors = [
+                    'doctors' => []
+                ];
+        }
+
         return $response->withJson($doctors);
     }
 }
