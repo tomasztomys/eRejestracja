@@ -18,7 +18,8 @@ class User
             'surname' => 'Tomys',
             'email' => 'tomasz@tomys.pl',
             'pesel' => '94050112153',
-            'type' => 'doctor'
+            'type' => 'doctor',
+            'specialization' => 'chirurg'
         ];
         return $response->withJson($userData);
     }
