@@ -5,7 +5,6 @@ import {
 } from 'react-toolbox';
 import classnames from 'classnames';
 
-
 import style from './list.scss';
 
 export default class List extends React.Component {
@@ -13,14 +12,15 @@ export default class List extends React.Component {
   render() {
     let { className, ...otherProps } = this.props;
 
-    let children = React.Children.map(this.props.children, function(element) {
-      let {...elementProps} = element.props;
-      return  (
+    let children = React.Children.map(this.props.children, (element) => {
+      let { ...elementProps } = element.props;
+
+      return (
         <ListItemReactToolbox {...elementProps} />
       );
     });
 
-    let listStyle = classnames(style["list"], className);
+    let listStyle = classnames(style['list'], className);
 
     return (
       <ListReactToolbox
@@ -33,8 +33,9 @@ export default class List extends React.Component {
       </ListReactToolbox>
     );
   }
-};
+}
 
 List.propTypes = {
   className: PropTypes.string,
+  children: PropTypes.element
 };

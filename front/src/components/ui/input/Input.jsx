@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import InputReactToolbox from 'react-toolbox/lib/input';
 import classnames from 'classnames';
 
@@ -7,7 +7,6 @@ import style from './input.scss';
 export default class Input extends React.Component {
 
   render() {
-
     let {
       label,
       error,
@@ -15,7 +14,6 @@ export default class Input extends React.Component {
       className,
       value,
       onChange,
-      validationError,
       ...otherProps
     } = this.props;
 
@@ -30,7 +28,7 @@ export default class Input extends React.Component {
         error={ error }
         type="text"
         icon={ icon }
-        floating={ true }
+        floating
         {...otherProps}
       />
     );
