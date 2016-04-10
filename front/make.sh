@@ -1,3 +1,9 @@
+result () {
+  if [ ! $? ]; then
+    exit $?
+  fi
+}
+
 npm5 install
 npm5 run build
 rm -rf /home/tomasztomys/domains/iwm.tomys.me/newest
