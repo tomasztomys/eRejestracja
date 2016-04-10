@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import Routes from './components/Routes';
 import Store from './store';
 import ReduxDevTools from './ReduxDevTools';
+import config from './config';
 
 injectTapEventPlugin();
 
@@ -15,7 +16,7 @@ require('../styles/main.css');
 
 let reduxDevTools = '';
 
-if (process.env.NODE_ENV === 'development') {
+if (config.env === 'development') {
   reduxDevTools = (
     <ReduxDevTools store={ Store } />
   );

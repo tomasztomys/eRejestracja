@@ -10,7 +10,13 @@ import app from './reducers/app';
 import * as Action from './actions/Actions';
 import AppConfig from './AppConfig';
 
-var finalCreateStore = compose(
+let getDebugSessionKey = function() {
+  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
+
+  return (matches && matches.length > 0) ? matches[1] : null;
+};
+
+let finalCreateStore = compose(
   applyMiddleware(thunkMiddleware),
   // Required! Enable Redux DevTools with the monitors you chose
   ReduxDevTools.instrument(),
@@ -18,24 +24,19 @@ var finalCreateStore = compose(
   persistState(getDebugSessionKey())
 )(createStore);
 
-function getDebugSessionKey() {
-  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
-  return (matches && matches.length > 0)? matches[1] : null;
-}
-
 // there's only a single store
 // in the whole application
-var Store = finalCreateStore(app);
-
+let Store = finalCreateStore(app);
 
 // if we already logged in previously
 // get back all the login data
-var userData = localStorage.get('user');
-if (userData !== undefined && userData.authVersion == AppConfig.authVersion) {
+let userData = localStorage.get('user');
+
+if (userData !== undefined && userData.authVersion === AppConfig.authVersion) {
   Store.dispatch(Action.trySigningIn(userData.username, userData.token));
 }
 
-if(userData && (userData.authVersion != AppConfig.authVersion)) {
+if (userData && (userData.authVersion !== AppConfig.authVersion)) {
   localStorage.remove('user');
 }
 
