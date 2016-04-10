@@ -1,4 +1,4 @@
-import * as Input from './input';
+import { Input } from './input';
 import { List, ListItem }  from './list';
 
 export { Input, List, ListItem };
