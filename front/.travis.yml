@@ -7,7 +7,7 @@ node_js: node
 notifications:
   email:
     recipients:
-      - contact@pawelski.io
+      - tomasz@tomys.pl
 script:
   - npm test
   - npm run flow

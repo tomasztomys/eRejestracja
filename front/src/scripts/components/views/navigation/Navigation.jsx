@@ -40,7 +40,6 @@ export default class Navigation extends Component {
   render() {
     return (
       <div>
-        <span>lol</span>
         <List>
           { this._renderLinks() }
         </List>

@@ -33,7 +33,7 @@ module.exports = assign(common, {
 
 
   devServer: {
-    contentBase: 'build',
+    contentBase: './build',
     hot: true,
     inline: true,
     port: process.env.npm_package_config_port,

@@ -1,2 +1,4 @@
-export * from './input';
-export * from './list';
+import * as Input from './input';
+import { List, ListItem }  from './list';
+
+export { Input, List, ListItem };
