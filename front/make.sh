@@ -1,5 +1,5 @@
 npm5 install
-npm run build
+npm5 run build
 rm -rf /home/tomasztomys/domains/iwm.tomys.me/newest
 mkdir /home/tomasztomys/domains/iwm.tomys.me/newest
 cp -R build /home/tomasztomys/domains/iwm.tomys.me/newest
