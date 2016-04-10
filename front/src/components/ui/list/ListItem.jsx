@@ -22,5 +22,5 @@ export default class ListItem extends React.Component {
 
 ListItem.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element
+  children: React.PropTypes.node
 };

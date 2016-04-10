@@ -2,7 +2,7 @@ import 'babel-core/polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from "react-tap-event-plugin";
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 
 import Routes from './components/Routes';
@@ -11,7 +11,7 @@ import ReduxDevTools from './ReduxDevTools';
 
 injectTapEventPlugin();
 
-require("../styles/main.css");
+require('../styles/main.css');
 
 let reduxDevTools = '';
 

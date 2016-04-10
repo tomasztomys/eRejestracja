@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import {
   List as ListReactToolbox,
   ListItem as ListItemReactToolbox
@@ -37,5 +37,5 @@ export default class List extends React.Component {
 
 List.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element
+  children: React.PropTypes.node
 };

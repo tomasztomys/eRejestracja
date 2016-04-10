@@ -1,9 +1,9 @@
-import Immutable, { List as IList,  Map as IMap} from 'immutable';
+import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({
   user: {}
 });
 
-export default function app(state = initialState, action) {
+export default function app(state = initialState) {
   return state;
 }
