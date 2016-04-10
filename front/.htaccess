@@ -1,7 +1,13 @@
 RewriteEngine On
 
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
-RewriteRule ^ - [L]
+# Uncomment if a simple case of the site residing
+# directly at (sub)domain ex. www.iwm.tomys.me
+# RewriteBase /
 
-RewriteRule ^ /index.html [L]
+
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# BASE_HREF #
+# RewriteRule . /index.html [L]
