@@ -2,7 +2,7 @@ npm5 install
 npm5 run build
 rm -rf /home/tomasztomys/domains/iwm.tomys.me/newest
 mkdir /home/tomasztomys/domains/iwm.tomys.me/newest
-cp -R build /home/tomasztomys/domains/iwm.tomys.me/newest
+cp -R build/ /home/tomasztomys/domains/iwm.tomys.me/newest
 cp .htaccess /home/tomasztomys/domains/iwm.tomys.me/newest
 
 #replace `<!-- BASE_HREF -->` string with proper base href in index.html file
