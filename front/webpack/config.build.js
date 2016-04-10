@@ -10,26 +10,25 @@ var common = require('./common')
 
 
 module.exports = assign(common, {
+  devtool: 'eval',
   module: {
     loaders: [
       {
         test: /\.sass$/,
-        include: /styles/,
         loader: extractTextPlugin.extract([
           'css?minimize',
           'postcss',
           'resolve-url',
-          'sass?sourceMap&indentedSyntax',
+          'sass?sourceMap'
         ]),
       },
       {
         test: /\.scss$/,
-        include: /styles/,
         loader: extractTextPlugin.extract([
           'css?minimize',
           'postcss',
           'resolve-url',
-          'sass?sourceMap',
+          'sass?sourceMap'
         ]),
       },
     ],
