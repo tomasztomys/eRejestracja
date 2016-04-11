@@ -1,10 +1,8 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 
 import {
   Input
 } from '../../ui';
-
-import style from './login.scss';
 
 export default class Login extends Component {
 
@@ -33,11 +31,12 @@ export default class Login extends Component {
 
   _onInputChange(type, value) {
     let values = this.state.values;
+
     values[type] = value;
 
     this.setState({
       values: values
-    })
+    });
   }
 
   render() {
@@ -47,21 +46,21 @@ export default class Login extends Component {
 
     return (
       <div>
-         <Input
-           key={ labels.login }
-           label={ labels.login }
-           value={ values.login }
-           error={ errors.login }
-           onChange={ this._onInputChange.bind(this, 'login') }
-         />
-         <Input
-           key={ labels.password }
-           label={ labels.password }
-           value={ values.password }
-           error={ errors.password }
-           onChange={ this._onInputChange.bind(this, 'password') }
-         />
+        <Input
+          key={ labels.login }
+          label={ labels.login }
+          value={ values.login }
+          error={ errors.login }
+          onChange={ this._onInputChange.bind(this, 'login') }
+        />
+        <Input
+          key={ labels.password }
+          label={ labels.password }
+          value={ values.password }
+          error={ errors.password }
+          onChange={ this._onInputChange.bind(this, 'password') }
+        />
       </div>
-    )
+    );
   }
 }

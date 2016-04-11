@@ -1,13 +1,10 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 
-import Paths from '../../../constants/PathsConstants';
 import NavigationLinks from '../../../constants/NavigationLinks';
 
 import {
   List, ListItem
 } from '../../ui';
-
-import style from './navigation.scss';
 
 export default class Navigation extends Component {
 
@@ -18,24 +15,21 @@ export default class Navigation extends Component {
     };
   }
 
-
-
   _routeHandler(where) {
     this.context.router.push(where);
   }
 
   _renderLinks() {
-    return NavigationLinks.map( (link, index) => {
+    return NavigationLinks.map((link, index) => {
       return (
         <ListItem
-           key={ index }
-           caption={ link.label }
-           onClick={ this._routeHandler.bind(this, link.path) }
-         />
-      )
-    })
+          key={ index }
+          caption={ link.label }
+          onClick={ this._routeHandler.bind(this, link.path) }
+        />
+      );
+    });
   }
-
 
   render() {
     return (
@@ -44,10 +38,10 @@ export default class Navigation extends Component {
           { this._renderLinks() }
         </List>
       </div>
-    )
+    );
   }
 }
 
-Navigation.contextTypes= {
+Navigation.contextTypes = {
   router: React.PropTypes.object
-}
+};
