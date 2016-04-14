@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+require 'rb.php';
 require_once 'AutoLoad.php';
 
 Autoload::run();
@@ -14,7 +15,7 @@ $configuration = [
 ];
 $c = new \Slim\Container($configuration);
 $app = new \Slim\App($c);
-
+$appConfig = new \Configs\Config();
 
 $app->add(function (Request $request, Response $response, callable $next) {
 
