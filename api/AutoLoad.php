@@ -11,7 +11,9 @@ class AutoLoad
             $namespace=str_replace("\\","/",__NAMESPACE__);
             $className=str_replace("\\","/",$className);
             $class=CORE_PATH."/classes/".(empty($namespace)?"":$namespace."/")."{$className}.php";
-            include_once($class);
+            if(file_exists($class)) {
+                include_once($class);
+            }
         });
     }
 }
