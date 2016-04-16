@@ -24,20 +24,8 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $next($request, $newResponse);
 });
 
-$app->group('/authorizations', function () {
-    $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
-});
 
-$app->group('/user', function () {
-    $this->get('', '\Calls\User:user')->setName('user');
-});
-
-$app->group('/doctors', function () {
-    $this->get('', '\Calls\Doctors:getDoctors')->setName('getDoctors');
-});
-
-$app->any('/', function () {
-    echo "eRejestracja";
-});
+$calls = new \Calls\Calls($app);
+$calls->run();
 
 $app->run();
