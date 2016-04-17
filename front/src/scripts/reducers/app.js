@@ -3,14 +3,13 @@ import Immutable from 'immutable';
 import logIn from './log_in';
 
 const initialState = Immutable.fromJS({
+  login: '',
   user: {
-    nick: '',
-    password: '',
-    type: ''
+
   }
 });
 
 export default function app(state = initialState, action) {
-  state = state.set('user', logIn(state.get('user'), action));
+  state = state.set('login', logIn(state.get('login'), action));
   return state;
 }

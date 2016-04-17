@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import {
   Input
 } from '../../ui';
 
-export default class Login extends Component {
+import * as Action from '../../../actions/Actions';
+
+class Login extends Component {
 
   constructor() {
     super();
@@ -39,6 +42,10 @@ export default class Login extends Component {
     });
   }
 
+  _logIn() {
+    this.props.dispatch(Action.sendLogIn('tomasz@tomys.pl', 'tomasz'));
+  }
+
   render() {
     let labels = this.state.labels;
     let values = this.state.values;
@@ -60,7 +67,17 @@ export default class Login extends Component {
           error={ errors.password }
           onChange={ this._onInputChange.bind(this, 'password') }
         />
+        <button
+          onClick={ this._logIn.bind(this) }
+        />
       </div>
     );
   }
 }
+
+function select(state) {
+  return {
+  };
+}
+
+export default connect(select)(Login);
