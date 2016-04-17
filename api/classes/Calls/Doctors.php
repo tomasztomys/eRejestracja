@@ -60,7 +60,7 @@ class Doctors
     public function getDoctors($request, $response, $args) {
 
         $params = $request->getParams();
-        $specialization = $params['specialization'];
+        $specialization = $params['specialization'] ?? '';
         return $response->withJson($this->_getDoctors($specialization));
     }
 }
