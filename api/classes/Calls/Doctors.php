@@ -11,47 +11,35 @@ class Doctors
         $this->ci = $ci;
     }
 
-    private function _getDoctors($specialization) : array {
-        $doctor1 = [
-            'id' => 1,
-            'name' => 'Tomasz',
-            'surname' => 'Tomys',
-            'email' => 'tomasz@tomys.pl',
-            'pesel' => '94050112153',
-            'type' => 'doctor',
-            'specialization' => 'chirurg'
-        ];
-        $doctor2 = [
-            'id' => 3,
-            'name' => 'Dariusz',
-            'surname' => 'Paluch',
-            'email' => 'dariusz.paluch@hotmail.com',
-            'pesel' => '94011532198',
-            'type' => 'doctor',
-            'specialization' => 'stomatolog'
-        ];
+    private function _makeDoctor($doctorDB) {
+        $doctor = [];
+        $doctor['name'] = $doctorDB->name;
+        $doctor['surname'] = $doctorDB->surname;
+        $doctor['email'] = $doctorDB->email;
+        $doctor['pesel'] = $doctorDB->pesel;
+        $doctor['type'] = $doctorDB->type;
+        $doctor['specialization'] = $doctorDB->specialization;
 
+        return $doctor;
+    }
 
-        switch($specialization){
-            case 'chirurg':
-                $doctors = [
-                    'doctors' => [$doctor1]
-                ];
-                break;
-            case 'stomatolog':
-                $doctors = [
-                    'doctors' => [$doctor2]
-                ];
-                break;
-            case null:
-                $doctors = [
-                    'doctors' => [$doctor1, $doctor2]
-                ];
-                break;
-            default:
-                $doctors = [
-                    'doctors' => []
-                ];
+    private function _getAllDoctors() : array {
+        $doctorsDB = \R::findAll( 'doctor' );
+        $doctors = [];
+        foreach($doctorsDB as $doctorDB) {
+            $doctor = $this->_makeDoctor($doctorDB);
+            array_push($doctors, $doctor);
+        }
+
+        return $doctors;
+    }
+
+    private function _getDoctorsBySpecialization($specialization) : array {
+        $doctorsDB = \R::findAll( 'doctor', ' specialization = ? ', [ $specialization ] );
+        $doctors = [];
+        foreach($doctorsDB as $doctorDB) {
+            $doctor = $this->_makeDoctor($doctorDB);
+            array_push($doctors, $doctor);
         }
 
         return $doctors;
@@ -60,7 +48,12 @@ class Doctors
     public function getDoctors($request, $response, $args) {
 
         $params = $request->getParams();
-        $specialization = $params['specialization'] ?? '';
-        return $response->withJson($this->_getDoctors($specialization));
+        $specialization = $params['specialization'] ?? null;
+        if (!isset($specialization)) {
+            $doctors = $this->_getAllDoctors();
+        } else {
+            $doctors = $this->_getDoctorsBySpecialization($specialization);
+        }
+        return $response->withJson($doctors);
     }
 }
