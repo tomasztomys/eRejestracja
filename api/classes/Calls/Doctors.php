@@ -56,4 +56,18 @@ class Doctors
         }
         return $response->withJson($doctors);
     }
+
+    public function deleteDoctor($request, $response, $args) {
+
+        $id = $args['id'];
+        $doctorDB = \R::load( 'doctor', $id );
+
+        if($doctorDB->id !== 0) {
+            \R::trash($doctorDB);
+            return $response->withJson([]);
+        }
+
+        $response = $response->withStatus(422);
+        return $response->withJson(['error' => 'Doctor not found']);
+    }
 }
