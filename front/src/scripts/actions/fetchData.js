@@ -5,7 +5,6 @@ import {multipleFetch} from './multipleFetch';
 function getInitFetch(method, body, token = '') {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
-  // headers.append('Authorization', 'Cityglobe ' + token);
 
   const initFetch = {
     method,
@@ -20,7 +19,7 @@ function getInitFetch(method, body, token = '') {
   return initFetch;
 }
 
-export function fetchData(url, method = 'GET', body = {}, token = AppConfig.apiToken) {
+export function fetchData(url, method = 'GET', body = {  }, token = AppConfig.apiToken) {
   const initFetch = getInitFetch(method, body, token);
 
   if (Array.isArray(url)) {

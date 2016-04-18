@@ -9,7 +9,7 @@ import Paths from '../constants/PathsConstants';
 
 import App from './App';
 
-import { Login } from './views/login';
+import { SmartLogin } from './views/login';
 import { Navigation } from './views/navigation';
 
 export default class Routes extends React.Component {
@@ -31,7 +31,7 @@ export default class Routes extends React.Component {
           />
           <Route
             path={ Paths.login }
-            component={ Login }
+            component={ SmartLogin }
           />
         </Route>
         <Redirect

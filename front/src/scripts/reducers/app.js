@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import logIn from './log_in';
 
 const initialState = Immutable.fromJS({
-  login: '',
+  login: false,
   user: {
 
   }
