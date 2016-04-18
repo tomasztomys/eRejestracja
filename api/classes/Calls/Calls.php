@@ -31,6 +31,8 @@ class Calls
             $this->get('', '\Calls\Doctors:getDoctors')->setName('getDoctors');
         });
 
+        $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');
+
         $this->_app->any('/', function () {
             echo "eRejestracja";
         });
