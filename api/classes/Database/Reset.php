@@ -17,6 +17,7 @@ class Reset
       'name' => 'Tomasz',
       'surname' => 'Tomys',
       'email' => 'tomasz@tomys.pl',
+      'password' => 'tomasz',
       'pesel' => '94050112153',
       'type' => 'doctor',
       'specialization' => 'chirurg'
@@ -25,6 +26,7 @@ class Reset
       'name' => 'Dariusz',
       'surname' => 'Paluch',
       'email' => 'dariusz.paluch@hotmail.com',
+      'password' => 'tomasz',
       'pesel' => '94011532198',
       'type' => 'doctor',
       'specialization' => 'stomatolog'
@@ -43,6 +45,7 @@ class Reset
       $doctorBeans[$i]->name = $doctor['name'];
       $doctorBeans[$i]->surname = $doctor['surname'];
       $doctorBeans[$i]->email = $doctor['email'];
+      $doctorBeans[$i]->password = $doctor['password'];
       $doctorBeans[$i]->pesel = $doctor['pesel'];
       $doctorBeans[$i]->type = $doctor['type'];
       $doctorBeans[$i]->specialization = $doctor['specialization'];
