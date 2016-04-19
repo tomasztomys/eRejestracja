@@ -13,6 +13,7 @@ class Doctors
 
     private function _makeDoctor($doctorDB) {
         $doctor = [];
+        $doctor['id'] = (int)$doctorDB->id;
         $doctor['name'] = $doctorDB->name;
         $doctor['surname'] = $doctorDB->surname;
         $doctor['email'] = $doctorDB->email;
