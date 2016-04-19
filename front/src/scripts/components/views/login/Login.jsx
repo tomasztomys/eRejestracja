@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Input
+  Input,
+  Button
 } from '../../ui';
 
 export default class Login extends Component {
@@ -25,7 +26,8 @@ export default class Login extends Component {
           error={ errors.password }
           onChange={ inputChange.bind(this, 'password') }
         />
-        <button
+        <Button
+          label={ labels.loginButton }
           onClick={ logInHandle.bind(this) }
         />
       </div>
@@ -36,7 +38,8 @@ export default class Login extends Component {
 Login.propTypes = {
   labels: PropTypes.shape({
     login: PropTypes.string,
-    password: PropTypes.string
+    password: PropTypes.string,
+    loginButton: PropTypes.string
   }),
   values: PropTypes.shape({
     login: PropTypes.string,

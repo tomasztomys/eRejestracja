@@ -12,11 +12,12 @@ class SmartLogin extends Component {
     this.state = {
       values: {
         login: 'tomasz@tomys.pl',
-        password: 'tomasz'
+        password: 'tomasz',
       },
       labels: {
         login: 'Login',
-        password: 'Password'
+        password: 'Password',
+        loginButton: 'Sign in'
       },
       errorMessages: {
         login: 'Please enter your login.',
