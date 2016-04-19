@@ -1,18 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tomasztomys
- * Date: 18.04.2016
- * Time: 00:44
- */
 
 namespace Database;
 
-
+/**
+ * Klasą do obsługi przywrócenia danych domyślnych w bazie danych
+ *
+ * @package Database
+ */
 class Reset
 {
 
-  private function _getDoctors() : array {
+  /**
+   * Zwraca mockową tablicę lekarzy
+   *
+   * @return array
+   */
+  private function _getDoctors() {
     $doctor1 = [
       'name' => 'Tomasz',
       'surname' => 'Tomys',
@@ -34,6 +37,11 @@ class Reset
     return [$doctor1, $doctor2];
   }
 
+  /**
+   * Metoda służaca do przywrócenia domyślnych danych w bazie danych
+   *
+   * @return void
+   */
   public function run() {
     \R::nuke();
     $doctors = $this->_getDoctors();

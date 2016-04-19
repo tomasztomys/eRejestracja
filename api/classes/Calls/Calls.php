@@ -8,16 +8,33 @@
 
 namespace Calls;
 
-
+/**
+ * Klasa-router calli
+ *
+ * @package Calls
+ */
 class Calls
 {
+    /**
+     * @var \Slim\App
+     */
     private $_app;
 
+    /**
+     * Konstruktor klasy Calls
+     *
+     * @param $app \Slim\App
+     */
     function __construct($app)
     {
         $this->_app = $app;
     }
 
+    /**
+     * Ustawienie routera calli aplikacji
+     *
+     * @return void
+     */
     public function run() {
         $this->_app->group('/authorizations', function () {
             $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
