@@ -31,9 +31,7 @@ export function fetchDoctorsList() {
 
 export function deleteDoctor(id) {
 
-  let url = '/doctors/' + Qs.stringify({
-    id
-  }, { arrayFormat: 'brackets' });
+  let url = '/doctors/' + id;
 
   return (dispatch) => {
     fetchData(url, 'DELETE', {}, '')
