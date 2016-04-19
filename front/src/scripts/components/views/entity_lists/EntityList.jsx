@@ -36,14 +36,17 @@ export default class EntityList extends Component {
         <h1>
           { title }
         </h1>
-        <Table
-          source={ source }
-          model={ model }
-          onSelect={ onSelect }
-          selectable={ selectable }
-          selected={ selected }
-          onChange={ onChangeTable }
-        />
+        { source.length > 0 ?
+          <Table
+            source={ source }
+            model={ model }
+            onSelect={ onSelect }
+            selectable={ selectable }
+            selected={ selected }
+            onChange={ onChangeTable }
+          /> : <div>No doctors in database</div>
+        }
+
         { this._renderButtons() }
       </div>
 
