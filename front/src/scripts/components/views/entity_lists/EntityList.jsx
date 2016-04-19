@@ -15,7 +15,7 @@ export default class EntityList extends Component {
         <Button
           key={ item.label }
           label={ item.label }
-          onChange={ item.onChange }
+          onClick={ item.onClick }
         />
       );
     });

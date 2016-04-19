@@ -44,8 +44,8 @@ class SmartDoctorList extends Component {
     });
   }
 
-  _handleRemoveDoctor(id) {
-
+  _onRemoveDoctor() {
+    let { selected } = this.state;
   }
 
   render() {
@@ -65,7 +65,7 @@ class SmartDoctorList extends Component {
         onRemoveDoctor={ this._handleRemoveDoctor }
         selectable
         buttons={ [
-          { label: 'Remove selected doctor', onChange: this._handleRemoveDoctor.bind(this) }
+          { label: 'Remove selected doctor', onClick: this._onRemoveDoctor.bind(this) }
         ] }
       />
     );
