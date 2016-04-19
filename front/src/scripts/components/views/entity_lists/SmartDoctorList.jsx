@@ -21,6 +21,7 @@ class SmartDoctorList extends Component {
 
     this.state = {
       doctorsModel: {
+        id: { type: Number },
         name: { type: String },
         surname: { type: String },
         email: { type: String },
@@ -45,7 +46,13 @@ class SmartDoctorList extends Component {
   }
 
   _onRemoveDoctor() {
-    let { selected } = this.state;
+    let { selected, doctorsList } = this.state;
+
+    for (let index of selected) {
+      let id = doctorsList[selected[index]].id;
+
+      this.props.dispatch(Action.deleteDoctor(id));
+    }
   }
 
   render() {
@@ -74,7 +81,6 @@ class SmartDoctorList extends Component {
 
 function select(state) {
   state = state.toJS();
-
   return {
     doctorsList: state.doctorsList
   };
