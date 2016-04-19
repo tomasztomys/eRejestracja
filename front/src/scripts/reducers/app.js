@@ -8,11 +8,11 @@ const initialState = Immutable.fromJS({
   user: IMap({
 
   }),
-  doctors: IList()
+  doctorsList: IList()
 });
 
 export default function app(state = initialState, action) {
   state = state.set('login', logIn(state.get('login'), action));
-  state = state.set('doctors', doctorsList(state.get('doctors'), action));
+  state = state.set('doctorsList', doctorsList(state.get('doctorsList'), action));
   return state;
 }
