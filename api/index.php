@@ -17,6 +17,9 @@ $c = new \Slim\Container($configuration);
 $app = new \Slim\App($c);
 $appConfig = new \Configs\Config();
 
+/**
+ * Dodanie nagłówków do zwrotki z API
+ */
 $app->add(function (Request $request, Response $response, callable $next) {
 
     $response = $response->withHeader('Access-Control-Allow-Origin', '*');

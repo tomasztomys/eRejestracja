@@ -2,15 +2,34 @@
 
 namespace Calls;
 
-
+/**
+ * Grupa calli /doctors
+ *
+ * @package Calls
+ */
 class Doctors
 {
+    /**
+     * @var \Slim\Container
+     */
     protected $ci;
 
+    /**
+     * Konstruktor klasy Doctors
+     *
+     * @param \Slim\Container $ci
+     */
     public function __construct(\Slim\Container $ci) {
         $this->ci = $ci;
     }
 
+    /**
+     * Konwersja beana do tablici asocjacyjnej
+     *
+     * @param $doctorDB bean
+     *
+     * @return array
+     */
     private function _makeDoctor($doctorDB) {
         $doctor = [];
         $doctor['id'] = (int)$doctorDB->id;
@@ -24,7 +43,12 @@ class Doctors
         return $doctor;
     }
 
-    private function _getAllDoctors() : array {
+    /**
+     * Pobranie wszystkich lekarzy z bazy i przedstawienie w formie tabeli
+     *
+     * @return array
+     */
+    private function _getAllDoctors() {
         $doctorsDB = \R::findAll( 'doctor' );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
@@ -35,7 +59,14 @@ class Doctors
         return $doctors;
     }
 
-    private function _getDoctorsBySpecialization($specialization) : array {
+    /**
+     * Filtrowanie lekarzy po specjalizacji
+     *
+     * @param $specialization string specjalizacja
+     *
+     * @return array
+     */
+    private function _getDoctorsBySpecialization($specialization) {
         $doctorsDB = \R::findAll( 'doctor', ' specialization = ? ', [ $specialization ] );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
@@ -46,10 +77,25 @@ class Doctors
         return $doctors;
     }
 
+    /**
+     * Obsługa calla GET /doctors
+     *
+     * Call służący do pobrania wszystkich lekarzy z bazy danych z opcjonalną filtracją po nazwie specjalizacji
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function getDoctors($request, $response, $args) {
 
         $params = $request->getParams();
-        $specialization = $params['specialization'] ?? null;
+        if(isset($params['specialization'])) {
+            $specialization = $params['specialization'];
+        } else {
+            $specialization = null;
+        }
         if (!isset($specialization)) {
             $doctors = $this->_getAllDoctors();
         } else {
@@ -58,6 +104,17 @@ class Doctors
         return $response->withJson($doctors);
     }
 
+    /**
+     * Obsługa calla DELETE /doctors/{id}
+     *
+     * Call służący do usuwania lekarza z bazy danych
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function deleteDoctor($request, $response, $args) {
 
         $id = $args['id'];
