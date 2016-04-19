@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   Input
@@ -6,43 +6,8 @@ import {
 
 export default class Login extends Component {
 
-  constructor() {
-    super();
-
-    this.state = {
-      values: {
-        login: '',
-        password: ''
-      },
-      labels: {
-        login: 'Login',
-        password: 'Password'
-      },
-      errorMessages: {
-        login: 'Please enter your login.',
-        password: 'Please enter your password.'
-      },
-      errors: {
-        login: '',
-        password: ''
-      }
-    };
-  }
-
-  _onInputChange(type, value) {
-    let values = this.state.values;
-
-    values[type] = value;
-
-    this.setState({
-      values: values
-    });
-  }
-
   render() {
-    let labels = this.state.labels;
-    let values = this.state.values;
-    let errors = this.state.errors;
+    let { labels, values, errors, inputChange, logInHandle } = this.props;
 
     return (
       <div>
@@ -51,16 +16,36 @@ export default class Login extends Component {
           label={ labels.login }
           value={ values.login }
           error={ errors.login }
-          onChange={ this._onInputChange.bind(this, 'login') }
+          onChange={ inputChange.bind(this, 'login') }
         />
         <Input
           key={ labels.password }
           label={ labels.password }
           value={ values.password }
           error={ errors.password }
-          onChange={ this._onInputChange.bind(this, 'password') }
+          onChange={ inputChange.bind(this, 'password') }
+        />
+        <button
+          onClick={ logInHandle.bind(this) }
         />
       </div>
     );
   }
 }
+
+Login.propTypes = {
+  labels: PropTypes.shape({
+    login: PropTypes.string,
+    password: PropTypes.string
+  }),
+  values: PropTypes.shape({
+    login: PropTypes.string,
+    password: PropTypes.string
+  }).isRequired,
+  errors: PropTypes.shape({
+    login: PropTypes.string,
+    password: PropTypes.string
+  }),
+  inputChange: PropTypes.func,
+  logInHandle: PropTypes.func
+};
