@@ -13,28 +13,36 @@ export default class EntityList extends Component {
       onSelect,
       selectable,
       selected,
-      onChangeTable
+      onChangeTable,
+      title
     } = this.props;
 
     return (
-      <Table
-        source={ source }
-        model={ model }
-        onSelect={ onSelect }
-        selectable={ selectable }
-        selected={ selected }
-        onChange={ onChangeTable }
-      />
+      <div>
+        <h1>
+          { title }
+        </h1>
+        <Table
+          source={ source }
+          model={ model }
+          onSelect={ onSelect }
+          selectable={ selectable }
+          selected={ selected }
+          onChange={ onChangeTable }
+        />
+      </div>
+
     );
   }
 }
 
 EntityList.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object.Required,
   onChange: PropTypes.func,
   heading: PropTypes.bool,
   onSelect: PropTypes.func,
   selectable: PropTypes.bool,
   selected: PropTypes.array,
   source: PropTypes.array,
+  className: PropTypes.string,
 };

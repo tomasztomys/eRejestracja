@@ -21,7 +21,6 @@ class SmartDoctorList extends Component {
 
     this.state = {
       doctorsModel: {
-        id: { type: Number },
         name: { type: String },
         surname: { type: String },
         email: { type: String },
@@ -54,11 +53,12 @@ class SmartDoctorList extends Component {
 
     return (
       <EntityList
+        title="DOCTORS LIST"
         model={ doctorsModel }
         source={ doctorsList }
-        onChangeTable={ () => {} }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
+        heading={ true }
         selectable
       />
     );
