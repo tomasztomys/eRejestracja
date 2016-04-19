@@ -1,11 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Table
+  Table,
+  Button
 } from '../../ui';
 
 export default class EntityList extends Component {
 
+  _renderButtons() {
+    let { buttons } = this.props;
+
+    return buttons.map((item) => {
+      return (
+        <Button
+          key={ item.label }
+          label={ item.label }
+          onChange={ item.onChange }
+        />
+      );
+    });
+  }
   render() {
     let {
       source,
@@ -30,6 +44,7 @@ export default class EntityList extends Component {
           selected={ selected }
           onChange={ onChangeTable }
         />
+        { this._renderButtons() }
       </div>
 
     );
@@ -37,12 +52,14 @@ export default class EntityList extends Component {
 }
 
 EntityList.propTypes = {
-  model: PropTypes.object.Required,
-  onChange: PropTypes.func,
+  title: PropTypes.string,
+  model: PropTypes.object,
+  onChangeTable: PropTypes.func,
   heading: PropTypes.bool,
   onSelect: PropTypes.func,
   selectable: PropTypes.bool,
   selected: PropTypes.array,
   source: PropTypes.array,
   className: PropTypes.string,
+  buttons: PropTypes.array
 };

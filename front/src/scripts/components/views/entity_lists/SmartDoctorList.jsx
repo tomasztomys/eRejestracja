@@ -44,6 +44,10 @@ class SmartDoctorList extends Component {
     });
   }
 
+  _handleRemoveDoctor(id) {
+
+  }
+
   render() {
     let {
       doctorsModel,
@@ -58,8 +62,11 @@ class SmartDoctorList extends Component {
         source={ doctorsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
-        heading={ true }
+        onRemoveDoctor={ this._handleRemoveDoctor }
         selectable
+        buttons={ [
+          { label: 'Remove selected doctor', onChange: this._handleRemoveDoctor.bind(this) }
+        ] }
       />
     );
   }
