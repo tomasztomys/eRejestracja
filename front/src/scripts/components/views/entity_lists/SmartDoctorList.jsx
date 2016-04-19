@@ -11,7 +11,8 @@ class SmartDoctorList extends Component {
 
     this.state = {
       doctorsModel: {},
-      doctorsList: []
+      doctorsList: [],
+      selected: []
     };
   }
 
@@ -38,6 +39,12 @@ class SmartDoctorList extends Component {
     });
   }
 
+  _handleSelect(selected) {
+    this.setState({
+      selected
+    });
+  }
+
   render() {
     let {
       doctorsModel,
@@ -50,7 +57,7 @@ class SmartDoctorList extends Component {
         model={ doctorsModel }
         source={ doctorsList }
         onChangeTable={ () => {} }
-        onSelect={ () => {} }
+        onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
         selectable
       />
