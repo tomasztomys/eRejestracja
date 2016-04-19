@@ -53,6 +53,7 @@ class SmartDoctorList extends Component {
 
       this.props.dispatch(Action.deleteDoctor(id));
     }
+    this.props.dispatch(Action.fetchDoctorsList());
   }
 
   render() {

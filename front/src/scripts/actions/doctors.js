@@ -30,7 +30,7 @@ export function fetchDoctorsList() {
 }
 
 export function deleteDoctor(id) {
-  console.log(id);
+
   let url = '/doctors/' + Qs.stringify({
     id
   }, { arrayFormat: 'brackets' });
