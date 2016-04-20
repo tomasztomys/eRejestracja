@@ -10,9 +10,22 @@ export default class Demo extends Component {
     return (
       <div>
         <Button
-          label="CLICK"
+          label="LARGE"
+          sizeType="large"
+        />
+        <Button
+          label="DEFAULT"
+          sizeType="default"
+        />
+        <Button
+          label="SMALL"
           sizeType="small"
         />
+        <Button
+          label="EKSTRA SMALL"
+          sizeType="extra-small"
+        />
+
       </div>
     );
   }

@@ -8,7 +8,7 @@ export default class Button extends React.Component {
 
   render() {
     let { className, sizeType, ...otherProps } = this.props;
-    let buttonStyle = classnames(style['rt-button'], sizeType, className);
+    let buttonStyle = classnames(style['rt-button'], style[sizeType], className);
 
     return (
       <ButtonReactToolbox

@@ -8,6 +8,36 @@
   font-size: 13px;
 
   & > span {
-    line-height: 13px !important;
+    line-height: 18px !important;
+  }
+
+  &.large {
+    padding: 10px 16px;
+    height: 42px;
+    font-size: 17px;
+
+    & > span {
+      line-height: 23px !important;
+    }
+  }
+
+  &.small {
+    padding: 5px 10px;
+    height: 28px;
+    font-size: 12px;
+
+    & > span {
+      line-height: 18px !important;
+    }
+  }
+
+  &.extra-small {
+    padding: 2px 5px;
+    height: 20px;
+    font-size: 11px;
+
+    & > span {
+      line-height: 16.5px !important;
+    }
   }
 }
