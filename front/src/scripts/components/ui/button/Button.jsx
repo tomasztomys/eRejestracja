@@ -9,7 +9,7 @@ export default class Button extends React.Component {
       <ButtonReactToolbox
         className={ className }
         label={ label }
-        ripple={ false }
+        ripple
         { ...otherProps }
         raised
         primary
