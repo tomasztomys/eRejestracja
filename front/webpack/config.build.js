@@ -16,7 +16,7 @@ module.exports = assign(common, {
       {
         test: /\.sass$/,
         loader: extractTextPlugin.extract([
-          'css?minimize',
+          'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss',
           'resolve-url',
           'sass?sourceMap'
@@ -25,7 +25,7 @@ module.exports = assign(common, {
       {
         test: /\.scss$/,
         loader: extractTextPlugin.extract([
-          'css?minimize',
+          'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss',
           'resolve-url',
           'sass?sourceMap'
