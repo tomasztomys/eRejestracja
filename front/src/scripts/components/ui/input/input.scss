@@ -1,17 +1,31 @@
-.input{
-  span:after, span:before{
-    // background-color: $default-line-color;
+@import '../../../../styles/colors';
+
+.input {
+  input {
+    border-bottom-color: $input-active-color;
   }
 
-  // & > div {
-  //   padding-bottom: 12px;
-  // }
-  //
-  // & > label {
-  //   font-size: 12px;
-  // }
-  // label {
-  //   font-size: 16px;
-  // }
-}
+  span::after {
+    background-color: $input-active-color;
+  }
 
+  & > label,
+  & > span {
+    color: $input-active-color !important;
+  }
+
+  &.error {
+    input {
+      border-bottom-color: $input-warning-color;
+    }
+
+    span::after {
+      background-color: $input-warning-color;
+    }
+
+    & > label,
+    & > span {
+      color: $input-warning-color !important;
+    }
+  }
+}

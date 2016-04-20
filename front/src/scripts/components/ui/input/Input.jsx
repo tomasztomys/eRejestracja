@@ -8,26 +8,22 @@ export default class Input extends React.Component {
 
   render() {
     let {
-      label,
-      error,
-      icon,
       className,
-      value,
-      onChange,
+      error,
       ...otherProps
     } = this.props;
 
-    let inputStyle = classnames(style['input'], className);
+    let inputStyle = classnames(
+      style['input'],
+      { [style['error']]: error && error.length > 0 },
+      className
+    );
 
     return (
       <InputReactToolbox
         className={ inputStyle }
-        label={ label }
-        value={ value }
-        onChange={ onChange }
         error={ error }
         type="text"
-        icon={ icon }
         floating
         {...otherProps}
       />
