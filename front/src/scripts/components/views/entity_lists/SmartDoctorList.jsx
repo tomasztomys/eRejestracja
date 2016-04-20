@@ -47,14 +47,13 @@ class SmartDoctorList extends Component {
 
   _onRemoveDoctor() {
     let { selected, doctorsList } = this.state;
-
-    for (let index of selected) {
-      let id = doctorsList[index].id;
+    selected = selected || [];
+    selected.forEach((doctor) => {
+      let id = doctorsList[doctor].id;
 
       this.props.dispatch(Action.deleteDoctor(id));
-    }
-
-    this.props.dispatch(Action.fetchDoctorsList());
+    })
+    this._handleSelect([]);
   }
 
   render() {

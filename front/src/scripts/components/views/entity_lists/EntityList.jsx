@@ -47,7 +47,7 @@ export default class EntityList extends Component {
           /> : <div>No doctors in database</div>
         }
 
-        { this._renderButtons() }
+        { source.length > 0 ? this._renderButtons() : null }
       </div>
 
     );

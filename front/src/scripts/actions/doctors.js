@@ -11,10 +11,6 @@ export function addDoctorsList(data) {
   };
 }
 
-export function onRemoveDoctor(data) {
-  console.log(data);
-}
-
 export function fetchDoctorsList() {
   let url = '/doctors';
   // Qs.stringify(object, { arrayFormat: 'brackets' }
@@ -36,7 +32,7 @@ export function deleteDoctor(id) {
   return (dispatch) => {
     fetchData(url, 'DELETE', {}, '')
     .then((data) => {
-      dispatch(onRemoveDoctor(data));
+      dispatch(fetchDoctorsList());
     });
   };
 }
