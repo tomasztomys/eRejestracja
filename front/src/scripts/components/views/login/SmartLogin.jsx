@@ -33,16 +33,19 @@ class SmartLogin extends Component {
   _logInHandle() {
     let { login, password } = this.state.values;
 
-    this.props.dispatch(Action.tryLogIn(login, password));
+    if (login.length > 0 && password.length > 0) {
+      this.props.dispatch(Action.tryLogIn(login, password));
+    }
   }
 
   _onInputChange(type, value) {
-    let values = this.state.values;
+    let { values, errors, errorMessages } = this.state;
 
     values[type] = value;
-
+    errors[type] = value.length === 0 ? errorMessages[type] : '';
     this.setState({
-      values: values
+      values: values,
+      errors: errors
     });
   }
 

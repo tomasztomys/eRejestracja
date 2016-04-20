@@ -3,6 +3,7 @@ const Paths = {
   navigation: '/navigation',
   login: '/login',
   doctorsList: '/doctors-list',
+  demo: '/demo',
   notFound: '*'
 };
 
