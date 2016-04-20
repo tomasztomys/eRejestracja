@@ -12,6 +12,7 @@ import App from './App';
 import { SmartLogin } from './views/login';
 import { Navigation } from './views/navigation';
 import { SmartDoctorList } from './views/entity_lists';
+import { Demo } from './views/demo';
 
 export default class Routes extends React.Component {
 
@@ -37,6 +38,10 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.doctorsList }
             component={ SmartDoctorList }
+          />
+          <Route
+            path={ Paths.demo }
+            component={ Demo }
           />
         </Route>
         <Redirect

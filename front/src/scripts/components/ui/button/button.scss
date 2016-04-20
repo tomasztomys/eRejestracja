@@ -1,0 +1,13 @@
+@import "../../../../styles/colors";
+
+.rt-button {
+  background-color: $buttonColor !important;
+
+  padding: 6px 12px;
+  height: 30px;
+  font-size: 13px;
+
+  & > span {
+    line-height: 13px !important;
+  }
+}
