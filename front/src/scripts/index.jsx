@@ -7,7 +7,7 @@ import Routes from './components/Routes';
 import Store from './store';
 import ReduxDevTools from './ReduxDevTools';
 
-injectTapEventPlugin();
+//injectTapEventPlugin();
 
 import 'styles/index';
 
