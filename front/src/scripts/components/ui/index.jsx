@@ -3,6 +3,7 @@ import { List, ListItem } from './list';
 import { Button } from './button';
 import { Table } from './table';
 import { Checkbox } from './checkbox';
+import { Snackbar } from './snackbar';
 
 export {
   Input,
@@ -10,5 +11,6 @@ export {
   ListItem,
   Button,
   Table,
-  Checkbox
+  Checkbox,
+  Snackbar
 };
