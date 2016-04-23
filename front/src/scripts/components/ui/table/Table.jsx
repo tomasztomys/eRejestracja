@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 import TableReactToolbox from 'react-toolbox/lib/table';
+import classnames from 'classnames';
+
+import style from './table.scss';
 
 export default class Table extends React.Component {
   render() {
     let { className, ...otherProps } = this.props;
+    let tableStyle = classnames(style['table'], className);
 
     return (
       <TableReactToolbox
-        className={ className }
+        className={ tableStyle }
         { ...otherProps }
       />
     );
