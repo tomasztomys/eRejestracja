@@ -10,6 +10,7 @@ export default class Checkbox extends React.Component {
     let { className, checked, ...otherProps } = this.props;
     let checkboxStyle = classnames(
       style['checkbox'],
+     { [style['checked']]: checked },
      className
    );
 
