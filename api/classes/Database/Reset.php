@@ -34,16 +34,50 @@ class Reset
       'type' => 'doctor',
       'specialization' => 'stomatolog'
     ];
-    return [$doctor1, $doctor2];
+    $doctor3 = [
+      'name' => 'Adam',
+      'surname' => 'Nowak',
+      'email' => 'adam.nowak@hotmail.com',
+      'password' => 'nowaczek123',
+      'pesel' => '96012552198',
+      'type' => 'doctor',
+      'specialization' => 'okulista'
+    ];
+
+    return [$doctor1, $doctor2, $doctor3];
   }
 
   /**
-   * Metoda służaca do przywrócenia domyślnych danych w bazie danych
+   * Zwraca mockową tablicę pacjentow
+   *
+   * @return array
+   */
+  private function _getPatients() {
+    $patient1 = [
+      'name' => 'Kamil',
+      'surname' => 'Kaźmierczak',
+      'email' => 'kamil@kazmierczak.pl',
+      'password' => 'kamil123',
+      'pesel' => '92060112652',
+      'type' => 'patient'
+    ];
+    $patient2 = [
+      'name' => 'Natalia',
+      'surname' => 'Kaczor',
+      'email' => 'kaczorek@hotmail.com',
+      'password' => 'poznan123',
+      'pesel' => '96021532532',
+      'type' => 'patient'
+    ];
+    return [$patient1, $patient2];
+  }
+
+  /**
+   * Dodaje mockową tablicę lekarzy do bazy danych
    *
    * @return void
    */
-  public function run() {
-    \R::nuke();
+  public function _addDoctors() {
     $doctors = $this->_getDoctors();
 
     $doctorBeans = \R::dispense('doctor', sizeof($doctors));
@@ -59,7 +93,42 @@ class Reset
       $doctorBeans[$i]->specialization = $doctor['specialization'];
       $i++;
     }
-
     \R::storeAll($doctorBeans);
+  }
+
+  /**
+   * Dodaje mockową tablicę pacjentow do bazy danych
+   *
+   * @return void
+   */
+  public function _addPatients() {
+    $patients = $this->_getPatients();
+
+    $patientBeans = \R::dispense('patient', sizeof($patients));
+
+    $i = 0;
+    foreach($patients as $patient) {
+      $patientBeans[$i]->name = $patient['name'];
+      $patientBeans[$i]->surname = $patient['surname'];
+      $patientBeans[$i]->email = $patient['email'];
+      $patientBeans[$i]->password = $patient['password'];
+      $patientBeans[$i]->pesel = $patient['pesel'];
+      $patientBeans[$i]->type = $patient['type'];
+      $i++;
+    }
+    \R::storeAll($patientBeans);
+  }
+
+  /**
+   * Metoda służaca do przywrócenia domyślnych danych w bazie danych
+   *
+   * @return void
+   */
+  public function run() {
+    \R::nuke();
+
+    $this->_addDoctors();
+    $this->_addPatients();
+
   }
 }
