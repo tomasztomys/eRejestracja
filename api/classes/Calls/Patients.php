@@ -76,4 +76,28 @@ class Patients
         return $response->withJson($patients);
     }
 
+    /**
+     * Obsługa calla DELETE /patient/{id}
+     *
+     * Call służący do usuwania pacjenta z bazy danych
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function deletePatient($request, $response, $args) {
+
+        $id = $args['id'];
+        $patientDB = \R::load( 'patient', $id );
+
+        if($patientDB->id !== 0) {
+            \R::trash($patientDB);
+            return $response->withJson([]);
+        }
+
+        $response = $response->withStatus(422);
+        return $response->withJson(['error' => 'Patient not found']);
+    }
 }
