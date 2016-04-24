@@ -32,11 +32,13 @@ export default class MainLayout extends Component {
       <div className={ style['root'] }>
         <header className={ style['header'] }>
           <div className={ style['user-name'] }>Dariusz Paluch</div>
-          <Avatar
-            className={ style['avatar'] }
-            title="Doctor avatar"
-            image={ doctorAvatar }
-          />
+          <div className={ style['avatar-content'] }>
+            <Avatar
+              className={ style['avatar'] }
+              title="Doctor avatar"
+              image={ doctorAvatar }
+            />
+          </div>
           <Button
             className={ style['hamburger'] }
             label="Show menu"

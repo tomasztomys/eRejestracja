@@ -17,13 +17,24 @@
       float: right;
       height: $menu-bar-height;
       line-height: $menu-bar-height;
+      margin-right: 30px;
+      font-size: 18px;
     }
 
-    .avatar {
-      float: right;
+    .avatar-content {
       height: $menu-bar-height;
       width: $menu-bar-height;
+      float: right;
+      position: relative;
+      .avatar {
+        height: $menu-bar-height - 10px;
+        width: $menu-bar-height - 10px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
+
 
   }
 
