@@ -1,15 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  Button
 } from '../../../ui';
 
 import style from './style/main_layout';
 
-export default class Userpanel extends Component {
+import { MenuDrawer } from './subcomponents';
+
+export default class MainLayout extends Component {
   constructor() {
     super();
     this.state = {
+      drawerMenuActive: false
     };
+  }
+
+  _toggleDrawerMenu() {
+    let drawerMenuActive = this.state.drawerMenuActive;
+
+    this.setState({
+      drawerMenuActive: !drawerMenuActive
+    });
   }
 
   render() {
@@ -17,12 +29,17 @@ export default class Userpanel extends Component {
       <div className={ style['root'] }>
         <header className={ style['header'] }>
           <div className={ style['user-name'] }>Dariusz Paluch</div>
+          <Button
+            className={ style['hamburger'] }
+            label="Show menu"
+            onClick={ this._toggleDrawerMenu.bind(this) }
+          />
         </header>
+        <MenuDrawer
+          active={ this.state.drawerMenuActive }
+          onOverlayClick={ this._toggleDrawerMenu.bind(this) }
+        />
         <div className={ style['body'] }>
-          dasdasd
-          das
-          dasd
-          a
           { this.props.children }
         </div>
       </div>
@@ -30,6 +47,6 @@ export default class Userpanel extends Component {
   }
 }
 
-Userpanel.propTypes = {
+MainLayout.propTypes = {
   children: PropTypes.node
 };

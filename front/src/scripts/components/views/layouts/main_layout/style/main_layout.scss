@@ -11,12 +11,14 @@
     left: 0;
     background-color: $header-bar-background-color;
     color: $header-bar-font-color;
+    z-index: 9999;
 
     .user-name {
+      height: #menu-bar-height;
+
       float: right;
-
-
     }
+
   }
 
   .body {
