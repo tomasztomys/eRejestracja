@@ -9,12 +9,16 @@ export default class ListItem extends React.Component {
     let { className, ...otherProps } = this.props;
     let listItemStyle = classnames(style['list-item'], className);
 
+    let children = React.Children.map(this.props.children, (element) => {
+      return element;
+    });
+
     return (
       <ListItemReactToolbox
         className={ listItemStyle }
         { ...otherProps }
       >
-        { this.props.children }
+        { children }
       </ListItemReactToolbox>
     );
   }

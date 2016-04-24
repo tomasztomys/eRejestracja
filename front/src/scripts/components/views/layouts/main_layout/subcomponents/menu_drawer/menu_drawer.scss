@@ -1,6 +1,8 @@
 @import '../../../../../../../styles/colors';
-@import '../../style/variables';
+@import '../../../../../../../styles/config';
 
 .menu-drawer {
   width: $menu-drawer-width;
+  color: black;
+  margin-top: $menu-bar-height;
 }
