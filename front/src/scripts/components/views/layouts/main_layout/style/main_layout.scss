@@ -14,9 +14,15 @@
     z-index: 9999;
 
     .user-name {
-      height: #menu-bar-height;
-
       float: right;
+      height: $menu-bar-height;
+      line-height: $menu-bar-height;
+    }
+
+    .avatar {
+      float: right;
+      height: $menu-bar-height;
+      width: $menu-bar-height;
     }
 
   }

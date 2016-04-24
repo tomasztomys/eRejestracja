@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Button
+  Button,
+  Avatar
 } from '../../../ui';
 
 import style from './style/main_layout';
 
 import { MenuDrawer } from './subcomponents';
+
+import doctorAvatar from '../../../../../../assets/doctor.jpg';
 
 export default class MainLayout extends Component {
   constructor() {
@@ -29,6 +32,11 @@ export default class MainLayout extends Component {
       <div className={ style['root'] }>
         <header className={ style['header'] }>
           <div className={ style['user-name'] }>Dariusz Paluch</div>
+          <Avatar
+            className={ style['avatar'] }
+            title="Doctor avatar"
+            image={ doctorAvatar }
+          />
           <Button
             className={ style['hamburger'] }
             label="Show menu"
