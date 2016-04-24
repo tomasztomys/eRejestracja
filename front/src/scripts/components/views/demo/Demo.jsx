@@ -4,8 +4,13 @@ import {
   Button,
   Checkbox,
   Snackbar,
-  Drawer
+  Drawer,
+  Avatar
 } from '../../ui';
+
+import doctorAvatar from '../../../../../assets/doctor.jpg';
+import patientMenAvatar from '../../../../../assets/patient_men.png';
+import patientWomanAvatar from '../../../../../assets/patient_woman.png';
 
 export default class Demo extends Component {
   constructor() {
@@ -89,6 +94,18 @@ export default class Demo extends Component {
           active={ this.state.drawerActive }
           type="right"
           onOverlayClick={ this._onHideDrawer.bind(this) }
+        />
+        <Avatar
+          title="Doctor avatar"
+          image={ doctorAvatar }
+        />
+        <Avatar
+          title="Patient men avatar"
+          image={ patientMenAvatar }
+        />
+        <Avatar
+          title="Patient woman avatar"
+          image={ patientWomanAvatar }
         />
       </div>
     );
