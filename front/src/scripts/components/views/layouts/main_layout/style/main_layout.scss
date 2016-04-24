@@ -1,0 +1,26 @@
+@import '../../../../../../styles/colors';
+@import './variables';
+
+
+.root {
+  .header {
+    height: $menu-bar-height;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $header-bar-background-color;
+    color: $header-bar-font-color;
+
+    .user-name {
+      float: right;
+
+
+    }
+  }
+
+  .body {
+    height: 100%;
+    margin-top: $menu-bar-height;
+  }
+}
