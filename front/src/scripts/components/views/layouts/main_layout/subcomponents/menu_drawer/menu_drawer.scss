@@ -5,4 +5,25 @@
   width: $menu-drawer-width;
   color: black;
   margin-top: $menu-bar-height;
+
+  .menu {
+    .main-item, .sub-menu-item, .sub-menu-parent {
+      height: 45px;
+
+      &:hover {
+        background-color: $drawer-menu-item-focus-background-color;
+      }
+    }
+    .main-item, .sub-menu-item {
+      span {
+        font-size: 20px !important;
+      }
+    }
+
+    .sub-menu-item {
+      padding-left: 40px;
+    }
+  }
+
+
 }
