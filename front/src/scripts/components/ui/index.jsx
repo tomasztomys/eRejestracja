@@ -6,6 +6,7 @@ import { Checkbox } from './checkbox';
 import { Snackbar } from './snackbar';
 import { Drawer } from './drawer';
 import { Avatar } from './avatar';
+import { FontIcon } from './font_icon';
 
 export {
   Input,
@@ -16,5 +17,6 @@ export {
   Checkbox,
   Snackbar,
   Drawer,
-  Avatar
+  Avatar,
+  FontIcon
 };
