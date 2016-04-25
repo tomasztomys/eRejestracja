@@ -1,0 +1,45 @@
+@import '../../../../../../styles/colors';
+@import '../../../../../../styles/config';
+
+
+.root {
+  .header {
+    height: $menu-bar-height;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $header-bar-background-color;
+    color: $header-bar-font-color;
+    z-index: 9999;
+
+    .user-name {
+      float: right;
+      height: $menu-bar-height;
+      line-height: $menu-bar-height;
+      margin-right: 30px;
+      font-size: 18px;
+    }
+
+    .avatar-content {
+      height: $menu-bar-height;
+      width: $menu-bar-height;
+      float: right;
+      position: relative;
+      .avatar {
+        height: $menu-bar-height - 10px;
+        width: $menu-bar-height - 10px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+
+  }
+
+  .body {
+    height: 100%;
+    margin-top: $menu-bar-height;
+  }
+}

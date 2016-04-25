@@ -1,0 +1,37 @@
+@import '../../../../../../../styles/colors';
+@import '../../../../../../../styles/config';
+@import '../../style/variables';
+
+.menu-drawer {
+  width: $menu-drawer-width;
+  color: $drawer-menu-font-color;
+  margin-top: $menu-bar-height;
+  background-color: $drawer-menu-background-color;
+
+  .menu {
+    .main-item, .sub-menu-item, .sub-menu-parent {
+      height: $menu-item-height;
+      span {
+        color: $drawer-menu-font-color;
+
+        font-size: 18px !important;
+        line-height: $menu-item-height;
+        height: $menu-item-height;
+      }
+
+      &:hover {
+        background-color: $drawer-menu-item-focus-background-color;
+      }
+    }
+
+    .main-item, .sub-menu-parent {
+      padding-left: 20px;
+    }
+
+    .sub-menu-item {
+      padding-left: 40px;
+    }
+  }
+
+
+}

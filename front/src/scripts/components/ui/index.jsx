@@ -4,6 +4,8 @@ import { Button } from './button';
 import { Table } from './table';
 import { Checkbox } from './checkbox';
 import { Snackbar } from './snackbar';
+import { Drawer } from './drawer';
+import { Avatar } from './avatar';
 
 export {
   Input,
@@ -12,5 +14,7 @@ export {
   Button,
   Table,
   Checkbox,
-  Snackbar
+  Snackbar,
+  Drawer,
+  Avatar
 };

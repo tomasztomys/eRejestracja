@@ -4,7 +4,8 @@ const Paths = {
   login: '/login',
   doctorsList: '/doctors-list',
   demo: '/demo',
-  notFound: '*'
+  notFound: '*',
+  userPanel: '/testingUserPanel'
 };
 
 export default Paths;
