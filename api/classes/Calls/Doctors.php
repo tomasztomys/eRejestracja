@@ -128,4 +128,29 @@ class Doctors
         $response = $response->withStatus(422);
         return $response->withJson(['error' => 'Doctor not found']);
     }
+
+    /**
+     * Obsługa calla POST /doctors
+     *
+     * Call służący do dodawania doktora
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function addDoctor($request, $response, $args) {
+        $doctorBeans = \R::dispense('doctor');
+
+        $doctorBeans->name = $request->getParam('name');
+        $doctorBeans->surname = $request->getParam('surname');
+        $doctorBeans->email = $request->getParam('email');
+        $doctorBeans->pesel = $request->getParam('pesel');
+        $doctorBeans->specialization = $request->getParam('specialization');
+        $doctorBeans->type = 'doctor';
+
+        \R::store($doctorBeans);
+        return $response->withJson([]);
+    }
 }
