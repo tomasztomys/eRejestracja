@@ -14,15 +14,24 @@ import { Navigation } from './views/navigation';
 import { SmartDoctorList } from './views/entity_lists';
 import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
+import { EmptyPage } from './views/empy_page';
 
 export default class Routes extends React.Component {
 
   render() {
     let registeredSection = (
       <Route component={ MainLayout } >
-        <Route
-          path={ Paths.doctorsList }
+        <Route path={ Paths.doctors.list }
           component={ SmartDoctorList }
+        />
+        <Route path={ Paths.patients.list }
+          component={ EmptyPage }
+        />
+        <Route path={ Paths.settings.myProfile }
+          component={ EmptyPage }
+        />
+        <Route path={ Paths.settings.logout }
+          component={ EmptyPage }
         />
       </Route>
     );
@@ -49,7 +58,7 @@ export default class Routes extends React.Component {
             path={ Paths.demo }
             component={ Demo }
           />
-        { registeredSection }
+          { registeredSection }
         </Route>
         <Redirect
           from={ Paths.notFound }

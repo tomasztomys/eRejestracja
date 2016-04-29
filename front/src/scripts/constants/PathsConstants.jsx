@@ -1,11 +1,21 @@
 const Paths = {
   root: '/',
+  notFound: '*',
   navigation: '/navigation',
   login: '/login',
-  doctorsList: '/doctors-list',
   demo: '/demo',
-  notFound: '*',
-  userPanel: '/testingUserPanel'
+  userPanel: '/testingUserPanel',
+  doctorsList: '/doctors-list',
+  patients: {
+    list: '/patients-list',
+  },
+  doctors: {
+    list: '/doctors-list',
+  },
+  settings: {
+    myProfile: '/my-profile',
+    logout: '/logout'
+  }
 };
 
 export default Paths;

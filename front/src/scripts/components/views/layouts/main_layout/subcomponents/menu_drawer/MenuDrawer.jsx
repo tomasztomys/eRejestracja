@@ -25,6 +25,11 @@ export default class MenuDrawer extends Component {
     };
   }
 
+  _routeHandler(where) {
+    this.context.router.push(where);
+    this.props.onOverlayClick();
+  }
+
   _renderMenuItem(item) {
     return (
       <List>
@@ -32,7 +37,7 @@ export default class MenuDrawer extends Component {
           className={ style['main-item'] }
           key={ item.label }
           caption={ item.label }
-          onClick={ () => {} }
+          onClick={ this._routeHandler.bind(this, item.path) }
         />
       </List>
     );
@@ -44,7 +49,7 @@ export default class MenuDrawer extends Component {
         className={ style['sub-menu-item'] }
         key={ item.label }
         caption={ item.label }
-        onClick={ () => {} }
+        onClick={ this._routeHandler.bind(this, item.path) }
       />
     );
   }
@@ -102,6 +107,10 @@ export default class MenuDrawer extends Component {
     );
   }
 }
+
+MenuDrawer.contextTypes = {
+  router: React.PropTypes.object
+};
 
 MenuDrawer.propTypes = {
   active: PropTypes.bool,

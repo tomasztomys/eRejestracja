@@ -13,10 +13,6 @@ const NavigationLinks = [
     label: 'Demo',
     path: Paths.demo
   },
-  {
-    label: 'Testing userPanel',
-    path: Paths.userPanel
-  }
 ];
 
 export default NavigationLinks;
