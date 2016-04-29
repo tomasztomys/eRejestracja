@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import {
   Drawer,
   List,
-  ListItem
+  ListItem,
+  FontIcon
 } from '../../../../../ui';
 
 import style from './menu_drawer';
@@ -32,7 +33,7 @@ export default class MenuDrawer extends Component {
 
   _renderMenuItem(item) {
     return (
-      <List>
+      <List key={ item.label }>
         <ListItem
           className={ style['main-item'] }
           key={ item.label }
@@ -64,13 +65,16 @@ export default class MenuDrawer extends Component {
   }
 
   _renderSubMenu(item) {
+    let icon = item.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+
     return (
-      <List>
+      <List key={ item.label }>
         <ListItem
           className={ style['sub-menu-parent'] }
           key={ item.label }
           caption={ item.label }
           onClick={ this._toggleMenu.bind(this, item.id) }
+          rightIcon={ <FontIcon value={ icon } /> }
         />
         {
           item.open ?

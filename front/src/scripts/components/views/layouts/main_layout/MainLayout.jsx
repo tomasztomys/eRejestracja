@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Button,
-  Avatar
+  Avatar,
+  FontIcon
 } from '../../../ui';
 
 import style from './style/main_layout';
@@ -41,7 +42,7 @@ export default class MainLayout extends Component {
           </div>
           <Button
             className={ style['hamburger'] }
-            label="Show menu"
+            icon={ <FontIcon value="menu" /> }
             onClick={ this._toggleDrawerMenu.bind(this) }
           />
         </header>
