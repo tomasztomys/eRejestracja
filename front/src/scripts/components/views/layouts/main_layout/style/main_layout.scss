@@ -13,6 +13,21 @@
     color: $header-bar-font-color;
     z-index: 9999;
 
+    .menu {
+      position: absolute;
+      top: 50%;
+      transform:translateY(-50%);
+      margin-left: 5px;
+      height: $menu-bar-height - 10px;
+      width: $menu-bar-height - 10px;
+      padding: 0;
+      min-width: auto;
+
+      span {
+        font-size: 40px;
+      }
+    }
+
     .user-name {
       float: right;
       height: $menu-bar-height;

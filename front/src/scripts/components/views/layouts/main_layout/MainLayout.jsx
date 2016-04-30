@@ -29,6 +29,8 @@ export default class MainLayout extends Component {
   }
 
   render() {
+    let { drawerMenuActive } = this.state;
+
     return (
       <div className={ style['root'] }>
         <header className={ style['header'] }>
@@ -41,8 +43,8 @@ export default class MainLayout extends Component {
             />
           </div>
           <Button
-            className={ style['hamburger'] }
-            icon={ <FontIcon value="menu" /> }
+            className={ style['menu'] }
+            icon={ drawerMenuActive ? 'close' : 'menu' }
             onClick={ this._toggleDrawerMenu.bind(this) }
           />
         </header>
