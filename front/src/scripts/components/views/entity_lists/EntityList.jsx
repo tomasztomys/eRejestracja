@@ -28,7 +28,8 @@ export default class EntityList extends Component {
       selectable,
       selected,
       onChangeTable,
-      title
+      title,
+      noDataMessage
     } = this.props;
 
     return (
@@ -44,7 +45,7 @@ export default class EntityList extends Component {
             selectable={ selectable }
             selected={ selected }
             onChange={ onChangeTable }
-          /> : <div>No doctors in database</div>
+          /> : <div>{ noDataMessage }</div>
         }
 
         { source.length > 0 ? this._renderButtons() : null }

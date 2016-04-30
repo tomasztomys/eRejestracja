@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as Action from '../../../actions/Actions';
+import * as Action from '../../../../actions/Actions';
 
-import EntityList from './EntityList';
+import EntityList from '../EntityList';
 
-class SmartDoctorList extends Component {
+class SmartDoctorsList extends Component {
   constructor() {
     super();
 
@@ -45,14 +45,16 @@ class SmartDoctorList extends Component {
     });
   }
 
-  _onRemoveDoctor() {
+  _onRemove() {
     let { selected, doctorsList } = this.state;
+
     selected = selected || [];
     selected.forEach((doctor) => {
       let id = doctorsList[doctor].id;
 
       this.props.dispatch(Action.deleteDoctor(id));
-    })
+    });
+
     this._handleSelect([]);
   }
 
@@ -70,11 +72,12 @@ class SmartDoctorList extends Component {
         source={ doctorsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
-        onRemoveDoctor={ this._handleRemoveDoctor }
+        onRemove={ this._handleRemoveDoctor }
         selectable
         buttons={ [
-          { label: 'Remove selected doctor', onClick: this._onRemoveDoctor.bind(this) }
+          { label: 'Remove selected doctor', onClick: this._onRemove.bind(this) }
         ] }
+        noDataMessage="No Doctors in database"
       />
     );
   }
@@ -83,8 +86,8 @@ class SmartDoctorList extends Component {
 function select(state) {
   state = state.toJS();
   return {
-    doctorsList: state.doctorsList
+    doctorsList: state.doctors
   };
 }
 
-export default connect(select)(SmartDoctorList);
+export default connect(select)(SmartDoctorsList);

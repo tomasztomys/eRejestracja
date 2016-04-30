@@ -11,7 +11,11 @@ import App from './App';
 
 import { SmartLogin } from './views/login';
 import { Navigation } from './views/navigation';
-import { SmartDoctorList } from './views/entity_lists';
+import {
+  SmartDoctorsList,
+  SmartPatientsList
+} from './views/entity_lists/smarts';
+
 import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
@@ -22,10 +26,10 @@ export default class Routes extends React.Component {
     let registeredSection = (
       <Route component={ MainLayout } >
         <Route path={ Paths.doctors.list }
-          component={ SmartDoctorList }
+          component={ SmartDoctorsList }
         />
         <Route path={ Paths.patients.list }
-          component={ EmptyPage }
+          component={ SmartPatientsList }
         />
         <Route path={ Paths.settings.myProfile }
           component={ EmptyPage }
