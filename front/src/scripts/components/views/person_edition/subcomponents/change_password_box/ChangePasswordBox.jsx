@@ -7,7 +7,7 @@ import {
   CardTitle
 } from '../../../../ui';
 
-import style from './change_password_box';
+import style from './change_password_box.scss';
 
 export default class ChangePasswordBox extends Component {
   constructor() {

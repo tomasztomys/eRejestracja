@@ -6,7 +6,7 @@ import {
   FontIcon
 } from '../../../ui';
 
-import style from './style/main_layout';
+import style from './style/main_layout.scss';
 
 import { MenuDrawer } from './subcomponents';
 

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { CardTitle as CardTitleReactToolbox } from 'react-toolbox/lib/card';
 import classnames from 'classnames';
 
-import style from './card_title';
+import style from './card_title.scss';
 
 export default class CardTitle extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class CardTitle extends Component {
 
     return (
       <CardTitleReactToolbox
-        className={ classnames(className, style['card-title']) }
+        className={ classnames(style['card-title'], className) }
         { ...otherProps }
       />
     );
