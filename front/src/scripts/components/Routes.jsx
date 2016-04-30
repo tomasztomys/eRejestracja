@@ -19,12 +19,11 @@ import {
 import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
-import { PersonEdition } from './views/person_edition';
+import { SmartAdminEdition } from './views/person_edition/smarts';
 
 export default class Routes extends React.Component {
 
   render() {
-    console.log( PersonEdition );
     let registeredSection = (
       <Route component={ MainLayout } >
         <Route path={ Paths.doctors.list }
@@ -34,7 +33,7 @@ export default class Routes extends React.Component {
           component={ SmartPatientsList }
         />
         <Route path={ Paths.settings.myProfile }
-          component={ PersonEdition }
+          component={ SmartAdminEdition }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
