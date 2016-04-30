@@ -54,7 +54,12 @@
   }
 
   .body {
-    height: 100%;
+    overflow: auto;
+    position: absolute;
+    height: calc(100% - #{$menu-bar-height});
     margin-top: $menu-bar-height;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
   }
 }

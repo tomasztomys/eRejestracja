@@ -7,7 +7,6 @@ export default class PersonEdition extends Component {
   render() {
     return (
       <div>
-        aaaa
         <ChangePasswordBox />
       </div>
     );

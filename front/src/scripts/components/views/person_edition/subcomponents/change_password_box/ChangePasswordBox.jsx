@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import {
   Input,
   Button,
-  Card
+  Card,
+  CardTitle
 } from '../../../../ui';
 
 import style from './change_password_box';
@@ -50,6 +51,11 @@ export default class ChangePasswordBox extends Component {
 
     return (
       <Card className={ style['change-password-box'] }>
+        <CardTitle
+          title="Change your password"
+          subtitle={ `The password Must be 8 to 20 characters in length,
+            Must contain at least one letter and one number` }
+        />
         <Input
           key={ labels.password }
           label={ labels.password }

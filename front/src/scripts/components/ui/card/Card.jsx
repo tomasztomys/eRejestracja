@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import CardReactToolbox from 'react-toolbox/lib/card';
+import { Card as CardReactToolbox } from 'react-toolbox/lib/card';
 
 import style from './card';
 

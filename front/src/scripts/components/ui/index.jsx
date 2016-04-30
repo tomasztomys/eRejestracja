@@ -7,7 +7,7 @@ import { Snackbar } from './snackbar';
 import { Drawer } from './drawer';
 import { Avatar } from './avatar';
 import { FontIcon } from './font_icon';
-import { Card } from './card';
+import { Card, CardTitle } from './card';
 
 export {
   Input,
@@ -20,5 +20,6 @@ export {
   Drawer,
   Avatar,
   FontIcon,
-  Card
+  Card,
+  CardTitle
 };
