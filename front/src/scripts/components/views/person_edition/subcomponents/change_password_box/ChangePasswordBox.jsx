@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input,
-  Button
+  Button,
+  Card
 } from '../../../../ui';
 
 import style from './change_password_box';
@@ -48,7 +49,7 @@ export default class ChangePasswordBox extends Component {
     let { labels, errors } = this.state;
 
     return (
-      <div className={ style['change-password-box'] }>
+      <Card className={ style['change-password-box'] }>
         <Input
           key={ labels.password }
           label={ labels.password }
@@ -71,7 +72,7 @@ export default class ChangePasswordBox extends Component {
           label={ labels.saveButton }
           onClick={ this._onSave.bind(this) }
         />
-      </div>
+      </Card>
     );
   }
 }

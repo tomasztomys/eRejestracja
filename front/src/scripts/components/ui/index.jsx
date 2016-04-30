@@ -7,6 +7,7 @@ import { Snackbar } from './snackbar';
 import { Drawer } from './drawer';
 import { Avatar } from './avatar';
 import { FontIcon } from './font_icon';
+import { Card } from './card';
 
 export {
   Input,
@@ -18,5 +19,6 @@ export {
   Snackbar,
   Drawer,
   Avatar,
-  FontIcon
+  FontIcon,
+  Card
 };
