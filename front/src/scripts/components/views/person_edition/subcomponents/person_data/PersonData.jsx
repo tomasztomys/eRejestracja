@@ -4,9 +4,9 @@ import {
   Input,
 } from '../../../../ui';
 
-import style from './person_data_box.scss';
+import style from './person_data.scss';
 
-export default class PersonDataBox extends Component {
+export default class PersonData extends Component {
   constructor() {
     super();
 
@@ -83,7 +83,7 @@ export default class PersonDataBox extends Component {
   }
 }
 
-PersonDataBox.propTypes = {
+PersonData.propTypes = {
   values: PropTypes.object,
   onInputChange: PropTypes.func,
 };

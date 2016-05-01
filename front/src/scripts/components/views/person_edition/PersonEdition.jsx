@@ -8,7 +8,7 @@ import {
 } from '../../ui';
 
 import { ChangePasswordBox } from './view_content/change_password_box';
-import { PersonDataBox } from './subcomponents/person_data_box';
+import { PersonDataBox } from './view_content/person_data_box';
 
 export default class PersonEdition extends Component {
 
