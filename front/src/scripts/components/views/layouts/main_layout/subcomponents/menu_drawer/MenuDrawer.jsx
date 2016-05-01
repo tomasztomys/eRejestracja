@@ -91,6 +91,12 @@ export default class MenuDrawer extends Component {
           key={ item.label }
           caption={ item.label }
           onClick={ this._toggleMenu.bind(this, item.id) }
+          leftIcon={
+            <FontIcon
+              className={ style['left-icon'] }
+              value={ icon }
+            />
+          }
           rightIcon={
             <FontIcon
               className={ style['right-icon'] }
