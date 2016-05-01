@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input,
-  Button,
-  Card,
-  CardTitle
 } from '../../../../ui';
 
 import style from './change_password_box.scss';
@@ -33,10 +30,6 @@ export default class ChangePasswordBox extends Component {
     };
   }
 
-  _onSave() {
-    this.props.onSave();
-  }
-
   _onChangeInput(type, value) {
     let { errors, errorsMessages } = this.state;
 
@@ -53,12 +46,7 @@ export default class ChangePasswordBox extends Component {
     let { values, oldPassword } = this.props;
 
     return (
-      <Card className={ style['change-password-box'] }>
-        <CardTitle
-          title="Change your password"
-          subtitle={ `The password Must be 8 to 20 characters in length,
-            Must contain at least one letter and one number` }
-        />
+      <div className={ style['change-password-box'] }>
         <Input
           key={ labels.password }
           label={ labels.password }
@@ -81,18 +69,13 @@ export default class ChangePasswordBox extends Component {
             value={ values.oldPassword }
             onChange={ this._onChangeInput.bind(this, 'oldPassword') }
           /> : null }
-        <Button
-          label={ labels.saveButton }
-          onClick={ this._onSave.bind(this) }
-        />
-      </Card>
+      </div>
     );
   }
 }
 
 ChangePasswordBox.propTypes = {
   values: PropTypes.object,
-  onSave: PropTypes.func,
   onInputChange: PropTypes.func,
   oldPassword: PropTypes.bool
 };

@@ -8,11 +8,11 @@ import { Drawer } from './drawer';
 import { Avatar } from './avatar';
 import { FontIcon } from './font_icon';
 import { Card, CardTitle } from './card';
+import { Grid, GridItem } from './grid';
 
 export {
   Input,
-  List,
-  ListItem,
+  List, ListItem,
   Button,
   Table,
   Checkbox,
@@ -20,6 +20,6 @@ export {
   Drawer,
   Avatar,
   FontIcon,
-  Card,
-  CardTitle
+  Card, CardTitle,
+  Grid, GridItem
 };

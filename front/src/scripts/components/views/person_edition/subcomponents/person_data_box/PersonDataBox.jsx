@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input,
-  Button,
-  Card,
-  CardTitle
 } from '../../../../ui';
 
 import style from './person_data_box.scss';
@@ -36,10 +33,6 @@ export default class PersonDataBox extends Component {
     };
   }
 
-  _onSave() {
-    this.props.onSave();
-  }
-
   _onChangeInput(type, value) {
     let { errors, errorsMessages } = this.state;
 
@@ -56,10 +49,7 @@ export default class PersonDataBox extends Component {
     let { values } = this.props;
 
     return (
-      <Card className={ style['person-data-box'] }>
-        <CardTitle
-          title="Personal data"
-        />
+      <div className={ style['change-person-data'] }>
         <Input
           key={ labels.name }
           label={ labels.name }
@@ -88,17 +78,12 @@ export default class PersonDataBox extends Component {
           value={ values.pesel }
           onChange={ this._onChangeInput.bind(this, 'pesel') }
         />
-        <Button
-          label={ labels.saveButton }
-          onClick={ this._onSave.bind(this) }
-        />
-      </Card>
+      </div>
     );
   }
 }
 
 PersonDataBox.propTypes = {
   values: PropTypes.object,
-  onSave: PropTypes.func,
   onInputChange: PropTypes.func,
 };
