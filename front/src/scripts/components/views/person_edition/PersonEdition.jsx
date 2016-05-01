@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import { ChangePasswordBox } from './subcomponents/change_password_box';
+import { PersonDataBox } from './subcomponents/person_data_box';
+
 
 export default class PersonEdition extends Component {
 
@@ -12,6 +14,12 @@ export default class PersonEdition extends Component {
         password: '',
         repeatPassword: '',
         oldPassword: '',
+      },
+      personDataValues: {
+        name: '',
+        surname: '',
+        email: '',
+        pesel: '',
       }
     };
   }
@@ -25,11 +33,23 @@ export default class PersonEdition extends Component {
     });
   }
 
+  _onChangePersonDataInputs(type, value) {
+    let { personDataValues } = this.state;
+
+    personDataValues[type] = value;
+    this.setState({
+      personDataValues
+    });
+  }
+
   _onSaveNewPassword() {
   }
 
+  _onSavePersonData() {
+  }
+
   render() {
-    let { changePasswordValues } = this.state;
+    let { changePasswordValues, personDataValues } = this.state;
 
     return (
       <div>
@@ -37,6 +57,12 @@ export default class PersonEdition extends Component {
           values={ changePasswordValues }
           onInputChange={ this._onChangePasswordInputs.bind(this) }
           onSave={ this._onSaveNewPassword.bind(this) }
+          oldPassword
+        />
+        <PersonDataBox
+          values={ personDataValues }
+          onInputChange={ this._onChangePersonDataInputs.bind(this) }
+          onSave={ this._onSavePersonData.bind(this) }
         />
       </div>
     );

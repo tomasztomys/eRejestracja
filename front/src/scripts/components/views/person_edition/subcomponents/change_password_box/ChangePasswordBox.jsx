@@ -50,7 +50,7 @@ export default class ChangePasswordBox extends Component {
 
   render() {
     let { labels, errors } = this.state;
-    let { values } = this.props;
+    let { values, oldPassword } = this.props;
 
     return (
       <Card className={ style['change-password-box'] }>
@@ -73,13 +73,14 @@ export default class ChangePasswordBox extends Component {
           value={ values.repeatPassword }
           onChange={ this._onChangeInput.bind(this, 'repeatPassword') }
         />
-        <Input
-          key={ labels.oldPassword }
-          label={ labels.oldPassword }
-          errors={ errors.oldPassword }
-          value={ values.oldPassword }
-          onChange={ this._onChangeInput.bind(this, 'oldPassword') }
-        />
+        { oldPassword ?
+          <Input
+            key={ labels.oldPassword }
+            label={ labels.oldPassword }
+            errors={ errors.oldPassword }
+            value={ values.oldPassword }
+            onChange={ this._onChangeInput.bind(this, 'oldPassword') }
+          /> : null }
         <Button
           label={ labels.saveButton }
           onClick={ this._onSave.bind(this) }
@@ -92,5 +93,6 @@ export default class ChangePasswordBox extends Component {
 ChangePasswordBox.propTypes = {
   values: PropTypes.object,
   onSave: PropTypes.func,
-  onInputChange: PropTypes.func
+  onInputChange: PropTypes.func,
+  oldPassword: PropTypes.bool
 };
