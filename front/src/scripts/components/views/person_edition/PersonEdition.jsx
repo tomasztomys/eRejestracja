@@ -1,8 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-import { ChangePasswordBox } from './subcomponents/change_password_box';
-import { PersonDataBox } from './subcomponents/person_data_box';
+import {
+  Grid,
+  GridItem,
+  Card,
+  CardTitle
+} from '../../ui';
 
+import { ChangePasswordBox } from './view_content/change_password_box';
+import { PersonDataBox } from './subcomponents/person_data_box';
 
 export default class PersonEdition extends Component {
 
@@ -52,19 +58,29 @@ export default class PersonEdition extends Component {
     let { changePasswordValues, personDataValues } = this.state;
 
     return (
-      <div>
-        <ChangePasswordBox
-          values={ changePasswordValues }
-          onInputChange={ this._onChangePasswordInputs.bind(this) }
-          onSave={ this._onSaveNewPassword.bind(this) }
-          oldPassword
-        />
-        <PersonDataBox
-          values={ personDataValues }
-          onInputChange={ this._onChangePersonDataInputs.bind(this) }
-          onSave={ this._onSavePersonData.bind(this) }
-        />
-      </div>
+      <Grid center>
+        <GridItem
+          xsSize="11"
+          mdSize="5"
+        >
+          <PersonDataBox
+            values={ personDataValues }
+            onInputChange={ this._onChangePersonDataInputs.bind(this) }
+            onSave={ this._onSavePersonData.bind(this) }
+          />
+        </GridItem>
+        <GridItem
+          xsSize="11"
+          mdSize="5"
+        >
+          <ChangePasswordBox
+            values={ changePasswordValues }
+            onInputChange={ this._onChangePasswordInputs.bind(this) }
+            onSave={ this._onSaveNewPassword.bind(this) }
+            oldPassword
+          />
+        </GridItem>
+      </Grid>
     );
   }
 

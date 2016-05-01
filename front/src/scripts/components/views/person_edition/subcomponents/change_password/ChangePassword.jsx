@@ -4,9 +4,9 @@ import {
   Input,
 } from '../../../../ui';
 
-import style from './change_password_box.scss';
+import style from './change_password.scss';
 
-export default class ChangePasswordBox extends Component {
+export default class ChangePassword extends Component {
   constructor() {
     super();
 
@@ -74,7 +74,7 @@ export default class ChangePasswordBox extends Component {
   }
 }
 
-ChangePasswordBox.propTypes = {
+ChangePassword.propTypes = {
   values: PropTypes.object,
   onInputChange: PropTypes.func,
   oldPassword: PropTypes.bool
