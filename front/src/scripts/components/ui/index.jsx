@@ -9,6 +9,7 @@ import { Avatar } from './avatar';
 import { FontIcon } from './font_icon';
 import { Card, CardTitle } from './card';
 import { Grid, GridItem } from './grid';
+import { Dropdown } from './dropdown';
 
 export {
   Input,
@@ -21,5 +22,6 @@ export {
   Avatar,
   FontIcon,
   Card, CardTitle,
-  Grid, GridItem
+  Grid, GridItem,
+  Dropdown
 };
