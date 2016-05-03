@@ -9,6 +9,7 @@ import {
 
 import { ChangePasswordBox } from './view_content/change_password_box';
 import { PersonDataBox } from './view_content/person_data_box';
+import { DoctorSpecific } from './subcomponents/doctor_specific';
 
 export default class PersonEdition extends Component {
 
@@ -26,6 +27,9 @@ export default class PersonEdition extends Component {
         surname: '',
         email: '',
         pesel: '',
+      },
+      doctorSpecificValues: {
+        specialization: ''
       }
     };
   }
@@ -48,6 +52,15 @@ export default class PersonEdition extends Component {
     });
   }
 
+  _onChangeDoctorSpecificInputes(type, value) {
+    let { doctorSpecificValues } = this.state;
+
+    doctorSpecificValues[type] = value;
+    this.setState({
+      doctorSpecificValues
+    });
+  }
+
   _onSaveNewPassword() {
   }
 
@@ -55,7 +68,7 @@ export default class PersonEdition extends Component {
   }
 
   render() {
-    let { changePasswordValues, personDataValues } = this.state;
+    let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
 
     return (
       <Grid center>
@@ -77,6 +90,16 @@ export default class PersonEdition extends Component {
             values={ changePasswordValues }
             onInputChange={ this._onChangePasswordInputs.bind(this) }
             onSave={ this._onSaveNewPassword.bind(this) }
+            oldPassword
+          />
+        </GridItem>
+        <GridItem
+          xsSize="11"
+          mdSize="5"
+        >
+          <DoctorSpecific
+            values={ doctorSpecificValues }
+            onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
             oldPassword
           />
         </GridItem>
