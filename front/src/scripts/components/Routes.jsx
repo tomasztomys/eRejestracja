@@ -19,7 +19,7 @@ import {
 import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
-import { SmartAdminEdition } from './views/person_edition/smarts';
+import { SmartAdminProfileEdition } from './views/person_edition/smarts';
 
 export default class Routes extends React.Component {
 
@@ -33,7 +33,7 @@ export default class Routes extends React.Component {
           component={ SmartPatientsList }
         />
         <Route path={ Paths.settings.myProfile }
-          component={ SmartAdminEdition }
+          component={ SmartAdminProfileEdition }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
