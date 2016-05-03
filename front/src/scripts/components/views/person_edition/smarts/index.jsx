@@ -1,9 +1,9 @@
-import SmartAdminEdition from './SmartAdminEdition';
-import SmartDoctorEdition from './SmartDoctorEdition';
-import SmartPatientEdition from './SmartPatientEdition';
+import SmartAdminProfileEdition from './SmartAdminEdition';
+import SmartDoctorProfileEdition from './SmartDoctorEdition';
+import SmartPatientProfileEdition from './SmartPatientEdition';
 
 export {
-  SmartAdminEdition,
-  SmartDoctorEdition,
-  SmartPatientEdition
+  SmartAdminProfileEdition,
+  SmartDoctorProfileEdition,
+  SmartPatientProfileEdition
 };
