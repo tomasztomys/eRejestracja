@@ -52,6 +52,7 @@ export default class ChangePassword extends Component {
           label={ labels.password }
           errors={ errors.password }
           value={ values.password }
+          type="password"
           onChange={ this._onChange.bind(this, 'password') }
         />
         <Input
@@ -59,6 +60,7 @@ export default class ChangePassword extends Component {
           label={ labels.repeatPassword }
           errors={ errors.repeatPassword }
           value={ values.repeatPassword }
+          type="password"
           onChange={ this._onChange.bind(this, 'repeatPassword') }
         />
         { oldPassword ?
@@ -67,6 +69,7 @@ export default class ChangePassword extends Component {
             label={ labels.oldPassword }
             errors={ errors.oldPassword }
             value={ values.oldPassword }
+            type="password"
             onChange={ this._onChange.bind(this, 'oldPassword') }
           /> : null }
       </div>
