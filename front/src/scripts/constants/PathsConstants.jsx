@@ -11,6 +11,7 @@ const Paths = {
   },
   doctors: {
     list: '/doctors-list',
+    registration: '/doctor-registration'
   },
   settings: {
     myProfile: '/my-profile',

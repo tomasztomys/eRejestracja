@@ -19,7 +19,10 @@ import {
 import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
-import { SmartAdminProfileEdition } from './views/person_edition/smarts';
+import {
+  SmartAdminProfileEdition,
+  SmartDoctorRegistration
+} from './views/person_edition/smarts';
 
 export default class Routes extends React.Component {
 
@@ -62,6 +65,10 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.demo }
             component={ Demo }
+          />
+          <Route
+            path={ Paths.doctors.registration }
+            component={ SmartDoctorRegistration }
           />
           { registeredSection }
         </Route>

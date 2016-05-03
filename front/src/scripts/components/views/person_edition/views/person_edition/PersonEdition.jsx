@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
-} from '../../ui';
+} from '../../../../ui';
 
-import { ChangePasswordBox } from './view_content/change_password_box';
-import { PersonDataBox } from './view_content/person_data_box';
-import { DoctorSpecificBox } from './view_content/doctor_specific_box';
+import { ChangePasswordBox } from '../../view_content/change_password_box';
+import { PersonDataBox } from '../../view_content/person_data_box';
+import { DoctorSpecificBox } from '../../view_content/doctor_specific_box';
 
 export default class PersonEdition extends Component {
 
