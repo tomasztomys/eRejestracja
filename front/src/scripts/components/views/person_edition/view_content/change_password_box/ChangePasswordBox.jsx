@@ -15,7 +15,7 @@ export default class ChangePasswordBox extends Component {
     let {
       values,
       onSaveNewPassword,
-      onChangePasswordInputs,
+      onChange,
     } = this.props;
 
     return (
@@ -27,7 +27,7 @@ export default class ChangePasswordBox extends Component {
         />
         <ChangePassword
           values={ values }
-          onInputChange={ onChangePasswordInputs }
+          onChange={ onChange }
           onSave={ onSaveNewPassword }
           oldPassword
         />
@@ -41,5 +41,5 @@ ChangePasswordBox.propTypes = {
   values: PropTypes.object,
   changePasswordValues: PropTypes.array,
   onSaveNewPassword: PropTypes.func,
-  onChangePasswordInputs: PropTypes.func
+  onChange: PropTypes.func
 };

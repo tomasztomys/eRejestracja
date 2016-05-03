@@ -33,7 +33,7 @@ export default class PersonData extends Component {
     };
   }
 
-  _onChangeInput(type, value) {
+  _onChange(type, value) {
     let { errors, errorsMessages } = this.state;
 
     errors[type] = value.length > 0 ? '' : errorsMessages[type];
@@ -41,7 +41,7 @@ export default class PersonData extends Component {
       errors
     });
 
-    this.props.onInputChange(type, value);
+    this.props.onChange(type, value);
   }
 
   render() {
@@ -55,28 +55,29 @@ export default class PersonData extends Component {
           label={ labels.name }
           errors={ errors.name }
           value={ values.name }
-          onChange={ this._onChangeInput.bind(this, 'name') }
+          onChange={ this._onChange.bind(this, 'name') }
         />
         <Input
           key={ labels.surname }
           label={ labels.surname }
           errors={ errors.surname }
           value={ values.surname }
-          onChange={ this._onChangeInput.bind(this, 'surname') }
+          onChange={ this._onChange.bind(this, 'surname') }
         />
         <Input
           key={ labels.email }
           label={ labels.email }
           errors={ errors.email }
           value={ values.email }
-          onChange={ this._onChangeInput.bind(this, 'email') }
+          onChange={ this._onChange.bind(this, 'email') }
         />
         <Input
           key={ labels.pesel }
           label={ labels.pesel }
           errors={ errors.pesel }
           value={ values.pesel }
-          onChange={ this._onChangeInput.bind(this, 'pesel') }
+          type="number"
+          onChange={ this._onChange.bind(this, 'pesel') }
         />
       </div>
     );
@@ -85,5 +86,5 @@ export default class PersonData extends Component {
 
 PersonData.propTypes = {
   values: PropTypes.object,
-  onInputChange: PropTypes.func,
+  onChange: PropTypes.func,
 };

@@ -30,7 +30,7 @@ export default class ChangePassword extends Component {
     };
   }
 
-  _onChangeInput(type, value) {
+  _onChange(type, value) {
     let { errors, errorsMessages } = this.state;
 
     errors[type] = value.length > 0 ? '' : errorsMessages[type];
@@ -38,7 +38,7 @@ export default class ChangePassword extends Component {
       errors
     });
 
-    this.props.onInputChange(type, value);
+    this.props.onChange(type, value);
   }
 
   render() {
@@ -52,14 +52,14 @@ export default class ChangePassword extends Component {
           label={ labels.password }
           errors={ errors.password }
           value={ values.password }
-          onChange={ this._onChangeInput.bind(this, 'password') }
+          onChange={ this._onChange.bind(this, 'password') }
         />
         <Input
           key={ labels.repeatPassword }
           label={ labels.repeatPassword }
           errors={ errors.repeatPassword }
           value={ values.repeatPassword }
-          onChange={ this._onChangeInput.bind(this, 'repeatPassword') }
+          onChange={ this._onChange.bind(this, 'repeatPassword') }
         />
         { oldPassword ?
           <Input
@@ -67,7 +67,7 @@ export default class ChangePassword extends Component {
             label={ labels.oldPassword }
             errors={ errors.oldPassword }
             value={ values.oldPassword }
-            onChange={ this._onChangeInput.bind(this, 'oldPassword') }
+            onChange={ this._onChange.bind(this, 'oldPassword') }
           /> : null }
       </div>
     );
@@ -76,6 +76,6 @@ export default class ChangePassword extends Component {
 
 ChangePassword.propTypes = {
   values: PropTypes.object,
-  onInputChange: PropTypes.func,
+  onChange: PropTypes.func,
   oldPassword: PropTypes.bool
 };

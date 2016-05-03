@@ -56,7 +56,7 @@ export default class PersonDataBox extends Component {
   render() {
     let {
       values,
-      onInputChange,
+      onChange,
       onSave
     } = this.props;
 
@@ -68,7 +68,7 @@ export default class PersonDataBox extends Component {
         />
         <PersonData
           values={ values }
-          onInputChange={ onInputChange }
+          onChange={ onChange }
           onSave={ onSave }
         />
       </Card>
@@ -79,6 +79,6 @@ export default class PersonDataBox extends Component {
 
 PersonDataBox.propTypes = {
   values: PropTypes.object,
-  onInputChange: PropTypes.func,
+  onChange: PropTypes.func,
   onSave: PropTypes.func
 };

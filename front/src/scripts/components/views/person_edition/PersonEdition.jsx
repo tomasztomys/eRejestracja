@@ -76,7 +76,7 @@ export default class PersonEdition extends Component {
         >
           <PersonDataBox
             values={ personDataValues }
-            onInputChange={ this._onChangePersonDataInputs.bind(this) }
+            onChange={ this._onChangePersonDataInputs.bind(this) }
             onSave={ this._onSavePersonData.bind(this) }
           />
         </GridItem>
@@ -86,7 +86,7 @@ export default class PersonEdition extends Component {
         >
           <ChangePasswordBox
             values={ changePasswordValues }
-            onInputChange={ this._onChangePasswordInputs.bind(this) }
+            onChange={ this._onChangePasswordInputs.bind(this) }
             onSave={ this._onSaveNewPassword.bind(this) }
             oldPassword
           />
