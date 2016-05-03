@@ -3,13 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
-  Card,
-  CardTitle
 } from '../../ui';
 
 import { ChangePasswordBox } from './view_content/change_password_box';
 import { PersonDataBox } from './view_content/person_data_box';
-import { DoctorSpecific } from './subcomponents/doctor_specific';
+import { DoctorSpecificBox } from './view_content/doctor_specific_box';
 
 export default class PersonEdition extends Component {
 
@@ -97,10 +95,9 @@ export default class PersonEdition extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <DoctorSpecific
+          <DoctorSpecificBox
             values={ doctorSpecificValues }
             onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
-            oldPassword
           />
         </GridItem>
       </Grid>
