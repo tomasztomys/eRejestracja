@@ -2,7 +2,11 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Table,
-  Button
+  Button,
+  Card,
+  CardTitle,
+  Grid,
+  GridItem
 } from '../../ui';
 
 export default class EntityList extends Component {
@@ -33,23 +37,27 @@ export default class EntityList extends Component {
     } = this.props;
 
     return (
-      <div>
-        <h1>
-          { title }
-        </h1>
-        { source.length > 0 ?
-          <Table
-            source={ source }
-            model={ model }
-            onSelect={ onSelect }
-            selectable={ selectable }
-            selected={ selected }
-            onChange={ onChangeTable }
-          /> : <div>{ noDataMessage }</div>
-        }
-
-        { source.length > 0 ? this._renderButtons() : null }
-      </div>
+      <Grid>
+        <GridItem xsSize="12">
+          <Card>
+            <CardTitle
+              title={ title }
+              subtitle="You can remove doctor or edit."
+            />
+            { source.length > 0 ?
+              <Table
+                source={ source }
+                model={ model }
+                onSelect={ onSelect }
+                selectable={ selectable }
+                selected={ selected }
+                onChange={ onChangeTable }
+              /> : <div>{ noDataMessage }</div>
+            }
+            { source.length > 0 ? this._renderButtons() : null }
+          </Card>
+        </GridItem>
+      </Grid>
 
     );
   }
@@ -65,5 +73,6 @@ EntityList.propTypes = {
   selected: PropTypes.array,
   source: PropTypes.array,
   className: PropTypes.string,
-  buttons: PropTypes.array
+  buttons: PropTypes.array,
+  noDataMessage: PropTypes.string
 };
