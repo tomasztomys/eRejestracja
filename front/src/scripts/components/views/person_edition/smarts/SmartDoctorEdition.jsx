@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { PersonEdition } from '../';
 
-export default class SmartAdminEdition extends Component {
+export default class SmartDoctorEdition extends Component {
   render() {
     return (
       <PersonEdition
-        personType="admin"
+        personType="doctor"
       />
     );
   }
