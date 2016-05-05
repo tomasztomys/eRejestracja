@@ -12,7 +12,6 @@
 
     .main-item, .sub-menu-item, .sub-menu-parent {
       height: $menu-item-height;
-      border-left: 10px solid $drawer-menu-background-color;
 
       .left-icon {
         display: none;
@@ -24,33 +23,14 @@
         height: $menu-item-height;
       }
 
-      &:hover {
-        border-left: 10px solid $drawer-menu-item-left-border-color;
-        background-color: $drawer-menu-item-focus-background-color;
-      }
     }
 
     .main-item, .sub-menu-parent {
-      padding-left: 20px;
-      span {
-        font-size: 25px !important;
-        font-weight: 300;
-      }
     }
 
-    .sub-menu-parent.open, .active {
-      border-left: 10px solid $drawer-menu-item-left-border-color;
-    }
 
     .sub-menu-item {
       background-color: $drawer-menu-submenu-open-background-color;
-      padding-left: 40px;
-      span {
-        font-size: 20px !important;
-        font-weight: 300;
-      }
     }
   }
-
-
 }

@@ -1,8 +1,8 @@
 @import '../../../../../../styles/colors';
 @import '../../../../../../styles/config';
 
-
 .root {
+
   .header {
     height: $menu-bar-height;
     width: 100%;
@@ -13,7 +13,7 @@
     color: $header-bar-font-color;
     z-index: 9999;
 
-    .menu {
+    .menu-button {
       position: absolute;
       top: 50%;
       transform:translateY(-50%);
@@ -28,12 +28,11 @@
       }
     }
 
-    .user-name {
+  .user-name {
       float: right;
       height: $menu-bar-height;
       line-height: $menu-bar-height;
       margin-right: 30px;
-      font-size: 18px;
     }
 
     .avatar-content {
@@ -41,6 +40,7 @@
       width: $menu-bar-height;
       float: right;
       position: relative;
+
       .avatar {
         height: $menu-bar-height - 10px;
         width: $menu-bar-height - 10px;
@@ -49,8 +49,6 @@
         transform: translateY(-50%);
       }
     }
-
-
   }
 
   .body {

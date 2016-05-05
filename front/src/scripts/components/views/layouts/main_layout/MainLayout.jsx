@@ -43,7 +43,7 @@ export default class MainLayout extends Component {
             />
           </div>
           <Button
-            className={ style['menu'] }
+            className={ style['menu-button'] }
             icon={ drawerMenuActive ? 'close' : 'menu' }
             onClick={ this._toggleDrawerMenu.bind(this) }
           />
