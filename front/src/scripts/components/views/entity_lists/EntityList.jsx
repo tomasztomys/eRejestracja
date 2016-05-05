@@ -11,19 +11,6 @@ import {
 
 export default class EntityList extends Component {
 
-  _renderButtons() {
-    let { buttons } = this.props;
-
-    return buttons.map((item) => {
-      return (
-        <Button
-          key={ item.label }
-          label={ item.label }
-          onClick={ item.onClick }
-        />
-      );
-    });
-  }
   render() {
     let {
       source,
@@ -33,17 +20,18 @@ export default class EntityList extends Component {
       selected,
       onChangeTable,
       title,
-      noDataMessage
+      noDataMessage,
+      buttons
     } = this.props;
 
     return (
       <Grid>
         <GridItem xsSize="12">
-          <Card>
-            <CardTitle
-              title={ title }
-              subtitle="You can remove doctor or edit."
-            />
+          <Card
+            title={ title }
+            subtitle="You can remove doctor or edit."
+            actions={ source.length ? buttons : [] }
+          >
             { source.length > 0 ?
               <Table
                 source={ source }
@@ -54,7 +42,6 @@ export default class EntityList extends Component {
                 onChange={ onChangeTable }
               /> : <div>{ noDataMessage }</div>
             }
-            { source.length > 0 ? this._renderButtons() : null }
           </Card>
         </GridItem>
       </Grid>

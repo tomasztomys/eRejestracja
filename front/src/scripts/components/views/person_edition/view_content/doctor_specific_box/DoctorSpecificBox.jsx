@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Card,
-  CardTitle
 } from '../../../../ui';
 
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
@@ -18,10 +17,10 @@ export default class DoctorSpecificBox extends Component {
     } = this.props;
 
     return (
-      <Card className={ style['doctor-specific-box'] }>
-        <CardTitle
-          title="Doctor"
-        />
+      <Card
+        className={ style['doctor-specific-box'] }
+        title="Doctor"
+      >
         <DoctorSpecific
           values={ values }
           onChange={ onChange }

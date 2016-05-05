@@ -1,31 +1,28 @@
 @import '../../../../styles/colors';
 
 .input {
-  div, input, span {
-    // font-size: 16px;
-    // font-weight: bold;
-  }
 
   input {
     border-bottom-color: $input-active-color;
   }
-  //
-  span::after, span::before {
+
+  span::after,
+  span::before {
     background-color: $input-active-color;
   }
-  //
+
   & > label,
   & > span {
     color: $input-active-color !important;
   }
-  //
-  &.error {
 
+  &.error {
     input {
       border-bottom-color: $input-warning-color;
     }
 
-    span::after, span::before {
+    span::after,
+    span::before {
       background-color: $input-warning-color;
     }
 
@@ -33,5 +30,11 @@
     & > span {
       color: $input-warning-color !important;
     }
+  }
+  //remove spinner
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

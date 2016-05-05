@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Card,
-  CardTitle
 } from '../../../../ui';
 
 import { PersonData } from '../../subcomponents/person_data';
@@ -61,11 +60,10 @@ export default class PersonDataBox extends Component {
     } = this.props;
 
     return (
-      <Card className={ style['person-data'] }>
-        <CardTitle
-          title="Chane profile data"
-          subtitle={ 'Please write real personal data.' }
-        />
+      <Card className={ style['person-data'] }
+        title="Chane profile data"
+        subtitle={ 'Please write real personal data.' }
+      >
         <PersonData
           values={ values }
           onChange={ onChange }

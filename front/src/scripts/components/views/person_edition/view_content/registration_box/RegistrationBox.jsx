@@ -4,7 +4,6 @@ import {
   Grid,
   GridItem,
   Card,
-  CardTitle
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -82,10 +81,9 @@ export default class RegistrationBox extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <Card>
-            <CardTitle
-              title="Registration"
-            />
+          <Card
+            title="Registration"
+          >
             <PersonData
               values={ personDataValues }
               onChange={ this._onChangePersonDataInputs.bind(this) }
