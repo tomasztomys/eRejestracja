@@ -17,17 +17,24 @@ export default class ChangePasswordBox extends Component {
       onChange,
     } = this.props;
 
+    let actions = [
+      {
+        label: 'Save',
+        onClick: onSaveNewPassword
+      }
+    ];
+
     return (
       <Card
         className={ style['Person data'] }
         title="Change your password"
         subtitle={ `The password Must be 8 to 20 characters in length,
            Must contain at least one letter and one number` }
+        actions={ actions }
       >
         <ChangePassword
           values={ values }
           onChange={ onChange }
-          onSave={ onSaveNewPassword }
           oldPassword
         />
       </Card>

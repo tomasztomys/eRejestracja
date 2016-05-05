@@ -59,15 +59,22 @@ export default class PersonDataBox extends Component {
       onSave
     } = this.props;
 
+    let actions = [
+      {
+        label: 'Save',
+        onClick: onSave
+      }
+    ];
+
     return (
       <Card className={ style['person-data'] }
         title="Chane profile data"
         subtitle={ 'Please write real personal data.' }
+        actions={ actions }
       >
         <PersonData
           values={ values }
           onChange={ onChange }
-          onSave={ onSave }
         />
       </Card>
     );

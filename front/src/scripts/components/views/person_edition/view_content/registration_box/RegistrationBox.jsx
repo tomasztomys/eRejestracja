@@ -62,15 +62,16 @@ export default class RegistrationBox extends Component {
     });
   }
 
-  _onSaveNewPassword() {
-  }
-
-  _onSavePersonData() {
-  }
-
   render() {
     let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
-    let { personType } = this.props;
+    let { personType, onSignUp } = this.props;
+
+    let actions = [
+      {
+        label: 'Sign Up',
+        onClick: onSignUp
+      }
+    ];
 
     return (
       <Grid
@@ -83,16 +84,15 @@ export default class RegistrationBox extends Component {
         >
           <Card
             title="Registration"
+            actions={ actions }
           >
             <PersonData
               values={ personDataValues }
               onChange={ this._onChangePersonDataInputs.bind(this) }
-              onSave={ this._onSavePersonData.bind(this) }
             />
             <ChangePassword
               values={ changePasswordValues }
               onChange={ this._onChangePasswordInputs.bind(this) }
-              onSave={ this._onSaveNewPassword.bind(this) }
               oldPassword
             />
             { personType === 'doctor' ?
@@ -110,5 +110,6 @@ export default class RegistrationBox extends Component {
 }
 
 RegistrationBox.propTypes = {
-  personType: PropTypes.string
+  personType: PropTypes.string,
+  onSignUp: PropTypes.func
 };
