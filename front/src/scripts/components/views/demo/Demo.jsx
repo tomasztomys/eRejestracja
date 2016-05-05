@@ -5,7 +5,8 @@ import {
   Checkbox,
   Snackbar,
   Drawer,
-  Avatar
+  Avatar,
+  Dropdown
 } from '../../ui';
 
 import doctorAvatar from '../../../../../assets/doctor.jpg';
@@ -18,7 +19,8 @@ export default class Demo extends Component {
     this.state = {
       checkboxValue: false,
       snackbarActive: false,
-      drawerActive: false
+      drawerActive: false,
+      dropdownValue: ''
     };
   }
 
@@ -49,6 +51,12 @@ export default class Demo extends Component {
   _onHideDrawer() {
     this.setState({
       drawerActive: false
+    });
+  }
+
+  _onDropdownChange(dropdownValue) {
+    this.setState({
+      dropdownValue
     });
   }
 
@@ -106,6 +114,15 @@ export default class Demo extends Component {
         <Avatar
           title="Patient woman avatar"
           image={ patientWomanAvatar }
+        />
+        <Dropdown
+          label="Dropdown"
+          source={ [
+            { label: 'value1', value: 'value1' },
+            { label: 'value2', value: 'value2' }
+          ] }
+          value={ this.state.dropdownValue }
+          onChange={ this._onDropdownChange.bind(this) }
         />
       </div>
     );

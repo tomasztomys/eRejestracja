@@ -14,8 +14,8 @@ const NavigationLinks = [
     path: Paths.demo
   },
   {
-    label: 'Testing userPanel',
-    path: Paths.userPanel
+    label: 'Doctor Registration',
+    path: Paths.doctors.registration
   }
 ];
 

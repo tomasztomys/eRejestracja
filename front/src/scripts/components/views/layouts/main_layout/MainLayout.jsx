@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Button,
-  Avatar
+  Avatar,
+  FontIcon
 } from '../../../ui';
 
-import style from './style/main_layout';
+import style from './style/main_layout.scss';
 
 import { MenuDrawer } from './subcomponents';
 
@@ -28,6 +29,8 @@ export default class MainLayout extends Component {
   }
 
   render() {
+    let { drawerMenuActive } = this.state;
+
     return (
       <div className={ style['root'] }>
         <header className={ style['header'] }>
@@ -40,8 +43,8 @@ export default class MainLayout extends Component {
             />
           </div>
           <Button
-            className={ style['hamburger'] }
-            label="Show menu"
+            className={ style['menu-button'] }
+            icon={ drawerMenuActive ? 'close' : 'menu' }
             onClick={ this._toggleDrawerMenu.bind(this) }
           />
         </header>

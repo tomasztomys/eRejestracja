@@ -23,7 +23,6 @@ export default class Input extends React.Component {
       <InputReactToolbox
         className={ inputStyle }
         error={ error }
-        type="text"
         floating
         {...otherProps}
       />

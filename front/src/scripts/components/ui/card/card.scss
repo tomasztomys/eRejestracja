@@ -1,0 +1,12 @@
+.card {
+  margin-bottom: 20px;
+  .content {
+    margin: 20px;
+  }
+  .actions {
+    margin: 0 20px 20px;
+    button {
+      float: right;
+    }
+  }
+}

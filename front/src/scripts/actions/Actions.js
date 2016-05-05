@@ -1,2 +1,3 @@
 export * from './log_in';
-export * from './doctors.js';
+export * from './doctors';
+export * from './patients';
