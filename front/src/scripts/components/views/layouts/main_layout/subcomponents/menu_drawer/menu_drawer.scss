@@ -10,12 +10,14 @@
 
   .menu {
 
+    //remove left icons
+    li:first-child > span > span:first-child {
+      display: none;
+    }
+
     .main-item, .sub-menu-item, .sub-menu-parent {
       height: $menu-item-height;
 
-      .left-icon {
-        display: none;
-      }
       span {
         color: $drawer-menu-font-color;
 
@@ -26,6 +28,11 @@
     }
 
     .main-item, .sub-menu-parent {
+      text-align: center;
+      span {
+        font-size: 2rem;
+
+      }
     }
 
 
