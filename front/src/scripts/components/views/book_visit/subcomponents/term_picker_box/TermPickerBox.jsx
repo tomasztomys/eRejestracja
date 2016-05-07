@@ -2,23 +2,24 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Card,
+  DatePicker,
   Dropdown
 } from '../../../../ui';
 
-export default class DatePickerBox extends Component {
+export default class TermPickerBox extends Component {
   constructor() {
     super();
     this.state = {
       labels: {
-        day: 'Day of vist',
+        date: 'Day of vist',
         time: 'Time of visit'
       },
       errors: {
-        day: '',
+        date: '',
         time: ''
       },
       errorsMessages: {
-        day: 'Please choose day of visit.',
+        date: 'Please choose day of visit.',
         time: 'Please choose time of visit.'
       }
     };
@@ -38,7 +39,8 @@ export default class DatePickerBox extends Component {
   }
 
   render() {
-    let { disabled } = this.props;
+    let { disabled, selectedDate, onDateChange } = this.props;
+    let { labels, errors } = this.state;
     let actions = [
       {
         label: 'Sign up for a visit',
@@ -51,11 +53,20 @@ export default class DatePickerBox extends Component {
       <Card
         title="Select term of Visit"
         actions={ actions }
-      />
+      >
+        <DatePicker
+          label={ labels.date }
+          error={ errors.date }
+          value={ selectedDate }
+          onChange={ onDateChange }
+        />
+      </Card>
     );
   }
 }
 
-DatePickerBox.propTypes = {
-  disabled: PropTypes.bool
+TermPickerBox.propTypes = {
+  disabled: PropTypes.bool,
+  selectedDate: PropTypes.object,
+  onDateChange: PropTypes.func
 };

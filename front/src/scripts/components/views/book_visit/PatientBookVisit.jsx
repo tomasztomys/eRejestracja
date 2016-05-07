@@ -7,7 +7,7 @@ import {
 
 import {
   DoctorPickerBox,
-  DatePickerBox
+  TermPickerBox
 } from './subcomponents';
 
 export default class PatientBookVisit extends Component {
@@ -91,6 +91,10 @@ export default class PatientBookVisit extends Component {
     this.props.onChange('specialization', value);
   }
 
+  _onDateChange(value) {
+    this.props.onChange('date', value);
+  }
+
   render() {
     let { sources, disabled } = this.state;
     let { values } = this.props;
@@ -109,8 +113,10 @@ export default class PatientBookVisit extends Component {
           />
         </GridItem>
         <GridItem xsSize="6">
-          <DatePickerBox
+          <TermPickerBox
             disabled={ disabled.datePicker }
+            selectedDate={ values.date }
+            onDateChange={ this._onDateChange.bind(this) }
           />
         </GridItem>
       </Grid>
