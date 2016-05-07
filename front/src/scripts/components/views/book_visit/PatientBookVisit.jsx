@@ -105,38 +105,44 @@ export default class PatientBookVisit extends Component {
     let { values, onChange } = this.props;
 
     return (
-      <Grid>
-        <GridItem xsSize="6">
-          <DoctorPickerBox
-            selectedDoctorId={ values.doctor }
-            selectedSpecialization={ values.specialization }
-            sources={ sources }
-            onDoctorChange={ onChange.bind(this, 'doctor') }
-            onSpecializationChange={ onChange.bind(this, 'specialization') }
-            onAccept={ this._onAcceptDoctor.bind(this) }
-            disabled={ disabled.doctorPicker }
-          />
-        </GridItem>
-        <GridItem xsSize="6">
-          <TermPickerBox
-            selectedDate={ values.date }
-            onDateChange={ onChange.bind(this, 'date') }
-            availableTimes={ sources.time }
-            selectedTime={ values.time }
-            onTimeChange={ onChange.bind(this, 'time') }
-            onAccept={ this._onAcceptTerm.bind(this) }
-            disabled={ disabled.datePicker }
-          />
-        </GridItem>
-        <GridItem xsSize="6">
-          <VisitDescriptionBox
-            visitDescription={ values.description }
-            onDescriptionChange={ onChange.bind(this, 'description') }
-            disabled={ disabled.descriptionBox }
-            onAccept={ this._onSignUp.bind(this) }
-          />
-        </GridItem>
-      </Grid>
+      <div>
+        <Grid center>
+          <GridItem xsSize="6">
+            <DoctorPickerBox
+              selectedDoctorId={ values.doctor }
+              selectedSpecialization={ values.specialization }
+              sources={ sources }
+              onDoctorChange={ onChange.bind(this, 'doctor') }
+              onSpecializationChange={ onChange.bind(this, 'specialization') }
+              onAccept={ this._onAcceptDoctor.bind(this) }
+              disabled={ disabled.doctorPicker }
+            />
+          </GridItem>
+        </Grid>
+        <Grid center>
+          <GridItem xsSize="6">
+            <TermPickerBox
+              selectedDate={ values.date }
+              onDateChange={ onChange.bind(this, 'date') }
+              availableTimes={ sources.time }
+              selectedTime={ values.time }
+              onTimeChange={ onChange.bind(this, 'time') }
+              onAccept={ this._onAcceptTerm.bind(this) }
+              disabled={ disabled.datePicker }
+            />
+          </GridItem>
+        </Grid>
+        <Grid center>
+          <GridItem xsSize="6">
+            <VisitDescriptionBox
+              visitDescription={ values.description }
+              onDescriptionChange={ onChange.bind(this, 'description') }
+              disabled={ disabled.descriptionBox }
+              onAccept={ this._onSignUp.bind(this) }
+            />
+          </GridItem>
+        </Grid>
+      </div>
     );
   }
 }

@@ -1,4 +1,8 @@
+@import '../../../../styles/colors';
+
 .card-title {
-  // padding: 0 !important;
-  background-color: #E8E8E8;
+  h5 {
+    text-align: left;
+  }
+  background-color: $card-header-background;
 }
