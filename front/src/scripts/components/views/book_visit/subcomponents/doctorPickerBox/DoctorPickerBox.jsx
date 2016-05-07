@@ -10,14 +10,17 @@ export default class BookVisitBox extends Component {
     super();
     this.state = {
       labels: {
+        specialization: 'Choose doctor type',
         doctor: 'Choose a doctor you want to visit.',
         doctorDescription: 'This doctor takes on Monday and Thursday'
       },
       errors: {
         doctor: '',
+        specialization: ''
       },
       errorsMessages: {
         doctor: 'Please choose doctor.',
+        specialization: 'Please choose specialization.'
       }
     };
   }
@@ -31,18 +34,44 @@ export default class BookVisitBox extends Component {
     });
   }
 
+  _onPrepareSpecializations(specializations) {
+    return specializations.map((specialization) => {
+      return {
+        value: specialization.value,
+        label: specialization.name
+      };
+    });
+  }
+
+  setError(key) {
+    let { errors, errorsMessages } = this.state;
+
+    errors[key] = errorsMessages[key];
+    this.setState({
+      errors
+    });
+  }
+
   _onAccept() {
-    this.props.onAcceptDoctor();
+    let { selectedDoctorId } = this.props;
+
+    if (selectedDoctorId > 0) {
+      this.props.onAcceptDoctor();
+    }
+    else {
+      this.setError('doctor');
+    }
   }
 
   render() {
     let { labels, errors } = this.state;
-    let { selectedDoctorId, onChange, doctors, active } = this.props;
+    let { sources, selectedDoctorId, selectedSpecialization, onDoctorChange, onSpecializationChange, disabled } = this.props;
 
     let actions = [
       {
         label: 'Accept',
-        onClick: this._onAccept.bind(this)
+        onClick: this._onAccept.bind(this),
+        disabled: disabled
       }
     ];
 
@@ -53,12 +82,20 @@ export default class BookVisitBox extends Component {
         actions={ actions }
       >
         <Dropdown
-          source={ this._onPrepareDoctors(doctors) }
+          source={ this._onPrepareSpecializations(sources.specializations) }
+          label={ labels.specialization }
+          value={ selectedSpecialization }
+          error={ errors.specialization }
+          onChange={ onSpecializationChange.bind(this) }
+          disabled={ disabled }
+        />
+        <Dropdown
+          source={ this._onPrepareDoctors(sources.doctors) }
           label={ labels.doctor }
           value={ selectedDoctorId }
           error={ errors.doctor }
-          onChange={ onChange.bind(this) }
-          disabled={ !active }
+          onChange={ onDoctorChange.bind(this) }
+          disabled={ disabled || selectedSpecialization.length === 0 }
         />
       </Card>
     );
@@ -66,9 +103,10 @@ export default class BookVisitBox extends Component {
 }
 
 BookVisitBox.propTypes = {
+  sources: PropTypes.object,
   selectedDoctorId: PropTypes.number,
   doctors: PropTypes.array,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onAcceptDoctor: PropTypes.func,
-  active: PropTypes.bool
 };

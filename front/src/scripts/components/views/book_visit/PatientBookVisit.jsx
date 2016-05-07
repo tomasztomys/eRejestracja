@@ -11,9 +11,9 @@ export default class PatientBookVisit extends Component {
   constructor() {
     super();
     this.state = {
-      actives: {
-        doctorPicker: true,
-        datePicker: false
+      disabled: {
+        doctorPicker: false,
+        datePicker: true
       },
       sources: {
         time: [
@@ -37,21 +37,32 @@ export default class PatientBookVisit extends Component {
         doctors: [
           {
             name: 'Natalia Nowak',
-            specialization: 'Ortopeda',
             workDaysDescription: 'WorkDays: Mon 15:00-17:15, Wen 15:00-19:00',
             id: 15
           },
           {
             name: 'Bartosz Bąk',
-            specialization: 'Chirurg',
             workDaysDescription: 'WorkDays: Thu 12:00-14:15, Fri 13:00-18:00',
             id: 16
           },
           {
             name: 'Tomasz Lewandowski',
-            specialization: 'Pediatra',
             workDaysDescription: 'WorkDays: Mon 10:00-17:00, Wen 10:00-19:00',
             id: 21
+          }
+        ],
+        specializations: [
+          {
+            name: 'Chirurg',
+            value: 'surgeon'
+          },
+          {
+            name: 'Pediatra',
+            value: 'pediatrician'
+          },
+          {
+            name: 'Dentysta',
+            value: 'dentist'
           }
         ]
       }
@@ -59,14 +70,26 @@ export default class PatientBookVisit extends Component {
   }
 
   _onAcceptDoctor() {
+    let { disabled } = this.state;
+
+    disabled.doctorPicker = true;
+    disabled.datePicker = false;
+
+    this.setState({
+      disabled
+    });
   }
 
   _onDoctorChange(value) {
     this.props.onChange('doctor', value);
   }
 
+  _onSpecializationChange(value) {
+    this.props.onChange('specialization', value);
+  }
+
   render() {
-    let { sources, actives } = this.state;
+    let { sources, disabled } = this.state;
     let { values } = this.props;
 
     return (
@@ -74,10 +97,12 @@ export default class PatientBookVisit extends Component {
         <GridItem xsSize="6">
           <DoctorPickerBox
             selectedDoctorId={ values.doctor }
-            doctors={ sources.doctors }
-            onChange={ this._onDoctorChange.bind(this) }
+            selectedSpecialization={ values.specialization }
+            sources={ sources }
+            onDoctorChange={ this._onDoctorChange.bind(this) }
+            onSpecializationChange={ this._onSpecializationChange.bind(this) }
             onAcceptDoctor={ this._onAcceptDoctor.bind(this) }
-            active={ actives.doctorPicker }
+            disabled={ disabled.doctorPicker }
           />
         </GridItem>
       </Grid>
