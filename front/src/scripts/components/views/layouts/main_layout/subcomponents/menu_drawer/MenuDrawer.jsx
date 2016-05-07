@@ -3,8 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import {
   Drawer,
   List,
-  ListItem
+  ListItem,
+  FontIcon
 } from '../../../../../ui';
+
+import classnames from 'classnames';
 
 import style from './menu_drawer';
 import AdminNavigationLinks from '../../../../../../constants/AdminNavigationLinks';
@@ -21,18 +24,31 @@ export default class MenuDrawer extends Component {
     });
 
     this.state = {
-      menuItems
+      menuItems,
+      activeItemId: -1
     };
+  }
+
+  _routeHandler(item) {
+    this.context.router.push(item.path);
+    this.props.onOverlayClick();
+    this.setState({
+      activeItemId: item.id
+    });
   }
 
   _renderMenuItem(item) {
     return (
-      <List>
+      <List key={ item.label }>
         <ListItem
-          className={ style['main-item'] }
+          className={
+            classnames(
+              style['main-item'],
+            )
+          }
           key={ item.label }
           caption={ item.label }
-          onClick={ () => {} }
+          onClick={ this._routeHandler.bind(this, item) }
         />
       </List>
     );
@@ -41,10 +57,14 @@ export default class MenuDrawer extends Component {
   _renderSubMenuItem(item) {
     return (
       <ListItem
-        className={ style['sub-menu-item'] }
+        className={
+          classnames(
+            style['sub-menu-item'],
+          )
+        }
         key={ item.label }
         caption={ item.label }
-        onClick={ () => {} }
+        onClick={ this._routeHandler.bind(this, item) }
       />
     );
   }
@@ -59,13 +79,30 @@ export default class MenuDrawer extends Component {
   }
 
   _renderSubMenu(item) {
+    let icon = item.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+
     return (
-      <List>
+      <List key={ item.label }>
         <ListItem
-          className={ style['sub-menu-parent'] }
+          className={
+            classnames(style['sub-menu-parent'],
+            { [style['open']]: item.open })
+          }
           key={ item.label }
           caption={ item.label }
           onClick={ this._toggleMenu.bind(this, item.id) }
+          leftIcon={
+            <FontIcon
+              className={ style['left-icon'] }
+              value={ icon }
+            />
+          }
+          rightIcon={
+            <FontIcon
+              className={ style['right-icon'] }
+              value={ icon }
+            />
+          }
         />
         {
           item.open ?
@@ -102,6 +139,10 @@ export default class MenuDrawer extends Component {
     );
   }
 }
+
+MenuDrawer.contextTypes = {
+  router: React.PropTypes.object
+};
 
 MenuDrawer.propTypes = {
   active: PropTypes.bool,

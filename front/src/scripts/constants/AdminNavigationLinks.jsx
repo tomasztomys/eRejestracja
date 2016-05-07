@@ -3,24 +3,22 @@ import Paths from './PathsConstants';
 const AdminNavigationLinks = [
   {
     label: 'Doctors',
-    path: Paths.demo,
     active: true,
     children: [
       {
         label: 'Doctors list',
-        path: Paths.demo,
+        path: Paths.doctors.list,
         active: true
       },
     ]
   },
   {
     label: 'Patients',
-    path: Paths.demo,
     active: true,
     children: [
       {
         label: 'Patients list',
-        path: Paths.demo,
+        path: Paths.patients.list,
         active: true
       }
     ]
@@ -30,24 +28,14 @@ const AdminNavigationLinks = [
     children: [
       {
         label: 'My profile',
-        path: Paths.demo,
+        path: Paths.settings.myProfile,
         active: true
-      },
-      {
-        label: 'My calendar',
-        path: Paths.demo,
-        active: true
-      },
-      {
-        label: 'Logout',
-        path: Paths.demo,
-        active: true
-      },
+      }
     ]
   },
   {
     label: 'Logout',
-    path: Paths.demo,
+    path: Paths.settings.logout,
     active: true
   }
 ];

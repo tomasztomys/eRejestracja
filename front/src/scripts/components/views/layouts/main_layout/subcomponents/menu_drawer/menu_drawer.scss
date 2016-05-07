@@ -9,29 +9,35 @@
   background-color: $drawer-menu-background-color;
 
   .menu {
+
+    //remove left icons
+    li:first-child > span > span:first-child {
+      display: none;
+    }
+
     .main-item, .sub-menu-item, .sub-menu-parent {
       height: $menu-item-height;
+
       span {
         color: $drawer-menu-font-color;
 
-        font-size: 18px !important;
         line-height: $menu-item-height;
         height: $menu-item-height;
       }
 
-      &:hover {
-        background-color: $drawer-menu-item-focus-background-color;
-      }
     }
 
     .main-item, .sub-menu-parent {
-      padding-left: 20px;
+      text-align: center;
+      span {
+        font-size: 2rem;
+
+      }
     }
+
 
     .sub-menu-item {
-      padding-left: 40px;
+      background-color: $drawer-menu-submenu-open-background-color;
     }
   }
-
-
 }

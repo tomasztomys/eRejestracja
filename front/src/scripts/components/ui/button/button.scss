@@ -4,7 +4,6 @@
   background: $button-color !important;
   padding: 6px 12px;
   height: 30px;
-  font-size: 13px;
   margin: 0 5px 10px 0;
   display: inline-block;
 
@@ -19,7 +18,6 @@
   &.large {
     padding: 10px 16px;
     height: 42px;
-    font-size: 17px;
 
     & > span {
       line-height: 23px !important;
@@ -29,7 +27,6 @@
   &.small {
     padding: 5px 10px;
     height: 28px;
-    font-size: 12px;
 
     & > span {
       line-height: 18px !important;
@@ -39,7 +36,6 @@
   &.extra-small {
     padding: 2px 5px;
     height: 20px;
-    font-size: 11px;
 
     & > span {
       line-height: 16.5px !important;

@@ -6,15 +6,22 @@ import { Checkbox } from './checkbox';
 import { Snackbar } from './snackbar';
 import { Drawer } from './drawer';
 import { Avatar } from './avatar';
+import { FontIcon } from './font_icon';
+import { Card, CardTitle } from './card';
+import { Grid, GridItem } from './grid';
+import { Dropdown } from './dropdown';
 
 export {
   Input,
-  List,
-  ListItem,
+  List, ListItem,
   Button,
   Table,
   Checkbox,
   Snackbar,
   Drawer,
-  Avatar
+  Avatar,
+  FontIcon,
+  Card, CardTitle,
+  Grid, GridItem,
+  Dropdown
 };
