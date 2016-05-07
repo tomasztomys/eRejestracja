@@ -8,6 +8,7 @@ const Paths = {
   doctorsList: '/doctors-list',
   patients: {
     list: '/patients-list',
+    bookVisit: '/book-visit'
   },
   doctors: {
     list: '/doctors-list',

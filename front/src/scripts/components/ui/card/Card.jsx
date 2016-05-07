@@ -19,6 +19,7 @@ export default class Card extends Component {
           className={ item.className }
           sizeType={ item.sizeType }
           onClick={ item.onClick }
+          disabled={ item.disabled || false }
         />
       );
     });

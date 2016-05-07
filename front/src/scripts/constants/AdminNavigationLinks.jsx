@@ -20,6 +20,11 @@ const AdminNavigationLinks = [
         label: 'Patients list',
         path: Paths.patients.list,
         active: true
+      },
+      {
+        label: 'Book visit',
+        path: Paths.patients.bookVisit,
+        active: true
       }
     ]
   },

@@ -24,6 +24,8 @@ import {
   SmartDoctorRegistration
 } from './views/person_edition/smarts';
 
+import { SmartPatientBookVisit } from './views/book_visit/smarts';
+
 export default class Routes extends React.Component {
 
   render() {
@@ -34,6 +36,9 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.patients.list }
           component={ SmartPatientsList }
+        />
+        <Route path={ Paths.patients.bookVisit }
+          component={ SmartPatientBookVisit }
         />
         <Route path={ Paths.settings.myProfile }
           component={ SmartAdminProfileEdition }

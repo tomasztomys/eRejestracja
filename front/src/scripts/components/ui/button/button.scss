@@ -1,18 +1,21 @@
 @import '../../../../styles/colors';
 
 .rt-button {
-  background: $button-color !important;
   padding: 6px 12px;
   height: 30px;
   margin: 0 5px 10px 0;
   display: inline-block;
 
-  &:hover {
-    background: darken($button-color, 10%) !important;
-  }
-
   & > span {
     line-height: 18px !important;
+  }
+
+  &.active {
+    background: $button-color !important;
+
+    &:hover {
+      background: darken($button-color, 10%) !important;
+    }
   }
 
   &.large {

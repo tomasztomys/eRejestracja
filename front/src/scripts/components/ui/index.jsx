@@ -10,6 +10,7 @@ import { FontIcon } from './font_icon';
 import { Card, CardTitle } from './card';
 import { Grid, GridItem } from './grid';
 import { Dropdown } from './dropdown';
+import { DatePicker } from './date_picker';
 
 export {
   Input,
@@ -23,5 +24,6 @@ export {
   FontIcon,
   Card, CardTitle,
   Grid, GridItem,
-  Dropdown
+  Dropdown,
+  DatePicker
 };
