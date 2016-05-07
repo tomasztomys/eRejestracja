@@ -33,8 +33,6 @@ export default class BookVisitBox extends Component {
     };
   }
 
-
-
   render() {
     let { labels, errors } = this.state;
     let { values, onChange, sources } = this.props;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BookVisitBox } from '../subcomponents/book_visit_box';
+import PatientBookVisit from '../PatientBookVisit';
 
 export default class SmartPatientBookVisit extends Component {
   constructor() {
@@ -8,8 +8,8 @@ export default class SmartPatientBookVisit extends Component {
     this.state = {
       values: {
         date: undefined,
-        doctor: '',
         time: '',
+        doctor: 0,
         describe: ''
       },
     };
@@ -28,7 +28,7 @@ export default class SmartPatientBookVisit extends Component {
     let { values } = this.state;
 
     return (
-      <BookVisitBox
+      <PatientBookVisit
         values={ values }
         onChange={ this._onValuesChange.bind(this) }
       />
