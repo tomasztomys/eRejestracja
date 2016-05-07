@@ -5,7 +5,10 @@ import {
   GridItem
 } from '../../ui';
 
-import { DoctorPickerBox } from './subcomponents/doctorPickerBox';
+import {
+  DoctorPickerBox,
+  DatePickerBox
+} from './subcomponents';
 
 export default class PatientBookVisit extends Component {
   constructor() {
@@ -103,6 +106,11 @@ export default class PatientBookVisit extends Component {
             onSpecializationChange={ this._onSpecializationChange.bind(this) }
             onAcceptDoctor={ this._onAcceptDoctor.bind(this) }
             disabled={ disabled.doctorPicker }
+          />
+        </GridItem>
+        <GridItem xsSize="6">
+          <DatePickerBox
+            disabled={ disabled.datePicker }
           />
         </GridItem>
       </Grid>

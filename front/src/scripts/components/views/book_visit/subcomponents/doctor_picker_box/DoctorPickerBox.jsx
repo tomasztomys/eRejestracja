@@ -77,8 +77,8 @@ export default class BookVisitBox extends Component {
 
     return (
       <Card
-        subtitle="You can select doctor and book a visit on select term."
         title="Book visit to doctor."
+        subtitle="You can select doctor and book a visit on select term."
         actions={ actions }
       >
         <Dropdown
