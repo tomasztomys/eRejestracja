@@ -7,7 +7,8 @@ import {
 
 import {
   DoctorPickerBox,
-  TermPickerBox
+  TermPickerBox,
+  VisitDescriptionBox
 } from './subcomponents';
 
 export default class PatientBookVisit extends Component {
@@ -16,7 +17,8 @@ export default class PatientBookVisit extends Component {
     this.state = {
       disabled: {
         doctorPicker: false,
-        datePicker: true
+        datePicker: true,
+        descriptionBox: true
       },
       sources: {
         time: [
@@ -83,25 +85,9 @@ export default class PatientBookVisit extends Component {
     });
   }
 
-  _onDoctorChange(value) {
-    this.props.onChange('doctor', value);
-  }
-
-  _onSpecializationChange(value) {
-    this.props.onChange('specialization', value);
-  }
-
-  _onDateChange(value) {
-    this.props.onChange('date', value);
-  }
-
-  _onTimeChange(value) {
-    this.props.onChange('time', value);
-  }
-
   render() {
     let { sources, disabled } = this.state;
-    let { values } = this.props;
+    let { values, onChange } = this.props;
 
     return (
       <Grid>
@@ -110,8 +96,8 @@ export default class PatientBookVisit extends Component {
             selectedDoctorId={ values.doctor }
             selectedSpecialization={ values.specialization }
             sources={ sources }
-            onDoctorChange={ this._onDoctorChange.bind(this) }
-            onSpecializationChange={ this._onSpecializationChange.bind(this) }
+            onDoctorChange={ onChange.bind(this, 'doctor') }
+            onSpecializationChange={ onChange.bind(this, 'specialization') }
             onAcceptDoctor={ this._onAcceptDoctor.bind(this) }
             disabled={ disabled.doctorPicker }
           />
@@ -120,10 +106,17 @@ export default class PatientBookVisit extends Component {
           <TermPickerBox
             disabled={ disabled.datePicker }
             selectedDate={ values.date }
-            onDateChange={ this._onDateChange.bind(this) }
+            onDateChange={ onChange.bind(this, 'date') }
             availableTimes={ sources.time }
             selectedTime={ values.time }
-            onTimeChange={ this._onTimeChange.bind(this) }
+            onTimeChange={ onChange.bind(this, 'time') }
+          />
+        </GridItem>
+        <GridItem xsSize="6">
+          <VisitDescriptionBox
+            visitDescription={ values.description }
+            onDescriptionChange={ onChange.bind(this, 'description') }
+            disabled={ disabled.descriptionBox }
           />
         </GridItem>
       </Grid>
