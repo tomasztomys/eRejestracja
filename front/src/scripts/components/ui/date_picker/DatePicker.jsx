@@ -3,22 +3,35 @@ import DatePickerReactToolbox from 'react-toolbox/lib/date_picker';
 import classnames from 'classnames';
 
 import style from './date_picker.scss';
+import { Dropdown } from '../dropdown';
 
 export default class DatePicker extends Component {
 
   render() {
-    let { className, ...otherProps } = this.props;
-    let DatePickerStyle = classnames(style['rt-date-picker'], className);
+    let { className, disabled, label, ...otherProps } = this.props;
+    let datePickerStyle = classnames(style['rt-date-picker'], className);
 
     return (
-      <DatePickerReactToolbox
-        className={ DatePickerStyle }
-        { ...otherProps }
-      />
+      <div>
+        { disabled ?
+          <Dropdown
+            label={ label }
+            source={ [] }
+            disabled
+          /> :
+          <DatePickerReactToolbox
+            className={ datePickerStyle }
+            label={ label }
+            { ...otherProps }
+          />
+        }
+      </div>
     );
   }
 }
 
 DatePicker.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
+  label: PropTypes.string
 };

@@ -39,7 +39,8 @@ export default class TermPickerBox extends Component {
   }
 
   render() {
-    let { disabled, selectedDate, onDateChange } = this.props;
+    let { disabled, selectedDate, onDateChange,
+      availableTimes, selectedTime, onTimeChange } = this.props;
     let { labels, errors } = this.state;
     let actions = [
       {
@@ -59,6 +60,15 @@ export default class TermPickerBox extends Component {
           error={ errors.date }
           value={ selectedDate }
           onChange={ onDateChange }
+          disabled={ disabled }
+        />
+        <Dropdown
+          label={ labels.time }
+          value={ selectedTime }
+          source={ availableTimes }
+          error={ errors.time }
+          onChange={ onTimeChange }
+          disabled={ disabled || !selectedDate }
         />
       </Card>
     );
@@ -68,5 +78,8 @@ export default class TermPickerBox extends Component {
 TermPickerBox.propTypes = {
   disabled: PropTypes.bool,
   selectedDate: PropTypes.object,
-  onDateChange: PropTypes.func
+  onDateChange: PropTypes.func,
+  onTimeChange: PropTypes.func,
+  availableTimes: PropTypes.array,
+  selectedTime: PropTypes.string
 };

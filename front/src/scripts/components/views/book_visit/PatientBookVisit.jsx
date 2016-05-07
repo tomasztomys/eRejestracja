@@ -95,6 +95,10 @@ export default class PatientBookVisit extends Component {
     this.props.onChange('date', value);
   }
 
+  _onTimeChange(value) {
+    this.props.onChange('time', value);
+  }
+
   render() {
     let { sources, disabled } = this.state;
     let { values } = this.props;
@@ -117,6 +121,9 @@ export default class PatientBookVisit extends Component {
             disabled={ disabled.datePicker }
             selectedDate={ values.date }
             onDateChange={ this._onDateChange.bind(this) }
+            availableTimes={ sources.time }
+            selectedTime={ values.time }
+            onTimeChange={ this._onTimeChange.bind(this) }
           />
         </GridItem>
       </Grid>
