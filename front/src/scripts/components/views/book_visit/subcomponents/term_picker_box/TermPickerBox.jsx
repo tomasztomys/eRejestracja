@@ -34,8 +34,18 @@ export default class TermPickerBox extends Component {
     });
   }
 
-  _onSignUp() {
+  _onAccept() {
+    let { selectedDate, selectedTime } = this.props;
 
+    if (selectedDate === undefined) {
+      this.setError('date');
+    }
+    else if (selectedTime === '') {
+      this.setError('time');
+    }
+    else {
+      this.props.onAccept();
+    }
   }
 
   render() {
@@ -44,8 +54,8 @@ export default class TermPickerBox extends Component {
     let { labels, errors } = this.state;
     let actions = [
       {
-        label: 'Sign up for a visit',
-        onClick: this._onSignUp.bind(this),
+        label: 'Accept',
+        onClick: this._onAccept.bind(this),
         disabled: disabled
       }
     ];
@@ -81,5 +91,6 @@ TermPickerBox.propTypes = {
   onDateChange: PropTypes.func,
   onTimeChange: PropTypes.func,
   availableTimes: PropTypes.array,
-  selectedTime: PropTypes.string
+  selectedTime: PropTypes.string,
+  onAccept: PropTypes.func
 };

@@ -31,7 +31,7 @@ export default class VisitDescriptionBox extends Component {
   }
 
   _onSignUp() {
-
+    this.props.onAccept();
   }
 
   render() {
@@ -52,10 +52,10 @@ export default class VisitDescriptionBox extends Component {
         actions={ actions }
       >
         <Input
-          label={ labels.describe }
+          label={ labels.description }
           value={ visitDescription }
           onChange={ onDescriptionChange }
-          error={ errors.describe }
+          error={ errors.description }
           disabled={ disabled }
         />
       </Card>
@@ -66,5 +66,6 @@ export default class VisitDescriptionBox extends Component {
 VisitDescriptionBox.propTypes = {
   disabled: PropTypes.bool,
   visitDescription: PropTypes.string,
-  onDescriptionChange: PropTypes.func
+  onDescriptionChange: PropTypes.func,
+  onAccept: PropTypes.func
 };

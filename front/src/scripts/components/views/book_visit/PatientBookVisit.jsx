@@ -85,6 +85,21 @@ export default class PatientBookVisit extends Component {
     });
   }
 
+  _onAcceptTerm() {
+    let { disabled } = this.state;
+
+    disabled.datePicker = true;
+    disabled.descriptionBox = false;
+
+    this.setState({
+      disabled
+    });
+  }
+
+  _onSignUp() {
+    this.props.signUp();
+  }
+
   render() {
     let { sources, disabled } = this.state;
     let { values, onChange } = this.props;
@@ -98,18 +113,19 @@ export default class PatientBookVisit extends Component {
             sources={ sources }
             onDoctorChange={ onChange.bind(this, 'doctor') }
             onSpecializationChange={ onChange.bind(this, 'specialization') }
-            onAcceptDoctor={ this._onAcceptDoctor.bind(this) }
+            onAccept={ this._onAcceptDoctor.bind(this) }
             disabled={ disabled.doctorPicker }
           />
         </GridItem>
         <GridItem xsSize="6">
           <TermPickerBox
-            disabled={ disabled.datePicker }
             selectedDate={ values.date }
             onDateChange={ onChange.bind(this, 'date') }
             availableTimes={ sources.time }
             selectedTime={ values.time }
             onTimeChange={ onChange.bind(this, 'time') }
+            onAccept={ this._onAcceptTerm.bind(this) }
+            disabled={ disabled.datePicker }
           />
         </GridItem>
         <GridItem xsSize="6">
@@ -117,6 +133,7 @@ export default class PatientBookVisit extends Component {
             visitDescription={ values.description }
             onDescriptionChange={ onChange.bind(this, 'description') }
             disabled={ disabled.descriptionBox }
+            onAccept={ this._onSignUp.bind(this) }
           />
         </GridItem>
       </Grid>
@@ -127,4 +144,5 @@ export default class PatientBookVisit extends Component {
 PatientBookVisit.propTypes = {
   values: PropTypes.object,
   onChange: PropTypes.func,
+  signUp: PropTypes.func
 };

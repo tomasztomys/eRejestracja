@@ -25,6 +25,10 @@ export default class SmartPatientBookVisit extends Component {
     );
   }
 
+  _onSignUp() {
+    console.log('SIGN UP');
+  }
+
   render() {
     let { values } = this.state;
 
@@ -32,6 +36,7 @@ export default class SmartPatientBookVisit extends Component {
       <PatientBookVisit
         values={ values }
         onChange={ this._onValuesChange.bind(this) }
+        signUp={ this._onSignUp }
       />
     );
   }

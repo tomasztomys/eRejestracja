@@ -53,19 +53,29 @@ export default class BookVisitBox extends Component {
   }
 
   _onAccept() {
-    let { selectedDoctorId } = this.props;
+    let { selectedDoctorId, selectedSpecialization } = this.props;
 
-    if (selectedDoctorId > 0) {
-      this.props.onAcceptDoctor();
+    if (selectedSpecialization.length === 0) {
+      this.setError('specialization');
+    }
+    else if (selectedDoctorId === 0) {
+      this.setError('doctor');
     }
     else {
-      this.setError('doctor');
+      this.props.onAccept();
     }
   }
 
   render() {
     let { labels, errors } = this.state;
-    let { sources, selectedDoctorId, selectedSpecialization, onDoctorChange, onSpecializationChange, disabled } = this.props;
+    let {
+      sources,
+      selectedDoctorId,
+      selectedSpecialization,
+      onDoctorChange,
+      onSpecializationChange,
+      disabled
+    } = this.props;
 
     let actions = [
       {
@@ -108,5 +118,8 @@ BookVisitBox.propTypes = {
   doctors: PropTypes.array,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  onAcceptDoctor: PropTypes.func,
+  onAccept: PropTypes.func,
+  selectedSpecialization: PropTypes.string,
+  onDoctorChange: PropTypes.func,
+  onSpecializationChange: PropTypes.func
 };
