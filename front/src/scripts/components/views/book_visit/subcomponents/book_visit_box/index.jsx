@@ -1,3 +1,3 @@
-import BookVisit from './BookVisit';
+import BookVisitBox from './BookVisitBox';
 
-export { BookVisit };
+export { BookVisitBox };

@@ -1,5 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
+import {
+  Input,
+  Button,
+  DatePicker,
+  Card
+} from '../../../../ui';
+
 export default class BookVisitBox extends Component {
   constructor() {
     super();
@@ -26,10 +33,26 @@ export default class BookVisitBox extends Component {
   }
 
   render() {
-    return null;
+    let { labels, errors } = this.state;
+    let { values, onChange } = this.props;
+
+    return (
+      <Card
+        subtitle="You can select doctor and book a visit on select term."
+        title="Book visit to doctor."
+      >
+        <DatePicker
+          label={ labels.date }
+          value={ values.date }
+          onChange={ onChange.bind(this, 'date') }
+          error={ errors.date }
+        />
+      </Card>
+    );
   }
 }
 
 BookVisitBox.propTypes = {
-
+  values: PropTypes.array,
+  onChange: PropTypes.func
 };

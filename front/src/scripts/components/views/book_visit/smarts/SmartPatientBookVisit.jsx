@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
-import { BookVisitBox } from './subcomponents/book_visit_box';
+import { BookVisitBox } from '../subcomponents/book_visit_box';
 
-export default class PatientBookVisit extends Component {
+export default class SmartPatientBookVisit extends Component {
   constructor() {
     super();
     this.state = {
       values: {
-        date: '',
+        date: undefined,
         doctor: '',
         time: '',
         describe: ''
@@ -35,7 +35,3 @@ export default class PatientBookVisit extends Component {
     );
   }
 }
-
-PatientBookVisit.propTypes = {
-
-};

@@ -1,3 +1,3 @@
-import { SmartPatientBookVisit } from './SmartPatientBookVisit';
+import SmartPatientBookVisit from './SmartPatientBookVisit';
 
 export { SmartPatientBookVisit };
