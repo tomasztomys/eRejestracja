@@ -10,13 +10,16 @@
 
   .menu {
 
+    & > ul {
+      padding: 0;
+    }
     //remove left icons
-    li:first-child > span > span:first-child {
+    .sub-menu-parent > span > span:first-child {
       display: none;
     }
 
     .main-item, .sub-menu-item, .sub-menu-parent {
-      height: $menu-item-height;
+      padding: 4px 0;
 
       span {
         color: $drawer-menu-font-color;
@@ -25,16 +28,21 @@
         height: $menu-item-height;
       }
 
+      &:hover {
+        background-color: $red-color;
+      }
     }
 
     .main-item, .sub-menu-parent {
       text-align: center;
       span {
         font-size: 2rem;
-
       }
     }
 
+    .main-item {
+      padding-right: 43px;
+    }
 
     .sub-menu-item {
       background-color: $drawer-menu-submenu-open-background-color;
