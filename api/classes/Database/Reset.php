@@ -23,7 +23,7 @@ class Reset
       'password' => 'tomasz',
       'pesel' => '94050112153',
       'type' => 'doctor',
-      'specialization' => 'chirurg'
+      'specialization' => 'Chirurg'
     ];
     $doctor2 = [
       'name' => 'Dariusz',
@@ -32,7 +32,7 @@ class Reset
       'password' => 'tomasz',
       'pesel' => '94011532198',
       'type' => 'doctor',
-      'specialization' => 'stomatolog'
+      'specialization' => 'Pediatra'
     ];
     $doctor3 = [
       'name' => 'Adam',
@@ -41,7 +41,7 @@ class Reset
       'password' => 'nowaczek123',
       'pesel' => '96012552198',
       'type' => 'doctor',
-      'specialization' => 'okulista'
+      'specialization' => 'Dentysta'
     ];
 
     return [$doctor1, $doctor2, $doctor3];
