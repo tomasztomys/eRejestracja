@@ -35,7 +35,12 @@ class Authorizations
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function authorizations($request, $response, $args) {
-        if($request->getParam('email') === 'tomasz@tomys.pl' && $request->getParam('password') === 'tomasz') {
+        $email = $request->getParam('email');
+        $password = $request->getParam('password');
+
+        $user = \R::findOne('user', ' email = ? && password = ? ', [ $email, $password ] );
+
+        if($user !== null) {
             return $response->withJson(['login' => true]);
         } else {
             $newResponse = $response->withStatus(422);
