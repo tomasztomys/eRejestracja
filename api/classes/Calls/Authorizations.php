@@ -41,7 +41,10 @@ class Authorizations
         $user = \R::findOne('user', ' email = ? && password = ? ', [ $email, $password ] );
 
         if($user !== null) {
-            return $response->withJson(['login' => true]);
+            $entityClass = '\Calls\\'.ucfirst($user->type).'s';
+            $method = '_make'.ucfirst($user->type);
+            $userArray = $entityClass::$method($user);
+            return $response->withJson(['login' => true, 'user' => $userArray]);
         } else {
             $newResponse = $response->withStatus(422);
             return $newResponse->withJson(['login' => false]);

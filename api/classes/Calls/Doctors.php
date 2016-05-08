@@ -30,7 +30,7 @@ class Doctors
      *
      * @return array
      */
-    private function _makeDoctor($doctorDB) {
+    public function _makeDoctor($doctorDB) {
         $doctor = [];
         $doctor['id'] = (int)$doctorDB->id;
         $doctor['name'] = $doctorDB->name;
