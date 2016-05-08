@@ -1,0 +1,14 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/config';
+
+.login {
+  height: 100%;
+  .login-card {
+    padding: 0;
+    .login-card-title {
+      background-color: $login-header-background;
+      color: $login-header-font-color;
+    }
+  }
+
+}
