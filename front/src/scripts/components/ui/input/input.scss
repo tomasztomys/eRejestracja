@@ -3,7 +3,7 @@
 .input {
 
   input {
-    border-bottom-color: $input-active-color;
+    //border-bottom-color: $input-active-color;
   }
 
   span::after,
@@ -11,8 +11,8 @@
     background-color: $input-active-color;
   }
 
-  & > label,
-  & > span {
+  & > input:focus + span + label,
+  & > input:focus + span {
     color: $input-active-color !important;
   }
 
