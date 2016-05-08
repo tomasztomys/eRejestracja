@@ -54,8 +54,9 @@ class Calls
 
         $this->_app->group('/patients', function () {
             $this->get('', '\Calls\Patients:getPatients')->setName('getPatients');
+            $this->get('/{id:[0-9]+}', '\Calls\Patients:getPatient')->setName('getPatient');
             $this->delete('/{id:[0-9]+}', '\Calls\Patients:deletePatient')->setName('deletePatient');
-            $this->put('/{id:[0-9]+}', '\Calls\Doctors:editPatient')->setName('editPatient');
+            $this->put('/{id:[0-9]+}', '\Calls\Patients:editPatient')->setName('editPatient');
         });
 
         $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');

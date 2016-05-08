@@ -77,6 +77,31 @@ class Patients
     }
 
     /**
+     * Obsługa calla GET /patients/{id}
+     *
+     * Call służący do pobrania pacjenta z bazy danych
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getPatient($request, $response, $args) {
+
+        $id = $args['id'];
+
+        $patientDB = \R::load( 'patient', $id);
+
+        if($patientDB->id === 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        return $response->withJson($this->_makePatient($patientDB));
+    }
+
+    /**
      * Obsługa calla DELETE /patients/{id}
      *
      * Call służący do usuwania pacjenta z bazy danych
