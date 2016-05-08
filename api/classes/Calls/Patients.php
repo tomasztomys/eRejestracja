@@ -77,7 +77,7 @@ class Patients
     }
 
     /**
-     * Obsługa calla DELETE /patient/{id}
+     * Obsługa calla DELETE /patients/{id}
      *
      * Call służący do usuwania pacjenta z bazy danych
      *
@@ -99,5 +99,36 @@ class Patients
 
         $response = $response->withStatus(422);
         return $response->withJson(['error' => 'Patient not found']);
+    }
+
+    /**
+     * Obsługa calla PUT /patients/{id}
+     *
+     * Call służący do edytowania pacjenta
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function editPatient($request, $response, $args) {
+        $id = $args['id'];
+        $patientDB = \R::load( 'patient', $id );
+
+        if($patientDB->id === 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        $patientDB->name = $request->getParam('name');
+        $patientDB->surname = $request->getParam('surname');
+        $patientDB->email = $request->getParam('email');
+        $patientDB->password = $request->getParam('password');
+        $patientDB->pesel = $request->getParam('pesel');
+        $patientDB->type = 'patient';
+
+        \R::store($patientDB);
+        return $response->withJson([]);
     }
 }
