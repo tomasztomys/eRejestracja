@@ -151,4 +151,34 @@ class Doctors
         \R::store($doctorBeans);
         return $response->withJson([]);
     }
+
+    /**
+     * Obsługa calla PUT /doctors/{id}
+     *
+     * Call służący do edytowania doktora
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function editDoctor($request, $response, $args) {
+        $id = $args['id'];
+        $doctorDB = \R::load( 'doctor', $id );
+
+        if($doctorDB->id === 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        $doctorDB->name = $request->getParam('name');
+        $doctorDB->surname = $request->getParam('surname');
+        $doctorDB->email = $request->getParam('email');
+        $doctorDB->specialization = $request->getParam('specialization');
+        $doctorDB->type = 'doctor';
+
+        \R::store($doctorDB);
+        return $response->withJson([]);
+    }
 }
