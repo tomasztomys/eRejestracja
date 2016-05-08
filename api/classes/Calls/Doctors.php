@@ -170,6 +170,7 @@ class Doctors
         $doctorBeans->name = $request->getParam('name');
         $doctorBeans->surname = $request->getParam('surname');
         $doctorBeans->email = $request->getParam('email');
+        $doctorBeans->password = $request->getParam('password');
         $doctorBeans->specialization = $request->getParam('specialization');
         $doctorBeans->type = 'doctor';
 
@@ -199,6 +200,7 @@ class Doctors
 
         $doctorDB->name = $request->getParam('name');
         $doctorDB->surname = $request->getParam('surname');
+        $doctorDB->email = $request->getParam('email');
         $doctorDB->email = $request->getParam('email');
         $doctorDB->specialization = $request->getParam('specialization');
         $doctorDB->type = 'doctor';
