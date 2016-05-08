@@ -102,6 +102,31 @@ class Patients
     }
 
     /**
+     * Obsługa calla POST /patients
+     *
+     * Call służący do dodawania pacjenta
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function addPatient($request, $response, $args) {
+        $patientBean = \R::dispense('doctor');
+
+        $patientBean->name = $request->getParam('name');
+        $patientBean->surname = $request->getParam('surname');
+        $patientBean->email = $request->getParam('email');
+        $patientBean->password = $request->getParam('password');
+        $patientBean->pesel = $request->getParam('pesel');
+        $patientBean->type = 'patient';
+
+        \R::store($patientBean);
+        return $response->withJson([]);
+    }
+
+    /**
      * Obsługa calla DELETE /patients/{id}
      *
      * Call służący do usuwania pacjenta z bazy danych

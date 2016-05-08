@@ -56,6 +56,7 @@ class Calls
             $this->get('', '\Calls\Patients:getPatients')->setName('getPatients');
             $this->get('/{id:[0-9]+}', '\Calls\Patients:getPatient')->setName('getPatient');
             $this->delete('/{id:[0-9]+}', '\Calls\Patients:deletePatient')->setName('deletePatient');
+            $this->post('', '\Calls\Patients:addPatient')->setName('addPatient');
             $this->put('/{id:[0-9]+}', '\Calls\Patients:editPatient')->setName('editPatient');
         });
 
