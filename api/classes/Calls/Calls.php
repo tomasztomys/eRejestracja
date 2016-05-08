@@ -46,6 +46,7 @@ class Calls
 
         $this->_app->group('/doctors', function () {
             $this->get('', '\Calls\Doctors:getDoctors')->setName('getDoctors');
+            $this->get('/{id:[0-9]+}', '\Calls\Doctors:getDoctor')->setName('getDoctor');
             $this->delete('/{id:[0-9]+}', '\Calls\Doctors:deleteDoctor')->setName('deleteDoctor');
             $this->post('', '\Calls\Doctors:addDoctor')->setName('addDoctor');
             $this->put('/{id:[0-9]+}', '\Calls\Doctors:editDoctor')->setName('editDoctor');

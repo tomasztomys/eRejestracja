@@ -104,6 +104,31 @@ class Doctors
     }
 
     /**
+     * Obsługa calla GET /doctors/{id}
+     *
+     * Call służący do pobrania lekarza z bazy danych
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getDoctor($request, $response, $args) {
+
+        $id = $args['id'];
+
+        $doctorDB = \R::load( 'doctor', $id);
+
+        if($doctorDB->id === 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        return $response->withJson($this->_makeDoctor($doctorDB));
+    }
+
+    /**
      * Obsługa calla DELETE /doctors/{id}
      *
      * Call służący do usuwania lekarza z bazy danych
