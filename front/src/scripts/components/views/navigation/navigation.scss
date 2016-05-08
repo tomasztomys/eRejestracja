@@ -1,0 +1,16 @@
+@import "../../../../styles/colors";
+
+.navigation {
+  .item {
+    & > span > span > span {
+      color: $blue-color;
+    }
+    &:hover {
+      background-color: $blue-color;
+
+      & > span > span > span {
+        color: $beige-color;
+      }
+    }
+  }
+}
