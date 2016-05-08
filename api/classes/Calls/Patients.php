@@ -48,7 +48,7 @@ class Patients
      * @return array
      */
     private function _getAllPatients() {
-        $patientsDB = \R::findAll( 'patient' );
+        $patientsDB = \R::findAll( 'user', 'type = ? ', [ 'patient' ] );
         $patients = [];
         foreach($patientsDB as $patientDB) {
             $patient = $this->_makePatient($patientDB);
@@ -91,9 +91,9 @@ class Patients
 
         $id = $args['id'];
 
-        $patientDB = \R::load( 'patient', $id);
+        $patientDB = \R::load( 'user', $id);
 
-        if($patientDB->id === 0) {
+        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Patient not found']);
         }
@@ -113,7 +113,7 @@ class Patients
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addPatient($request, $response, $args) {
-        $patientBean = \R::dispense('patient');
+        $patientBean = \R::dispense('user');
 
         $patientBean->name = $request->getParam('name');
         $patientBean->surname = $request->getParam('surname');
@@ -140,9 +140,9 @@ class Patients
     public function deletePatient($request, $response, $args) {
 
         $id = $args['id'];
-        $patientDB = \R::load( 'patient', $id );
+        $patientDB = \R::load( 'user', $id );
 
-        if($patientDB->id !== 0) {
+        if($patientDB->id !== 0 && $patientDB->type === 'patient') {
             \R::trash($patientDB);
             return $response->withJson([]);
         }
@@ -164,9 +164,9 @@ class Patients
      */
     public function editPatient($request, $response, $args) {
         $id = $args['id'];
-        $patientDB = \R::load( 'patient', $id );
+        $patientDB = \R::load( 'user', $id );
 
-        if($patientDB->id === 0) {
+        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Patient not found']);
         }
