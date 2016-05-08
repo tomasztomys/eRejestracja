@@ -2,7 +2,10 @@
 
 .table {
   div[data-react-toolbox=check] {
-    background-color: $checkbox-color;
     border-color: $checkbox-color;
+
+    &[class*='checked'] {
+      background-color: $checkbox-color;
+    }
   }
 }
