@@ -113,7 +113,7 @@ class Patients
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addPatient($request, $response, $args) {
-        $patientBean = \R::dispense('doctor');
+        $patientBean = \R::dispense('patient');
 
         $patientBean->name = $request->getParam('name');
         $patientBean->surname = $request->getParam('surname');
