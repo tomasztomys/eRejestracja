@@ -165,16 +165,16 @@ class Doctors
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addDoctor($request, $response, $args) {
-        $doctorBeans = \R::dispense('doctor');
+        $doctorBean = \R::dispense('doctor');
 
-        $doctorBeans->name = $request->getParam('name');
-        $doctorBeans->surname = $request->getParam('surname');
-        $doctorBeans->email = $request->getParam('email');
-        $doctorBeans->password = $request->getParam('password');
-        $doctorBeans->specialization = $request->getParam('specialization');
-        $doctorBeans->type = 'doctor';
+        $doctorBean->name = $request->getParam('name');
+        $doctorBean->surname = $request->getParam('surname');
+        $doctorBean->email = $request->getParam('email');
+        $doctorBean->password = $request->getParam('password');
+        $doctorBean->specialization = $request->getParam('specialization');
+        $doctorBean->type = 'doctor';
 
-        \R::store($doctorBeans);
+        \R::store($doctorBean);
         return $response->withJson([]);
     }
 
