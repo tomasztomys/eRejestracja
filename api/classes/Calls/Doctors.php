@@ -48,7 +48,7 @@ class Doctors
      * @return array
      */
     private function _getAllDoctors() {
-        $doctorsDB = \R::findAll( 'doctor' );
+        $doctorsDB = \R::findAll( 'user', ' type = ? ', [ 'doctor' ] );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
             $doctor = $this->_makeDoctor($doctorDB);
@@ -66,7 +66,7 @@ class Doctors
      * @return array
      */
     private function _getDoctorsBySpecialization($specialization) {
-        $doctorsDB = \R::findAll( 'doctor', ' specialization = ? ', [ $specialization ] );
+        $doctorsDB = \R::findAll( 'user', ' specialization = ?, type = ? ', [ $specialization, 'doctor' ] );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
             $doctor = $this->_makeDoctor($doctorDB);
@@ -118,9 +118,9 @@ class Doctors
 
         $id = $args['id'];
 
-        $doctorDB = \R::load( 'doctor', $id);
+        $doctorDB = \R::load( 'user', $id);
 
-        if($doctorDB->id === 0) {
+        if($doctorDB->id === 0 || $doctorDB->type !== 'doctor') {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
         }
@@ -142,9 +142,9 @@ class Doctors
     public function deleteDoctor($request, $response, $args) {
 
         $id = $args['id'];
-        $doctorDB = \R::load( 'doctor', $id );
+        $doctorDB = \R::load( 'user', $id );
 
-        if($doctorDB->id !== 0) {
+        if($doctorDB->id !== 0 && $doctorDB->type === 'doctor') {
             \R::trash($doctorDB);
             return $response->withJson([]);
         }
@@ -165,7 +165,7 @@ class Doctors
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addDoctor($request, $response, $args) {
-        $doctorBean = \R::dispense('doctor');
+        $doctorBean = \R::dispense('user');
 
         $doctorBean->name = $request->getParam('name');
         $doctorBean->surname = $request->getParam('surname');
@@ -191,9 +191,9 @@ class Doctors
      */
     public function editDoctor($request, $response, $args) {
         $id = $args['id'];
-        $doctorDB = \R::load( 'doctor', $id );
+        $doctorDB = \R::load( 'user', $id );
 
-        if($doctorDB->id === 0) {
+        if($doctorDB->id === 0 || $doctorDB->type !== 'doctor') {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
         }
