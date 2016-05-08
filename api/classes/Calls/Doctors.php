@@ -36,7 +36,6 @@ class Doctors
         $doctor['name'] = $doctorDB->name;
         $doctor['surname'] = $doctorDB->surname;
         $doctor['email'] = $doctorDB->email;
-        $doctor['pesel'] = $doctorDB->pesel;
         $doctor['type'] = $doctorDB->type;
         $doctor['specialization'] = $doctorDB->specialization;
 
@@ -146,7 +145,6 @@ class Doctors
         $doctorBeans->name = $request->getParam('name');
         $doctorBeans->surname = $request->getParam('surname');
         $doctorBeans->email = $request->getParam('email');
-        $doctorBeans->pesel = $request->getParam('pesel');
         $doctorBeans->specialization = $request->getParam('specialization');
         $doctorBeans->type = 'doctor';
 
