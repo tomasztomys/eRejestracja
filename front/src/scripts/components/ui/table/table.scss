@@ -3,9 +3,14 @@
 .table {
   div[data-react-toolbox=check] {
     border-color: $checkbox-color;
+    margin: 0 auto;
 
     &[class*='checked'] {
       background-color: $checkbox-color;
     }
+  }
+
+  td[class*='selectable'] {
+    padding-right: 18px;
   }
 }
