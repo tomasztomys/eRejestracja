@@ -5,11 +5,12 @@
 .menu-drawer {
   width: $menu-drawer-width;
   color: $drawer-menu-font-color;
-  padding-top: $menu-bar-height;
   background-color: $drawer-menu-background-color;
+  margin-top: $menu-bar-height;
 
   .menu {
-
+    margin-bottom: $menu-bar-height;
+    
     & > ul {
       padding: 0;
     }
