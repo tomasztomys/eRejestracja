@@ -30,7 +30,7 @@ class Doctors
      *
      * @return array
      */
-    private function _makeDoctor($doctorDB) {
+    public function _makeDoctor($doctorDB) {
         $doctor = [];
         $doctor['id'] = (int)$doctorDB->id;
         $doctor['name'] = $doctorDB->name;
@@ -66,7 +66,7 @@ class Doctors
      * @return array
      */
     private function _getDoctorsBySpecialization($specialization) {
-        $doctorsDB = \R::findAll( 'user', ' specialization = ?, type = ? ', [ $specialization, 'doctor' ] );
+        $doctorsDB = \R::findAll( 'user', ' specialization = ? && type = ? ', [ $specialization, 'doctor' ] );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
             $doctor = $this->_makeDoctor($doctorDB);
