@@ -6,7 +6,7 @@ import CardTitle from './CardTitle';
 import CardActions from './CardActions';
 import { Button } from '../';
 
-import style from './card.scss';
+import style from './card_with_header.scss';
 
 export default class Card extends Component {
 

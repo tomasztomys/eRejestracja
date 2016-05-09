@@ -4,22 +4,11 @@
 .login {
   height: 100%;
   .login-card {
-    padding: 0;
+    margin: 0;
     .login-card-title {
       background-color: $login-header-background;
       color: $login-header-font-color;
     }
-
-    .login-card-body {
-      padding-top: 15px;
-
-      .login-card-body-button {
-        margin-top: 15px;
-      }
-    }
-
-    & > div:last-child {
-      display: none;
-    }
   }
+
 }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -25,7 +25,7 @@ export default class ChangePasswordBox extends Component {
     ];
 
     return (
-      <Card
+      <CardWithHeader
         className={ style['Person data'] }
         title="Change your password"
         subtitle={ `The password Must be 8 to 20 characters in length,
@@ -37,7 +37,7 @@ export default class ChangePasswordBox extends Component {
           onChange={ onChange }
           oldPassword
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 

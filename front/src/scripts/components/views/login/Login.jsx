@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Input,
   Button,
-  Card,
+  CardWithHeader,
   CardTitle,
   Grid,
   GridItem
@@ -28,7 +28,7 @@ export default class Login extends Component {
           smSize="6"
           mdSize="4"
         >
-          <Card
+          <CardWithHeader
             className={ style['login-card'] }
           >
             <CardTitle
@@ -58,7 +58,7 @@ export default class Login extends Component {
                 onClick={ logInHandle.bind(this) }
               />
             </div>
-          </Card>
+          </CardWithHeader>
         </GridItem>
       </Grid>
 

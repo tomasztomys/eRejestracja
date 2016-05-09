@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
   Dropdown
 } from '../../../../ui';
 
@@ -86,7 +86,7 @@ export default class BookVisitBox extends Component {
     ];
 
     return (
-      <Card
+      <CardWithHeader
         title="Book visit to doctor."
         subtitle="You can select doctor and book a visit on select term."
         actions={ actions }
@@ -107,7 +107,7 @@ export default class BookVisitBox extends Component {
           onChange={ onDoctorChange.bind(this) }
           disabled={ disabled || selectedSpecialization.length === 0 }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 }

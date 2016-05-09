@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Table,
   Button,
-  Card,
+  CardWithHeader,
   CardTitle,
   Grid,
   GridItem
@@ -27,7 +27,7 @@ export default class EntityList extends Component {
     return (
       <Grid>
         <GridItem xsSize="12">
-          <Card
+          <CardWithHeader
             title={ title }
             subtitle="You can remove doctor or edit."
             actions={ source.length ? buttons : [] }
@@ -42,7 +42,7 @@ export default class EntityList extends Component {
                 onChange={ onChangeTable }
               /> : <div>{ noDataMessage }</div>
             }
-          </Card>
+          </CardWithHeader>
         </GridItem>
       </Grid>
 

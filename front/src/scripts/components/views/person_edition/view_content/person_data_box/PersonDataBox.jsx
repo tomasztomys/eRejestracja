@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
 } from '../../../../ui';
 
 import { PersonData } from '../../subcomponents/person_data';
@@ -67,7 +67,7 @@ export default class PersonDataBox extends Component {
     ];
 
     return (
-      <Card className={ style['person-data'] }
+      <CardWithHeader className={ style['person-data'] }
         title="Chane profile data"
         subtitle={ 'Please write real personal data.' }
         actions={ actions }
@@ -76,7 +76,7 @@ export default class PersonDataBox extends Component {
           values={ values }
           onChange={ onChange }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 

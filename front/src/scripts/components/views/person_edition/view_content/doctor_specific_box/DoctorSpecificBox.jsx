@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
 } from '../../../../ui';
 
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
@@ -17,7 +17,7 @@ export default class DoctorSpecificBox extends Component {
     } = this.props;
 
     return (
-      <Card
+      <CardWithHeader
         className={ style['doctor-specific-box'] }
         title="Doctor"
       >
@@ -25,7 +25,7 @@ export default class DoctorSpecificBox extends Component {
           values={ values }
           onChange={ onChange }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 

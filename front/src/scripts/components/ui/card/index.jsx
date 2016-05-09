@@ -1,4 +1,4 @@
-import Card from './Card';
+import CardWithHeader from './CardWithHeader';
 import CardTitle from './CardTitle';
 
-export { Card, CardTitle };
+export { CardWithHeader, CardTitle };

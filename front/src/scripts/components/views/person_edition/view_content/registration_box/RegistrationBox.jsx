@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
-  Card,
+  CardWithHeader,
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -82,7 +82,7 @@ export default class RegistrationBox extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <Card
+          <CardWithHeader
             title="Registration"
             actions={ actions }
           >
@@ -101,7 +101,7 @@ export default class RegistrationBox extends Component {
                 onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
               /> : null
             }
-          </Card>
+          </CardWithHeader>
         </GridItem>
       </Grid>
     );
