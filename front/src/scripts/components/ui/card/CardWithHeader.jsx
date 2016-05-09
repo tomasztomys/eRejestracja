@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
-import { Card as CardReactToolbox } from 'react-toolbox/lib/card';
+import Card from './Card';
 import CardTitle from './CardTitle';
 import CardActions from './CardActions';
 import { Button } from '../';
 
 import style from './card_with_header.scss';
 
-export default class Card extends Component {
+export default class CardWithHeader extends Component {
 
   _renderButtons(buttons) {
     return buttons.map((item) => {
@@ -29,8 +29,8 @@ export default class Card extends Component {
     let { className, title, subtitle, actions, children, ...otherProps } = this.props;
 
     return (
-      <CardReactToolbox
-        className={ classnames(style['card'], className) }
+      <Card
+        className={ classnames(style['card-with-header'], className) }
         { ...otherProps }
       >
        { title ?
@@ -45,16 +45,16 @@ export default class Card extends Component {
         <div className={ style['actions'] }>
           { this._renderButtons(actions) }
         </div>
-      </CardReactToolbox>
+      </Card>
     );
   }
 }
 
-Card.defaultProps = {
+CardWithHeader.defaultProps = {
   actions: []
 };
 
-Card.propTypes = {
+CardWithHeader.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,

@@ -3,12 +3,17 @@
 
 .login {
   height: 100%;
+
   .login-card {
-    margin: 0;
     .login-card-title {
+      padding-left: 45px;
+      height: $login-header-height;
       background-color: $login-header-background;
       color: $login-header-font-color;
     }
-  }
 
+    .login-card-body-button {
+      margin: 20px;
+    }
+  }
 }

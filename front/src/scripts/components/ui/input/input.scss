@@ -11,11 +11,6 @@
     background-color: $input-active-color;
   }
 
-  & > input:focus + span + label,
-  & > input:focus + span {
-    color: $input-active-color !important;
-  }
-
   &.error {
     input {
       border-bottom-color: $input-warning-color;
@@ -31,6 +26,12 @@
       color: $input-warning-color !important;
     }
   }
+
+  & > input:focus + span + label,
+  & > input:focus + span {
+    color: $input-active-color !important;
+  }
+
   //remove spinner
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
