@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import { RegistrationBox } from '../../view_content/registration_box';
 
+import { checkData } from '../../../../../utilities';
+
 export default class PersonRegistration extends Component {
 
   constructor() {
@@ -39,28 +41,37 @@ export default class PersonRegistration extends Component {
   }
 
   onSignUp() {
-    this.props.onSignUp(this.state.values);
+    let { values, errors, errorsMessages } = this.state;
+
+    let { status, errorsResponse } = checkData(values, errors, errorsMessages);
+
+    if (status) {
+      this.props.onSignUp(this.state.values);
+    }
+    else {
+      this.setState({
+        errors: errorsResponse
+      });
+    }
   }
 
   onChange(type, value) {
-    let { values, errors, errorsMessages } = this.state;
+    let { values } = this.state;
 
-    errors[type] = value.length > 0 ? '' : errorsMessages[type];
     values[type] = value;
     this.setState({
-      values,
-      errors
+      values
     });
   }
 
   render() {
     let { values, errors } = this.state;
-    let { personType, onSignUp, title } = this.props;
+    let { personType, title } = this.props;
 
     return (
       <RegistrationBox
         personType={ personType }
-        onSignUp={ onSignUp }
+        onSignUp={ this.onSignUp.bind(this) }
         values={ values }
         errors={ errors }
         onChange={ this.onChange.bind(this) }
