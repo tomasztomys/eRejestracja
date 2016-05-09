@@ -9,31 +9,31 @@ export default class PersonRegistration extends Component {
 
     this.state = {
       values: {
-        password: '',
-        repeatPassword: '',
         name: '',
         surname: '',
         email: '',
         pesel: '',
+        password: '',
+        repeatPassword: '',
         specialization: ''
       },
       errors: {
-        password: '',
-        repeatPassword: '',
         name: '',
         surname: '',
         email: '',
         pesel: '',
+        password: '',
+        repeatPassword: '',
         specialization: ''
       },
       errorsMessages: {
-        password: 'aaa',
-        repeatPassword: 'aaa',
-        name: 'aaa',
-        surname: 'aaa',
-        email: 'aaa',
-        pesel: 'aaa',
-        specialization: 'aaaa'
+        name: 'Enter name.',
+        surname: 'Enter surname.',
+        email: 'Enter email.',
+        pesel: 'Enter pesel.',
+        password: 'Enter password',
+        repeatPassword: 'Enter your password again',
+        specialization: 'Enter your specialization'
       }
     };
   }

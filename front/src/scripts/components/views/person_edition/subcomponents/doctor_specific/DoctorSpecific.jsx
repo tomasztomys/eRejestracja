@@ -49,12 +49,12 @@ export default class DoctorSpecific extends Component {
   }
 }
 
-const structure = {
+const PropTypesStructure = {
   specialization: PropTypes.string
 };
 
 DoctorSpecific.propTypes = {
-  errors: PropTypes.shape(structure),
-  values: PropTypes.shape(structure),
+  errors: PropTypes.shape(PropTypesStructure),
+  values: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
 };

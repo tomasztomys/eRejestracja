@@ -56,7 +56,7 @@ export default class ChangePassword extends Component {
   }
 }
 
-const structure = {
+const PropTypesStructure = {
   password: PropTypes.string,
   repeatPassword: PropTypes.string,
   oldPassword: PropTypes.string,
@@ -64,8 +64,8 @@ const structure = {
 };
 
 ChangePassword.propTypes = {
-  values: PropTypes.shape(structure),
-  errors: PropTypes.shape(structure),
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
   oldPassword: PropTypes.bool,
 };

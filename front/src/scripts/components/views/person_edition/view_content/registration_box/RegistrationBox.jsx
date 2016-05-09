@@ -68,7 +68,7 @@ export default class RegistrationBox extends Component {
   }
 }
 
-const structure = {
+const PropTypesStructure = {
   password: PropTypes.string,
   repeatPassword: PropTypes.string,
   oldPassword: PropTypes.string,
@@ -84,6 +84,6 @@ RegistrationBox.propTypes = {
   onChange: PropTypes.func,
   onSignUp: PropTypes.func,
   title: PropTypes.string,
-  values: PropTypes.shape(structure),
-  errors: PropTypes.shape(structure)
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure)
 };

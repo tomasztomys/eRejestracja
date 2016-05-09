@@ -61,7 +61,7 @@ export default class PersonData extends Component {
   }
 }
 
-const structure = {
+const PropTypesStructure = {
   name: PropTypes.string,
   surname: PropTypes.string,
   email: PropTypes.string,
@@ -70,7 +70,7 @@ const structure = {
 };
 
 PersonData.propTypes = {
-  values: PropTypes.shape(structure),
-  errors: PropTypes.shape(structure),
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
 };
