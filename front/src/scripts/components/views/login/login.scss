@@ -5,15 +5,20 @@
   height: 100%;
 
   .login-card {
+
     .login-card-title {
       padding-left: 45px;
       height: $login-header-height;
       background-color: $login-header-background;
       color: $login-header-font-color;
     }
-
-    .login-card-body-button {
+    .login-card-body {
       margin: 20px;
+      margin-right: 35px;
     }
+    .login-card-button {
+      margin-bottom: 20px;
+    }
+
   }
 }
