@@ -9,11 +9,14 @@ export default class PersonRegistration extends Component {
       <RegistrationBox
         personType={ this.props.personType }
         onSignUp={ this.props.onSignUp }
+        title={ this.props.title }
       />
     );
   }
 }
 
 PersonRegistration.propTypes = {
-  onSignUp: PropTypes.func
+  onSignUp: PropTypes.func,
+  personType: PropTypes.oneOf([ 'patient', 'doctor' ]),
+  title: PropTypes.string
 };

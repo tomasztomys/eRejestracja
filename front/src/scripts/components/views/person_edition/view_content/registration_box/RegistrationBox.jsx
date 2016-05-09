@@ -13,7 +13,7 @@ import { PersonData } from '../../subcomponents/person_data';
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
 import {
   mergeObjects
-} from '../../../../../functions';
+} from '../../../../../utilities';
 
 import style from './registration_box.scss';
 
@@ -84,12 +84,9 @@ export default class RegistrationBox extends Component {
   render() {
     let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
     let { personType } = this.props;
-    console.log(personType);
-
 
     return (
       <Grid
-        xsPosition="center"
         center
         className={ style['registration-box'] }
       >
@@ -102,7 +99,7 @@ export default class RegistrationBox extends Component {
           >
             <CardTitle
               className={ style['signup-card-title'] }
-              title="Registration"
+              title={ this.props.title }
             />
             <div className={ style['signup-card-body'] }>
               <PersonData

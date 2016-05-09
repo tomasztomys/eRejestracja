@@ -21,6 +21,7 @@ class SmartDoctorRegistration extends Component {
     return (
       <PersonRegistration
         personType="doctor"
+        title="Doctor registration"
         onSignUp={ this.onSignUp.bind(this) }
       />
     );
