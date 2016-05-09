@@ -9,6 +9,9 @@ import {
 import { ChangePassword } from '../../subcomponents/change_password';
 import { PersonData } from '../../subcomponents/person_data';
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
+import {
+  mergeObjects
+} from '../../../../../functions';
 
 import style from './registration_box.scss';
 
@@ -62,14 +65,28 @@ export default class RegistrationBox extends Component {
     });
   }
 
+  onSignUp() {
+    let values = {};
+    let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
+
+    values = mergeObjects(
+      values,
+      changePasswordValues,
+      personDataValues,
+      doctorSpecificValues
+    );
+
+    this.props.onSignUp(values);
+  }
+
   render() {
     let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
-    let { personType, onSignUp } = this.props;
+    let { personType } = this.props;
 
     let actions = [
       {
         label: 'Sign Up',
-        onClick: onSignUp
+        onClick: this.onSignUp.bind(this)
       }
     ];
 
@@ -93,7 +110,6 @@ export default class RegistrationBox extends Component {
             <ChangePassword
               values={ changePasswordValues }
               onChange={ this._onChangePasswordInputs.bind(this) }
-              oldPassword
             />
             { personType === 'doctor' ?
               <DoctorSpecific
