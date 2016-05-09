@@ -35,26 +35,29 @@ export default class Login extends Component {
               className={ style['login-card-title'] }
               title="SIGN IN"
             />
-            <Input
-              key={ labels.email }
-              label={ labels.email }
-              value={ values.email }
-              icon="email"
-              error={ errors.email }
-              onChange={ inputChange.bind(this, 'email') }
-            />
-            <Input
-              key={ labels.password }
-              label={ labels.password }
-              value={ values.password }
-              icon="lock"
-              error={ errors.password }
-              onChange={ inputChange.bind(this, 'password') }
-            />
-            <Button
-              label={ labels.loginButton }
-              onClick={ logInHandle.bind(this) }
-            />
+            <div className={ style['login-card-body'] }>
+              <Input
+                key={ labels.email }
+                label={ labels.email }
+                value={ values.email }
+                icon="email"
+                error={ errors.email }
+                onChange={ inputChange.bind(this, 'email') }
+              />
+              <Input
+                key={ labels.password }
+                label={ labels.password }
+                value={ values.password }
+                icon="lock"
+                error={ errors.password }
+                onChange={ inputChange.bind(this, 'password') }
+              />
+              <Button
+                className={ style['login-card-body-button'] }
+                label={ labels.loginButton }
+                onClick={ logInHandle.bind(this) }
+              />
+            </div>
           </Card>
         </GridItem>
       </Grid>
