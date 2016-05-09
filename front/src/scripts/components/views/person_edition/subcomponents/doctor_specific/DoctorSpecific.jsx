@@ -26,24 +26,14 @@ export default class DoctorSpecific extends Component {
         }
       ],
       labels: {
-        specialization: 'specialization'
+        specialization: 'Specialization'
       },
-      errors: {
-        specialization: ''
-      },
-      errorsMessages: {
-        specialization: 'Enter your specialization',
-      }
     };
   }
 
-  _onDropdownChange(type, value) {
-    this.props.onChange(type, value);
-  }
-
   render() {
-    let { labels, errors, source } = this.state;
-    let { values } = this.props;
+    let { labels, source } = this.state;
+    let { values, errors, onChange } = this.props;
 
     return (
       <div className={ style['doctor-specific'] }>
@@ -52,14 +42,19 @@ export default class DoctorSpecific extends Component {
           error={ errors.specialization }
           source={ source }
           value={ values.specialization }
-          onChange={ this._onDropdownChange.bind(this, 'specialization') }
+          onChange={ onChange.bind(this, 'specialization') }
         />
       </div>
     );
   }
 }
 
+const structure = {
+  specialization: PropTypes.string
+};
+
 DoctorSpecific.propTypes = {
-  values: PropTypes.object,
+  errors: PropTypes.shape(structure),
+  values: PropTypes.shape(structure),
   onChange: PropTypes.func,
 };

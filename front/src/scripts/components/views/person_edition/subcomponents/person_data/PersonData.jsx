@@ -18,73 +18,59 @@ export default class PersonData extends Component {
         pesel: 'Pesel',
         saveButton: 'Save'
       },
-      errors: {
-        name: '',
-        surname: '',
-        email: '',
-        pesel: '',
-      },
-      errorsMessages: {
-        name: 'Enter name',
-        surname: 'Enter surname',
-        email: 'Enter email',
-        pesel: 'Enter Pesel'
-      }
     };
   }
 
-  _onChange(type, value) {
-    let { errors, errorsMessages } = this.state;
-
-    errors[type] = value.length > 0 ? '' : errorsMessages[type];
-    this.setState({
-      errors
-    });
-
-    this.props.onChange(type, value);
-  }
-
   render() {
-    let { labels, errors } = this.state;
-    let { values } = this.props;
+    let { labels } = this.state;
+    let { values, errors, onChange } = this.props;
 
     return (
       <div className={ style['change-person-data'] }>
         <Input
           key={ labels.name }
           label={ labels.name }
-          errors={ errors.name }
+          error={ errors.name }
           value={ values.name }
-          onChange={ this._onChange.bind(this, 'name') }
+          onChange={ onChange.bind(this, 'name') }
         />
         <Input
           key={ labels.surname }
           label={ labels.surname }
-          errors={ errors.surname }
+          error={ errors.surname }
           value={ values.surname }
-          onChange={ this._onChange.bind(this, 'surname') }
+          onChange={ onChange.bind(this, 'surname') }
         />
         <Input
           key={ labels.email }
           label={ labels.email }
-          errors={ errors.email }
+          error={ errors.email }
           value={ values.email }
-          onChange={ this._onChange.bind(this, 'email') }
+          onChange={ onChange.bind(this, 'email') }
         />
         <Input
           key={ labels.pesel }
           label={ labels.pesel }
-          errors={ errors.pesel }
+          error={ errors.pesel }
           value={ values.pesel }
           type="number"
-          onChange={ this._onChange.bind(this, 'pesel') }
+          onChange={ onChange.bind(this, 'pesel') }
         />
       </div>
     );
   }
 }
 
+const structure = {
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  email: PropTypes.string,
+  pesel: PropTypes.string,
+  saveButton: PropTypes.string
+};
+
 PersonData.propTypes = {
-  values: PropTypes.object,
+  values: PropTypes.shape(structure),
+  errors: PropTypes.shape(structure),
   onChange: PropTypes.func,
 };

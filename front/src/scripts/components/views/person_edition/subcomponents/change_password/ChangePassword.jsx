@@ -17,34 +17,12 @@ export default class ChangePassword extends Component {
         oldPassword: 'Old password',
         saveButton: 'Change password'
       },
-      errors: {
-        password: '',
-        repeatPassword: '',
-        oldPassword: ''
-      },
-      errorsMessages: {
-        password: 'Enter password',
-        repeatPassword: 'Enter your password again',
-        oldPassword: 'Enter your old password'
-      }
     };
   }
 
-  _onChange(type, value) {
-    console.log('Change');
-    let { errors, errorsMessages } = this.state;
-
-    errors[type] = value.length > 0 ? '' : errorsMessages[type];
-    this.setState({
-      errors
-    });
-
-    this.props.onChange(type, value);
-  }
-
   render() {
-    let { labels, errors } = this.state;
-    let { values, oldPassword } = this.props;
+    let { labels } = this.state;
+    let { values, oldPassword, onChange, errors } = this.props;
 
     return (
       <div className={ style['change-password-box'] }>
@@ -54,7 +32,7 @@ export default class ChangePassword extends Component {
           error={ errors.password }
           value={ values.password }
           type="password"
-          onChange={ this._onChange.bind(this, 'password') }
+          onChange={ onChange.bind(this, 'password') }
         />
         <Input
           key={ labels.repeatPassword }
@@ -62,7 +40,7 @@ export default class ChangePassword extends Component {
           error={ errors.repeatPassword }
           value={ values.repeatPassword }
           type="password"
-          onChange={ this._onChange.bind(this, 'repeatPassword') }
+          onChange={ onChange.bind(this, 'repeatPassword') }
         />
         { oldPassword ?
           <Input
@@ -71,15 +49,23 @@ export default class ChangePassword extends Component {
             error={ errors.oldPassword }
             value={ values.oldPassword }
             type="password"
-            onChange={ this._onChange.bind(this, 'oldPassword') }
+            onChange={ onChange.bind(this, 'oldPassword') }
           /> : null }
       </div>
     );
   }
 }
 
+const structure = {
+  password: PropTypes.string,
+  repeatPassword: PropTypes.string,
+  oldPassword: PropTypes.string,
+  saveButton: PropTypes.string,
+};
+
 ChangePassword.propTypes = {
-  values: PropTypes.object,
+  values: PropTypes.shape(structure),
+  errors: PropTypes.shape(structure),
   onChange: PropTypes.func,
-  oldPassword: PropTypes.bool
+  oldPassword: PropTypes.bool,
 };

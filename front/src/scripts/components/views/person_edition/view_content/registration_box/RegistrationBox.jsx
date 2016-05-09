@@ -17,7 +17,7 @@ import style from './registration_box.scss';
 export default class RegistrationBox extends Component {
 
   render() {
-    let { values, onChange, personType, onSignUp } = this.props;
+    let { values, onChange, personType, onSignUp, errors } = this.props;
 
     return (
       <Grid
@@ -39,15 +39,18 @@ export default class RegistrationBox extends Component {
               <PersonData
                 values={ values }
                 onChange={ onChange }
+                errors={ errors }
               />
               <ChangePassword
                 values={ values }
                 onChange={ onChange }
+                errors={ errors }
               />
               { personType === 'doctor' ?
                 <DoctorSpecific
                   values={ values }
                   onChange={ onChange }
+                  errors={ errors }
                 /> : null
               }
             </div>
@@ -63,22 +66,24 @@ export default class RegistrationBox extends Component {
       </Grid>
     );
   }
-
 }
+
+const structure = {
+  password: PropTypes.string,
+  repeatPassword: PropTypes.string,
+  oldPassword: PropTypes.string,
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  email: PropTypes.string,
+  pesel: PropTypes.string,
+  specialization: PropTypes.string
+};
 
 RegistrationBox.propTypes = {
   personType: PropTypes.string,
   onChange: PropTypes.func,
   onSignUp: PropTypes.func,
   title: PropTypes.string,
-  values: PropTypes.shape({
-    password: PropTypes.string,
-    repeatPassword: PropTypes.string,
-    oldPassword: PropTypes.string,
-    name: PropTypes.string,
-    surname: PropTypes.string,
-    email: PropTypes.string,
-    pesel: PropTypes.string,
-    specialization: PropTypes.string
-  })
+  values: PropTypes.shape(structure),
+  errors: PropTypes.shape(structure)
 };

@@ -11,12 +11,29 @@ export default class PersonRegistration extends Component {
       values: {
         password: '',
         repeatPassword: '',
-        oldPassword: '',
         name: '',
         surname: '',
         email: '',
         pesel: '',
         specialization: ''
+      },
+      errors: {
+        password: '',
+        repeatPassword: '',
+        name: '',
+        surname: '',
+        email: '',
+        pesel: '',
+        specialization: ''
+      },
+      errorsMessages: {
+        password: 'aaa',
+        repeatPassword: 'aaa',
+        name: 'aaa',
+        surname: 'aaa',
+        email: 'aaa',
+        pesel: 'aaa',
+        specialization: 'aaaa'
       }
     };
   }
@@ -26,23 +43,28 @@ export default class PersonRegistration extends Component {
   }
 
   onChange(type, value) {
-    let { values } = this.state;
+    let { values, errors, errorsMessages } = this.state;
 
+    errors[type] = value.length > 0 ? '' : errorsMessages[type];
     values[type] = value;
     this.setState({
-      values
+      values,
+      errors
     });
   }
 
   render() {
-    let { values } = this.state;
+    let { values, errors } = this.state;
+    let { personType, onSignUp, title } = this.props;
 
     return (
       <RegistrationBox
-        personType={ this.props.personType }
-        onSignUp={ this.props.onSignUp }
+        personType={ personType }
+        onSignUp={ onSignUp }
         values={ values }
-        title={ this.props.title }
+        errors={ errors }
+        onChange={ this.onChange.bind(this) }
+        title={ title }
       />
     );
   }
