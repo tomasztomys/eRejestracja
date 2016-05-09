@@ -22,6 +22,15 @@
       width: $menu-bar-height - 10px;
       padding: 0;
       min-width: auto;
+      background: $button-menu-in-top-bar-color !important;
+
+      &.active {
+        background: $button-menu-in-top-bar-color !important;
+
+        &:hover {
+          background: darken($button-menu-in-top-bar-color, 10%) !important;
+        }
+      }
 
       span {
         font-size: 40px;
