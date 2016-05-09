@@ -31,6 +31,7 @@ export default class ChangePassword extends Component {
   }
 
   _onChange(type, value) {
+    console.log('Change');
     let { errors, errorsMessages } = this.state;
 
     errors[type] = value.length > 0 ? '' : errorsMessages[type];
@@ -50,7 +51,7 @@ export default class ChangePassword extends Component {
         <Input
           key={ labels.password }
           label={ labels.password }
-          errors={ errors.password }
+          error={ errors.password }
           value={ values.password }
           type="password"
           onChange={ this._onChange.bind(this, 'password') }
@@ -58,7 +59,7 @@ export default class ChangePassword extends Component {
         <Input
           key={ labels.repeatPassword }
           label={ labels.repeatPassword }
-          errors={ errors.repeatPassword }
+          error={ errors.repeatPassword }
           value={ values.repeatPassword }
           type="password"
           onChange={ this._onChange.bind(this, 'repeatPassword') }
@@ -67,7 +68,7 @@ export default class ChangePassword extends Component {
           <Input
             key={ labels.oldPassword }
             label={ labels.oldPassword }
-            errors={ errors.oldPassword }
+            error={ errors.oldPassword }
             value={ values.oldPassword }
             type="password"
             onChange={ this._onChange.bind(this, 'oldPassword') }
