@@ -3,7 +3,9 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
-  CardWithHeader,
+  Button,
+  Card,
+  CardTitle
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -83,15 +85,11 @@ export default class RegistrationBox extends Component {
     let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
     let { personType } = this.props;
     console.log(personType);
-    let actions = [
-      {
-        label: 'Sign Up',
-        onClick: this.onSignUp.bind(this)
-      }
-    ];
+
 
     return (
       <Grid
+        xsPosition="center"
         center
         className={ style['registration-box'] }
       >
@@ -99,25 +97,37 @@ export default class RegistrationBox extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <CardWithHeader
-            title="Registration"
-            actions={ actions }
+          <Card
+            className={ style['signup-card'] }
           >
-            <PersonData
-              values={ personDataValues }
-              onChange={ this._onChangePersonDataInputs.bind(this) }
+            <CardTitle
+              className={ style['signup-card-title'] }
+              title="Registration"
             />
-            <ChangePassword
-              values={ changePasswordValues }
-              onChange={ this._onChangePasswordInputs.bind(this) }
-            />
-            { personType === 'doctor' ?
-              <DoctorSpecific
-                values={ doctorSpecificValues }
-                onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
-              /> : null
-            }
-          </CardWithHeader>
+            <div className={ style['signup-card-body'] }>
+              <PersonData
+                values={ personDataValues }
+                onChange={ this._onChangePersonDataInputs.bind(this) }
+              />
+              <ChangePassword
+                values={ changePasswordValues }
+                onChange={ this._onChangePasswordInputs.bind(this) }
+              />
+              { personType === 'doctor' ?
+                <DoctorSpecific
+                  values={ doctorSpecificValues }
+                  onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
+                /> : null
+              }
+            </div>
+            <div>
+              <Button
+                className={ style['signup-button'] }
+                label="Sign Up"
+                onClick={ this.onSignUp.bind(this) }
+              />
+            </div>
+          </Card>
         </GridItem>
       </Grid>
     );

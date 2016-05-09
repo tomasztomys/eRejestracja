@@ -1,3 +1,23 @@
-.registration-box {
+@import '../../../../../../styles/colors';
+@import '../../../../../../styles/config';
 
+.registration-box {
+  height: 100%;
+
+  .signup-card {
+    .signup-card-title {
+      padding-left: 20px;
+      height: $registration-header-height;
+      background-color: $registration-header-background;
+      color: $registration-header-font-color;
+    }
+    .signup-card-body {
+      margin: 20px;
+      margin-right: 20px;
+    }
+    .signup-card-button {
+      margin-bottom: 20px;
+    }
+
+  }
 }
