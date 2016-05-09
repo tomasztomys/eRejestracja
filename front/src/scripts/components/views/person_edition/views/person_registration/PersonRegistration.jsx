@@ -7,7 +7,7 @@ export default class PersonRegistration extends Component {
   render() {
     return (
       <RegistrationBox
-        personType="admin"
+        personType={ this.props.personType }
         onSignUp={ this.props.onSignUp }
       />
     );

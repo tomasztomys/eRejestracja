@@ -36,3 +36,18 @@ export function deleteDoctor(id) {
     });
   };
 }
+
+export function addDoctor(parameters) {
+  console.log('ADD DOCTOR');
+  let url = '/doctors';
+  let body = JSON.stringify(
+    parameters
+  );
+
+  return (dispatch) => {
+    fetchData(url, 'POST', body, '')
+    .then((data) => {
+      // dispatch(addDoctorToStore(data));
+    });
+  };
+}

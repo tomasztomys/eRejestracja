@@ -82,7 +82,7 @@ export default class RegistrationBox extends Component {
   render() {
     let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
     let { personType } = this.props;
-
+    console.log(personType);
     let actions = [
       {
         label: 'Sign Up',
