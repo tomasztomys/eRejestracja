@@ -11,6 +11,7 @@ const initialState = Immutable.fromJS({
   }),
   doctorsList: IList(),
   errors: IMap({
+    user: {}
   })
 });
 
