@@ -9,18 +9,18 @@ import { ChangePassword } from '../../subcomponents/change_password';
 import style from './change_password_box.scss';
 
 export default class ChangePasswordBox extends Component {
-
   render() {
     let {
       values,
-      onSaveNewPassword,
+      errors,
+      onSave,
       onChange,
     } = this.props;
 
     let actions = [
       {
         label: 'Save',
-        onClick: onSaveNewPassword
+        onClick: onSave
       }
     ];
 
@@ -34,6 +34,7 @@ export default class ChangePasswordBox extends Component {
       >
         <ChangePassword
           values={ values }
+          errors={ errors }
           onChange={ onChange }
           oldPassword
         />
@@ -42,10 +43,16 @@ export default class ChangePasswordBox extends Component {
   }
 
 }
+const PropTypesStructure = {
+  password: PropTypes.string,
+  repeatPassword: PropTypes.string,
+  oldPassword: PropTypes.string,
+  saveButton: PropTypes.string,
+};
 
 ChangePasswordBox.propTypes = {
-  values: PropTypes.object,
-  changePasswordValues: PropTypes.array,
-  onSaveNewPassword: PropTypes.func,
-  onChange: PropTypes.func
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure),
+  onChange: PropTypes.func,
+  onSave: PropTypes.func,
 };

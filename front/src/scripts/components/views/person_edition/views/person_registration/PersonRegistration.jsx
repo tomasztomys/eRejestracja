@@ -98,6 +98,6 @@ export default class PersonRegistration extends Component {
 
 PersonRegistration.propTypes = {
   onSignUp: PropTypes.func,
-  personType: PropTypes.oneOf([ 'patient', 'doctor' ]),
+  personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ]),
   title: PropTypes.string
 };

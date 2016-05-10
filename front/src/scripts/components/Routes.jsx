@@ -20,11 +20,11 @@ import { Demo } from './views/demo';
 import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
-  SmartAdminProfileEdition,
   SmartDoctorRegistration,
   SmartPatientRegistration,
   SmartAddDoctor,
-  SmartAddPatient
+  SmartAddPatient,
+  SmartProfileEdition
 } from './views/person_edition/smarts';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
@@ -50,7 +50,7 @@ export default class Routes extends React.Component {
           component={ SmartAddDoctor }
         />
         <Route path={ Paths.settings.myProfile }
-          component={ SmartAdminProfileEdition }
+          component={ SmartProfileEdition }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
