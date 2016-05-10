@@ -1,6 +1,8 @@
 @import '../../../../styles/colors';
 
 .card-title {
+  min-height: 80px;
+
   h5 {
     text-align: left;
   }

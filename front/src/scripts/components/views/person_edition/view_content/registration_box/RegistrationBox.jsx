@@ -5,7 +5,8 @@ import {
   GridItem,
   Button,
   Card,
-  CardTitle
+  CardTitle,
+  CardWithHeader
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -18,6 +19,13 @@ export default class RegistrationBox extends Component {
 
   render() {
     let { values, onChange, personType, onSignUp, errors } = this.props;
+    let actions = [
+      {
+        label:'Sign Up',
+        onClick: onSignUp,
+        className: style['sign-up-button']
+      }
+    ]
 
     return (
       <Grid
@@ -28,41 +36,29 @@ export default class RegistrationBox extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <Card
-            className={ style['signup-card'] }
+          <CardWithHeader
+            title={ this.props.title }
+            actions={ actions }
           >
-            <CardTitle
-              className={ style['signup-card-title'] }
-              title={ this.props.title }
+            <PersonData
+              values={ values }
+              onChange={ onChange }
+              errors={ errors }
+              personType={ personType }
             />
-            <div className={ style['signup-card-body'] }>
-              <PersonData
+            <ChangePassword
+              values={ values }
+              onChange={ onChange }
+              errors={ errors }
+            />
+            { personType === 'doctor' ?
+              <DoctorSpecific
                 values={ values }
                 onChange={ onChange }
                 errors={ errors }
-                personType={ personType }
-              />
-              <ChangePassword
-                values={ values }
-                onChange={ onChange }
-                errors={ errors }
-              />
-              { personType === 'doctor' ?
-                <DoctorSpecific
-                  values={ values }
-                  onChange={ onChange }
-                  errors={ errors }
-                /> : null
-              }
-            </div>
-            <div>
-              <Button
-                className={ style['signup-button'] }
-                label="Sign Up"
-                onClick={ onSignUp }
-              />
-            </div>
-          </Card>
+              /> : null
+            }
+          </CardWithHeader>
         </GridItem>
       </Grid>
     );
