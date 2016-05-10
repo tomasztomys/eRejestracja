@@ -60,7 +60,7 @@ export default class PersonRegistration extends Component {
     let { values, errors, errorsMessages } = this.state;
     let { status, errorsResponse } = checkData(values, errors, errorsMessages);
 
-    if (status) {
+    if (status && values.password === values.repeatPassword) {
       this.props.onSignUp(values);
     }
     else {
@@ -71,7 +71,6 @@ export default class PersonRegistration extends Component {
   }
 
   onChange(type, value) {
-    console.log(type, value);
     let { values } = this.state;
 
     values[type] = value;
