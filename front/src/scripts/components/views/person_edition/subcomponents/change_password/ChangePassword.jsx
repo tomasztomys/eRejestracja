@@ -17,11 +17,29 @@ export default class ChangePassword extends Component {
         oldPassword: 'Old password',
         saveButton: 'Change password'
       },
+      specificErrors: {
+        repeatPassword: ''
+      },
+      specificErrorsMessages: {
+        repeatPassword: 'This password do not match'
+      }
     };
+  }
+  onChangeRepeatPassword(key, value) {
+    let { values } = this.props;
+    let { specificErrors, specificErrorsMessages } = this.state;
+
+    specificErrors[key] = value !== values.password ? specificErrorsMessages[key] : '';
+
+    this.setState({
+      specificErrors
+    });
+
+    this.props.onChange(key, value);
   }
 
   render() {
-    let { labels } = this.state;
+    let { labels, specificErrors } = this.state;
     let { values, oldPassword, onChange, errors } = this.props;
 
     return (
@@ -37,10 +55,10 @@ export default class ChangePassword extends Component {
         <Input
           key={ labels.repeatPassword }
           label={ labels.repeatPassword }
-          error={ errors.repeatPassword }
+          error={ errors.repeatPassword || specificErrors.repeatPassword }
           value={ values.repeatPassword }
           type="password"
-          onChange={ onChange.bind(this, 'repeatPassword') }
+          onChange={ this.onChangeRepeatPassword.bind(this, 'repeatPassword') }
         />
         { oldPassword ?
           <Input

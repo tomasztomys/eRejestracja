@@ -71,6 +71,7 @@ export default class PersonRegistration extends Component {
   }
 
   onChange(type, value) {
+    console.log(type, value);
     let { values } = this.state;
 
     values[type] = value;

@@ -21,11 +21,11 @@ export default class RegistrationBox extends Component {
     let { values, onChange, personType, onSignUp, errors } = this.props;
     let actions = [
       {
-        label:'Sign Up',
+        label: 'Sign Up',
         onClick: onSignUp,
         className: style['sign-up-button']
       }
-    ]
+    ];
 
     return (
       <Grid
