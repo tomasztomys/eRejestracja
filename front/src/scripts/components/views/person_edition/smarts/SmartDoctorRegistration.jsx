@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { PersonRegistration } from '../views/person_registration';
-import * as Action from '../../../../actions/Actions';
+import { SmartAddDoctor } from './';
 
 class SmartDoctorRegistration extends Component {
-  onSignUp(values) {
-    let parameters = {
-      name: values.name,
-      surname: values.surname,
-      email: values.email,
-      password: values.password,
-      specialization: values.specialization
-    };
-
-    this.props.dispatch(Action.addUser(parameters, 'doctor'));
-  }
-
   render() {
     return (
-      <PersonRegistration
-        personType="doctor"
+      <SmartAddDoctor
         title="Doctor registration"
-        onSignUp={ this.onSignUp.bind(this) }
       />
     );
   }
