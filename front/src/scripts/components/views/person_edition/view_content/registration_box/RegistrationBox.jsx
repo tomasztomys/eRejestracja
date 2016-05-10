@@ -40,6 +40,7 @@ export default class RegistrationBox extends Component {
                 values={ values }
                 onChange={ onChange }
                 errors={ errors }
+                personType={ personType }
               />
               <ChangePassword
                 values={ values }

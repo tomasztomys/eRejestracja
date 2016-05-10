@@ -23,7 +23,7 @@ export default class PersonData extends Component {
 
   render() {
     let { labels } = this.state;
-    let { values, errors, onChange } = this.props;
+    let { values, errors, onChange, personType } = this.props;
 
     return (
       <div className={ style['change-person-data'] }>
@@ -48,14 +48,16 @@ export default class PersonData extends Component {
           value={ values.email }
           onChange={ onChange.bind(this, 'email') }
         />
-        <Input
-          key={ labels.pesel }
-          label={ labels.pesel }
-          error={ errors.pesel }
-          value={ values.pesel }
-          type="number"
-          onChange={ onChange.bind(this, 'pesel') }
-        />
+
+        { personType === 'patient' ?
+          <Input
+            key={ labels.pesel }
+            label={ labels.pesel }
+            error={ errors.pesel }
+            value={ values.pesel }
+            type="number"
+            onChange={ onChange.bind(this, 'pesel') }
+          /> : null }
       </div>
     );
   }
@@ -73,4 +75,5 @@ PersonData.propTypes = {
   values: PropTypes.shape(PropTypesStructure),
   errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
+  personType: PropTypes.oneOf([ 'patient', 'doctor' ])
 };

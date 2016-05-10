@@ -8,7 +8,6 @@ export default class PersonRegistration extends Component {
 
   constructor() {
     super();
-
     this.state = {
       values: {
         name: '',
@@ -40,13 +39,29 @@ export default class PersonRegistration extends Component {
     };
   }
 
+  componentWillMount() {
+    let { values } = this.state;
+
+    if (this.props.personType === 'doctor') {
+      //  doctor
+      delete values.pesel;
+    }
+    else {
+      //  patient
+      delete values.specialization;
+    }
+
+    this.setState({
+      values
+    });
+  }
+
   onSignUp() {
     let { values, errors, errorsMessages } = this.state;
-
     let { status, errorsResponse } = checkData(values, errors, errorsMessages);
 
     if (status) {
-      this.props.onSignUp(this.state.values);
+      this.props.onSignUp(values);
     }
     else {
       this.setState({

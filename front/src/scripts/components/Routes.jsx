@@ -21,7 +21,8 @@ import { MainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
   SmartAdminProfileEdition,
-  SmartDoctorRegistration
+  SmartDoctorRegistration,
+  SmartPatientRegistration
 } from './views/person_edition/smarts';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
@@ -74,6 +75,10 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.doctors.registration }
             component={ SmartDoctorRegistration }
+          />
+          <Route
+            path={ Paths.patients.registration }
+            component={ SmartPatientRegistration }
           />
           { registeredSection }
         </Route>
