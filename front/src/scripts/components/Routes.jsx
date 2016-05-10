@@ -22,7 +22,9 @@ import { EmptyPage } from './views/empy_page';
 import {
   SmartAdminProfileEdition,
   SmartDoctorRegistration,
-  SmartPatientRegistration
+  SmartPatientRegistration,
+  SmartAddDoctor,
+  SmartAddPatient
 } from './views/person_edition/smarts';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
@@ -40,6 +42,12 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.patients.bookVisit }
           component={ SmartPatientBookVisit }
+        />
+        <Route path={ Paths.patients.add }
+          component={ SmartAddPatient }
+        />
+        <Route path={ Paths.doctors.add }
+          component={ SmartAddDoctor }
         />
         <Route path={ Paths.settings.myProfile }
           component={ SmartAdminProfileEdition }

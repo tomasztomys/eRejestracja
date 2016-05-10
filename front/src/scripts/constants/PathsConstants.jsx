@@ -9,11 +9,13 @@ const Paths = {
   patients: {
     list: '/patients-list',
     bookVisit: '/book-visit',
-    registration: '/patient-registration'
+    registration: '/patient-registration',
+    add: '/add-patient'
   },
   doctors: {
     list: '/doctors-list',
-    registration: '/doctor-registration'
+    registration: '/doctor-registration',
+    add: '/add-doctor'
   },
   settings: {
     myProfile: '/my-profile',

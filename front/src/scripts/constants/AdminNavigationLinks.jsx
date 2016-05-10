@@ -10,6 +10,11 @@ const AdminNavigationLinks = [
         path: Paths.doctors.list,
         active: true
       },
+      {
+        label: 'Add Doctor',
+        path: Paths.doctors.add,
+        active: true
+      }
     ]
   },
   {
@@ -24,6 +29,11 @@ const AdminNavigationLinks = [
       {
         label: 'Book visit',
         path: Paths.patients.bookVisit,
+        active: true
+      },
+      {
+        label: 'Add Patient',
+        path: Paths.patients.add,
         active: true
       }
     ]
