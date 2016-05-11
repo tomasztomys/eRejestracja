@@ -42,6 +42,7 @@ class Calls
 
         $this->_app->group('/user', function () {
             $this->get('', '\Calls\User:user')->setName('user');
+          $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
         });
 
         $this->_app->group('/doctors', function () {
