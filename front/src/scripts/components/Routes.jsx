@@ -17,11 +17,14 @@ import {
 } from './views/entity_lists/smarts';
 
 import { Demo } from './views/demo';
-import { MainLayout } from './views/layouts/main_layout';
+import { SmartMainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
-  SmartAdminProfileEdition,
-  SmartDoctorRegistration
+  SmartDoctorRegistration,
+  SmartPatientRegistration,
+  SmartAddDoctor,
+  SmartAddPatient,
+  SmartProfileEdition
 } from './views/person_edition/smarts';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
@@ -30,7 +33,7 @@ export default class Routes extends React.Component {
 
   render() {
     let registeredSection = (
-      <Route component={ MainLayout } >
+      <Route component={ SmartMainLayout } >
         <Route path={ Paths.doctors.list }
           component={ SmartDoctorsList }
         />
@@ -40,8 +43,14 @@ export default class Routes extends React.Component {
         <Route path={ Paths.patients.bookVisit }
           component={ SmartPatientBookVisit }
         />
+        <Route path={ Paths.patients.add }
+          component={ SmartAddPatient }
+        />
+        <Route path={ Paths.doctors.add }
+          component={ SmartAddDoctor }
+        />
         <Route path={ Paths.settings.myProfile }
-          component={ SmartAdminProfileEdition }
+          component={ SmartProfileEdition }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
@@ -74,6 +83,10 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.doctors.registration }
             component={ SmartDoctorRegistration }
+          />
+          <Route
+            path={ Paths.patients.registration }
+            component={ SmartPatientRegistration }
           />
           { registeredSection }
         </Route>

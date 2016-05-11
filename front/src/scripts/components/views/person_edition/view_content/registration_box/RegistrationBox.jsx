@@ -3,7 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
+  Button,
   Card,
+  CardTitle,
+  CardWithHeader
 } from '../../../../ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
@@ -14,62 +17,13 @@ import style from './registration_box.scss';
 
 export default class RegistrationBox extends Component {
 
-  constructor() {
-    super();
-
-    this.state = {
-      changePasswordValues: {
-        password: '',
-        repeatPassword: '',
-        oldPassword: '',
-      },
-      personDataValues: {
-        name: '',
-        surname: '',
-        email: '',
-        pesel: '',
-      },
-      doctorSpecificValues: {
-        specialization: ''
-      }
-    };
-  }
-
-  _onChangePasswordInputs(type, value) {
-    let { changePasswordValues } = this.state;
-
-    changePasswordValues[type] = value;
-    this.setState({
-      changePasswordValues
-    });
-  }
-
-  _onChangePersonDataInputs(type, value) {
-    let { personDataValues } = this.state;
-
-    personDataValues[type] = value;
-    this.setState({
-      personDataValues
-    });
-  }
-
-  _onChangeDoctorSpecificInputes(type, value) {
-    let { doctorSpecificValues } = this.state;
-
-    doctorSpecificValues[type] = value;
-    this.setState({
-      doctorSpecificValues
-    });
-  }
-
   render() {
-    let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
-    let { personType, onSignUp } = this.props;
-
+    let { values, onChange, personType, onSignUp, errors } = this.props;
     let actions = [
       {
         label: 'Sign Up',
-        onClick: onSignUp
+        onClick: onSignUp,
+        className: style['sign-up-button']
       }
     ];
 
@@ -82,34 +36,51 @@ export default class RegistrationBox extends Component {
           xsSize="11"
           mdSize="5"
         >
-          <Card
-            title="Registration"
+          <CardWithHeader
+            title={ this.props.title }
             actions={ actions }
           >
             <PersonData
-              values={ personDataValues }
-              onChange={ this._onChangePersonDataInputs.bind(this) }
+              values={ values }
+              onChange={ onChange }
+              errors={ errors }
+              personType={ personType }
             />
             <ChangePassword
-              values={ changePasswordValues }
-              onChange={ this._onChangePasswordInputs.bind(this) }
-              oldPassword
+              values={ values }
+              onChange={ onChange }
+              errors={ errors }
             />
             { personType === 'doctor' ?
               <DoctorSpecific
-                values={ doctorSpecificValues }
-                onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
+                values={ values }
+                onChange={ onChange }
+                errors={ errors }
               /> : null
             }
-          </Card>
+          </CardWithHeader>
         </GridItem>
       </Grid>
     );
   }
-
 }
+
+const PropTypesStructure = {
+  password: PropTypes.string,
+  repeatPassword: PropTypes.string,
+  oldPassword: PropTypes.string,
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  email: PropTypes.string,
+  pesel: PropTypes.string,
+  specialization: PropTypes.string
+};
 
 RegistrationBox.propTypes = {
   personType: PropTypes.string,
-  onSignUp: PropTypes.func
+  onChange: PropTypes.func,
+  onSignUp: PropTypes.func,
+  title: PropTypes.string,
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure)
 };

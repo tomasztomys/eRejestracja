@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
   DatePicker,
   Dropdown
 } from '../../../../ui';
@@ -61,7 +61,7 @@ export default class TermPickerBox extends Component {
     ];
 
     return (
-      <Card
+      <CardWithHeader
         title="Select term of Visit"
         actions={ actions }
       >
@@ -80,7 +80,7 @@ export default class TermPickerBox extends Component {
           onChange={ onTimeChange }
           disabled={ disabled || !selectedDate }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 }

@@ -52,8 +52,10 @@ export default class Login extends Component {
                 error={ errors.password }
                 onChange={ inputChange.bind(this, 'password') }
               />
+            </div>
+            <div>
               <Button
-                className={ style['login-card-body-button'] }
+                className={ style['login-card-button'] }
                 label={ labels.loginButton }
                 onClick={ logInHandle.bind(this) }
               />

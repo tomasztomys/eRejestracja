@@ -7,7 +7,7 @@ import { Snackbar } from './snackbar';
 import { Drawer } from './drawer';
 import { Avatar } from './avatar';
 import { FontIcon } from './font_icon';
-import { Card, CardTitle } from './card';
+import { Card, CardTitle, CardWithHeader } from './card';
 import { Grid, GridItem } from './grid';
 import { Dropdown } from './dropdown';
 import { DatePicker } from './date_picker';
@@ -22,7 +22,7 @@ export {
   Drawer,
   Avatar,
   FontIcon,
-  Card, CardTitle,
+  Card, CardTitle, CardWithHeader,
   Grid, GridItem,
   Dropdown,
   DatePicker

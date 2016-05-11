@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
 } from '../../../../ui';
 
 import { PersonData } from '../../subcomponents/person_data';
@@ -9,54 +9,13 @@ import { PersonData } from '../../subcomponents/person_data';
 import style from './person_data_box.scss';
 
 export default class PersonDataBox extends Component {
-
-  constructor() {
-    super();
-
-    this.state = {
-      changePasswordValues: {
-        password: '',
-        repeatPassword: '',
-        oldPassword: '',
-      },
-      personDataValues: {
-        name: '',
-        surname: '',
-        email: '',
-        pesel: '',
-      }
-    };
-  }
-
-  _onChangePasswordInputs(type, value) {
-    let { changePasswordValues } = this.state;
-
-    changePasswordValues[type] = value;
-    this.setState({
-      changePasswordValues
-    });
-  }
-
-  _onChangePersonDataInputs(type, value) {
-    let { personDataValues } = this.state;
-
-    personDataValues[type] = value;
-    this.setState({
-      personDataValues
-    });
-  }
-
-  _onSaveNewPassword() {
-  }
-
-  _onSavePersonData() {
-  }
-
   render() {
     let {
       values,
+      errors,
       onChange,
-      onSave
+      onSave,
+      personType
     } = this.props;
 
     let actions = [
@@ -67,23 +26,34 @@ export default class PersonDataBox extends Component {
     ];
 
     return (
-      <Card className={ style['person-data'] }
+      <CardWithHeader className={ style['person-data'] }
         title="Chane profile data"
         subtitle={ 'Please write real personal data.' }
         actions={ actions }
       >
         <PersonData
           values={ values }
+          errors={ errors }
           onChange={ onChange }
+          personType={ personType }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 
 }
+const PropTypesStructure = {
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  email: PropTypes.string,
+  pesel: PropTypes.string,
+  saveButton: PropTypes.string
+};
 
 PersonDataBox.propTypes = {
-  values: PropTypes.object,
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
+  personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ]),
   onSave: PropTypes.func
 };

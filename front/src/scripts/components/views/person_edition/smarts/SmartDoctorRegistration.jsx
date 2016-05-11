@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { PersonRegistration } from '../views/person_registration';
+import { SmartAddDoctor } from './';
 
-export default class SmartDoctorRegistration extends Component {
+class SmartDoctorRegistration extends Component {
   render() {
     return (
-      <PersonRegistration
-        personType="doctor"
+      <SmartAddDoctor
+        title="Doctor registration"
       />
     );
   }
 }
+
+export default connect()(SmartDoctorRegistration);

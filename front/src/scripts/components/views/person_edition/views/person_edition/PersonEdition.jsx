@@ -15,58 +15,59 @@ export default class PersonEdition extends Component {
     super();
 
     this.state = {
-      changePasswordValues: {
-        password: '',
-        repeatPassword: '',
-        oldPassword: '',
-      },
-      personDataValues: {
+      values: {
         name: '',
         surname: '',
         email: '',
         pesel: '',
-      },
-      doctorSpecificValues: {
+        password: '',
+        repeatPassword: '',
+        oldPassword: '',
         specialization: ''
+      },
+      errors: {
+        name: '',
+        surname: '',
+        email: '',
+        pesel: '',
+        password: '',
+        repeatPassword: '',
+        oldPassword: '',
+        specialization: ''
+      },
+      errorsMessages: {
+        name: 'Enter name.',
+        surname: 'Enter surname.',
+        email: 'Enter email.',
+        pesel: 'Enter pesel.',
+        password: 'Enter password',
+        repeatPassword: 'Enter password again',
+        oldPassword: 'Enter your old password',
+        specialization: 'Enter specialization'
       }
     };
   }
+  componentDidMount() {
+    let { values } = this.props;
 
-  _onChangePasswordInputs(type, value) {
-    let { changePasswordValues } = this.state;
-
-    changePasswordValues[type] = value;
     this.setState({
-      changePasswordValues
+      values
     });
   }
 
-  _onChangePersonDataInputs(type, value) {
-    let { personDataValues } = this.state;
+  onChange(type, value) {
+    let { values } = this.state;
 
-    personDataValues[type] = value;
+    values[type] = value;
     this.setState({
-      personDataValues
+      values
     });
   }
-
-  _onChangeDoctorSpecificInputes(type, value) {
-    let { doctorSpecificValues } = this.state;
-
-    doctorSpecificValues[type] = value;
-    this.setState({
-      doctorSpecificValues
-    });
+  onSave(values) {
+    this.props.onSave(values);
   }
-
-  _onSaveNewPassword() {
-  }
-
-  _onSavePersonData() {
-  }
-
   render() {
-    let { changePasswordValues, personDataValues, doctorSpecificValues } = this.state;
+    let { values, errors } = this.state;
     let { personType } = this.props;
 
     return (
@@ -76,9 +77,11 @@ export default class PersonEdition extends Component {
           mdSize="5"
         >
           <PersonDataBox
-            values={ personDataValues }
-            onChange={ this._onChangePersonDataInputs.bind(this) }
-            onSave={ this._onSavePersonData.bind(this) }
+            values={ values }
+            errors={ errors }
+            onChange={ this.onChange.bind(this) }
+            onSave={ this.onSave.bind(this, values) }
+            personType={ personType }
           />
         </GridItem>
         <GridItem
@@ -86,9 +89,10 @@ export default class PersonEdition extends Component {
           mdSize="5"
         >
           <ChangePasswordBox
-            values={ changePasswordValues }
-            onChange={ this._onChangePasswordInputs.bind(this) }
-            onSave={ this._onSaveNewPassword.bind(this) }
+            values={ values }
+            errors={ errors }
+            onChange={ this.onChange.bind(this) }
+            onSave={ this.onSave.bind(this, values) }
             oldPassword
           />
         </GridItem>
@@ -98,8 +102,10 @@ export default class PersonEdition extends Component {
             mdSize="5"
           >
             <DoctorSpecificBox
-              values={ doctorSpecificValues }
-              onChange={ this._onChangeDoctorSpecificInputes.bind(this) }
+              values={ values }
+              errors={ errors }
+              onChange={ this.onChange.bind(this) }
+              onSave={ this.onSave.bind(this, values) }
             />
           </GridItem> : null
         }
@@ -110,5 +116,7 @@ export default class PersonEdition extends Component {
 }
 
 PersonEdition.propTypes = {
-  personType: PropTypes.string
+  personType: PropTypes.string,
+  values: PropTypes.object,
+  onSave: PropTypes.func
 };

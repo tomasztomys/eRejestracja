@@ -17,68 +17,73 @@ export default class ChangePassword extends Component {
         oldPassword: 'Old password',
         saveButton: 'Change password'
       },
-      errors: {
-        password: '',
-        repeatPassword: '',
-        oldPassword: ''
+      specificErrors: {
+        repeatPassword: ''
       },
-      errorsMessages: {
-        password: 'Enter password',
-        repeatPassword: 'Enter your password again',
-        oldPassword: 'Enter your old password'
+      specificErrorsMessages: {
+        repeatPassword: 'This password do not match'
       }
     };
   }
+  onChangeRepeatPassword(key, value) {
+    let { values } = this.props;
+    let { specificErrors, specificErrorsMessages } = this.state;
 
-  _onChange(type, value) {
-    let { errors, errorsMessages } = this.state;
+    specificErrors[key] = value !== values.password ? specificErrorsMessages[key] : '';
 
-    errors[type] = value.length > 0 ? '' : errorsMessages[type];
     this.setState({
-      errors
+      specificErrors
     });
 
-    this.props.onChange(type, value);
+    this.props.onChange(key, value);
   }
 
   render() {
-    let { labels, errors } = this.state;
-    let { values, oldPassword } = this.props;
+    let { labels, specificErrors } = this.state;
+    let { values, oldPassword, onChange, errors } = this.props;
 
     return (
       <div className={ style['change-password-box'] }>
         <Input
           key={ labels.password }
           label={ labels.password }
-          errors={ errors.password }
+          error={ errors.password }
           value={ values.password }
           type="password"
-          onChange={ this._onChange.bind(this, 'password') }
+          onChange={ onChange.bind(this, 'password') }
         />
         <Input
           key={ labels.repeatPassword }
           label={ labels.repeatPassword }
-          errors={ errors.repeatPassword }
+          error={ errors.repeatPassword || specificErrors.repeatPassword }
           value={ values.repeatPassword }
           type="password"
-          onChange={ this._onChange.bind(this, 'repeatPassword') }
+          onChange={ this.onChangeRepeatPassword.bind(this, 'repeatPassword') }
         />
         { oldPassword ?
           <Input
             key={ labels.oldPassword }
             label={ labels.oldPassword }
-            errors={ errors.oldPassword }
+            error={ errors.oldPassword }
             value={ values.oldPassword }
             type="password"
-            onChange={ this._onChange.bind(this, 'oldPassword') }
+            onChange={ onChange.bind(this, 'oldPassword') }
           /> : null }
       </div>
     );
   }
 }
 
+const PropTypesStructure = {
+  password: PropTypes.string,
+  repeatPassword: PropTypes.string,
+  oldPassword: PropTypes.string,
+  saveButton: PropTypes.string,
+};
+
 ChangePassword.propTypes = {
-  values: PropTypes.object,
+  values: PropTypes.shape(PropTypesStructure),
+  errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
-  oldPassword: PropTypes.bool
+  oldPassword: PropTypes.bool,
 };

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  Card,
+  CardWithHeader,
   Input
 } from '../../../../ui';
 
@@ -46,7 +46,7 @@ export default class VisitDescriptionBox extends Component {
     ];
 
     return (
-      <Card
+      <CardWithHeader
         title="Visit describe"
         subtitle="You can describe visit, this describe allow doctor to prepare to visit."
         actions={ actions }
@@ -58,7 +58,7 @@ export default class VisitDescriptionBox extends Component {
           error={ errors.description }
           disabled={ disabled }
         />
-      </Card>
+      </CardWithHeader>
     );
   }
 }

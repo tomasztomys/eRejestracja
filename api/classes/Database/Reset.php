@@ -22,7 +22,7 @@ class Reset
       'email' => 'tomasz@tomys.pl',
       'password' => 'tomasz',
       'type' => 'doctor',
-      'specialization' => 'Chirurg'
+      'specialization' => 'surgeon'
     ];
     $doctor2 = [
       'name' => 'Dariusz',
@@ -30,7 +30,7 @@ class Reset
       'email' => 'dariusz.paluch@hotmail.com',
       'password' => 'tomasz',
       'type' => 'doctor',
-      'specialization' => 'Pediatra'
+      'specialization' => 'pediatrician'
     ];
     $doctor3 = [
       'name' => 'Adam',
@@ -38,7 +38,7 @@ class Reset
       'email' => 'adam.nowak@hotmail.com',
       'password' => 'nowaczek123',
       'type' => 'doctor',
-      'specialization' => 'Dentysta'
+      'specialization' => 'dentist'
     ];
 
     return [$doctor1, $doctor2, $doctor3];
