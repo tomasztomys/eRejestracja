@@ -38,3 +38,10 @@ export function getUserType(state) {
   }
   return null;
 }
+
+export function getUserId(state) {
+  if (state.user.data) {
+    return state.user.data.id;
+  }
+  return null;
+}

@@ -1,9 +1,9 @@
 import { fetchData } from './fetchData';
 import Qs from 'qs';
 
-export function changeProfileData(parameters, type) {
-  console.log(type);
-  let url = type === 'doctor' ? '/doctors' : '/patients';
+export function changeProfileData(parameters, id, type) {
+  let userType = type === 'doctor' ? 'doctors' : 'patients';
+  let url = `/${ userType }/${ id }`;
   let body = JSON.stringify(
     parameters
   );

@@ -7,7 +7,7 @@ import * as UserReducer from '../../../../reducers/user';
 
 export default class SmartProfileEdition extends Component {
   onSave(values) {
-    let { personType } = this.props;
+    let { personType, userId } = this.props;
     let parameters = {
       name: values.name,
       surname: values.surname,
@@ -17,7 +17,7 @@ export default class SmartProfileEdition extends Component {
       specialization: values.specialization
     };
 
-    this.props.dispatch(Action.changeProfileData(parameters, personType));
+    this.props.dispatch(Action.changeProfileData(parameters, userId, personType));
   }
   render() {
     return (
@@ -34,13 +34,15 @@ function select(state) {
   state = state.toJS();
   return {
     personType: UserReducer.getUserType(state),
-    values: UserReducer.getUserData(state)
+    values: UserReducer.getUserData(state),
+    userId: UserReducer.getUserId(state)
   };
 }
 
 SmartProfileEdition.propTypes = {
   personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ]),
-  values: PropTypes.object
+  values: PropTypes.object,
+  userId: PropTypes.number
 };
 
 export default connect(select)(SmartProfileEdition);

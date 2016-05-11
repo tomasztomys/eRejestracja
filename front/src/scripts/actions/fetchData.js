@@ -12,7 +12,7 @@ function getInitFetch(method, body, token = '') {
     mode: 'cors',
   };
 
-  if (method === 'POST' || method === 'PATCH') {
+  if (method === 'POST' || method === 'PATCH' || method === 'PUT') {
     initFetch.body = body;
   }
 
