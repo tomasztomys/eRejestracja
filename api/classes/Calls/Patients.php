@@ -174,7 +174,6 @@ class Patients
         $patientDB->name = $request->getParam('name');
         $patientDB->surname = $request->getParam('surname');
         $patientDB->email = $request->getParam('email');
-        $patientDB->password = $request->getParam('password');
         $patientDB->pesel = $request->getParam('pesel');
         $patientDB->type = 'patient';
 
