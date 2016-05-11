@@ -9,6 +9,7 @@ export default class SmartProfileEdition extends Component {
   onSave(values) {
     let { personType, userId } = this.props;
     let parameters = {
+      id: userId,
       name: values.name,
       surname: values.surname,
       pesel: values.pesel,
@@ -17,7 +18,7 @@ export default class SmartProfileEdition extends Component {
       specialization: values.specialization
     };
 
-    this.props.dispatch(Action.changeProfileData(parameters, userId, personType));
+    this.props.dispatch(Action.changeProfileData(parameters, personType));
   }
   render() {
     return (
