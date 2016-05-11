@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as Action from '../../../actions/Actions';
 
 import Login from './Login';
+import Paths from '../../../constants/PathsConstants';
 
 class SmartLogin extends Component {
   constructor() {
@@ -34,7 +35,8 @@ class SmartLogin extends Component {
     let { email, password } = this.state.values;
 
     if (email.length > 0 && password.length > 0) {
-      this.props.dispatch(Action.tryLogIn(email, password));
+      this.props.dispatch(Action.login(email, password));
+      this.context.router.push(Paths.root);
     }
   }
 
@@ -59,5 +61,9 @@ class SmartLogin extends Component {
     );
   }
 }
+
+SmartLogin.contextTypes = {
+  router: React.PropTypes.object
+};
 
 export default connect()(SmartLogin);

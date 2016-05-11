@@ -1,18 +1,20 @@
 import { fetchData } from './fetchData';
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
+} from './ActionsTypes';
 
-export const USER_LOG_IN = 'USER_LOG_IN';
-
-export function addUserLogIn(data) {
+export function loginSuccess(data) {
   let user = data.user;
 
   user.login = data.login;
   return {
-    type: USER_LOG_IN,
+    type: LOGIN_SUCCESS,
     data: user
   };
 }
 
-export function tryLogIn(email, password) {
+export function login(email, password) {
   let url = '/authorizations';
   let body = JSON.stringify({
     email,
@@ -22,7 +24,7 @@ export function tryLogIn(email, password) {
   return (dispatch) => {
     fetchData(url, 'POST', body, '')
     .then((data) => {
-      dispatch(addUserLogIn(data));
+      dispatch(loginSuccess(data));
     });
   };
 }

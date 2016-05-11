@@ -47,6 +47,14 @@ export default class PersonEdition extends Component {
       }
     };
   }
+  componentDidMount() {
+    let { values } = this.props;
+
+    this.setState({
+      values
+    });
+  }
+
   onChange(type, value) {
     let { values } = this.state;
 
@@ -55,16 +63,9 @@ export default class PersonEdition extends Component {
       values
     });
   }
-
-  onSaveNewPassword() {
+  onSave(values) {
+    this.props.onSave(values);
   }
-
-  onSavePersonData() {
-  }
-
-  onSaveDoctorSpecific() {
-  }
-
   render() {
     let { values, errors } = this.state;
     let { personType } = this.props;
@@ -79,7 +80,7 @@ export default class PersonEdition extends Component {
             values={ values }
             errors={ errors }
             onChange={ this.onChange.bind(this) }
-            onSave={ this.onSavePersonData.bind(this) }
+            onSave={ this.onSave.bind(this, values) }
             personType={ personType }
           />
         </GridItem>
@@ -91,7 +92,7 @@ export default class PersonEdition extends Component {
             values={ values }
             errors={ errors }
             onChange={ this.onChange.bind(this) }
-            onSave={ this.onSaveNewPassword.bind(this) }
+            onSave={ this.onSave.bind(this, values) }
             oldPassword
           />
         </GridItem>
@@ -104,7 +105,7 @@ export default class PersonEdition extends Component {
               values={ values }
               errors={ errors }
               onChange={ this.onChange.bind(this) }
-              onSave={ this.onSaveDoctorSpecific.bind(this) }
+              onSave={ this.onSave.bind(this, values) }
             />
           </GridItem> : null
         }
@@ -115,5 +116,7 @@ export default class PersonEdition extends Component {
 }
 
 PersonEdition.propTypes = {
-  personType: PropTypes.string
+  personType: PropTypes.string,
+  values: PropTypes.object,
+  onSave: PropTypes.func
 };
