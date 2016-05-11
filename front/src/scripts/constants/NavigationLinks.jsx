@@ -12,6 +12,10 @@ const NavigationLinks = [
   {
     label: 'Demo',
     path: Paths.demo
+  },
+  {
+    label: 'Doctor Registration',
+    path: Paths.doctors.registration
   }
 ];
 

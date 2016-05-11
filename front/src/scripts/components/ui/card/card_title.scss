@@ -1,0 +1,8 @@
+@import '../../../../styles/colors';
+
+.card-title {
+  h5 {
+    text-align: left;
+  }
+  background-color: $card-header-background;
+}

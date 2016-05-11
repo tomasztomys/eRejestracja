@@ -1,0 +1,49 @@
+@import '../../../../../../../styles/colors';
+@import '../../../../../../../styles/config';
+@import '../../style/variables';
+
+.menu-drawer {
+  width: $menu-drawer-width;
+  color: $drawer-menu-font-color;
+  background-color: $drawer-menu-background-color;
+  margin-top: $menu-bar-height;
+
+  .menu {
+    margin-bottom: $menu-bar-height;
+    
+    & > ul {
+      padding: 0;
+    }
+    //remove left icons
+    .sub-menu-parent > span > span:first-child {
+      display: none;
+    }
+
+    .main-item, .sub-menu-item, .sub-menu-parent {
+      padding: 4px 0;
+
+      span {
+        color: $drawer-menu-font-color;
+      }
+
+      &:hover {
+        background-color: $red-color;
+      }
+    }
+
+    .main-item, .sub-menu-parent {
+      text-align: center;
+      span {
+        font-size: 2rem;
+      }
+    }
+
+    .main-item {
+      padding-right: 43px;
+    }
+
+    .sub-menu-item {
+      background-color: $drawer-menu-submenu-open-background-color;
+    }
+  }
+}

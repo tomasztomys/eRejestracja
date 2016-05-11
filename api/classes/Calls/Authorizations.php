@@ -35,8 +35,16 @@ class Authorizations
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function authorizations($request, $response, $args) {
-        if($request->getParam('email') === 'tomasz@tomys.pl' && $request->getParam('password') === 'tomasz') {
-            return $response->withJson(['login' => true]);
+        $email = $request->getParam('email');
+        $password = $request->getParam('password');
+
+        $user = \R::findOne('user', ' email = ? && password = ? ', [ $email, $password ] );
+
+        if($user !== null) {
+            $entityClass = '\Calls\\'.ucfirst($user->type).'s';
+            $method = '_make'.ucfirst($user->type);
+            $userArray = $entityClass::$method($user);
+            return $response->withJson(['login' => true, 'user' => $userArray]);
         } else {
             $newResponse = $response->withStatus(422);
             return $newResponse->withJson(['login' => false]);

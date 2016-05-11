@@ -7,12 +7,18 @@ import style from './button.scss';
 export default class Button extends React.Component {
 
   render() {
-    let { className, sizeType, ...otherProps } = this.props;
-    let buttonStyle = classnames(style['rt-button'], style[sizeType], className);
+    let { className, disabled, sizeType, ...otherProps } = this.props;
+    let buttonStyle = classnames(
+      style['rt-button'],
+      style[sizeType],
+      { [style['active']]: !disabled },
+      className
+    );
 
     return (
       <ButtonReactToolbox
         className={ buttonStyle }
+        disabled={ disabled }
         { ...otherProps }
         ripple
         raised
@@ -27,5 +33,6 @@ Button.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   sizeType: PropTypes.oneOf([ 'large', 'default', 'small', 'extra-small' ]),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
 };

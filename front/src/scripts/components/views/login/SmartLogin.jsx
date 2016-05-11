@@ -11,30 +11,30 @@ class SmartLogin extends Component {
 
     this.state = {
       values: {
-        login: 'tomasz@tomys.pl',
+        email: 'tomasz@tomys.pl',
         password: 'tomasz',
       },
       labels: {
-        login: 'Login',
+        email: 'Email',
         password: 'Password',
         loginButton: 'Sign in'
       },
       errorMessages: {
-        login: 'Please enter your login.',
+        email: 'Please enter your email.',
         password: 'Please enter your password.'
       },
       errors: {
-        login: '',
+        email: '',
         password: ''
       }
     };
   }
 
   _logInHandle() {
-    let { login, password } = this.state.values;
+    let { email, password } = this.state.values;
 
-    if (login.length > 0 && password.length > 0) {
-      this.props.dispatch(Action.tryLogIn(login, password));
+    if (email.length > 0 && password.length > 0) {
+      this.props.dispatch(Action.tryLogIn(email, password));
     }
   }
 

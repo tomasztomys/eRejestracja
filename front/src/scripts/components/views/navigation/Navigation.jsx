@@ -6,6 +6,8 @@ import {
   List, ListItem
 } from '../../ui';
 
+import style from './navigation.scss';
+
 export default class Navigation extends Component {
 
   constructor(props, context) {
@@ -23,6 +25,7 @@ export default class Navigation extends Component {
     return NavigationLinks.map((link, index) => {
       return (
         <ListItem
+          className={ style['item'] }
           key={ index }
           caption={ link.label }
           onClick={ this._routeHandler.bind(this, link.path) }
@@ -34,7 +37,7 @@ export default class Navigation extends Component {
   render() {
     return (
       <div>
-        <List>
+        <List className={ style['navigation'] }>
           { this._renderLinks() }
         </List>
       </div>

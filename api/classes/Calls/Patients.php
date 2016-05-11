@@ -30,7 +30,7 @@ class Patients
      *
      * @return array
      */
-    private function _makePatient($patientDB) {
+    public function _makePatient($patientDB) {
         $patient = [];
         $patient['id'] = (int)$patientDB->id;
         $patient['name'] = $patientDB->name;
@@ -48,7 +48,7 @@ class Patients
      * @return array
      */
     private function _getAllPatients() {
-        $patientsDB = \R::findAll( 'patient' );
+        $patientsDB = \R::findAll( 'user', 'type = ? ', [ 'patient' ] );
         $patients = [];
         foreach($patientsDB as $patientDB) {
             $patient = $this->_makePatient($patientDB);
@@ -77,7 +77,57 @@ class Patients
     }
 
     /**
-     * Obsługa calla DELETE /patient/{id}
+     * Obsługa calla GET /patients/{id}
+     *
+     * Call służący do pobrania pacjenta z bazy danych
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getPatient($request, $response, $args) {
+
+        $id = $args['id'];
+
+        $patientDB = \R::load( 'user', $id);
+
+        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        return $response->withJson($this->_makePatient($patientDB));
+    }
+
+    /**
+     * Obsługa calla POST /patients
+     *
+     * Call służący do dodawania pacjenta
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function addPatient($request, $response, $args) {
+        $patientBean = \R::dispense('user');
+
+        $patientBean->name = $request->getParam('name');
+        $patientBean->surname = $request->getParam('surname');
+        $patientBean->email = $request->getParam('email');
+        $patientBean->password = $request->getParam('password');
+        $patientBean->pesel = $request->getParam('pesel');
+        $patientBean->type = 'patient';
+
+        \R::store($patientBean);
+        return $response->withJson([]);
+    }
+
+    /**
+     * Obsługa calla DELETE /patients/{id}
      *
      * Call służący do usuwania pacjenta z bazy danych
      *
@@ -90,14 +140,45 @@ class Patients
     public function deletePatient($request, $response, $args) {
 
         $id = $args['id'];
-        $patientDB = \R::load( 'patient', $id );
+        $patientDB = \R::load( 'user', $id );
 
-        if($patientDB->id !== 0) {
+        if($patientDB->id !== 0 && $patientDB->type === 'patient') {
             \R::trash($patientDB);
             return $response->withJson([]);
         }
 
         $response = $response->withStatus(422);
         return $response->withJson(['error' => 'Patient not found']);
+    }
+
+    /**
+     * Obsługa calla PUT /patients/{id}
+     *
+     * Call służący do edytowania pacjenta
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function editPatient($request, $response, $args) {
+        $id = $args['id'];
+        $patientDB = \R::load( 'user', $id );
+
+        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        $patientDB->name = $request->getParam('name');
+        $patientDB->surname = $request->getParam('surname');
+        $patientDB->email = $request->getParam('email');
+        $patientDB->password = $request->getParam('password');
+        $patientDB->pesel = $request->getParam('pesel');
+        $patientDB->type = 'patient';
+
+        \R::store($patientDB);
+        return $response->withJson([]);
     }
 }

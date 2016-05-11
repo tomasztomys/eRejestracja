@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { List as ListReactToolbox } from 'react-toolbox/lib/list';
-import { ListItem as ListItemReactToolbox } from 'react-toolbox/lib/list';
+import ListItem from './ListItem';
 import classnames from 'classnames';
 
 import style from './list.scss';
@@ -11,11 +11,7 @@ export default class List extends React.Component {
     let { className, ...otherProps } = this.props;
 
     let children = React.Children.map(this.props.children, (element) => {
-      let { ...elementProps } = element.props;
-
-      return (
-        <ListItemReactToolbox {...elementProps} />
-      );
+      return element;
     });
 
     let listStyle = classnames(style['list'], className);
@@ -24,7 +20,6 @@ export default class List extends React.Component {
       <ListReactToolbox
         className={ listStyle }
         selectable
-        ripple={ false }
         { ...otherProps }
       >
         { children }

@@ -21,27 +21,24 @@ class Reset
       'surname' => 'Tomys',
       'email' => 'tomasz@tomys.pl',
       'password' => 'tomasz',
-      'pesel' => '94050112153',
       'type' => 'doctor',
-      'specialization' => 'chirurg'
+      'specialization' => 'Chirurg'
     ];
     $doctor2 = [
       'name' => 'Dariusz',
       'surname' => 'Paluch',
       'email' => 'dariusz.paluch@hotmail.com',
       'password' => 'tomasz',
-      'pesel' => '94011532198',
       'type' => 'doctor',
-      'specialization' => 'stomatolog'
+      'specialization' => 'Pediatra'
     ];
     $doctor3 = [
       'name' => 'Adam',
       'surname' => 'Nowak',
       'email' => 'adam.nowak@hotmail.com',
       'password' => 'nowaczek123',
-      'pesel' => '96012552198',
       'type' => 'doctor',
-      'specialization' => 'okulista'
+      'specialization' => 'Dentysta'
     ];
 
     return [$doctor1, $doctor2, $doctor3];
@@ -80,7 +77,7 @@ class Reset
   public function _addDoctors() {
     $doctors = $this->_getDoctors();
 
-    $doctorBeans = \R::dispense('doctor', sizeof($doctors));
+    $doctorBeans = \R::dispense('user', sizeof($doctors));
 
     $i = 0;
     foreach($doctors as $doctor) {
@@ -88,7 +85,6 @@ class Reset
       $doctorBeans[$i]->surname = $doctor['surname'];
       $doctorBeans[$i]->email = $doctor['email'];
       $doctorBeans[$i]->password = $doctor['password'];
-      $doctorBeans[$i]->pesel = $doctor['pesel'];
       $doctorBeans[$i]->type = $doctor['type'];
       $doctorBeans[$i]->specialization = $doctor['specialization'];
       $i++;
@@ -104,7 +100,7 @@ class Reset
   public function _addPatients() {
     $patients = $this->_getPatients();
 
-    $patientBeans = \R::dispense('patient', sizeof($patients));
+    $patientBeans = \R::dispense('user', sizeof($patients));
 
     $i = 0;
     foreach($patients as $patient) {

@@ -2,24 +2,15 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Table,
-  Button
+  Button,
+  Card,
+  CardTitle,
+  Grid,
+  GridItem
 } from '../../ui';
 
 export default class EntityList extends Component {
 
-  _renderButtons() {
-    let { buttons } = this.props;
-
-    return buttons.map((item) => {
-      return (
-        <Button
-          key={ item.label }
-          label={ item.label }
-          onClick={ item.onClick }
-        />
-      );
-    });
-  }
   render() {
     let {
       source,
@@ -28,27 +19,32 @@ export default class EntityList extends Component {
       selectable,
       selected,
       onChangeTable,
-      title
+      title,
+      noDataMessage,
+      buttons
     } = this.props;
 
     return (
-      <div>
-        <h1>
-          { title }
-        </h1>
-        { source.length > 0 ?
-          <Table
-            source={ source }
-            model={ model }
-            onSelect={ onSelect }
-            selectable={ selectable }
-            selected={ selected }
-            onChange={ onChangeTable }
-          /> : <div>No doctors in database</div>
-        }
-
-        { source.length > 0 ? this._renderButtons() : null }
-      </div>
+      <Grid>
+        <GridItem xsSize="12">
+          <Card
+            title={ title }
+            subtitle="You can remove doctor or edit."
+            actions={ source.length ? buttons : [] }
+          >
+            { source.length > 0 ?
+              <Table
+                source={ source }
+                model={ model }
+                onSelect={ onSelect }
+                selectable={ selectable }
+                selected={ selected }
+                onChange={ onChangeTable }
+              /> : <div>{ noDataMessage }</div>
+            }
+          </Card>
+        </GridItem>
+      </Grid>
 
     );
   }
@@ -64,5 +60,6 @@ EntityList.propTypes = {
   selected: PropTypes.array,
   source: PropTypes.array,
   className: PropTypes.string,
-  buttons: PropTypes.array
+  buttons: PropTypes.array,
+  noDataMessage: PropTypes.string
 };

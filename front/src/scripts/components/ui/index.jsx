@@ -3,12 +3,27 @@ import { List, ListItem } from './list';
 import { Button } from './button';
 import { Table } from './table';
 import { Checkbox } from './checkbox';
+import { Snackbar } from './snackbar';
+import { Drawer } from './drawer';
+import { Avatar } from './avatar';
+import { FontIcon } from './font_icon';
+import { Card, CardTitle } from './card';
+import { Grid, GridItem } from './grid';
+import { Dropdown } from './dropdown';
+import { DatePicker } from './date_picker';
 
 export {
   Input,
-  List,
-  ListItem,
+  List, ListItem,
   Button,
   Table,
-  Checkbox
+  Checkbox,
+  Snackbar,
+  Drawer,
+  Avatar,
+  FontIcon,
+  Card, CardTitle,
+  Grid, GridItem,
+  Dropdown,
+  DatePicker
 };
