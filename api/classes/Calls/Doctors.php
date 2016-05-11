@@ -201,7 +201,6 @@ class Doctors
         $doctorDB->name = $request->getParam('name');
         $doctorDB->surname = $request->getParam('surname');
         $doctorDB->email = $request->getParam('email');
-        $doctorDB->email = $request->getParam('email');
         $doctorDB->specialization = $request->getParam('specialization');
         $doctorDB->type = 'doctor';
 
