@@ -30,11 +30,13 @@ export default class MainLayout extends Component {
 
   render() {
     let { drawerMenuActive } = this.state;
+    let { name, surname } = this.props;
+    let appBarLabel = `${ name } ${ surname }`;
 
     return (
       <div className={ style['root'] }>
         <header className={ style['header'] }>
-          <div className={ style['user-name'] }>Dariusz Paluch</div>
+          <div className={ style['user-name'] }>{ appBarLabel }</div>
           <div className={ style['avatar-content'] }>
             <Avatar
               className={ style['avatar'] }
@@ -61,5 +63,7 @@ export default class MainLayout extends Component {
 }
 
 MainLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  name: PropTypes.string,
+  surname: PropTypes.string
 };

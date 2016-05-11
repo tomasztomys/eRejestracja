@@ -17,7 +17,7 @@ import {
 } from './views/entity_lists/smarts';
 
 import { Demo } from './views/demo';
-import { MainLayout } from './views/layouts/main_layout';
+import { SmartMainLayout } from './views/layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
   SmartDoctorRegistration,
@@ -33,7 +33,7 @@ export default class Routes extends React.Component {
 
   render() {
     let registeredSection = (
-      <Route component={ MainLayout } >
+      <Route component={ SmartMainLayout } >
         <Route path={ Paths.doctors.list }
           component={ SmartDoctorsList }
         />
