@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 
 import {
   Grid,
@@ -11,6 +12,8 @@ import {
   VisitDescriptionBox
 } from './subcomponents';
 
+import style from './patient_book_visit.scss';
+
 export default class PatientBookVisit extends Component {
   constructor() {
     super();
@@ -19,6 +22,12 @@ export default class PatientBookVisit extends Component {
         doctorPicker: false,
         datePicker: true,
         descriptionBox: true
+      },
+      step: 0,
+      stepsNumber: {
+        doctor: 0,
+        datePicker: 1,
+        descriptionBox: 2
       },
       sources: {
         time: [
@@ -74,25 +83,19 @@ export default class PatientBookVisit extends Component {
     };
   }
 
-  _onAcceptDoctor() {
-    let { disabled } = this.state;
-
-    disabled.doctorPicker = true;
-    disabled.datePicker = false;
+  onNextStep() {
+    let { step } = this.state;
 
     this.setState({
-      disabled
+      step: step + 1
     });
   }
 
-  _onAcceptTerm() {
-    let { disabled } = this.state;
-
-    disabled.datePicker = true;
-    disabled.descriptionBox = false;
+  onBackStep() {
+    let { step } = this.state;
 
     this.setState({
-      disabled
+      step: step - 1
     });
   }
 
@@ -105,8 +108,15 @@ export default class PatientBookVisit extends Component {
     let { values, onChange } = this.props;
 
     return (
-      <div>
-        <Grid center>
+      <div className={ style['book-visit'] }>
+        <Grid
+          center
+          className={ classnames(
+            style['item-block'],
+            { [style['show-block']]: !disabled.doctorPicker },
+            { [style['hidden-block']]: disabled.doctorPicker }
+          ) }
+        >
           <GridItem xsSize="6">
             <DoctorPickerBox
               selectedDoctorId={ values.doctor }
@@ -114,12 +124,20 @@ export default class PatientBookVisit extends Component {
               sources={ sources }
               onDoctorChange={ onChange.bind(this, 'doctor') }
               onSpecializationChange={ onChange.bind(this, 'specialization') }
-              onAccept={ this._onAcceptDoctor.bind(this) }
+              onNextStep={ this.onNextStep.bind(this) }
               disabled={ disabled.doctorPicker }
             />
           </GridItem>
         </Grid>
-        <Grid center>
+
+        <Grid
+          center
+          className={ classnames(
+            style['item-block'],
+            { [style['show-block']]: !disabled.datePicker },
+            { [style['hidden-second']]: disabled.datePicker }
+          ) }
+        >
           <GridItem xsSize="6">
             <TermPickerBox
               selectedDate={ values.date }
@@ -127,18 +145,27 @@ export default class PatientBookVisit extends Component {
               availableTimes={ sources.time }
               selectedTime={ values.time }
               onTimeChange={ onChange.bind(this, 'time') }
-              onAccept={ this._onAcceptTerm.bind(this) }
+              onNextStep={ this.onNextStep.bind(this) }
+              onBackStep={ this.onBackStep.bind(this) }
               disabled={ disabled.datePicker }
             />
           </GridItem>
         </Grid>
-        <Grid center>
+        <Grid
+          center
+          className={ classnames(
+            style['item-block'],
+            { [style['show-block']]: !disabled.descriptionBox },
+            { [style['hidden-second']]: disabled.descriptionBox }
+          ) }
+        >
           <GridItem xsSize="6">
             <VisitDescriptionBox
               visitDescription={ values.description }
               onDescriptionChange={ onChange.bind(this, 'description') }
               disabled={ disabled.descriptionBox }
-              onAccept={ this._onSignUp.bind(this) }
+              onNextStep={ this.onNextStep.bind(this) }
+              onBackStep={ this.onBackStep.bind(this) }
             />
           </GridItem>
         </Grid>

@@ -5,6 +5,10 @@ import {
   Dropdown
 } from '../../../../ui';
 
+import {
+  PickerBox
+} from '../';
+
 export default class BookVisitBox extends Component {
   constructor() {
     super();
@@ -74,22 +78,17 @@ export default class BookVisitBox extends Component {
       selectedSpecialization,
       onDoctorChange,
       onSpecializationChange,
-      disabled
+      disabled,
+      onNextStep,
+      onBackStep
     } = this.props;
 
-    let actions = [
-      {
-        label: 'Accept',
-        onClick: this._onAccept.bind(this),
-        disabled: disabled
-      }
-    ];
-
     return (
-      <CardWithHeader
+      <PickerBox
         title="Book visit to doctor."
         subtitle="You can select doctor and book a visit on select term."
-        actions={ actions }
+        onNextStep={ onNextStep }
+        onBackStep={ onBackStep }
       >
         <Dropdown
           source={ this._onPrepareSpecializations(sources.specializations) }
@@ -107,7 +106,7 @@ export default class BookVisitBox extends Component {
           onChange={ onDoctorChange.bind(this) }
           disabled={ disabled || selectedSpecialization.length === 0 }
         />
-      </CardWithHeader>
+      </PickerBox>
     );
   }
 }
