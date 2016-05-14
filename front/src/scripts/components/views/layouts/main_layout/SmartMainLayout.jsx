@@ -10,6 +10,7 @@ export default class SmartProfileEdition extends Component {
       <MainLayout
         name={ this.props.user.name }
         surname={ this.props.user.surname }
+        userType={ this.props.userType }
       >
         { this.props.children }
       </MainLayout>
@@ -21,14 +22,16 @@ SmartProfileEdition.propTypes = {
   children: PropTypes.node,
   user: PropTypes.shape({
     name: PropTypes.string,
-    surname: PropTypes.string
-  })
+    surname: PropTypes.string,
+  }),
+  userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
 };
 
 function select(state) {
   state = state.toJS();
   return {
-    user: UserReducer.getUserData(state)
+    user: UserReducer.getUserData(state),
+    userType: UserReducer.getUserType(state)
   };
 }
 

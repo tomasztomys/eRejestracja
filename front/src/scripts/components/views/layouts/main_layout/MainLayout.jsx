@@ -30,7 +30,7 @@ export default class MainLayout extends Component {
 
   render() {
     let { drawerMenuActive } = this.state;
-    let { name, surname } = this.props;
+    let { name, surname, userType } = this.props;
     let appBarLabel = `${ name } ${ surname }`;
 
     return (
@@ -53,6 +53,7 @@ export default class MainLayout extends Component {
         <MenuDrawer
           active={ this.state.drawerMenuActive }
           onOverlayClick={ this._toggleDrawerMenu.bind(this) }
+          userType="admin"
         />
         <div className={ style['body'] }>
           { this.props.children }
@@ -65,5 +66,6 @@ export default class MainLayout extends Component {
 MainLayout.propTypes = {
   children: PropTypes.node,
   name: PropTypes.string,
-  surname: PropTypes.string
+  surname: PropTypes.string,
+  userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
 };

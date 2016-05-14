@@ -10,12 +10,14 @@ import {
 import classnames from 'classnames';
 
 import style from './menu_drawer';
-import AdminNavigationLinks from '../../../../../../constants/AdminNavigationLinks';
+
+import MenuNavigationLinks from '../../../../../../constants/MenuNavigationLinks';
 
 export default class MenuDrawer extends Component {
   constructor() {
     super();
-    let menuItems = AdminNavigationLinks.map((menuItem, index) => {
+
+    let menuItems = MenuNavigationLinks.map((menuItem, index) => {
       let item = menuItem;
 
       item.open = false;
@@ -37,8 +39,18 @@ export default class MenuDrawer extends Component {
     });
   }
 
+  _toggleMenu(id) {
+    let { menuItems } = this.state;
+
+    menuItems[id].open = !menuItems[id].open;
+    this.setState({
+      menuItems
+    });
+  }
+
   _renderMenuItem(item) {
-    return (
+    let { userType } = this.props;
+    return (!item.access || item.access.indexOf(userType) > -1) ? (
       <List key={ item.label }>
         <ListItem
           className={
@@ -51,11 +63,13 @@ export default class MenuDrawer extends Component {
           onClick={ this._routeHandler.bind(this, item) }
         />
       </List>
-    );
+    ) : null;
   }
 
   _renderSubMenuItem(item) {
-    return (
+    let { userType } = this.props;
+
+    return (!item.access || item.access.indexOf(userType) > -1) ? (
       <ListItem
         className={
           classnames(
@@ -66,22 +80,14 @@ export default class MenuDrawer extends Component {
         caption={ item.label }
         onClick={ this._routeHandler.bind(this, item) }
       />
-    );
-  }
-
-  _toggleMenu(id) {
-    let { menuItems } = this.state;
-
-    menuItems[id].open = !menuItems[id].open;
-    this.setState({
-      menuItems
-    });
+    ) : null;
   }
 
   _renderSubMenu(item) {
+    let { userType } = this.props;
     let icon = item.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
 
-    return (
+    return (!item.access || item.access.indexOf(userType) > -1) ? (
       <List key={ item.label }>
         <ListItem
           className={
@@ -112,8 +118,9 @@ export default class MenuDrawer extends Component {
         }
       </List>
 
-    );
+    ) : null;
   }
+
   _renderNavigationItems(items) {
     return items.map((item) => {
       if (item.children && item.children.length > 0) {
@@ -146,5 +153,6 @@ MenuDrawer.contextTypes = {
 
 MenuDrawer.propTypes = {
   active: PropTypes.bool,
-  onOverlayClick: PropTypes.func
+  onOverlayClick: PropTypes.func,
+  userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
 };
