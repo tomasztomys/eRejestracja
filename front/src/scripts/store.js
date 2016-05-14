@@ -10,7 +10,13 @@ import app from './reducers/app';
 import * as Action from './actions/Actions';
 import AppConfig from './AppConfig';
 
-var finalCreateStore = compose(
+function getDebugSessionKey() {
+  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
+
+  return (matches && matches.length > 0)? matches[1] : null;
+}
+
+let finalCreateStore = compose(
   applyMiddleware(thunkMiddleware),
   // Required! Enable Redux DevTools with the monitors you chose
   ReduxDevTools.instrument(),
@@ -18,14 +24,14 @@ var finalCreateStore = compose(
   persistState(getDebugSessionKey())
 )(createStore);
 
-function getDebugSessionKey() {
-  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
-  return (matches && matches.length > 0)? matches[1] : null;
-}
-
 // there's only a single store
 // in the whole application
-var Store = finalCreateStore(app);
+let Store = finalCreateStore(app);
 
+let userData = localStorage.get('user');
+
+if (userData !== undefined) {
+  Store.dispatch(Action.tryLogin(userData.login, userData.password));
+}
 
 export default Store;

@@ -5,6 +5,7 @@ import {
   Redirect,
   browserHistory
 } from 'react-router';
+import localStorage from 'store';
 import Paths from '../constants/PathsConstants';
 
 import App from './App';
@@ -30,10 +31,28 @@ import {
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
 
 export default class Routes extends React.Component {
+  _redirectIfUserIsNotLogged(nextState, replace) {
+    if (!localStorage.get('user')) {
+      replace(
+        { pathname: Paths.login, state:
+          { nextPathname: nextState.location.pathname }
+        }
+      );
+    }
+  }
+
+  _redirectIfUserIsLogged(nextState, replace) {
+    if (localStorage.get('user')) {
+      replace({ pathname: Paths.root });
+    }
+  }
 
   render() {
     let registeredSection = (
-      <Route component={ SmartMainLayout } >
+      <Route
+        component={ SmartMainLayout }
+        onEnter={ this._redirectIfUserIsNotLogged }
+      >
         <Route path={ Paths.doctors.list }
           component={ SmartDoctorsList }
         />
@@ -75,6 +94,7 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.login }
             component={ SmartLogin }
+            onEnter={ this._redirectIfUserIsLogged }
           />
           <Route
             path={ Paths.demo }
