@@ -18,14 +18,9 @@ export default class PatientBookVisit extends Component {
   constructor() {
     super();
     this.state = {
-      disabled: {
-        doctorPicker: false,
-        datePicker: true,
-        descriptionBox: true
-      },
       step: 0,
       stepsNumber: {
-        doctor: 0,
+        doctorPicker: 0,
         datePicker: 1,
         descriptionBox: 2
       },
@@ -103,19 +98,26 @@ export default class PatientBookVisit extends Component {
     this.props.signUp();
   }
 
+  generateItemClassName(itemStep) {
+    let { step } = this.state;
+
+    return classnames(
+      style['item-block'],
+      { [style['before-hidden-block']]: step < itemStep },
+      { [style['show-block']]: step === itemStep },
+      { [style['after-hidden-block']]: step > itemStep }
+    );
+  }
+
   render() {
-    let { sources, disabled } = this.state;
+    let { sources, stepsNumber } = this.state;
     let { values, onChange } = this.props;
 
     return (
       <div className={ style['book-visit'] }>
         <Grid
           center
-          className={ classnames(
-            style['item-block'],
-            { [style['show-block']]: !disabled.doctorPicker },
-            { [style['hidden-block']]: disabled.doctorPicker }
-          ) }
+          className={ this.generateItemClassName(stepsNumber.doctorPicker) }
         >
           <GridItem xsSize="6">
             <DoctorPickerBox
@@ -125,18 +127,13 @@ export default class PatientBookVisit extends Component {
               onDoctorChange={ onChange.bind(this, 'doctor') }
               onSpecializationChange={ onChange.bind(this, 'specialization') }
               onNextStep={ this.onNextStep.bind(this) }
-              disabled={ disabled.doctorPicker }
             />
           </GridItem>
         </Grid>
 
         <Grid
           center
-          className={ classnames(
-            style['item-block'],
-            { [style['show-block']]: !disabled.datePicker },
-            { [style['hidden-second']]: disabled.datePicker }
-          ) }
+          className={ this.generateItemClassName(stepsNumber.datePicker) }
         >
           <GridItem xsSize="6">
             <TermPickerBox
@@ -147,23 +144,17 @@ export default class PatientBookVisit extends Component {
               onTimeChange={ onChange.bind(this, 'time') }
               onNextStep={ this.onNextStep.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
-              disabled={ disabled.datePicker }
             />
           </GridItem>
         </Grid>
         <Grid
           center
-          className={ classnames(
-            style['item-block'],
-            { [style['show-block']]: !disabled.descriptionBox },
-            { [style['hidden-second']]: disabled.descriptionBox }
-          ) }
+          className={ this.generateItemClassName(stepsNumber.descriptionBox) }
         >
           <GridItem xsSize="6">
             <VisitDescriptionBox
               visitDescription={ values.description }
               onDescriptionChange={ onChange.bind(this, 'description') }
-              disabled={ disabled.descriptionBox }
               onNextStep={ this.onNextStep.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
             />

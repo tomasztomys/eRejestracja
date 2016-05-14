@@ -50,5 +50,5 @@ PickerBox.propTypes = {
   subtitle: PropTypes.string,
   onBackStep: PropTypes.func,
   onNextStep: PropTypes.func,
-  children: PropTypes.any
+  children: PropTypes.any,
 };

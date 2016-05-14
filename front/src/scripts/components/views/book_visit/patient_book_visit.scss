@@ -6,21 +6,23 @@
   position: relative;
 
   .item-block {
-    transition: all .4s;
+    transition: all .3s;
     position: absolute;
-    left: 100%;
-    transform: translateX(100%);
+
     width: 100%;
+
+    &.before-hidden-block {
+      transform: translateX(150%);
+    }
+
+    &.after-hidden-block {
+      left: 0;
+      transform: translateX(-150%);
+    }
 
     &.show-block {
       left: 0;
       transform: translateX(0);
     }
-
-    &.hidden-block {
-      left: 0;
-      transform: translateX(-150%);
-    }
-
   }
 }

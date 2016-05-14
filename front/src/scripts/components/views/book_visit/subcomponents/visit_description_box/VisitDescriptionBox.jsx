@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  CardWithHeader,
   Input
 } from '../../../../ui';
+
+import {
+  PickerBox
+} from '../';
 
 export default class VisitDescriptionBox extends Component {
   constructor() {
@@ -30,42 +33,31 @@ export default class VisitDescriptionBox extends Component {
     });
   }
 
-  _onSignUp() {
-    this.props.onAccept();
-  }
-
   render() {
-    let { disabled, visitDescription, onDescriptionChange } = this.props;
+    let { visitDescription, onDescriptionChange, onNextStep, onBackStep } = this.props;
     let { labels, errors } = this.state;
-    let actions = [
-      {
-        label: 'Sign up for a visit',
-        onClick: this._onSignUp.bind(this),
-        disabled: disabled
-      }
-    ];
 
     return (
-      <CardWithHeader
+      <PickerBox
         title="Visit describe"
         subtitle="You can describe visit, this describe allow doctor to prepare to visit."
-        actions={ actions }
+        onNextStep={ onNextStep }
+        onBackStep={ onBackStep }
       >
         <Input
           label={ labels.description }
           value={ visitDescription }
           onChange={ onDescriptionChange }
           error={ errors.description }
-          disabled={ disabled }
         />
-      </CardWithHeader>
+      </PickerBox>
     );
   }
 }
 
 VisitDescriptionBox.propTypes = {
-  disabled: PropTypes.bool,
   visitDescription: PropTypes.string,
   onDescriptionChange: PropTypes.func,
-  onAccept: PropTypes.func
+  onNextStep: PropTypes.func,
+  onBackStep: PropTypes.func
 };

@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  CardWithHeader,
   DatePicker,
   Dropdown
 } from '../../../../ui';
+
+import {
+  PickerBox
+} from '../';
 
 export default class TermPickerBox extends Component {
   constructor() {
@@ -34,7 +37,7 @@ export default class TermPickerBox extends Component {
     });
   }
 
-  _onAccept() {
+  onNextStep() {
     let { selectedDate, selectedTime } = this.props;
 
     if (selectedDate === undefined) {
@@ -44,33 +47,26 @@ export default class TermPickerBox extends Component {
       this.setError('time');
     }
     else {
-      this.props.onAccept();
+      this.props.onNextStep();
     }
   }
 
   render() {
-    let { disabled, selectedDate, onDateChange,
-      availableTimes, selectedTime, onTimeChange } = this.props;
+    let { selectedDate, onDateChange,
+      availableTimes, selectedTime, onTimeChange, onNextStep, onBackStep } = this.props;
     let { labels, errors } = this.state;
-    let actions = [
-      {
-        label: 'Accept',
-        onClick: this._onAccept.bind(this),
-        disabled: disabled
-      }
-    ];
 
     return (
-      <CardWithHeader
+      <PickerBox
         title="Select term of Visit"
-        actions={ actions }
+        onNextStep={ this.onNextStep.bind(this) }
+        onBackStep={ onBackStep }
       >
         <DatePicker
           label={ labels.date }
           error={ errors.date }
           value={ selectedDate }
           onChange={ onDateChange }
-          disabled={ disabled }
         />
         <Dropdown
           label={ labels.time }
@@ -78,19 +74,19 @@ export default class TermPickerBox extends Component {
           source={ availableTimes }
           error={ errors.time }
           onChange={ onTimeChange }
-          disabled={ disabled || !selectedDate }
+          disabled={ !selectedDate }
         />
-      </CardWithHeader>
+      </PickerBox>
     );
   }
 }
 
 TermPickerBox.propTypes = {
-  disabled: PropTypes.bool,
   selectedDate: PropTypes.object,
   onDateChange: PropTypes.func,
   onTimeChange: PropTypes.func,
   availableTimes: PropTypes.array,
   selectedTime: PropTypes.string,
-  onAccept: PropTypes.func
+  onNextStep: PropTypes.func,
+  onBackStep: PropTypes.func
 };
