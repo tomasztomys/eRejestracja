@@ -6,7 +6,12 @@ import {
 
 import localStorage from 'store';
 
-export function loginSuccess(data) {
+export function loginSuccess(data, email, password) {
+  localStorage.set('user', {
+    login: email,
+    password: password
+  });
+
   let user = data.user;
 
   user.login = data.login;
@@ -26,12 +31,9 @@ export function tryLogin(email, password) {
   return (dispatch) => {
     fetchData(url, 'POST', body, '')
     .then((data) => {
-      localStorage.set('user', {
-        login: email,
-        password: password
-      });
-
-      dispatch(loginSuccess(data));
+      if (data.status === 200) {
+        dispatch(loginSuccess(data.data, email, password));
+      }
     });
   };
 }

@@ -38,3 +38,13 @@ export function fetchDataWithError(url, method = 'GET', body = {}, token = AppCo
 
   return singleFetchWithError(url, initFetch);
 }
+
+export function checkManyStatus(status, expectedStatus) {
+  status.forEach((item) => {
+    if (item !== expectedStatus) {
+      return false;
+    }
+  });
+
+  return true;
+}

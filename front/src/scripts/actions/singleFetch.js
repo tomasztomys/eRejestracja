@@ -7,28 +7,27 @@ function FetchError(response) {
 FetchError.prototype = Object.create(Error.prototype);
 FetchError.prototype.constructor = FetchError;
 
-
 export function singleFetchWithError(url, initFetch) {
-  let status;
+  let status = '';
+
   return fetch(AppConfig.apiUrl + url, initFetch)
-    .then(response => {
-      status = response.status
-      return response.json()
-    })
-    .then(response => {
-      if (status < 200 || status >= 300) {
-        var error = new FetchError(response);
-        error.response = response;
-        throw error;
+    .then((response) => {
+      status = response.status;
+      if (response.status < 200 || response.status >= 300) {
+        console.warn(response.status, response.statusText);
       }
-
-      return response;
+      return response.json();
     })
+    .then((response) => {
+      let data = {
+        data: response,
+        status: status
+      };
 
-
+      return data;
+    });
 }
 
 export function singleFetch(url, initFetch) {
-  return singleFetchWithError(url, initFetch)
-    .catch(console.error.bind(console));
+  return singleFetchWithError(url, initFetch);
 }

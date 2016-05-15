@@ -10,19 +10,17 @@ export default function doctors(state, action) {
     }
     case ActionsTypes.DELETE_DOCTOR_SUCCESS: {
       let ids = action.data.ids;
-      let doctors = state;
 
-      state.forEach((item, index) => {
-        if (ids.indexOf(item.get('id')) > 0) {
-          doctors.delete(index);
-        }
+      return state.filter((item) => {
+        return ids.indexOf(item.get('id')) === -1;
       });
-      console.log(state);
-      console.log(doctors);
-      // return Immutable.fromJS(action.data);
     }
 
   }
 
   return state;
+}
+
+export function getDoctorsList(state) {
+  return state.doctors;
 }

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as Action from '../../../../actions/Actions';
+import * as doctorsReducer from '../../../../reducers/doctors';
 
 import EntityList from '../EntityList';
 
@@ -45,24 +46,26 @@ class SmartDoctorsList extends Component {
   }
 
   _onRemove() {
-    let { selected, doctorsList } = this.state;
+    let { selected } = this.state;
+    let { doctorsList } = this.props;
+    let ids = [];
 
-    selected = selected || [];
-    selected.forEach((doctor) => {
-      let id = doctorsList[doctor].id;
-
-      this.props.dispatch(Action.deleteDoctor(id));
+    selected.forEach((index) => {
+      ids.push(doctorsList[index].id);
     });
 
+    this.props.dispatch(Action.deleteDoctors(ids));
     this._handleSelect([]);
   }
 
   render() {
     let {
       doctorsModel,
-      doctorsList,
       selected
     } = this.state;
+
+    let { doctorsList } = this.props;
+    console.log(doctorsList);
 
     return (
       <EntityList
@@ -82,10 +85,18 @@ class SmartDoctorsList extends Component {
   }
 }
 
+SmartDoctorsList.propTypes = {
+  doctorsList: PropTypes.array
+};
+
+SmartDoctorsList.defaultProps = {
+  doctorsList: []
+};
+
 function select(state) {
   state = state.toJS();
   return {
-    doctorsList: state.doctors
+    doctorsList: doctorsReducer.getDoctorsList(state)
   };
 }
 

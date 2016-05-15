@@ -1,4 +1,4 @@
-import { fetchData } from './fetchData';
+import { fetchData, checkManyStatus } from './fetchData';
 import Qs from 'qs';
 
 export const GET_DOCTORS_LIST = 'GET_DOCTORS_LIST';
@@ -15,7 +15,7 @@ export function addDoctorsList(data) {
   };
 }
 
-export function deleteDoctorSuccess(ids) {
+export function deleteDoctorsSuccess(ids) {
   return {
     type: DELETE_DOCTOR_SUCCESS,
     data: {
@@ -33,20 +33,22 @@ export function fetchDoctorsList() {
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
-      dispatch(addDoctorsList(data));
+      dispatch(addDoctorsList(data.data));
     });
   };
 }
 
-export function deleteDoctor(id) {
-
-  let url = `/doctors/${ id }`;
+export function deleteDoctors(ids) {
+  let urls = ids.map((item) => {
+    return `/doctors/${ item }`;
+  });
 
   return (dispatch) => {
-    fetchData(url, 'DELETE', {}, '')
+    fetchData(urls, 'DELETE', {}, '')
     .then((data) => {
-      dispatch(deleteDoctorSuccess(id));
-      // dispatch(fetchDoctorsList());
+      if (checkManyStatus(data.status, 200)) {
+        dispatch(deleteDoctorsSuccess(ids));
+      }
     });
   };
 }
