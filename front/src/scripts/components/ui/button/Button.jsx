@@ -7,11 +7,12 @@ import style from './button.scss';
 export default class Button extends React.Component {
 
   render() {
-    let { className, disabled, sizeType, ...otherProps } = this.props;
+    let { className, disabled, sizeType, type, ...otherProps } = this.props;
     let buttonStyle = classnames(
       style['rt-button'],
       style[sizeType],
       { [style['active']]: !disabled },
+      { [style['secondary']]: type === 'secondary' },
       className
     );
 
@@ -33,6 +34,7 @@ Button.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   sizeType: PropTypes.oneOf([ 'large', 'default', 'small', 'extra-small' ]),
+  type: PropTypes.oneOf([ 'primary', 'secondary' ]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool
 };

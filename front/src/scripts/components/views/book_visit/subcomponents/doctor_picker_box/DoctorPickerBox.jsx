@@ -5,6 +5,10 @@ import {
   Dropdown
 } from '../../../../ui';
 
+import {
+  PickerBox
+} from '../';
+
 export default class BookVisitBox extends Component {
   constructor() {
     super();
@@ -52,7 +56,7 @@ export default class BookVisitBox extends Component {
     });
   }
 
-  _onAccept() {
+  onNextStep() {
     let { selectedDoctorId, selectedSpecialization } = this.props;
 
     if (selectedSpecialization.length === 0) {
@@ -62,7 +66,7 @@ export default class BookVisitBox extends Component {
       this.setError('doctor');
     }
     else {
-      this.props.onAccept();
+      this.props.onNextStep();
     }
   }
 
@@ -74,22 +78,16 @@ export default class BookVisitBox extends Component {
       selectedSpecialization,
       onDoctorChange,
       onSpecializationChange,
-      disabled
+      onNextStep,
+      onBackStep
     } = this.props;
 
-    let actions = [
-      {
-        label: 'Accept',
-        onClick: this._onAccept.bind(this),
-        disabled: disabled
-      }
-    ];
-
     return (
-      <CardWithHeader
+      <PickerBox
         title="Book visit to doctor."
         subtitle="You can select doctor and book a visit on select term."
-        actions={ actions }
+        onNextStep={ this.onNextStep.bind(this) }
+        onBackStep={ onBackStep }
       >
         <Dropdown
           source={ this._onPrepareSpecializations(sources.specializations) }
@@ -97,7 +95,6 @@ export default class BookVisitBox extends Component {
           value={ selectedSpecialization }
           error={ errors.specialization }
           onChange={ onSpecializationChange.bind(this) }
-          disabled={ disabled }
         />
         <Dropdown
           source={ this._onPrepareDoctors(sources.doctors) }
@@ -105,9 +102,9 @@ export default class BookVisitBox extends Component {
           value={ selectedDoctorId }
           error={ errors.doctor }
           onChange={ onDoctorChange.bind(this) }
-          disabled={ disabled || selectedSpecialization.length === 0 }
+          disabled={ selectedSpecialization.length === 0 }
         />
-      </CardWithHeader>
+      </PickerBox>
     );
   }
 }
@@ -116,10 +113,9 @@ BookVisitBox.propTypes = {
   sources: PropTypes.object,
   selectedDoctorId: PropTypes.number,
   doctors: PropTypes.array,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-  onAccept: PropTypes.func,
   selectedSpecialization: PropTypes.string,
   onDoctorChange: PropTypes.func,
-  onSpecializationChange: PropTypes.func
+  onSpecializationChange: PropTypes.func,
+  onNextStep: PropTypes.func,
+  onBackStep: PropTypes.func
 };

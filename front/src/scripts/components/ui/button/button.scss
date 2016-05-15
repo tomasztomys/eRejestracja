@@ -18,6 +18,16 @@
     }
   }
 
+  &.secondary {
+    &.active {
+      background: $button-secondary-color !important;
+
+      &:hover {
+        background: darken($button-secondary-color, 10%) !important;
+      }
+    }
+  }
+
   &.large {
     padding: 10px 16px;
     height: 42px;

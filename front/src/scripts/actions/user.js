@@ -4,6 +4,8 @@ import {
   LOGIN_FAILURE
 } from './ActionsTypes';
 
+import localStorage from 'store';
+
 export function loginSuccess(data) {
   let user = data.user;
 
@@ -14,7 +16,7 @@ export function loginSuccess(data) {
   };
 }
 
-export function login(email, password) {
+export function tryLogin(email, password) {
   let url = '/authorizations';
   let body = JSON.stringify({
     email,
@@ -24,6 +26,11 @@ export function login(email, password) {
   return (dispatch) => {
     fetchData(url, 'POST', body, '')
     .then((data) => {
+      localStorage.set('user', {
+        login: email,
+        password: password
+      });
+
       dispatch(loginSuccess(data));
     });
   };
