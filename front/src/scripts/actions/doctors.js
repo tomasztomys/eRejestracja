@@ -3,11 +3,24 @@ import Qs from 'qs';
 
 export const GET_DOCTORS_LIST = 'GET_DOCTORS_LIST';
 export const REMOVE_DOCTOR = 'REMOVE_DOCTOR';
+import {
+  DELETE_DOCTOR_SUCCESS,
+  DELETE_DOCTOR_FAILURE
+} from './ActionsTypes';
 
 export function addDoctorsList(data) {
   return {
     type: GET_DOCTORS_LIST,
     data: data
+  };
+}
+
+export function deleteDoctorSuccess(ids) {
+  return {
+    type: DELETE_DOCTOR_SUCCESS,
+    data: {
+      ids: ids
+    }
   };
 }
 
@@ -27,12 +40,13 @@ export function fetchDoctorsList() {
 
 export function deleteDoctor(id) {
 
-  let url = '/doctors/' + id;
+  let url = `/doctors/${ id }`;
 
   return (dispatch) => {
     fetchData(url, 'DELETE', {}, '')
     .then((data) => {
-      dispatch(fetchDoctorsList());
+      dispatch(deleteDoctorSuccess(id));
+      // dispatch(fetchDoctorsList());
     });
   };
 }
