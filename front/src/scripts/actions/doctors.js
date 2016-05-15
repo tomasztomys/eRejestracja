@@ -1,16 +1,16 @@
 import { fetchData, checkManyStatus } from './fetchData';
 import Qs from 'qs';
 
-export const GET_DOCTORS_LIST = 'GET_DOCTORS_LIST';
-export const REMOVE_DOCTOR = 'REMOVE_DOCTOR';
 import {
   DELETE_DOCTOR_SUCCESS,
-  DELETE_DOCTOR_FAILURE
+  DELETE_DOCTOR_FAILURE,
+  GET_DOCTORS_LIST_SUCCESS,
+  GET_DOCTORS_LIST_FAILURE
 } from './ActionsTypes';
 
-export function addDoctorsList(data) {
+export function getDoctorsListSuccess(data) {
   return {
-    type: GET_DOCTORS_LIST,
+    type: GET_DOCTORS_LIST_SUCCESS,
     data: data
   };
 }
@@ -33,7 +33,9 @@ export function fetchDoctorsList() {
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
-      dispatch(addDoctorsList(data.data));
+      if (data.status === 200) {
+        dispatch(getDoctorsListSuccess(data.data));
+      }
     });
   };
 }

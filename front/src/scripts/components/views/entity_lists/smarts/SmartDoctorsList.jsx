@@ -11,16 +11,6 @@ class SmartDoctorsList extends Component {
     super();
 
     this.state = {
-      doctorsModel: {},
-      doctorsList: [],
-      selected: []
-    };
-  }
-
-  componentDidMount() {
-    this.props.dispatch(Action.fetchDoctorsList());
-
-    this.state = {
       doctorsModel: {
         id: { type: Number },
         name: { type: String },
@@ -28,15 +18,12 @@ class SmartDoctorsList extends Component {
         email: { type: String },
         specialization: { type: String }
       },
+      selected: []
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    let { doctorsList } = nextProps;
-
-    this.setState({
-      doctorsList
-    });
+  componentDidMount() {
+    this.props.dispatch(Action.fetchDoctorsList());
   }
 
   _handleSelect(selected) {
@@ -55,7 +42,6 @@ class SmartDoctorsList extends Component {
     });
 
     this.props.dispatch(Action.deleteDoctors(ids));
-    this._handleSelect([]);
   }
 
   render() {
@@ -65,7 +51,6 @@ class SmartDoctorsList extends Component {
     } = this.state;
 
     let { doctorsList } = this.props;
-    console.log(doctorsList);
 
     return (
       <EntityList

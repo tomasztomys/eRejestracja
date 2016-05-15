@@ -1,11 +1,9 @@
 import Immutable from 'immutable';
-import * as Action from '../actions/Actions';
 import * as ActionsTypes from '../actions/ActionsTypes';
 
 export default function doctors(state, action) {
-
   switch(action.type) {
-    case Action.GET_DOCTORS_LIST: {
+    case ActionsTypes.GET_DOCTORS_LIST_SUCCESS: {
       return Immutable.fromJS(action.data);
     }
     case ActionsTypes.DELETE_DOCTOR_SUCCESS: {
@@ -15,10 +13,10 @@ export default function doctors(state, action) {
         return ids.indexOf(item.get('id')) === -1;
       });
     }
-
+    default: {
+      return state;
+    }
   }
-
-  return state;
 }
 
 export function getDoctorsList(state) {
