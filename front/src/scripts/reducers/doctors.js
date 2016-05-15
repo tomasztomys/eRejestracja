@@ -6,7 +6,7 @@ export default function doctors(state, action) {
     case ActionsTypes.GET_DOCTORS_LIST_SUCCESS: {
       return Immutable.fromJS(action.data);
     }
-    case ActionsTypes.DELETE_DOCTOR_SUCCESS: {
+    case ActionsTypes.DELETE_DOCTORS_SUCCESS: {
       let ids = action.data.ids;
 
       return state.filter((item) => {

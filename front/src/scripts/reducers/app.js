@@ -1,16 +1,16 @@
-import Immutable, { List as IList, Map as IMap } from 'immutable';
+import Immutable from 'immutable';
 
 import user from './user';
 import doctors from './doctors';
 import patients from './patients';
-// import errors from './errors';
 
 const initialState = Immutable.fromJS({
   user: {
     data: {},
     fetchSuccess: false
   },
-  doctorsList: [],
+  doctors: [],
+  patients: []
 });
 
 export default function app(state = initialState, action) {

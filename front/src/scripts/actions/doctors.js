@@ -1,9 +1,8 @@
 import { fetchData, checkManyStatus } from './fetchData';
-import Qs from 'qs';
 
 import {
-  DELETE_DOCTOR_SUCCESS,
-  DELETE_DOCTOR_FAILURE,
+  DELETE_DOCTORS_SUCCESS,
+  DELETE_DOCTORS_FAILURE,
   GET_DOCTORS_LIST_SUCCESS,
   GET_DOCTORS_LIST_FAILURE
 } from './ActionsTypes';
@@ -17,7 +16,7 @@ export function getDoctorsListSuccess(data) {
 
 export function deleteDoctorsSuccess(ids) {
   return {
-    type: DELETE_DOCTOR_SUCCESS,
+    type: DELETE_DOCTORS_SUCCESS,
     data: {
       ids: ids
     }
@@ -26,9 +25,6 @@ export function deleteDoctorsSuccess(ids) {
 
 export function fetchDoctorsList() {
   let url = '/doctors';
-  // Qs.stringify(object, { arrayFormat: 'brackets' }
-  // let body = JSON.stringify({
-  // });
 
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')

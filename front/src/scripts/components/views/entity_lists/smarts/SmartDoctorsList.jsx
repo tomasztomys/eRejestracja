@@ -16,7 +16,7 @@ class SmartDoctorsList extends Component {
         name: { type: String },
         surname: { type: String },
         email: { type: String },
-        specialization: { type: String }
+        pesel: { type: String }
       },
       selected: []
     };
@@ -32,6 +32,12 @@ class SmartDoctorsList extends Component {
     });
   }
 
+  _cleanSelected() {
+    this.setState({
+      selected: []
+    });
+  }
+
   _onRemove() {
     let { selected } = this.state;
     let { doctorsList } = this.props;
@@ -42,6 +48,7 @@ class SmartDoctorsList extends Component {
     });
 
     this.props.dispatch(Action.deleteDoctors(ids));
+    this._cleanSelected();
   }
 
   render() {
@@ -59,12 +66,11 @@ class SmartDoctorsList extends Component {
         source={ doctorsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
-        onRemove={ this._handleRemoveDoctor }
         selectable
         buttons={ [
-          { label: 'Remove selected doctor', onClick: this._onRemove.bind(this) }
+          { label: 'Remove selected doctors', onClick: this._onRemove.bind(this) }
         ] }
-        noDataMessage="No Doctors in database"
+        noDataMessage="No doctors in database"
       />
     );
   }
