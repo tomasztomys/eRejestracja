@@ -9,8 +9,7 @@ import {
 import style from './style/main_layout.scss';
 
 import {
-  MenuDrawer,
-  SnackbarsContent
+  MenuDrawer
 } from './subcomponents';
 
 import doctorAvatar from '../../../../../../assets/doctor.jpg';
@@ -38,7 +37,6 @@ export default class MainLayout extends Component {
 
     return (
       <div className={ style['root'] }>
-        <SnackbarsContent />
         <header className={ style['header'] }>
           <div className={ style['user-name'] }>{ appBarLabel }</div>
           <div className={ style['avatar-content'] }>

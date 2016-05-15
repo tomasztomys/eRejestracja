@@ -26,7 +26,6 @@ export default class SmartPatientBookVisit extends Component {
   }
 
   _onSignUp() {
-    console.log('SIGN UP');
   }
 
   render() {

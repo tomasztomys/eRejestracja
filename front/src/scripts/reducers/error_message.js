@@ -1,19 +1,15 @@
 import * as ActionsTypes from '../actions/ActionsTypes';
 
-export default function warningMessage(state, action) {
+export default function errorMessage(state, action) {
   switch(action.type) {
-    case ActionsTypes.CLEAN_WARNING_MESSAGE: {
-      return {
-        active: false,
-        message: ''
-      };
-    }
+    case ActionsTypes.LOGIN_FAILURE:
     case ActionsTypes.ADD_PERSON_FAILURE: {
       return {
         active: true,
         message: action.data.message
       };
     }
+    case ActionsTypes.CLEAN_ERROR_MESSAGE:
     default: {
       return {
         active: false,
@@ -24,5 +20,5 @@ export default function warningMessage(state, action) {
 }
 
 export function getData(state) {
-  return state.warningMessage;
+  return state.errorMessage;
 }

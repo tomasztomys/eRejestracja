@@ -34,15 +34,12 @@ export function addUser(parameters, type) {
     .then((data) => {
       switch(data.status) {
         case 200: {
-          addUserSuccess();
+          dispatch(addUserSuccess());
           break;
         }
         default: {
-          addUserFailure();
+          dispatch(addUserFailure());
         }
-      }
-      if (data.status === 200) {
-        dispatch(addUserSuccess(data.data));
       }
     });
   };

@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as Action from '../../../../../../actions/Actions';
+import * as Action from '../../actions/Actions';
 
-import * as InformationMessageReducer from '../../../../../../reducers/information_message';
-import * as WarningMessageReducer from '../../../../../../reducers/warning_message';
+import * as InformationMessageReducer from '../../reducers/information_message';
+import * as ErrorMessageReducer from '../../reducers/error_message';
 
 import {
   Snackbar
-} from '../../../../../ui';
+} from '../ui';
 
 import style from './snackbars_content.scss';
 
@@ -17,12 +17,12 @@ class SnackbarsContent extends Component {
     this.props.dispatch(Action.cleanInformationMessage());
   }
 
-  _onHideWarningSnackbar() {
+  _onHideErrorSnackbar() {
     this.props.dispatch(Action.cleanWarningMessage());
   }
 
   render() {
-    let { informationMessageData, warningMessageData } = this.props;
+    let { informationMessageData, errorMessageData } = this.props;
 
     return (
       <div className={ style['style'] }>
@@ -38,12 +38,12 @@ class SnackbarsContent extends Component {
         />
         <Snackbar
           action="Close"
-          active={ warningMessageData.active }
-          icon="warning"
-          label={ warningMessageData.message }
+          active={ errorMessageData.active }
+          icon="error"
+          label={ errorMessageData.message }
           timeout={ 3000 }
-          onClick={ this._onHideWarningSnackbar.bind(this) }
-          onTimeout={ this._onHideWarningSnackbar.bind(this) }
+          onClick={ this._onHideErrorSnackbar.bind(this) }
+          onTimeout={ this._onHideErrorSnackbar.bind(this) }
           type="cancel"
         />
       </div>
@@ -56,7 +56,7 @@ SnackbarsContent.defaultProps = {
     active: false,
     message: ''
   },
-  warningMessageData: {
+  errorMessageData: {
     active: false,
     message: ''
   }
@@ -67,7 +67,7 @@ SnackbarsContent.propTypes = {
     active: PropTypes.bool,
     message: PropTypes.string
   }),
-  warningMessageData: PropTypes.shape({
+  errorMessageData: PropTypes.shape({
     active: PropTypes.bool,
     message: PropTypes.string
   })
@@ -77,7 +77,7 @@ function select(state) {
   state = state.toJS();
   return {
     informationMessageData: InformationMessageReducer.getData(state),
-    warningMessageData: WarningMessageReducer.getData(state)
+    errorMessageData: ErrorMessageReducer.getData(state)
   };
 }
 

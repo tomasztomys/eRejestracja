@@ -1,6 +1,6 @@
 import {
   CLEAN_INFORMATION_MESSAGE,
-  CLEAN_WARNING_MESSAGE
+  CLEAN_ERROR_MESSAGE
 } from './ActionsTypes';
 
 export function cleanInformationMessage() {
@@ -15,7 +15,7 @@ export function cleanInformationMessage() {
 export function cleanWarningMessage() {
   return (dispatch) => {
     dispatch({
-      type: CLEAN_WARNING_MESSAGE,
+      type: CLEAN_ERROR_MESSAGE,
       data: {}
     });
   };
