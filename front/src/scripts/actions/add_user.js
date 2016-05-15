@@ -7,13 +7,19 @@ import {
 
 export function addUserSuccess() {
   return {
-    type: ADD_PERSON_SUCCESS
+    type: ADD_PERSON_SUCCESS,
+    data: {
+      message: 'The person added correctly to the database.'
+    }
   };
 }
 
 export function addUserFailure() {
   return {
-    type: ADD_PERSON_FAILURE
+    type: ADD_PERSON_FAILURE,
+    data: {
+      message: 'An error in adding this person to the database.'
+    }
   };
 }
 
