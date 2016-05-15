@@ -8,7 +8,6 @@ export default function doctors(state, action) {
     }
     case ActionsTypes.DELETE_DOCTORS_SUCCESS: {
       let ids = action.data.ids;
-
       return state.filter((item) => {
         return ids.indexOf(item.get('id')) === -1;
       });
