@@ -14,9 +14,13 @@ export default function informationMessage(state, action) {
         message: action.data.message
       };
     }
+    default: {
+      return {
+        active: false,
+        message: ''
+      };
+    }
   }
-
-  return state;
 }
 
 export function getData(state) {

@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 
 import * as Action from '../../../../../../actions/Actions';
 
 import * as InformationMessageReducer from '../../../../../../reducers/information_message';
+import * as WarningMessageReducer from '../../../../../../reducers/warning_message';
+
 import {
   Snackbar
 } from '../../../../../ui';
@@ -16,8 +17,12 @@ class SnackbarsContent extends Component {
     this.props.dispatch(Action.cleanInformationMessage());
   }
 
+  _onHideWarningSnackbar() {
+    this.props.dispatch(Action.cleanWarningMessage());
+  }
+
   render() {
-    let { informationMessageData } = this.props;
+    let { informationMessageData, warningMessageData } = this.props;
 
     return (
       <div className={ style['style'] }>
@@ -26,10 +31,20 @@ class SnackbarsContent extends Component {
           active={ informationMessageData.active }
           icon="info"
           label={ informationMessageData.message }
-          timeout={ 2000 }
+          timeout={ 3000 }
           onClick={ this._onHideInformationSnackbar.bind(this) }
           onTimeout={ this._onHideInformationSnackbar.bind(this) }
-          type="accept"
+          type="cancel"
+        />
+        <Snackbar
+          action="Close"
+          active={ warningMessageData.active }
+          icon="warning"
+          label={ warningMessageData.message }
+          timeout={ 3000 }
+          onClick={ this._onHideWarningSnackbar.bind(this) }
+          onTimeout={ this._onHideWarningSnackbar.bind(this) }
+          type="cancel"
         />
       </div>
     );
@@ -40,11 +55,19 @@ SnackbarsContent.defaultProps = {
   informationMessageData: {
     active: false,
     message: ''
+  },
+  warningMessageData: {
+    active: false,
+    message: ''
   }
 };
 
 SnackbarsContent.propTypes = {
   informationMessageData: PropTypes.shape({
+    active: PropTypes.bool,
+    message: PropTypes.string
+  }),
+  warningMessageData: PropTypes.shape({
     active: PropTypes.bool,
     message: PropTypes.string
   })
@@ -53,7 +76,8 @@ SnackbarsContent.propTypes = {
 function select(state) {
   state = state.toJS();
   return {
-    informationMessageData: InformationMessageReducer.getData(state)
+    informationMessageData: InformationMessageReducer.getData(state),
+    warningMessageData: WarningMessageReducer.getData(state)
   };
 }
 
