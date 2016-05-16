@@ -9,18 +9,12 @@ namespace Calls;
  */
 class Doctors
 {
-    /**
-     * @var \Slim\Container
-     */
-    protected $ci;
 
     /**
      * Konstruktor klasy Doctors
      *
-     * @param \Slim\Container $ci
      */
-    public function __construct(\Slim\Container $ci) {
-        $this->ci = $ci;
+    public function __construct() {
     }
 
     /**
