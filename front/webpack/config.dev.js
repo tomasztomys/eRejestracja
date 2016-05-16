@@ -19,8 +19,20 @@ module.exports = assign(common, {
       },
       {
         test: /(\.scss|\.css)$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap&react-hot'
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!resolve-url!sass?sourceMap&react-hot'
       },
+      {
+        test: /(\.png|\.jpg|\.gif)$/,
+        loader: 'url?limit=8192'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline'
+      },
+      {
+        test: /\.json$/,
+        loader: 'file'
+      }
     ],
   },
   plugins: [

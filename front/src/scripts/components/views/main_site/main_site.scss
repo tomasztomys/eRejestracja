@@ -1,0 +1,113 @@
+.root {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/main_site_background.png');
+  background-position: left top;
+  background-repeat: repeat;
+
+  .header-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #00aea0;
+    padding: 0 20px;
+    .logo {
+      display: inline-block;
+      height: 100%;
+      padding: 5px 0;
+      padding-right: 10px;
+      svg {
+        height: 40px;
+         path {
+          fill: white;
+          stroke: white;
+        }
+      }
+    }
+    .website-title {
+      display: inline-block;
+      position: absolute;
+      font-size: 25px;
+      height: 100%;
+      line-height: 50px;
+      color: white;
+    }
+  }
+
+  .patient-content {
+    text-align: center;
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    top: 15%;
+    .snake {
+      svg {
+        width: 250px;
+         path {
+          fill: #00aea0;
+          stroke: #00aea0;
+        }
+      }
+    }
+
+    .title {
+      color: black;
+      font-size: 44px;
+      font-weight: bold;
+      p {
+        font-weight: normal;
+        display: inline-block;
+        margin-left: 15px;
+      }
+    }
+
+    .sign-in-button {
+      margin-top: 10px;
+      background-color: #00aea0 !important;
+    }
+  }
+  .doctor-content-border {
+    border-top: 5px solid #00aea0;
+    border-bottom: 5px solid #00aea0;
+      position: absolute;
+      width: 100%;
+      right: 50%;
+      transform: translateX(50%);
+      top: 55%;
+      padding: 5px 0;
+    .doctor-content {
+      background-color: #00aea0;
+      padding: 15px 0;
+      text-align: center;
+      .snake {
+        svg {
+          width: 180px;
+           path {
+            fill: white;
+            stroke: white;
+          }
+        }
+      }
+
+      .title {
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        p {
+          font-weight: normal;
+          display: inline-block;
+          margin-left: 15px;
+        }
+      }
+
+      .sign-in-button {
+        margin-top: 10px;
+        color: #00aea0;
+        background-color: white !important;
+      }
+    }
+  }
+
+
+}

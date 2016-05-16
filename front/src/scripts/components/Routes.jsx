@@ -27,6 +27,7 @@ import {
   SmartAddPatient,
   SmartProfileEdition
 } from './views/person_edition/smarts';
+import { MainSite } from './views/main_site'
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
 
@@ -79,14 +80,13 @@ export default class Routes extends React.Component {
 
     return (
       <Router history={ browserHistory }>
-        <Redirect
-          from={ Paths.root }
-          to={ Paths.navigation }
-        />
         <Route
-          path={ Paths.root }
           component={ App }
         >
+          <Route
+            path={ Paths.root }
+            component={ MainSite }
+          />
           <Route
             path={ Paths.navigation }
             component={ Navigation }
