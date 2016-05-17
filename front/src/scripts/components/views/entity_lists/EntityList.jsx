@@ -33,6 +33,7 @@ export default class EntityList extends Component {
           icon="edit"
           key={ `edit${ item.id }` }
           className={ style['icon-cell'] }
+          onClick={ this.props.onEditItem.bind(this, item.id) }
         />
       );
 

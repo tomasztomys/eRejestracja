@@ -21,3 +21,12 @@ export default function doctors(state, action) {
 export function getDoctorsList(state) {
   return state.doctors;
 }
+
+export function getDoctorData(state, id) {
+  console.log(state.doctors);
+  let doctor = state.doctors.filter((item) => {
+    return id === item.id;
+  });
+
+  console.log(doctor);
+}

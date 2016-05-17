@@ -25,6 +25,9 @@ class SmartDoctorsList extends Component {
     this.props.dispatch(Action.fetchDoctorsList());
   }
 
+  onEdit(id) {
+    this.context.router.push(`/doctor-edition/${ id }`);
+  }
   _handleSelect(selected) {
     this.setState({
       selected
@@ -76,10 +79,15 @@ class SmartDoctorsList extends Component {
         ] }
         onDeleteItem={ this.onDeleteItem.bind(this) }
         noDataMessage="No doctors in database"
+        onEditItem={ this.onEdit.bind(this) }
       />
     );
   }
 }
+
+SmartDoctorsList.contextTypes = {
+  router: React.PropTypes.object
+};
 
 SmartDoctorsList.propTypes = {
   doctorsList: PropTypes.array

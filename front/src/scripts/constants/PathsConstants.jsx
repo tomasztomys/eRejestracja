@@ -11,12 +11,14 @@ const Paths = {
     list: '/patients-list',
     bookVisit: '/book-visit',
     registration: '/patient-registration',
-    add: '/add-patient'
+    add: '/add-patient',
+    edition: '/patient-edition/:id'
   },
   doctors: {
     list: '/doctors-list',
     registration: '/doctor-registration',
-    add: '/add-doctor'
+    add: '/add-doctor',
+    edition: '/doctor-edition/:id'
   },
   settings: {
     myProfile: '/my-profile',
