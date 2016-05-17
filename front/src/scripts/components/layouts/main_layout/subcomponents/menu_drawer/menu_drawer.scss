@@ -56,6 +56,7 @@
     .sub-menu-item {
       background-color: $drawer-menu-submenu-open-background-color;
       span {
+        font-weight: normal;
         height: $menu-drawer-item-height;
         line-height: $menu-drawer-item-height;
         font-size: $menu-drawer-subitem-font-size;

@@ -12,7 +12,6 @@ class SmartPatientsList extends Component {
 
     this.state = {
       patientsModel: {
-        id: { type: Number },
         name: { type: String },
         surname: { type: String },
         email: { type: String },
@@ -62,6 +61,7 @@ class SmartPatientsList extends Component {
     return (
       <EntityList
         title="PATIENTS LIST"
+        subtitle="You can remove patient or edit."
         model={ patientsModel }
         source={ patientsList }
         onSelect={ this._handleSelect.bind(this) }

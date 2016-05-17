@@ -15,10 +15,13 @@ export function getPatientsListSuccess(data) {
 }
 
 export function deletePatientsSuccess(ids) {
+  let patientType = ids.length > 0 ? 'patients' : 'patient';
+
   return {
     type: DELETE_PATIENTS_SUCCESS,
     data: {
-      ids: ids
+      ids: ids,
+      message: `The ${ patientType } removed properly`
     }
   };
 }

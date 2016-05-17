@@ -22,11 +22,15 @@ class SmartAddPatient extends Component {
   }
 
   render() {
+    let { buttonAddLabel, registration } = this.props;
+
     return (
       <PersonRegistration
         personType="patient"
+        buttonAddLabel={ buttonAddLabel || 'Add patient' }
         title={ this.props.title || 'Add patient' }
         onSignUp={ this.onSignUp.bind(this) }
+        registration={ registration }
       />
     );
   }
@@ -34,7 +38,9 @@ class SmartAddPatient extends Component {
 
 SmartAddPatient.propTypes = {
   title: PropTypes.string,
-  nextStep: PropTypes.func
+  nextStep: PropTypes.func,
+  registration: PropTypes.bool,
+  buttonAddLabel: PropTypes.string
 };
 
 export default connect()(SmartAddPatient);

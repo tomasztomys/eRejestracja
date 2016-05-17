@@ -13,23 +13,24 @@ export default class EntityList extends Component {
 
   render() {
     let {
+      title,
+      subtitle,
       source,
       model,
       onSelect,
       selectable,
       selected,
       onChangeTable,
-      title,
-      noDataMessage,
-      buttons
+      buttons,
+      noDataMessage
     } = this.props;
 
     return (
-      <Grid>
-        <GridItem xsSize="12">
+      <Grid center>
+        <GridItem xsSize="6">
           <CardWithHeader
             title={ title }
-            subtitle="You can remove doctor or edit."
+            subtitle={ subtitle }
             actions={ source.length ? buttons : [] }
           >
             { source.length > 0 ?
@@ -52,6 +53,7 @@ export default class EntityList extends Component {
 
 EntityList.propTypes = {
   title: PropTypes.string,
+  subtitle: PropTypes.string,
   model: PropTypes.object,
   onChangeTable: PropTypes.func,
   heading: PropTypes.bool,

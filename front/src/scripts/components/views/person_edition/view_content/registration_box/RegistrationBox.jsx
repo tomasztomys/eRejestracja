@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
+import classnames from 'classnames';
 import {
   Grid,
   GridItem,
@@ -18,25 +18,39 @@ import style from './registration_box.scss';
 export default class RegistrationBox extends Component {
 
   render() {
-    let { values, onChange, personType, onSignUp, errors } = this.props;
+    let {
+      values,
+      onChange,
+      personType,
+      onAddUser,
+      buttonAddLabel,
+      registration,
+      errors
+    } = this.props;
     let actions = [
       {
-        label: 'Sign Up',
-        onClick: onSignUp,
+        label: buttonAddLabel,
+        onClick: onAddUser,
         className: style['sign-up-button']
       }
     ];
+    let registrationBoxStyle = classnames(
+      style['registration-box'],
+      { [style['registration']]: registration }
+    );
 
     return (
       <Grid
         center
-        className={ style['registration-box'] }
+        xsPosition="middle"
+        className={ registrationBoxStyle }
       >
         <GridItem
           xsSize="11"
           mdSize="5"
         >
           <CardWithHeader
+            className={ style['card'] }
             title={ this.props.title }
             actions={ actions }
           >
@@ -79,8 +93,10 @@ const PropTypesStructure = {
 RegistrationBox.propTypes = {
   personType: PropTypes.string,
   onChange: PropTypes.func,
-  onSignUp: PropTypes.func,
+  onAddUser: PropTypes.func,
   title: PropTypes.string,
   values: PropTypes.shape(PropTypesStructure),
-  errors: PropTypes.shape(PropTypesStructure)
+  errors: PropTypes.shape(PropTypesStructure),
+  buttonAddLabel: PropTypes.string,
+  registration: PropTypes.bool
 };

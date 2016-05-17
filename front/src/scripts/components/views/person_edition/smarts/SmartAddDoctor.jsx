@@ -5,7 +5,7 @@ import { PersonRegistration } from '../views/person_registration';
 import * as Action from '../../../../actions/Actions';
 
 class SmartAddDoctor extends Component {
-  onSignUp(values) {
+  onAddUser(values) {
     let parameters = {
       name: values.name,
       surname: values.surname,
@@ -21,11 +21,15 @@ class SmartAddDoctor extends Component {
   }
 
   render() {
+    let { buttonAddLabel, registration } = this.props;
+
     return (
       <PersonRegistration
         personType="doctor"
+        buttonAddLabel={ buttonAddLabel || 'Add doctor' }
         title={ this.props.title || 'Add doctor' }
-        onSignUp={ this.onSignUp.bind(this) }
+        onAddUser={ this.onAddUser.bind(this) }
+        registration={ registration }
       />
     );
   }
@@ -33,7 +37,9 @@ class SmartAddDoctor extends Component {
 
 SmartAddDoctor.propTypes = {
   title: PropTypes.string,
-  nextStep: PropTypes.func
+  nextStep: PropTypes.func,
+  buttonAddLabel: PropTypes.string,
+  registration: PropTypes.bool
 };
 
 export default connect()(SmartAddDoctor);
