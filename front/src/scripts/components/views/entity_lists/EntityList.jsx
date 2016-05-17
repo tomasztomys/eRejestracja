@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-
+import { IconButton } from 'react-toolbox';
 import {
   Table,
   Button,
   CardWithHeader,
   CardTitle,
   Grid,
-  GridItem
+  GridItem,
+  FontIcon
 } from 'ui';
 
-export default class EntityList extends Component {
+import style from './entity_list.scss';
 
+export default class EntityList extends Component {
   render() {
     let {
       title,
@@ -25,6 +27,29 @@ export default class EntityList extends Component {
       noDataMessage
     } = this.props;
 
+    let sourceData = source.map((item) => {
+      item.edit = (
+        <IconButton
+          icon="edit"
+          key={ `edit${ item.id }` }
+          className={ style['icon-cell'] }
+        />
+      );
+
+      item.delete = (
+        <IconButton
+          icon="delete"
+          key={ `delete${ item.id }` }
+          className={ style['icon-cell'] }
+        />
+      );
+      return item;
+    });
+    let modelData = model;
+
+    modelData.edit = { type: Object };
+    modelData.delete = { type: Object };
+
     return (
       <Grid center>
         <GridItem xsSize="6">
@@ -35,8 +60,8 @@ export default class EntityList extends Component {
           >
             { source.length > 0 ?
               <Table
-                source={ source }
-                model={ model }
+                source={ sourceData }
+                model={ modelData }
                 onSelect={ onSelect }
                 selectable={ selectable }
                 selected={ selected }

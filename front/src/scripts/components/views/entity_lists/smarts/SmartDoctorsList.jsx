@@ -15,7 +15,7 @@ class SmartDoctorsList extends Component {
         name: { type: String },
         surname: { type: String },
         email: { type: String },
-        specialization: { type: String }
+        specialization: { type: String },
       },
       selected: []
     };
