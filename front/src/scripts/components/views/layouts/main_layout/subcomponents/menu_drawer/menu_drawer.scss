@@ -20,13 +20,12 @@
     }
 
     .main-item, .sub-menu-item, .sub-menu-parent {
-      padding: 4px 0;
       height: $menu-drawer-item-height;
 
       span {
-        line-height: $menu-drawer-item-height;
         color: $drawer-menu-font-color !important;
         font-weight: bold;
+        min-height: auto;
       }
 
       &:hover {
@@ -52,6 +51,8 @@
     .sub-menu-item {
       background-color: $drawer-menu-submenu-open-background-color;
       span {
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
         font-size: $menu-drawer-subitem-font-size;
       }
     }
