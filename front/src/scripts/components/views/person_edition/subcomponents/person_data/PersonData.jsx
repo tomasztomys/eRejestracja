@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input,
-} from '../../../../ui';
+} from 'ui';
 
 import style from './person_data.scss';
 

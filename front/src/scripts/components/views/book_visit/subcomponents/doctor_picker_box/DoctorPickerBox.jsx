@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   CardWithHeader,
   Dropdown
-} from '../../../../ui';
+} from 'ui';
 
 import {
   PickerBox

@@ -1,0 +1,66 @@
+@import '../../../../../../styles/colors';
+@import '../../../../../../styles/config';
+
+.menu-drawer {
+  padding-top: 10px;
+  width: $menu-drawer-width;
+  color: $drawer-menu-font-color;
+  background-color: $drawer-menu-background-color;
+  margin-top: $app-bar-height;
+
+  .menu {
+    margin-bottom: $menu-bar-height;
+
+    & > ul {
+      padding: 0;
+    }
+    .sub-menu-parent > span > span:first-child {
+      display: none;
+    }
+
+    .main-item, .sub-menu-item, .sub-menu-parent {
+      height: $menu-drawer-item-height;
+
+      span {
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
+        color: $drawer-menu-font-color !important;
+        font-weight: bold;
+        min-height: auto;
+      }
+
+      &:hover {
+        background-color: $drawer-menu-item-focus-background-color !important;;
+        span {
+          color: $drawer-menu-font-focus-color !important;;
+        }
+      }
+    }
+
+    .main-item, .sub-menu-parent {
+      text-align: left;
+      padding-left: 40px;
+      span {
+        font-size: $menu-drawer-item-font-size;
+      }
+    }
+
+    .main-item {
+      padding-right: 40px;
+      span {
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
+      }
+    }
+
+    .sub-menu-item {
+      background-color: $drawer-menu-submenu-open-background-color;
+      span {
+        font-weight: normal;
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
+        font-size: $menu-drawer-subitem-font-size;
+      }
+    }
+  }
+}

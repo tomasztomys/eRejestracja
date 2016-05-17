@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as Action from '../../../../actions/Actions';
+import * as doctorsReducer from '../../../../reducers/doctors';
 
 import EntityList from '../EntityList';
 
@@ -10,32 +11,18 @@ class SmartDoctorsList extends Component {
     super();
 
     this.state = {
-      doctorsModel: {},
-      doctorsList: [],
+      doctorsModel: {
+        name: { type: String },
+        surname: { type: String },
+        email: { type: String },
+        specialization: { type: String },
+      },
       selected: []
     };
   }
 
   componentDidMount() {
     this.props.dispatch(Action.fetchDoctorsList());
-
-    this.state = {
-      doctorsModel: {
-        id: { type: Number },
-        name: { type: String },
-        surname: { type: String },
-        email: { type: String },
-        specialization: { type: String }
-      },
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let { doctorsList } = nextProps;
-
-    this.setState({
-      doctorsList
-    });
   }
 
   _handleSelect(selected) {
@@ -44,48 +31,68 @@ class SmartDoctorsList extends Component {
     });
   }
 
+  _cleanSelected() {
+    this.setState({
+      selected: []
+    });
+  }
+
   _onRemove() {
-    let { selected, doctorsList } = this.state;
+    let { selected } = this.state;
+    let { doctorsList } = this.props;
+    let ids = [];
 
-    selected = selected || [];
-    selected.forEach((doctor) => {
-      let id = doctorsList[doctor].id;
-
-      this.props.dispatch(Action.deleteDoctor(id));
+    selected.forEach((index) => {
+      ids.push(doctorsList[index].id);
     });
 
-    this._handleSelect([]);
+    this.props.dispatch(Action.deleteDoctors(ids));
+    this._cleanSelected();
+  }
+
+  onDeleteItem(id) {
+    this.props.dispatch(Action.deleteDoctors([ id ]));
   }
 
   render() {
     let {
       doctorsModel,
-      doctorsList,
       selected
     } = this.state;
+
+    let { doctorsList } = this.props;
 
     return (
       <EntityList
         title="DOCTORS LIST"
+        subtitle="You can remove doctor or edit."
         model={ doctorsModel }
         source={ doctorsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
-        onRemove={ this._handleRemoveDoctor }
         selectable
         buttons={ [
-          { label: 'Remove selected doctor', onClick: this._onRemove.bind(this) }
+          { label: 'Remove selected doctors', onClick: this._onRemove.bind(this), primary: true }
         ] }
-        noDataMessage="No Doctors in database"
+        onDeleteItem={ this.onDeleteItem.bind(this) }
+        noDataMessage="No doctors in database"
       />
     );
   }
 }
 
+SmartDoctorsList.propTypes = {
+  doctorsList: PropTypes.array
+};
+
+SmartDoctorsList.defaultProps = {
+  doctorsList: []
+};
+
 function select(state) {
   state = state.toJS();
   return {
-    doctorsList: state.doctors
+    doctorsList: doctorsReducer.getDoctorsList(state)
   };
 }
 

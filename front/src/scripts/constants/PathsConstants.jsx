@@ -1,5 +1,6 @@
 const Paths = {
   root: '/',
+  dashboard: '/dashboard',
   notFound: '*',
   navigation: '/navigation',
   login: '/login',

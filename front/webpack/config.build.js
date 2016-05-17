@@ -28,9 +28,18 @@ module.exports = assign(common, {
           'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss',
           'resolve-url',
-          'sass?sourceMap'
+          'sass?sourceMap',
+          'toolbox'
         ]),
       },
+      {
+        test: /(\.png|\.jpg|\.gif)$/,
+        loader: 'url?limit=8192'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline'
+      }
     ],
   },
   plugins: [

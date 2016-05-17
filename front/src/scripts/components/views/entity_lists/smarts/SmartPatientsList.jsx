@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as Action from '../../../../actions/Actions';
+import * as patientsReducer from '../../../../reducers/patients';
 
 import EntityList from '../EntityList';
 
@@ -10,32 +11,18 @@ class SmartPatientsList extends Component {
     super();
 
     this.state = {
-      patientsModel: {},
-      patientsList: [],
+      patientsModel: {
+        name: { type: String },
+        surname: { type: String },
+        email: { type: String },
+        pesel: { type: String }
+      },
       selected: []
     };
   }
 
   componentDidMount() {
     this.props.dispatch(Action.fetchPatientsList());
-
-    this.state = {
-      patientsModel: {
-        id: { type: Number },
-        name: { type: String },
-        surname: { type: String },
-        email: { type: String },
-        pesel: { type: String }
-      },
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let { patientsList } = nextProps;
-
-    this.setState({
-      patientsList
-    });
   }
 
   _handleSelect(selected) {
@@ -44,47 +31,68 @@ class SmartPatientsList extends Component {
     });
   }
 
+  _cleanSelected() {
+    this.setState({
+      selected: []
+    });
+  }
+
   _onRemove() {
-    let { selected, patientsList } = this.state;
+    let { selected } = this.state;
+    let { patientsList } = this.props;
+    let ids = [];
 
-    selected = selected || [];
-    selected.forEach((patient) => {
-      let id = patientsList[patient].id;
-
-      this.props.dispatch(Action.deletePatient(id));
+    selected.forEach((index) => {
+      ids.push(patientsList[index].id);
     });
 
-    this._handleSelect([]);
+    this.props.dispatch(Action.deletePatients(ids));
+    this._cleanSelected();
+  }
+
+  onDeleteItem(id) {
+    this.props.dispatch(Action.deletePatients([ id ]));
   }
 
   render() {
     let {
       patientsModel,
-      patientsList,
       selected
     } = this.state;
+
+    let { patientsList } = this.props;
 
     return (
       <EntityList
         title="PATIENTS LIST"
+        subtitle="You can remove patient or edit."
         model={ patientsModel }
         source={ patientsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
         selectable
         buttons={ [
-          { label: 'Remove selected patient', onClick: this._onRemove.bind(this) }
+          { label: 'Remove selected patients', onClick: this._onRemove.bind(this) }
         ] }
+        onDeleteItem={ this.onDeleteItem.bind(this) }
         noDataMessage="No patients in database"
       />
     );
   }
 }
 
+SmartPatientsList.propTypes = {
+  patientsList: PropTypes.array
+};
+
+SmartPatientsList.defaultProps = {
+  patientsList: []
+};
+
 function select(state) {
   state = state.toJS();
   return {
-    patientsList: state.patients
+    patientsList: patientsReducer.getPatientsList(state)
   };
 }
 

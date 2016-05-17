@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input
-} from '../../../../ui';
+} from 'ui';
 
 import {
   PickerBox

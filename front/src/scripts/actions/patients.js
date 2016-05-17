@@ -1,36 +1,55 @@
-import { fetchData } from './fetchData';
+import { fetchData, checkManyStatus } from './fetchData';
 
-export const GET_PATIENTS_LIST = 'GET_PATIENTS_LIST';
-export const REMOVE_PATIENT = 'REMOVE_PATIENT';
+import {
+  DELETE_PATIENTS_SUCCESS,
+  DELETE_PATIENTS_FAILURE,
+  GET_PATIENTS_LIST_SUCCESS,
+  GET_PATIENTS_LIST_FAILURE
+} from './ActionsTypes';
 
-export function addPatientsList(data) {
+export function getPatientsListSuccess(data) {
   return {
-    type: GET_PATIENTS_LIST,
+    type: GET_PATIENTS_LIST_SUCCESS,
     data: data
+  };
+}
+
+export function deletePatientsSuccess(ids) {
+  let patientType = ids.length > 0 ? 'patients' : 'patient';
+
+  return {
+    type: DELETE_PATIENTS_SUCCESS,
+    data: {
+      ids: ids,
+      message: `The ${ patientType } removed properly`
+    }
   };
 }
 
 export function fetchPatientsList() {
   let url = '/patients';
-  // Qs.stringify(object, { arrayFormat: 'brackets' }
-  // let body = JSON.stringify({
-  // });
 
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
-      dispatch(addPatientsList(data));
+      if (data.status === 200) {
+        dispatch(getPatientsListSuccess(data.data));
+      }
     });
   };
 }
 
-export function deletePatient(id) {
-  let url = '/patients/' + id;
+export function deletePatients(ids) {
+  let urls = ids.map((item) => {
+    return `/patients/${ item }`;
+  });
 
   return (dispatch) => {
-    fetchData(url, 'DELETE', {}, '')
+    fetchData(urls, 'DELETE', {}, '')
     .then((data) => {
-      dispatch(fetchPatientsList());
+      if (checkManyStatus(data.status, 200)) {
+        dispatch(deletePatientsSuccess(ids));
+      }
     });
   };
 }

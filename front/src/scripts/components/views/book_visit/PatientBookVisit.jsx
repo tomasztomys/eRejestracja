@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import {
   Grid,
   GridItem
-} from '../../ui';
+} from 'ui';
 
 import {
   DoctorPickerBox,

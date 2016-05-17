@@ -56,12 +56,12 @@ export default class PersonRegistration extends Component {
     });
   }
 
-  onSignUp() {
+  onAddUser() {
     let { values, errors, errorsMessages } = this.state;
     let { status, errorsResponse } = checkData(values, errors, errorsMessages);
 
     if (status && values.password === values.repeatPassword) {
-      this.props.onSignUp(values);
+      this.props.onAddUser(values);
     }
     else {
       this.setState({
@@ -81,23 +81,27 @@ export default class PersonRegistration extends Component {
 
   render() {
     let { values, errors } = this.state;
-    let { personType, title } = this.props;
+    let { personType, title, buttonAddLabel, registration } = this.props;
 
     return (
       <RegistrationBox
         personType={ personType }
-        onSignUp={ this.onSignUp.bind(this) }
+        onAddUser={ this.onAddUser.bind(this) }
+        buttonAddLabel={ buttonAddLabel }
         values={ values }
         errors={ errors }
         onChange={ this.onChange.bind(this) }
         title={ title }
+        registration={ registration }
       />
     );
   }
 }
 
 PersonRegistration.propTypes = {
-  onSignUp: PropTypes.func,
+  onAddUser: PropTypes.func,
+  buttonAddLabel: PropTypes.string,
   personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ]),
-  title: PropTypes.string
+  title: PropTypes.string,
+  registration: PropTypes.bool
 };

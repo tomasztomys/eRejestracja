@@ -7,7 +7,7 @@ import {
   Drawer,
   Avatar,
   Dropdown
-} from '../../ui';
+} from 'ui';
 
 import doctorAvatar from '../../../../../assets/doctor.jpg';
 import patientMenAvatar from '../../../../../assets/patient_men.png';

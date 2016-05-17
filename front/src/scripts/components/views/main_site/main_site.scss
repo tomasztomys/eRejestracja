@@ -1,0 +1,122 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/config';
+
+.root {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/main_site_background.png');
+  background-position: left top;
+  background-repeat: repeat;
+
+  .header-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: $app-bar-background-color;
+    padding: 0 20px;
+    .logo {
+      display: inline-block;
+      height: 100%;
+      padding: 5px 0;
+      padding-right: 10px;
+      svg {
+        height: 40px;
+         path {
+          fill: $header-logo-fill-color;
+          stroke: $header-logo-fill-color;
+        }
+      }
+    }
+    .website-title {
+      display: inline-block;
+      position: absolute;
+      font-size: 25px;
+      height: 100%;
+      line-height: 50px;
+      color: $header-bar-font-color;
+    }
+    .sign-in-button {
+      float: right;
+      margin-top: 10px;
+      color: $header-sign-in-font-color;
+      background-color: $header-sign-in-button-background !important;
+    }
+  }
+
+  .patient-content {
+    text-align: center;
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    top: 15%;
+    .pill {
+      svg {
+        height: 100px;
+         path, circle {
+          fill: $main-site-background-color;
+          stroke: $main-site-background-color;
+        }
+      }
+    }
+
+    .title {
+      color: black;
+      font-size: 44px;
+      font-weight: bold;
+      p {
+        font-weight: normal;
+        display: inline-block;
+        margin-left: 15px;
+      }
+    }
+
+    .sign-up-button {
+      margin-top: 10px;
+      background-color: $main-site-background-color !important;
+    }
+  }
+  .doctor-content-border {
+    border-top: 5px solid $main-site-background-color;
+    border-bottom: 5px solid $main-site-background-color;
+      position: absolute;
+      width: 100%;
+      right: 50%;
+      transform: translateX(50%);
+      top: 55%;
+      padding: 5px 0;
+    .doctor-content {
+      background-color: $main-site-background-color;
+      padding: 15px 0;
+      text-align: center;
+      .snake {
+        svg {
+          width: 180px;
+           path {
+            fill: white;
+            stroke: white;
+          }
+        }
+      }
+
+      .title {
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        p {
+          font-weight: normal;
+          display: inline-block;
+          margin-left: 15px;
+        }
+      }
+
+      .sign-up-button {
+        margin-top: 10px;
+        color: $main-site-background-color;
+        background-color: white !important;
+      }
+    }
+  }
+
+
+}

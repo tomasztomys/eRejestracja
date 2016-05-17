@@ -1,12 +1,25 @@
-$blue-color: #292f43;
-$blighteen-blue-color: #04779b;
+$blighteen-green: #29ABA4;
+$blue-color: #354458;
+$blighteen-blue-color: #3a9ad9;
+$red-color: #eb7260;
+$light-color: #e9e0d6;
+
 $beige-color: #f2ebc7;
 $gray-color: #979c9c;
-$red-color: #962d3e;
 $graphite-color: #343642;
 
-$button-color: $blighteen-blue-color;
+$font-colot: #757575;
+
+$button-color: $blighteen-green;
 $button-secondary-color: $gray-color;
+
+/* buttons */
+$button-default-color: $gray-color;
+$button-default-hover-color: darken($gray-color, 10%);
+
+$button-primary-color: $blighteen-green;
+$button-primary-color-hover: darken($button-primary-color, 10%);
+$button-primary-color-font: white;
 
 $button-menu-in-top-bar-color: $blue-color;
 
@@ -14,18 +27,30 @@ $button-menu-in-top-bar-color: $blue-color;
 $input-active-color: $blue-color;
 $input-warning-color: $red-color;
 
-$checkbox-color: $blue-color;
+$checkbox-color: $blighteen-green;
 
-$header-bar-background-color: $blue-color;
+$app-bar-background-color: $blighteen-green;
 $header-bar-font-color: white;
+$header-logo-fill-color: white;
+$header-sign-in-button-background: white;
+$header-sign-in-font-color: $blighteen-green;
 
-$drawer-menu-background-color: $blue-color;
-$drawer-menu-font-color: white;
-$drawer-menu-item-focus-background-color: $blue-color;
+$main-site-background-color: $blighteen-green;
+
+$drawer-menu-background-color: white;
+$drawer-menu-font-color: black;
+$drawer-menu-font-focus-color: $blighteen-green;
+$drawer-menu-item-focus-background-color: #eeeeee;
 $drawer-menu-item-left-border-color: #00c8e7;
-$drawer-menu-submenu-open-background-color: $blue-color;
+$drawer-menu-submenu-open-background-color: white;
 
 $card-header-background: #E8E8E8;
 
-$login-header-background: $blighteen-blue-color;
+$login-header-background: $blighteen-green;
 $login-header-font-color: white;
+
+$registration-header-background: $blighteen-green;
+$registration-header-font-color: white;
+
+$input-text-inactive-font-color: rgba(0, 0, 0, 0.35);
+$input-text-label-color: rgba(0, 0, 0, 0.35);

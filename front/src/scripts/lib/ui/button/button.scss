@@ -1,0 +1,49 @@
+@import '../../../../styles/colors';
+
+.rt-button {
+  padding: 6px 12px;
+  height: 30px;
+  margin: 0 5px 10px 0;
+  display: inline-block;
+
+  & > span {
+    line-height: 18px !important;
+  }
+
+  &.primary {
+    &:hover {
+      background: $button-primary-color-hover !important;
+    }
+  }
+
+  &:hover {
+    background: $button-default-hover-color !important;
+  }
+
+  &.large {
+    padding: 10px 16px;
+    height: 42px;
+
+    & > span {
+      line-height: 23px !important;
+    }
+  }
+
+  &.small {
+    padding: 5px 10px;
+    height: 28px;
+
+    & > span {
+      line-height: 18px !important;
+    }
+  }
+
+  &.extra-small {
+    padding: 2px 5px;
+    height: 20px;
+
+    & > span {
+      line-height: 16.5px !important;
+    }
+  }
+}

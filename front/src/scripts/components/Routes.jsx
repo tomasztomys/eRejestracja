@@ -18,7 +18,7 @@ import {
 } from './views/entity_lists/smarts';
 
 import { Demo } from './views/demo';
-import { SmartMainLayout } from './views/layouts/main_layout';
+import { SmartMainLayout } from './layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
   SmartDoctorRegistration,
@@ -27,6 +27,8 @@ import {
   SmartAddPatient,
   SmartProfileEdition
 } from './views/person_edition/smarts';
+import { MainSite } from './views/main_site';
+import { Dashboard } from './views/dashboard';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
 
@@ -43,7 +45,7 @@ export default class Routes extends React.Component {
 
   _redirectIfUserIsLogged(nextState, replace) {
     if (localStorage.get('user')) {
-      replace({ pathname: Paths.root });
+      replace({ pathname: Paths.dashboard });
     }
   }
 
@@ -53,6 +55,10 @@ export default class Routes extends React.Component {
         component={ SmartMainLayout }
         onEnter={ this._redirectIfUserIsNotLogged }
       >
+        <Route
+          path={ Paths.dashboard }
+          component={ Dashboard }
+        />
         <Route path={ Paths.doctors.list }
           component={ SmartDoctorsList }
         />
@@ -79,14 +85,14 @@ export default class Routes extends React.Component {
 
     return (
       <Router history={ browserHistory }>
-        <Redirect
-          from={ Paths.root }
-          to={ Paths.navigation }
-        />
         <Route
-          path={ Paths.root }
           component={ App }
         >
+          <Route
+            path={ Paths.root }
+            component={ MainSite }
+          />
+
           <Route
             path={ Paths.navigation }
             component={ Navigation }

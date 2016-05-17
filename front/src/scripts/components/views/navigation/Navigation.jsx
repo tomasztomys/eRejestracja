@@ -4,7 +4,7 @@ import NavigationLinks from '../../../constants/NavigationLinks';
 
 import {
   List, ListItem
-} from '../../ui';
+} from 'ui';
 
 import style from './navigation.scss';
 

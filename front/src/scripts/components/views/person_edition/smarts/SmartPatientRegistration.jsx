@@ -8,6 +8,8 @@ class SmartPatientRegistration extends Component {
     return (
       <SmartAddPatient
         title="Patient registration"
+        buttonAddLabel="Sign up"
+        registration
       />
     );
   }

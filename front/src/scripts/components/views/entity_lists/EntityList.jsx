@@ -1,41 +1,68 @@
 import React, { Component, PropTypes } from 'react';
-
+import { IconButton } from 'react-toolbox';
 import {
   Table,
   Button,
   CardWithHeader,
   CardTitle,
   Grid,
-  GridItem
-} from '../../ui';
+  GridItem,
+  FontIcon
+} from 'ui';
+
+import style from './entity_list.scss';
 
 export default class EntityList extends Component {
-
   render() {
     let {
+      title,
+      subtitle,
       source,
       model,
       onSelect,
       selectable,
       selected,
       onChangeTable,
-      title,
-      noDataMessage,
-      buttons
+      buttons,
+      noDataMessage
     } = this.props;
 
+    let sourceData = source.map((item) => {
+      item.edit = (
+        <IconButton
+          icon="edit"
+          key={ `edit${ item.id }` }
+          className={ style['icon-cell'] }
+        />
+      );
+
+      item.delete = (
+        <IconButton
+          icon="delete"
+          key={ `delete${ item.id }` }
+          onClick={ this.props.onDeleteItem.bind(this, item.id) }
+          className={ style['icon-cell'] }
+        />
+      );
+      return item;
+    });
+    let modelData = model;
+
+    modelData.edit = { type: Object };
+    modelData.delete = { type: Object };
+
     return (
-      <Grid>
-        <GridItem xsSize="12">
+      <Grid center>
+        <GridItem xsSize="6">
           <CardWithHeader
             title={ title }
-            subtitle="You can remove doctor or edit."
+            subtitle={ subtitle }
             actions={ source.length ? buttons : [] }
           >
             { source.length > 0 ?
               <Table
-                source={ source }
-                model={ model }
+                source={ sourceData }
+                model={ modelData }
                 onSelect={ onSelect }
                 selectable={ selectable }
                 selected={ selected }
@@ -52,6 +79,7 @@ export default class EntityList extends Component {
 
 EntityList.propTypes = {
   title: PropTypes.string,
+  subtitle: PropTypes.string,
   model: PropTypes.object,
   onChangeTable: PropTypes.func,
   heading: PropTypes.bool,

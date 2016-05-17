@@ -1,12 +1,24 @@
 import Immutable from 'immutable';
-import * as Action from '../actions/Actions';
+import * as ActionsTypes from '../actions/ActionsTypes';
 
-export default function patients(state, action) {
-
+export default function doctors(state, action) {
   switch(action.type) {
-    case Action.GET_PATIENTS_LIST:
+    case ActionsTypes.GET_PATIENTS_LIST_SUCCESS: {
       return Immutable.fromJS(action.data);
-  }
+    }
+    case ActionsTypes.DELETE_PATIENTS_SUCCESS: {
+      let ids = action.data.ids;
 
-  return state;
+      return state.filter((item) => {
+        return ids.indexOf(item.get('id')) === -1;
+      });
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export function getPatientsList(state) {
+  return state.patients;
 }

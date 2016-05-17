@@ -1,0 +1,11 @@
+@import '../../../../styles/colors';
+
+.table {
+  div[data-react-toolbox=check] {
+    margin: 0 auto;
+  }
+
+  td[class*='selectable'] {
+    padding-right: 18px;
+  }
+}
