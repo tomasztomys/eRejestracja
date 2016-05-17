@@ -2,11 +2,9 @@ import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import SVG from 'svg-inline-react';
 
-import { Panel, Layout, IconButton } from 'react-toolbox';
-import { AppBar, Avatar } from 'ui';
+import { Panel, Layout } from 'react-toolbox';
 
-import doctorAvatar from 'assets/doctor.jpg';
-import { MenuDrawer } from './subcomponents';
+import { MenuDrawer, AppBarContent } from './subcomponents';
 
 import Gravatar from 'react-gravatar';
 
@@ -44,33 +42,11 @@ export default class MainLayout extends React.Component {
           userType={ userType }
         />
         <Panel>
-          <AppBar>
-            <IconButton
-              icon={ drawerActive ? 'close' : 'menu' }
-              className={ style['hamburger'] }
-              inverse
-              onClick={ this.toggleDrawerActive.bind(this) }
-            />
-            <div className={ style['app-bar'] }>
-              <div className={ style['left-content'] }>
-                <div className={ style['logo'] }>
-                  <SVG
-                    src={ logo }
-                  />
-                </div>
-                <div className={ style['title'] }>eRejestracja</div>
-              </div>
-
-              <div className={ style['right-content'] }>
-                <div className={ style['avatar'] }>
-                  <Gravatar email={ user.email } />
-                </div>
-                <div className={ style['user-name'] }>{ appBarLabel }</div>
-              </div>
-
-            </div>
-
-          </AppBar>
+          <AppBarContent
+            drawerActive={ drawerActive }
+            user={ user }
+            toggleDrawerActive={ this.toggleDrawerActive }
+          />
           <div className={ style['body'] }>
             { children }
           </div>
