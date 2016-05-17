@@ -18,7 +18,7 @@ import {
 } from './views/entity_lists/smarts';
 
 import { Demo } from './views/demo';
-import { SmartMainLayout } from './views/layouts/main_layout';
+import { SmartMainLayout } from './layouts/main_layout';
 import { EmptyPage } from './views/empy_page';
 import {
   SmartDoctorRegistration,

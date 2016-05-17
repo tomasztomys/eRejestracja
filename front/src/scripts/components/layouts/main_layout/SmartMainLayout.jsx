@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import MainLayout from './MainLayout';
-import * as UserReducer from '../../../../reducers/user';
+import * as UserReducer from '../../../reducers/user';
 
 export default class SmartProfileEdition extends Component {
   render() {

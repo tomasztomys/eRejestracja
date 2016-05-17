@@ -5,13 +5,13 @@ import {
   List,
   ListItem,
   FontIcon
-} from '../../../../../ui';
+} from '../../../../ui';
 
 import classnames from 'classnames';
 
 import style from './menu_drawer';
 
-import MenuNavigationLinks from '../../../../../../constants/MenuNavigationLinks';
+import MenuNavigationLinks from '../../../../../constants/MenuNavigationLinks';
 
 export default class MenuDrawer extends Component {
   constructor() {
