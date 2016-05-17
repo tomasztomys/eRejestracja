@@ -36,6 +36,9 @@ class Calls
      * @return void
      */
     public function run() {
+
+        $db = new \Database\Database();
+
         $this->_app->group('/authorizations', function () {
             $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
         });
@@ -45,20 +48,20 @@ class Calls
           $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
         });
 
-        $this->_app->group('/doctors', function () {
-            $this->get('', '\Calls\Doctors:getDoctors')->setName('getDoctors');
-            $this->get('/{id:[0-9]+}', '\Calls\Doctors:getDoctor')->setName('getDoctor');
-            $this->delete('/{id:[0-9]+}', '\Calls\Doctors:deleteDoctor')->setName('deleteDoctor');
-            $this->post('', '\Calls\Doctors:addDoctor')->setName('addDoctor');
-            $this->put('/{id:[0-9]+}', '\Calls\Doctors:editDoctor')->setName('editDoctor');
+        $this->_app->group('/doctors', function () use ($db) {
+            $this->get('', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->getDoctors($request, $response, $args); })->setName('getDoctors');
+            $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->getDoctor($request, $response, $args); })->setName('getDoctor');
+            $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->deleteDoctor($request, $response, $args); })->setName('deleteDoctor');
+            $this->post('', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->addDoctor($request, $response, $args); })->setName('addDoctor');
+            $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->editDoctor($request, $response, $args); })->setName('editDoctor');
         });
 
-        $this->_app->group('/patients', function () {
-            $this->get('', '\Calls\Patients:getPatients')->setName('getPatients');
-            $this->get('/{id:[0-9]+}', '\Calls\Patients:getPatient')->setName('getPatient');
-            $this->delete('/{id:[0-9]+}', '\Calls\Patients:deletePatient')->setName('deletePatient');
-            $this->post('', '\Calls\Patients:addPatient')->setName('addPatient');
-            $this->put('/{id:[0-9]+}', '\Calls\Patients:editPatient')->setName('editPatient');
+        $this->_app->group('/patients', function () use ($db) {
+            $this->get('', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->getPatients($request, $response, $args); })->setName('getPatients');
+            $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->getPatient($request, $response, $args); })->setName('getPatient');
+            $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->deletePatient($request, $response, $args); })->setName('deletePatient');
+            $this->post('', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->addPatient($request, $response, $args); })->setName('addPatient');
+            $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->editPatient($request, $response, $args); })->setName('editPatient');
         });
 
         $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');
