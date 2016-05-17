@@ -11,6 +11,7 @@ import { Card, CardTitle, CardWithHeader } from './card';
 import { Grid, GridItem } from './grid';
 import { Dropdown } from './dropdown';
 import { DatePicker } from './date_picker';
+import { NavDrawer } from './nav_drawer';
 
 export {
   Input,
@@ -25,5 +26,6 @@ export {
   Card, CardTitle, CardWithHeader,
   Grid, GridItem,
   Dropdown,
-  DatePicker
+  DatePicker,
+  NavDrawer
 };

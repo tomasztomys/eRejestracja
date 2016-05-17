@@ -43,8 +43,7 @@ export default class AppBar extends React.Component {
             />
           </ReactAppBar>
           <div style={ { flex: 1, overflowY: 'auto', padding: '1.8rem' } }>
-            <h1>Main Content</h1>
-            <p>Main content goes here.</p>
+            { this.props.chidlren }
           </div>
         </Panel>
       </Layout>
