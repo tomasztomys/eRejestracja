@@ -40,6 +40,7 @@ export default class EntityList extends Component {
         <IconButton
           icon="delete"
           key={ `delete${ item.id }` }
+          onClick={ this.props.onDeleteItem.bind(this, item.id) }
           className={ style['icon-cell'] }
         />
       );

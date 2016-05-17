@@ -50,6 +50,10 @@ class SmartPatientsList extends Component {
     this._cleanSelected();
   }
 
+  onDeleteItem(id) {
+    this.props.dispatch(Action.deletePatients([ id ]));
+  }
+
   render() {
     let {
       patientsModel,
@@ -70,6 +74,7 @@ class SmartPatientsList extends Component {
         buttons={ [
           { label: 'Remove selected patients', onClick: this._onRemove.bind(this) }
         ] }
+        onDeleteItem={ this.onDeleteItem.bind(this) }
         noDataMessage="No patients in database"
       />
     );
