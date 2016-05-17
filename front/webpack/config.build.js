@@ -32,6 +32,14 @@ module.exports = assign(common, {
           'toolbox'
         ]),
       },
+      {
+        test: /(\.png|\.jpg|\.gif)$/,
+        loader: 'url?limit=8192'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline'
+      }
     ],
   },
   plugins: [
