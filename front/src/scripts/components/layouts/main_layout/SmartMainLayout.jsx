@@ -6,10 +6,11 @@ import * as UserReducer from '../../../reducers/user';
 
 export default class SmartProfileEdition extends Component {
   render() {
+    let { user } = this.props;
+
     return (
       <MainLayout
-        name={ this.props.user.name }
-        surname={ this.props.user.surname }
+        user={ user }
         userType="admin"
       >
         { this.props.children }
@@ -23,6 +24,7 @@ SmartProfileEdition.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
     surname: PropTypes.string,
+    email: PropTypes.string,
   }),
   userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
 };
