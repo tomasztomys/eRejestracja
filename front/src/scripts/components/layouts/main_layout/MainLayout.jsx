@@ -4,7 +4,7 @@ import {
   Button,
   Avatar,
   FontIcon
-} from '../../ui';
+} from 'ui';
 
 import style from './style/main_layout.scss';
 

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   CardWithHeader,
-} from '../../../../ui';
+} from 'ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
 

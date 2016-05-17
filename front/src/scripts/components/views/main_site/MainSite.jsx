@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Button,
-} from '../../ui';
+} from 'ui';
 
 import SVG from 'svg-inline-react';
 
@@ -10,9 +10,9 @@ import Paths from '../../../constants/PathsConstants.jsx'
 
 import style from './main_site.scss';
 
-import snake from '../../../../assets/snake.svg';
-import heart from '../../../../assets/heart.svg';
-import logo from '../../../../assets/logo.svg';
+import snake from 'assets/snake.svg';
+import heart from 'assets/heart.svg';
+import logo from 'assets/logo.svg';
 
 export default class MainSite extends Component {
   _routeHandler(where) {

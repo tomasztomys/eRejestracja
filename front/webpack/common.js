@@ -3,7 +3,7 @@
 var autoprefixer = require('autoprefixer')
 var htmlPlugin   = require('html-webpack-plugin')
 var path         = require('path')
-
+var rootPath     = path.join(__dirname, '..');
 
 
 module.exports = {
@@ -15,8 +15,8 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: /scripts/,
         loaders: ['react-hot', 'babel'],
+        include: /scripts/,
       },
       // {
       //   test: /\.(jpg|png|svg|woff)$/,
@@ -56,6 +56,7 @@ module.exports = {
     alias: {
       assets: path.resolve('./src/assets'),
       styles: path.resolve('./src/styles'),
+      ui: path.resolve('./src/scripts/lib/ui')
     },
     extensions: [
       '',

@@ -7,7 +7,7 @@ import {
   CardTitle,
   Grid,
   GridItem
-} from '../../ui';
+} from 'ui';
 
 export default class EntityList extends Component {
 

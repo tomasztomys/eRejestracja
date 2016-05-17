@@ -8,7 +8,7 @@ import * as ErrorMessageReducer from '../../reducers/error_message';
 
 import {
   Snackbar
-} from '../ui';
+} from 'ui';
 
 import style from './snackbars_content.scss';
 

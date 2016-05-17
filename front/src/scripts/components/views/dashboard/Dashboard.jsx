@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
   Button,
-} from '../../ui';
+} from 'ui';
 
 export default class Dashboard extends Component {
   render() {

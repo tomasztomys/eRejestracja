@@ -5,7 +5,7 @@ import {
   List,
   ListItem,
   FontIcon
-} from '../../../../ui';
+} from 'ui';
 
 import classnames from 'classnames';
 

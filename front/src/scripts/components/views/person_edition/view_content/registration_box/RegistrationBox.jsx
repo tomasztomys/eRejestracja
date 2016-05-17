@@ -7,7 +7,7 @@ import {
   Card,
   CardTitle,
   CardWithHeader
-} from '../../../../ui';
+} from 'ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
 import { PersonData } from '../../subcomponents/person_data';
