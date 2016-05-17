@@ -4,7 +4,8 @@ import {
   Drawer,
   List,
   ListItem,
-  FontIcon
+  FontIcon,
+  NavDrawer,
 } from 'ui';
 
 import classnames from 'classnames';

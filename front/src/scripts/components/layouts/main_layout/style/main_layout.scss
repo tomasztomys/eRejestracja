@@ -1,72 +1,20 @@
-/* @import '../../../../../../styles/colors';
-@import '../../../../../../styles/config';
+@import '../../../../../styles/colors';
+@import '../../../../../styles/config';
 
 .root {
 
-  .header {
-    height: $menu-bar-height;
+  .app-bar {
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: $header-bar-background-color;
-    color: $header-bar-font-color;
-    box-shadow: 0 5px 10px #AAAAAA;
-    z-index: 9999;
-
-    .menu-button {
-      position: absolute;
-      top: 50%;
-      transform:translateY(-50%);
-      margin-left: 5px;
-      height: $menu-bar-height - 10px;
-      width: $menu-bar-height - 10px;
-      padding: 0;
-      min-width: auto;
-      background: $button-menu-in-top-bar-color !important;
-
-      &.active {
-        background: $button-menu-in-top-bar-color !important;
-
-        &:hover {
-          background: darken($button-menu-in-top-bar-color, 10%) !important;
-        }
-      }
-
-      span {
-        font-size: 40px;
-      }
-    }
-
-  .user-name {
-      float: right;
-      height: $menu-bar-height;
-      line-height: $menu-bar-height;
-      margin-right: 30px;
-    }
-
-    .avatar-content {
-      height: $menu-bar-height;
-      width: $menu-bar-height;
+    .right-content {
       float: right;
       position: relative;
 
-      .avatar {
-        height: $menu-bar-height - 10px;
-        width: $menu-bar-height - 10px;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
     }
   }
 
   .body {
-    overflow: auto;
-    height: 100%;
-    margin-top: $menu-bar-height;
-    width: 100%;
-    box-sizing: border-box;
+    flex: 1;
+    overflow-y: auto;
     padding: 20px;
   }
-} */
+}

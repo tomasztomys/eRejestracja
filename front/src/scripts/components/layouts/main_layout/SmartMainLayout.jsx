@@ -10,7 +10,7 @@ export default class SmartProfileEdition extends Component {
       <MainLayout
         name={ this.props.user.name }
         surname={ this.props.user.surname }
-        userType={ this.props.userType }
+        userType="admin"
       >
         { this.props.children }
       </MainLayout>

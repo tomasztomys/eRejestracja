@@ -1,13 +1,12 @@
-@import '../../../../../../../styles/colors';
-@import '../../../../../../../styles/config';
-@import '../../style/variables';
+@import '../../../../../../styles/colors';
+@import '../../../../../../styles/config';
 
 .menu-drawer {
   padding-top: 10px;
   width: $menu-drawer-width;
   color: $drawer-menu-font-color;
   background-color: $drawer-menu-background-color;
-  margin-top: $menu-bar-height;
+  margin-top: $app-bar-height;
 
   .menu {
     margin-bottom: $menu-bar-height;
