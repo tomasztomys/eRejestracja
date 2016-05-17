@@ -18,14 +18,6 @@ module.exports = {
         loaders: ['react-hot', 'babel'],
         include: /scripts/,
       },
-      // {
-      //   test: /\.(jpg|png|svg|woff)$/,
-      //   include: /assets/,
-      //   loader: 'file',
-      //   query: {
-      //     name: 'assets/[hash].[ext]',
-      //   },
-      // },
       {
         test: /\.json$/,
         include: /assets/,

@@ -39,7 +39,15 @@ module.exports = assign(common, {
       {
         test: /\.svg$/,
         loader: 'svg-inline'
-      }
+      },
+      {
+        test: /\.(jpg|png|svg|woff)$/,
+        include: /assets/,
+        loader: 'file',
+        query: {
+          name: 'assets/[hash].[ext]',
+        },
+      },
     ],
   },
   plugins: [
