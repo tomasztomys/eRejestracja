@@ -3,6 +3,7 @@
 @import '../../style/variables';
 
 .menu-drawer {
+  padding-top: 10px;
   width: $menu-drawer-width;
   color: $drawer-menu-font-color;
   background-color: $drawer-menu-background-color;
@@ -14,7 +15,6 @@
     & > ul {
       padding: 0;
     }
-    //remove left icons
     .sub-menu-parent > span > span:first-child {
       display: none;
     }
@@ -23,6 +23,8 @@
       height: $menu-drawer-item-height;
 
       span {
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
         color: $drawer-menu-font-color !important;
         font-weight: bold;
         min-height: auto;
@@ -45,7 +47,11 @@
     }
 
     .main-item {
-      padding-right: 43px;
+      padding-right: 40px;
+      span {
+        height: $menu-drawer-item-height;
+        line-height: $menu-drawer-item-height;
+      }
     }
 
     .sub-menu-item {
