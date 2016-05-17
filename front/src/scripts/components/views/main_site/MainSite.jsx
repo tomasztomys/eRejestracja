@@ -46,6 +46,7 @@ export default class MainSite extends Component {
             <Button
               className={ style['sign-up-button'] }
               label="Sign up"
+              onClick={ this._routeHandler.bind(this, Paths.patients.registration) }
             />
           </div>
         </div>
@@ -61,6 +62,7 @@ export default class MainSite extends Component {
               <Button
                 className={ style['sign-up-button'] }
                 label="Sign up"
+                onClick={ this._routeHandler.bind(this, Paths.doctors.registration) }
               />
             </div>
           </div>
