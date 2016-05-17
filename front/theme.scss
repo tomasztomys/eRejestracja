@@ -2,6 +2,13 @@
 @import "./src/styles/colors.scss";
 
 $preferred-font: Lato, sans-serif;
-
 $appbar-height: $app-bar-height;
 $appbar-color: $app-bar-background-color;
+
+/* $button-neutral-color: $button-default-color */
+
+$button-primary-color-contrast: $button-primary-color-font;
+$button-primary-color: $button-primary-color;
+
+$checkbox-color: $checkbox-color;
+$checkbox-text-color: $checkbox-color;

@@ -10,22 +10,14 @@
     line-height: 18px !important;
   }
 
-  &.active {
-    background: $button-color !important;
-
+  &.primary {
     &:hover {
-      background: darken($button-color, 10%) !important;
+      background: $button-primary-color-hover !important;
     }
   }
 
-  &.secondary {
-    &.active {
-      background: $button-secondary-color !important;
-
-      &:hover {
-        background: darken($button-secondary-color, 10%) !important;
-      }
-    }
+  &:hover {
+    background: $button-default-hover-color !important;
   }
 
   &.large {

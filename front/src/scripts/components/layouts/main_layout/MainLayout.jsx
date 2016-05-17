@@ -45,7 +45,7 @@ export default class MainLayout extends React.Component {
           <AppBarContent
             drawerActive={ drawerActive }
             user={ user }
-            toggleDrawerActive={ this.toggleDrawerActive }
+            toggleDrawerActive={ this.toggleDrawerActive.bind(this) }
           />
           <div className={ style['body'] }>
             { children }

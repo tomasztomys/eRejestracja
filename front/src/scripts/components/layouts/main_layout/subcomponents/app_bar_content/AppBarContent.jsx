@@ -11,7 +11,13 @@ import style from './app_bar_content.scss';
 
 import logo from 'assets/logo.svg';
 
+import Paths from 'constants/PathsConstants';
+
 export default class AppBarContent extends React.Component {
+  _routeHandler(path) {
+    this.context.router.push(path);
+  }
+
   render() {
     let { drawerActive, user, toggleDrawerActive } = this.props;
     let appBarLabel = `${ user.name } ${ user.surname }`;
@@ -26,7 +32,10 @@ export default class AppBarContent extends React.Component {
         />
         <div className={ style['app-bar'] }>
 
-          <div className={ style['left-content'] }>
+          <div
+            className={ style['left-content'] }
+            onClick={ this._routeHandler.bind(this, Paths.dashboard) }
+            >
             <div className={ style['logo'] }>
               <SVG
                 src={ logo }
@@ -48,6 +57,10 @@ export default class AppBarContent extends React.Component {
     );
   }
 }
+
+AppBarContent.contextTypes = {
+  router: React.PropTypes.object
+};
 
 AppBarContent.propTypes = {
   drawerActive: PropTypes.bool,

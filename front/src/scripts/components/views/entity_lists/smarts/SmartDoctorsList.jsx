@@ -68,7 +68,7 @@ class SmartDoctorsList extends Component {
         selected={ selected }
         selectable
         buttons={ [
-          { label: 'Remove selected doctors', onClick: this._onRemove.bind(this) }
+          { label: 'Remove selected doctors', onClick: this._onRemove.bind(this), primary: true }
         ] }
         noDataMessage="No doctors in database"
       />

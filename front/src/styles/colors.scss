@@ -11,13 +11,21 @@ $graphite-color: #343642;
 $button-color: $blighteen-green;
 $button-secondary-color: $gray-color;
 
+/* buttons */
+$button-default-color: $gray-color;
+$button-default-hover-color: darken($gray-color, 10%);
+
+$button-primary-color: $blighteen-green;
+$button-primary-color-hover: darken($button-primary-color, 10%);
+$button-primary-color-font: white;
+
 $button-menu-in-top-bar-color: $blue-color;
 
 
 $input-active-color: $blue-color;
 $input-warning-color: $red-color;
 
-$checkbox-color: $blue-color;
+$checkbox-color: $blighteen-green;
 
 $app-bar-background-color: $blighteen-green;
 $header-bar-font-color: white;

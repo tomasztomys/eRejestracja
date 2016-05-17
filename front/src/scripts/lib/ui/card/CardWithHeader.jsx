@@ -21,6 +21,7 @@ export default class CardWithHeader extends Component {
           onClick={ item.onClick }
           type={ item.type }
           disabled={ item.disabled || false }
+          primary={ item.primary }
         />
       );
     });
