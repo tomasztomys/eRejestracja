@@ -10,27 +10,34 @@ namespace Calls;
 class Doctors
 {
     /**
-     * @var \Slim\Container
+     * @var \Database\Database
      */
-    protected $ci;
+    private $_db;
 
     /**
      * Konstruktor klasy Doctors
      *
-     * @param \Slim\Container $ci
      */
-    public function __construct(\Slim\Container $ci) {
-        $this->ci = $ci;
+    public function __construct($db) {
+        $this->_db = $db;
     }
 
     /**
      * Konwersja beana do tablici asocjacyjnej
      *
      * @param $doctorDB bean
-     *
      * @return array
+     *
+     * @throws \Exception
      */
     public function _makeDoctor($doctorDB) {
+        if(!isset($doctorDB->id) || !isset($doctorDB->name) || !isset($doctorDB->surname) || !isset($doctorDB->email) || !isset($doctorDB->type) || !isset($doctorDB->specialization)) {
+            if(isset($doctorDB->type) && $doctorDB->type !== 'doctor') {
+                throw new \Exception("It's not a doctor");
+            }
+            throw new \Exception('Some of required values not passed');
+        }
+
         $doctor = [];
         $doctor['id'] = (int)$doctorDB->id;
         $doctor['name'] = $doctorDB->name;
@@ -47,8 +54,8 @@ class Doctors
      *
      * @return array
      */
-    private function _getAllDoctors() {
-        $doctorsDB = \R::findAll( 'user', ' type = ? ', [ 'doctor' ] );
+    public function _getAllDoctors() {
+        $doctorsDB = $this->_db->findAllDoctors();
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
             $doctor = $this->_makeDoctor($doctorDB);
@@ -65,7 +72,7 @@ class Doctors
      *
      * @return array
      */
-    private function _getDoctorsBySpecialization($specialization) {
+    public function _getDoctorsBySpecialization($specialization) {
         $doctorsDB = \R::findAll( 'user', ' specialization = ? && type = ? ', [ $specialization, 'doctor' ] );
         $doctors = [];
         foreach($doctorsDB as $doctorDB) {
@@ -104,6 +111,24 @@ class Doctors
     }
 
     /**
+     * Sprawdza czy podane id i typ to lekarz
+     *
+     * Funkcja mająca na celu czy jednostka o podanym id i typie to lekarz
+     *
+     * @param $id int Id lekarza
+     * @param $type string Typ lekarza
+     *
+     * @return Bool
+     */
+    public function _ifFoundDoctor($id, $type) {
+        if($id === 0 || $type !== 'doctor') {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Obsługa calla GET /doctors/{id}
      *
      * Call służący do pobrania lekarza z bazy danych
@@ -118,9 +143,9 @@ class Doctors
 
         $id = $args['id'];
 
-        $doctorDB = \R::load( 'user', $id);
+        $doctorDB = $this->_db->loadUserById($id);
 
-        if($doctorDB->id === 0 || $doctorDB->type !== 'doctor') {
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
         }
@@ -144,7 +169,7 @@ class Doctors
         $id = $args['id'];
         $doctorDB = \R::load( 'user', $id );
 
-        if($doctorDB->id !== 0 && $doctorDB->type === 'doctor') {
+        if($this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
             \R::trash($doctorDB);
             return $response->withJson([]);
         }
@@ -193,7 +218,7 @@ class Doctors
         $id = $args['id'];
         $doctorDB = \R::load( 'user', $id );
 
-        if($doctorDB->id === 0 || $doctorDB->type !== 'doctor') {
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
         }

@@ -10,27 +10,32 @@ namespace Calls;
 class Patients
 {
     /**
-     * @var \Slim\Container
+     * @var \Database\Database
      */
-    protected $ci;
+    private $_db;
 
     /**
      * Konstruktor klasy Patients
-     *
-     * @param \Slim\Container $ci
      */
-    public function __construct(\Slim\Container $ci) {
-        $this->ci = $ci;
+    public function __construct($db) {
+        $this->_db = $db;
     }
 
     /**
      * Konwersja beana do tablici asocjacyjnej
      *
      * @param $patientDB bean
-     *
      * @return array
+     * @throws \Exception
      */
     public function _makePatient($patientDB) {
+        if(!isset($patientDB->id) || !isset($patientDB->name) || !isset($patientDB->surname) || !isset($patientDB->email) || !isset($patientDB->type) || !isset($patientDB->pesel)) {
+            if(isset($patientDB->type) && $patientDB->type !== 'patient') {
+                throw new \Exception("It's not a patient");
+            }
+            throw new \Exception('Some of required values not passed');
+        }
+
         $patient = [];
         $patient['id'] = (int)$patientDB->id;
         $patient['name'] = $patientDB->name;
@@ -47,8 +52,8 @@ class Patients
      *
      * @return array
      */
-    private function _getAllPatients() {
-        $patientsDB = \R::findAll( 'user', 'type = ? ', [ 'patient' ] );
+    public function _getAllPatients() {
+        $patientsDB = $this->_db->findAllPatients();
         $patients = [];
         foreach($patientsDB as $patientDB) {
             $patient = $this->_makePatient($patientDB);
@@ -77,6 +82,24 @@ class Patients
     }
 
     /**
+     * Sprawdza czy podane id i typ to pacjent
+     *
+     * Funkcja mająca na celu czy jednostka o podanym id i typie to pacjent
+     *
+     * @param $id int Id pacjenta
+     * @param $type string Typ pacjenta
+     *
+     * @return Bool
+     */
+    public function _ifFoundPatient($id, $type) {
+        if($id === 0 || $type !== 'patient') {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Obsługa calla GET /patients/{id}
      *
      * Call służący do pobrania pacjenta z bazy danych
@@ -91,9 +114,9 @@ class Patients
 
         $id = $args['id'];
 
-        $patientDB = \R::load( 'user', $id);
+        $patientDB = $this->_db->loadUserById($id);
 
-        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
+        if(!$this->_ifFoundPatient($patientDB->id, $patientDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Patient not found']);
         }
@@ -127,6 +150,24 @@ class Patients
     }
 
     /**
+     * Metoda wywołująca metodę z Database, która ma usunąć pacjenta z bazy danych
+     *
+     * @param $id int id pacjenta
+     *
+     * @return bool
+     */
+    public function trashPatient($id) {
+        $patientDB = $this->_db->loadUserById($id);
+
+        if($this->_ifFoundPatient($patientDB->id, $patientDB->type)) {
+            $this->_db->trash($patientDB);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Obsługa calla DELETE /patients/{id}
      *
      * Call służący do usuwania pacjenta z bazy danych
@@ -140,10 +181,8 @@ class Patients
     public function deletePatient($request, $response, $args) {
 
         $id = $args['id'];
-        $patientDB = \R::load( 'user', $id );
 
-        if($patientDB->id !== 0 && $patientDB->type === 'patient') {
-            \R::trash($patientDB);
+        if($this->trashPatient($id)) {
             return $response->withJson([]);
         }
 
@@ -166,7 +205,7 @@ class Patients
         $id = $args['id'];
         $patientDB = \R::load( 'user', $id );
 
-        if($patientDB->id === 0 || $patientDB->type !== 'patient') {
+        if(!$this->_ifFoundPatient($patientDB->id, $patientDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Patient not found']);
         }
