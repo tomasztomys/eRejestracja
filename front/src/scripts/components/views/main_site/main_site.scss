@@ -13,7 +13,7 @@
     top: 0;
     width: 100%;
     height: 50px;
-    background-color: #00aea0;
+    background-color: $header-bar-background-color;
     padding: 0 20px;
     .logo {
       display: inline-block;
@@ -23,8 +23,8 @@
       svg {
         height: 40px;
          path {
-          fill: white;
-          stroke: white;
+          fill: $header-logo-fill-color;
+          stroke: $header-logo-fill-color;
         }
       }
     }
@@ -34,13 +34,13 @@
       font-size: 25px;
       height: 100%;
       line-height: 50px;
-      color: white;
+      color: $header-bar-font-color;
     }
     .sign-in-button {
       float: right;
       margin-top: 10px;
-      color: #00aea0;
-      background-color: white !important;
+      color: $header-sign-in-font-color;
+      background-color: $header-sign-in-button-background !important;
     }
   }
 
@@ -54,8 +54,8 @@
       svg {
         height: 100px;
          path, circle {
-          fill: #00aea0;
-          stroke: #00aea0;
+          fill: $main-site-background-color;
+          stroke: $main-site-background-color;
         }
       }
     }
@@ -73,12 +73,12 @@
 
     .sign-up-button {
       margin-top: 10px;
-      background-color: #00aea0 !important;
+      background-color: $main-site-background-color !important;
     }
   }
   .doctor-content-border {
-    border-top: 5px solid #00aea0;
-    border-bottom: 5px solid #00aea0;
+    border-top: 5px solid $main-site-background-color;
+    border-bottom: 5px solid $main-site-background-color;
       position: absolute;
       width: 100%;
       right: 50%;
@@ -86,7 +86,7 @@
       top: 55%;
       padding: 5px 0;
     .doctor-content {
-      background-color: #00aea0;
+      background-color: $main-site-background-color;
       padding: 15px 0;
       text-align: center;
       .snake {
@@ -112,7 +112,7 @@
 
       .sign-up-button {
         margin-top: 10px;
-        color: #00aea0;
+        color: $main-site-background-color;
         background-color: white !important;
       }
     }

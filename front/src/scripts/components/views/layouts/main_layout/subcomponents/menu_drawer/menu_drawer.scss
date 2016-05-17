@@ -10,7 +10,7 @@
 
   .menu {
     margin-bottom: $menu-bar-height;
-    
+
     & > ul {
       padding: 0;
     }
@@ -21,20 +21,27 @@
 
     .main-item, .sub-menu-item, .sub-menu-parent {
       padding: 4px 0;
+      height: $menu-drawer-item-height;
 
       span {
-        color: $drawer-menu-font-color;
+        line-height: $menu-drawer-item-height;
+        color: $drawer-menu-font-color !important;
+        font-weight: bold;
       }
 
       &:hover {
-        background-color: $red-color;
+        background-color: $drawer-menu-item-focus-background-color !important;;
+        span {
+          color: $drawer-menu-font-focus-color !important;;
+        }
       }
     }
 
     .main-item, .sub-menu-parent {
-      text-align: center;
+      text-align: left;
+      padding-left: 40px;
       span {
-        font-size: 2rem;
+        font-size: $menu-drawer-item-font-size;
       }
     }
 
@@ -44,6 +51,9 @@
 
     .sub-menu-item {
       background-color: $drawer-menu-submenu-open-background-color;
+      span {
+        font-size: $menu-drawer-subitem-font-size;
+      }
     }
   }
 }

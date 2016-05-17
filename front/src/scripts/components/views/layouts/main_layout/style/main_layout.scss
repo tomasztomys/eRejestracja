@@ -6,11 +6,12 @@
   .header {
     height: $menu-bar-height;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: $header-bar-background-color;
     color: $header-bar-font-color;
+    box-shadow: 0 5px 10px #AAAAAA;
     z-index: 9999;
 
     .menu-button {
@@ -62,8 +63,7 @@
 
   .body {
     overflow: auto;
-    position: absolute;
-    height: calc(100% - #{$menu-bar-height});
+    height: 100%;
     margin-top: $menu-bar-height;
     width: 100%;
     box-sizing: border-box;
