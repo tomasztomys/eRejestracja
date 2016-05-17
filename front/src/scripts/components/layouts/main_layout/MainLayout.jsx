@@ -1,55 +1,51 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 
-import {
-  Button,
-  Avatar,
-  FontIcon
-} from 'ui';
+import { Panel, Layout, IconButton } from 'react-toolbox';
+import { NavDrawer, AppBar } from 'ui';
 
-import style from './style/main_layout.scss';
-
-// import {
-//   MenuDrawer
-// } from './subcomponents';
-
-import {
-  AppBar
-} from '../../app_bar';
-
-import doctorAvatar from '../../../../../assets/doctor.jpg';
-
-export default class MainLayout extends Component {
+export default class MainLayout extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      drawerMenuActive: false
+      drawerActive: false,
     };
   }
 
-  _toggleDrawerMenu() {
-    let drawerMenuActive = this.state.drawerMenuActive;
-
+  toggleDrawerActive() {
     this.setState({
-      drawerMenuActive: !drawerMenuActive
+      drawerActive: !this.state.drawerActive
     });
   }
 
   render() {
-    let { drawerMenuActive } = this.state;
-    let { name, surname, userType } = this.props;
-    let appBarLabel = `${ name } ${ surname }`;
+    let { drawerActive } = this.state;
 
     return (
-      <div className={ style['root'] }>
-        <AppBar />
-      </div>
+      <Layout>
+        <NavDrawer active={ drawerActive }
+          pinned={ false }
+          permanentAt="xxxl"
+          onOverlayClick={ this.toggleDrawerActive.bind(this) }
+        >
+          <p>
+              Navigation, account switcher, etc. go here.
+          </p>
+        </NavDrawer>
+        <Panel>
+          <AppBar>
+            <IconButton
+              icon={ drawerActive ? "close" : "menu"}
+              inverse
+              onClick={ this.toggleDrawerActive.bind(this) }
+            />
+          </AppBar>
+          <div style={ { flex: 1, overflowY: 'auto', padding: '1.8rem' } }>
+            { this.props.chidlren }
+          </div>
+        </Panel>
+      </Layout>
     );
   }
 }
-
-MainLayout.propTypes = {
-  children: PropTypes.node,
-  name: PropTypes.string,
-  surname: PropTypes.string,
-  userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
-};

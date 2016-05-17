@@ -47,6 +47,7 @@ module.exports = {
       template: 'index.html',
     }),
   ],
+  toolbox: 'theme.scss',
   postcss: function() {
     return [
       autoprefixer,

@@ -19,7 +19,7 @@ module.exports = assign(common, {
       },
       {
         test: /(\.scss|\.css)$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!resolve-url!sass?sourceMap&react-hot'
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!resolve-url!sass?sourceMap&react-hot!toolbox'
       },
       {
         test: /(\.png|\.jpg|\.gif)$/,

@@ -19,9 +19,7 @@ export default class AppBar extends Component {
         onOverlayClick={ onOverlayClick }
         { ...otherProps }
       >
-        <div className={ style['content'] }>
-          { children }
-        </div>
+        { children }
       </NavDrawerReactToolbox>
     );
   }

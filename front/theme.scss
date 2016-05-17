@@ -1,0 +1,10 @@
+@import "./src/styles/config.scss";
+@import "./src/styles/colors.scss";
+
+$preferred-font: Lato, sans-serif;
+
+$input-text-label-color: red;
+$input-text-highlight-color: red;
+$input-text-bottom-border-color: red;
+
+$appbar-color: $app-bar-background-color;
