@@ -11,7 +11,7 @@ import Paths from '../../../constants/PathsConstants.jsx'
 import style from './main_site.scss';
 
 import snake from '../../../../assets/snake.svg';
-import pill from '../../../../assets/pill.svg';
+import heart from '../../../../assets/heart.svg';
 import logo from '../../../../assets/logo.svg';
 
 export default class MainSite extends Component {
@@ -39,7 +39,7 @@ export default class MainSite extends Component {
         <div className={ style['patient-content'] }>
           <SVG
             className={ style['pill'] }
-            src={ pill }
+            src={ heart }
           />
           <div className={ style['title'] }>PATIENT<p>CENTER</p></div>
           <div>
