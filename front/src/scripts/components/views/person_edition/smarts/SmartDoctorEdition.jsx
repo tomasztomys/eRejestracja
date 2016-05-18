@@ -6,6 +6,8 @@ import * as Action from '../../../../actions/Actions';
 import * as UserReducer from '../../../../reducers/user';
 import * as DoctorsReducer from '../../../../reducers/doctors';
 
+import Paths from '../../../../constants/PathsConstants';
+
 export default class SmartPersonEdition extends Component {
 
   componentWillMount() {
@@ -17,6 +19,10 @@ export default class SmartPersonEdition extends Component {
       values: doctor,
       userId: doctor.id
     });
+  }
+
+  _routeHandler(where) {
+    this.context.router.push(where);
   }
 
   onSave(values) {
@@ -31,7 +37,8 @@ export default class SmartPersonEdition extends Component {
       specialization: values.specialization
     };
 
-    this.props.dispatch(Action.changeProfileData(parameters, personType));
+    this.props.dispatch(Action.changeDoctorProfile(parameters));
+    // this._routeHandler(Paths.doctors.list);
   }
 
   _getDoctor(doctors, id) {
@@ -51,6 +58,11 @@ export default class SmartPersonEdition extends Component {
     );
   }
 }
+
+SmartPersonEdition.contextTypes = {
+  router: React.PropTypes.object
+};
+
 
 function select(state) {
   state = state.toJS();
