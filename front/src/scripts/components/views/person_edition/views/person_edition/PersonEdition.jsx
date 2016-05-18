@@ -68,7 +68,7 @@ export default class PersonEdition extends Component {
   }
   render() {
     let { values, errors } = this.state;
-    let { personType } = this.props;
+    let { personType, changePassword } = this.props;
 
     return (
       <Grid center>
@@ -84,18 +84,21 @@ export default class PersonEdition extends Component {
             personType={ personType }
           />
         </GridItem>
-        <GridItem
-          xsSize="11"
-          mdSize="5"
-        >
-          <ChangePasswordBox
-            values={ values }
-            errors={ errors }
-            onChange={ this.onChange.bind(this) }
-            onSave={ this.onSave.bind(this, values) }
-            oldPassword
-          />
-        </GridItem>
+        { changePassword ?
+          <GridItem
+            xsSize="11"
+            mdSize="5"
+          >
+            <ChangePasswordBox
+              values={ values }
+              errors={ errors }
+              onChange={ this.onChange.bind(this) }
+              onSave={ this.onSave.bind(this, values) }
+              oldPassword
+            />
+          </GridItem> : null
+        }
+
         { personType === 'doctor' ?
           <GridItem
             xsSize="11"

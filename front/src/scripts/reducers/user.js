@@ -10,7 +10,8 @@ export default function user(state, action) {
       });
     case ActionsTypes.CHANGE_PROFILE_SUCCESS:
       return Immutable.fromJS({
-        data: action.data,
+        data: action.data.person,
+
         fetchSuccess: true
       });
   }
@@ -33,7 +34,8 @@ export function getUserData(state) {
     password: data.password || '',
     repeatPassword: '',
     oldPassword: '',
-    specialization: data.specialization || ''
+    specialization: data.specialization || '',
+    type: data.type
   };
 }
 

@@ -25,6 +25,10 @@ class SmartPatientsList extends Component {
     this.props.dispatch(Action.fetchPatientsList());
   }
 
+  onEdit(id) {
+    this.context.router.push(`/patient-edition/${ id }`);
+  }
+
   _handleSelect(selected) {
     this.setState({
       selected
@@ -76,10 +80,15 @@ class SmartPatientsList extends Component {
         ] }
         onDeleteItem={ this.onDeleteItem.bind(this) }
         noDataMessage="No patients in database"
+        onEditItem={ this.onEdit.bind(this) }
       />
     );
   }
 }
+
+SmartPatientsList.contextTypes = {
+  router: React.PropTypes.object
+};
 
 SmartPatientsList.propTypes = {
   patientsList: PropTypes.array
