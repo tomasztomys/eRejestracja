@@ -10,8 +10,8 @@ import Paths from '../../../../constants/PathsConstants';
 export default class SmartPatientEdition extends Component {
 
   componentWillMount() {
-    let { doctors, params } = this.props;
-    let doctor = this._getDoctor(doctors, params.id);
+    let { patients, params } = this.props;
+    let doctor = this._getDoctor(patients, params.id);
 
     this.setState({
       personType: doctor.type,
@@ -36,11 +36,11 @@ export default class SmartPatientEdition extends Component {
     };
 
     this.props.dispatch(Action.changePatientProfile(parameters));
-    // this._routeHandler(Paths.doctors.list);
+    // this._routeHandler(Paths.patients.list);
   }
 
-  _getDoctor(doctors, id) {
-    return doctors.filter((item) => {
+  _getDoctor(patients, id) {
+    return patients.filter((item) => {
       return id == item.id;
     })[0];
   }
@@ -64,16 +64,16 @@ SmartPatientEdition.contextTypes = {
 function select(state) {
   state = state.toJS();
   return {
-    doctors: PatientsReducer.getPatientsList(state)
+    patients: PatientsReducer.getPatientsList(state)
   };
 }
 
 SmartPatientEdition.propTypes = {
-  doctors: PropTypes.array
+  patients: PropTypes.array
 };
 
 SmartPatientEdition.defaultProps = {
-  doctors: []
+  patients: []
 };
 
 export default connect(select)(SmartPatientEdition);
