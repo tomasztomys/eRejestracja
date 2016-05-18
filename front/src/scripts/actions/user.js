@@ -43,10 +43,10 @@ export function tryLogin(email, password, dispatch) {
         case 200: {
           dispatch(loginSuccess(data.data, email, password));
           return true;
-          break;
         }
         default: {
           dispatch(loginFailure());
+          return false;
         }
       }
     });
