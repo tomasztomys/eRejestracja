@@ -50,6 +50,7 @@ export default class Login extends Component {
                 value={ values.password }
                 icon="lock"
                 error={ errors.password }
+                type="password"
                 onChange={ inputChange.bind(this, 'password') }
               />
             </div>
