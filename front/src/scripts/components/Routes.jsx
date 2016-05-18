@@ -25,8 +25,9 @@ import {
   SmartPatientRegistration,
   SmartAddDoctor,
   SmartAddPatient,
-  SmartPersonEdition,
-  SmartUserProfileEdition
+  SmartUserProfileEdition,
+  SmartPatientEdition,
+  SmartDoctorEdition
 } from './views/person_edition/smarts';
 import { MainSite } from './views/main_site';
 import { Dashboard } from './views/dashboard';
@@ -64,7 +65,7 @@ export default class Routes extends React.Component {
           component={ SmartDoctorsList }
         />
         <Route path={ Paths.doctors.edition }
-          component={ SmartPersonEdition }
+          component={ SmartDoctorEdition }
         />
         <Route path={ Paths.patients.list }
           component={ SmartPatientsList }
@@ -76,7 +77,7 @@ export default class Routes extends React.Component {
           component={ SmartAddPatient }
         />
         <Route path={ Paths.patients.edition }
-          component={ SmartPersonEdition }
+          component={ SmartPatientEdition }
         />
         <Route path={ Paths.doctors.add }
           component={ SmartAddDoctor }

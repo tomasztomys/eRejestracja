@@ -6,10 +6,13 @@ import {
   CHANGE_PROFILE_FAILURE
 } from './ActionsTypes';
 
-export function changeProfileDataSuccess(data) {
+export function changeProfileDataSuccess(person) {
   return {
     type: CHANGE_PROFILE_SUCCESS,
-    data: data
+    data: {
+      message: 'Profile data change correctly',
+      person
+    }
   };
 }
 

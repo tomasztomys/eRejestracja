@@ -26,6 +26,7 @@ export default class SmartUserProfileEdition extends Component {
         personType={ this.props.personType }
         values={ this.props.values }
         onSave={ this.onSave.bind(this) }
+        changePassword
       />
     );
   }

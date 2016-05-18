@@ -3,7 +3,8 @@ import SmartPatientRegistration from './SmartPatientRegistration';
 import SmartAddDoctor from './SmartAddDoctor';
 import SmartAddPatient from './SmartAddPatient';
 import SmartUserProfileEdition from './SmartUserProfileEdition';
-import SmartPersonEdition from './SmartPersonEdition';
+import SmartPatientEdition from './SmartPatientEdition';
+import SmartDoctorEdition from './SmartDoctorEdition';
 
 export {
   SmartDoctorRegistration,
@@ -11,5 +12,6 @@ export {
   SmartAddDoctor,
   SmartAddPatient,
   SmartUserProfileEdition,
-  SmartPersonEdition
+  SmartPatientEdition,
+  SmartDoctorEdition
 };
