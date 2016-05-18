@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import {
   Drawer,
@@ -13,8 +14,11 @@ import classnames from 'classnames';
 import style from './menu_drawer';
 
 import MenuNavigationLinks from '../../../../../constants/MenuNavigationLinks';
+import Paths from '../../../../../constants/PathsConstants';
 
-export default class MenuDrawer extends Component {
+import * as Action from '../../../../../actions/Actions';
+
+class MenuDrawer extends Component {
   constructor() {
     super();
 
@@ -132,6 +136,11 @@ export default class MenuDrawer extends Component {
     });
   }
 
+  onLogout() {
+    Action.logout(this.props.dispatch);
+    this.context.router.push(Paths.root);
+  }
+
   render() {
     return (
       <Drawer
@@ -142,6 +151,14 @@ export default class MenuDrawer extends Component {
       >
         <div className={ style['menu'] }>
           { this._renderNavigationItems(this.state.menuItems) }
+          <List key="logout">
+            <ListItem
+              className={ style['main-item'] }
+              key="logout-item"
+              caption="Lgout"
+              onClick={ this.onLogout.bind(this) }
+            />
+          </List>
         </div>
       </Drawer>
     );
@@ -157,3 +174,5 @@ MenuDrawer.propTypes = {
   onOverlayClick: PropTypes.func,
   userType: PropTypes.oneOf([ 'admin', 'patient', 'doctor' ])
 };
+
+export default connect()(MenuDrawer);

@@ -3,9 +3,7 @@ import classnames from 'classnames';
 import SVG from 'svg-inline-react';
 
 import { Panel, Layout, IconButton } from 'react-toolbox';
-import { AppBar } from 'ui';
-
-import Gravatar from 'react-gravatar';
+import { AppBar, CircleAvatar } from 'ui';
 
 import style from './app_bar_content.scss';
 
@@ -45,9 +43,7 @@ export default class AppBarContent extends React.Component {
           </div>
 
           <div className={ style['right-content'] }>
-            <div className={ style['avatar'] }>
-              <Gravatar email={ user.email } />
-            </div>
+            <CircleAvatar email={ user.email } />
             <div className={ style['user-name'] }>{ appBarLabel }</div>
           </div>
 

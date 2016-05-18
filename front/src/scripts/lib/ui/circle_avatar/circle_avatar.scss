@@ -1,0 +1,13 @@
+.circle-avatar {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 100%;
+  margin: 0 10px;
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+  }
+}

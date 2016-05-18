@@ -1,7 +1,9 @@
 import { fetchData } from './fetchData';
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from './ActionsTypes';
 
 import localStorage from 'store';
@@ -30,6 +32,14 @@ export function loginFailure() {
   };
 }
 
+export function logoutSuccess() {
+  localStorage.remove('user');
+
+  return {
+    type: LOGOUT_SUCCESS,
+  };
+}
+
 export function tryLogin(email, password, dispatch) {
   let url = '/authorizations';
   let body = JSON.stringify({
@@ -37,17 +47,22 @@ export function tryLogin(email, password, dispatch) {
     password
   });
 
-  return  fetchData(url, 'POST', body, '')
+  return fetchData(url, 'POST', body, '')
     .then((data) => {
       switch(data.status) {
         case 200: {
           dispatch(loginSuccess(data.data, email, password));
           return true;
-          break;
         }
         default: {
           dispatch(loginFailure());
+          return false;
         }
       }
     });
+}
+
+export function logout(dispatch) {
+  dispatch(logoutSuccess());
+  return true;
 }

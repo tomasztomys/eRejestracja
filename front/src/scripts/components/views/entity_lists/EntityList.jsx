@@ -7,8 +7,11 @@ import {
   CardTitle,
   Grid,
   GridItem,
-  FontIcon
+  FontIcon,
+  CircleAvatar
 } from 'ui';
+
+import { mergeObjects } from '../../../utilities';
 
 import style from './entity_list.scss';
 
@@ -28,6 +31,13 @@ export default class EntityList extends Component {
     } = this.props;
 
     let sourceData = source.map((item) => {
+      item.avatar = (
+        <CircleAvatar
+          className={ style['avatar'] }
+          email={ item.email }
+        />
+      );
+
       item.edit = (
         <IconButton
           icon="edit"
@@ -47,14 +57,15 @@ export default class EntityList extends Component {
       );
       return item;
     });
-    let modelData = model;
+    let modelData = { avatar: { type: Object }};
 
+    modelData = mergeObjects(modelData, model);
     modelData.edit = { type: Object };
     modelData.delete = { type: Object };
 
     return (
       <Grid center>
-        <GridItem xsSize="6">
+        <GridItem xsSize="10">
           <CardWithHeader
             title={ title }
             subtitle={ subtitle }

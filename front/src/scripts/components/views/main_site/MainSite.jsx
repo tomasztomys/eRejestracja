@@ -6,7 +6,7 @@ import {
 
 import SVG from 'svg-inline-react';
 
-import Paths from '../../../constants/PathsConstants.jsx'
+import Paths from '../../../constants/PathsConstants.jsx';
 
 import style from './main_site.scss';
 
@@ -16,7 +16,6 @@ import logo from 'assets/logo.svg';
 
 export default class MainSite extends Component {
   _routeHandler(where) {
-    console.log(where);
     this.context.router.push(where);
   }
 

@@ -6,7 +6,6 @@ const mergeObjects = (...objects) => {
       obj[key] = src[key];
     });
   });
-
   return obj;
 };
 
