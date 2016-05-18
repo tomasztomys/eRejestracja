@@ -5,7 +5,7 @@ import { PersonRegistration } from '../views/person_registration';
 import * as Action from '../../../../actions/Actions';
 
 class SmartAddPatient extends Component {
-  onSignUp(values) {
+  onAddUser(values) {
     let parameters = {
       name: values.name,
       surname: values.surname,
@@ -28,7 +28,7 @@ class SmartAddPatient extends Component {
         personType="patient"
         buttonAddLabel={ buttonAddLabel || 'Add patient' }
         title={ this.props.title || 'Add patient' }
-        onSignUp={ this.onSignUp.bind(this) }
+        onAddUser={ this.onAddUser.bind(this) }
         registration={ registration }
       />
     );
