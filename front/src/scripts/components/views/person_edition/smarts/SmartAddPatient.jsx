@@ -12,7 +12,6 @@ class SmartAddPatient extends Component {
       pesel: values.pesel,
       email: values.email,
       password: values.password,
-      specialization: values.specialization
     };
 
     this.props.dispatch(Action.addUser(parameters, 'patient'));

@@ -4,7 +4,9 @@ import {
   DELETE_PATIENTS_SUCCESS,
   DELETE_PATIENTS_FAILURE,
   GET_PATIENTS_LIST_SUCCESS,
-  GET_PATIENTS_LIST_FAILURE
+  GET_PATIENTS_LIST_FAILURE,
+  CHANGE_PATIENT_PROFILE_SUCCESS,
+  CHANGE_PATIENT_PROFILE_FAILURE
 } from './ActionsTypes';
 
 export function getPatientsListSuccess(data) {
@@ -22,6 +24,16 @@ export function deletePatientsSuccess(ids) {
     data: {
       ids: ids,
       message: `The ${ patientType } removed properly`
+    }
+  };
+}
+
+export function changePatientProfileSuccess(person) {
+  return {
+    type: CHANGE_PATIENT_PROFILE_SUCCESS,
+    data: {
+      message: 'Change patient profile data correctly',
+      person
     }
   };
 }
@@ -50,6 +62,20 @@ export function deletePatients(ids) {
       if (checkManyStatus(data.status, 200)) {
         dispatch(deletePatientsSuccess(ids));
       }
+    });
+  };
+}
+
+export function changePatientProfile(parameters) {
+  let url = `/patients/${ parameters.id }`;
+  let body = JSON.stringify(
+    parameters
+  );
+
+  return (dispatch) => {
+    fetchData(url, 'PUT', body, '')
+    .then((data) => {
+      dispatch(changePatientProfileSuccess(parameters));
     });
   };
 }

@@ -76,7 +76,6 @@ export function changeDoctorProfile(parameters) {
     fetchData(url, 'PUT', body, '')
     .then((data) => {
       dispatch(changeDoctorProfileSuccess(parameters));
-      fetchDoctorsList();
     });
   };
 }

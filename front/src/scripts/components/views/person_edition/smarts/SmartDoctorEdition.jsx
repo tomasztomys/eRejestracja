@@ -8,7 +8,7 @@ import * as DoctorsReducer from '../../../../reducers/doctors';
 
 import Paths from '../../../../constants/PathsConstants';
 
-export default class SmartPersonEdition extends Component {
+export default class SmarDoctorEdition extends Component {
 
   componentWillMount() {
     let { doctors, params } = this.props;
@@ -31,7 +31,6 @@ export default class SmartPersonEdition extends Component {
       id: userId,
       name: values.name,
       surname: values.surname,
-      pesel: values.pesel,
       email: values.email,
       password: values.password,
       specialization: values.specialization
@@ -59,10 +58,9 @@ export default class SmartPersonEdition extends Component {
   }
 }
 
-SmartPersonEdition.contextTypes = {
+SmarDoctorEdition.contextTypes = {
   router: React.PropTypes.object
 };
-
 
 function select(state) {
   state = state.toJS();
@@ -71,12 +69,12 @@ function select(state) {
   };
 }
 
-SmartPersonEdition.propTypes = {
+SmarDoctorEdition.propTypes = {
   doctors: PropTypes.array
 };
 
-SmartPersonEdition.defaultProps = {
+SmarDoctorEdition.defaultProps = {
   doctors: []
 };
 
-export default connect(select)(SmartPersonEdition);
+export default connect(select)(SmarDoctorEdition);
