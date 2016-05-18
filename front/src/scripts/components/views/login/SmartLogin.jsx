@@ -35,8 +35,10 @@ class SmartLogin extends Component {
     let { email, password } = this.state.values;
 
     if (email.length > 0 && password.length > 0) {
-      this.props.dispatch(Action.tryLogin(email, password));
-      this.context.router.push(Paths.dashboard);
+      Action.tryLogin(email, password, this.props.dispatch).then( (data) => {
+        console.log(data);
+        this.context.router.push(Paths.dashboard);
+      });
     }
   }
 

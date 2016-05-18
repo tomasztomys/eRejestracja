@@ -30,19 +30,19 @@ export function loginFailure() {
   };
 }
 
-export function tryLogin(email, password) {
+export function tryLogin(email, password, dispatch) {
   let url = '/authorizations';
   let body = JSON.stringify({
     email,
     password
   });
 
-  return (dispatch) => {
-    fetchData(url, 'POST', body, '')
+  return  fetchData(url, 'POST', body, '')
     .then((data) => {
       switch(data.status) {
         case 200: {
           dispatch(loginSuccess(data.data, email, password));
+          return true;
           break;
         }
         default: {
@@ -50,5 +50,4 @@ export function tryLogin(email, password) {
         }
       }
     });
-  };
 }

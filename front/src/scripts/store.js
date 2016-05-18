@@ -31,7 +31,7 @@ let Store = finalCreateStore(app);
 let userData = localStorage.get('user');
 
 if (userData !== undefined) {
-  Store.dispatch(Action.tryLogin(userData.login, userData.password));
+  Action.tryLogin(userData.login, userData.password, Store.dispatch);
 }
 
 export default Store;
