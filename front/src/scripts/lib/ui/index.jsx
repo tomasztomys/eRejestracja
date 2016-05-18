@@ -13,6 +13,7 @@ import { Dropdown } from './dropdown';
 import { DatePicker } from './date_picker';
 import { NavDrawer } from './nav_drawer';
 import { AppBar } from './app_bar';
+import { CircleAvatar } from './circle_avatar';
 
 export {
   Input,
@@ -29,5 +30,6 @@ export {
   Dropdown,
   DatePicker,
   NavDrawer,
-  AppBar
+  AppBar,
+  CircleAvatar
 };

@@ -4,3 +4,11 @@
 .icon-cell {
   color: $font-colot;
 }
+
+.avatar {
+  position: static;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
