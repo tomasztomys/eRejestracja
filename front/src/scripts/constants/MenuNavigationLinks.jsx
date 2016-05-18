@@ -56,11 +56,6 @@ const MenuNavigationLinks = [
       }
     ]
   },
-  {
-    label: 'Logout',
-    path: Paths.settings.logout,
-    active: true
-  }
 ];
 
 export default MenuNavigationLinks;
