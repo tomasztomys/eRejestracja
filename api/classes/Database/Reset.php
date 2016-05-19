@@ -70,9 +70,32 @@ class Reset
   }
 
   /**
+   * Zwraca mockową tablicę administratorów
+   *
+   * @return array
+   */
+  private function _getAdmins() {
+    $admin1 = [
+        'name' => 'Jacek',
+        'surname' => 'Nowak',
+        'email' => 'jacek@nowak.com',
+        'password' => 'jacek123',
+        'type' => 'admin'
+    ];
+    $admin2 = [
+        'name' => 'Julia',
+        'surname' => 'Nowicka',
+        'email' => 'julia.nowicka@interia.pl',
+        'password' => 'julianowicka',
+        'type' => 'admin'
+    ];
+    return [$admin1, $admin2];
+  }
+
+  /**
    * Dodaje mockową tablicę lekarzy do bazy danych
    *
-   * @return void
+   * @return array
    */
   public function _addDoctors() {
     $doctors = $this->_getDoctors();
@@ -89,13 +112,13 @@ class Reset
       $doctorBeans[$i]->specialization = $doctor['specialization'];
       $i++;
     }
-    \R::storeAll($doctorBeans);
+    return \R::storeAll($doctorBeans);
   }
 
   /**
    * Dodaje mockową tablicę pacjentow do bazy danych
    *
-   * @return void
+   * @return array
    */
   public function _addPatients() {
     $patients = $this->_getPatients();
@@ -112,7 +135,29 @@ class Reset
       $patientBeans[$i]->type = $patient['type'];
       $i++;
     }
-    \R::storeAll($patientBeans);
+    return \R::storeAll($patientBeans);
+  }
+
+  /**
+   * Dodaje mockową tablicę administratorów do bazy danych
+   *
+   * @return array
+   */
+  public function _addAdmins() {
+    $admins = $this->_getAdmins();
+
+    $adminBeans = \R::dispense('user', sizeof($admins));
+
+    $i = 0;
+    foreach($admins as $admin) {
+      $adminBeans[$i]->name = $admin['name'];
+      $adminBeans[$i]->surname = $admin['surname'];
+      $adminBeans[$i]->email = $admin['email'];
+      $adminBeans[$i]->password = $admin['password'];
+      $adminBeans[$i]->type = $admin['type'];
+      $i++;
+    }
+    return \R::storeAll($adminBeans);
   }
 
   /**
@@ -123,8 +168,10 @@ class Reset
   public function run() {
     \R::nuke();
 
-    $this->_addDoctors();
-    $this->_addPatients();
-
+    if (is_array($this->_addDoctors()) && is_array($this->_addPatients()) && is_array($this->_addAdmins())) {
+      echo json_encode([]);
+    } else {
+      echo json_encode(['reset' => 'error']);
+    }
   }
 }
