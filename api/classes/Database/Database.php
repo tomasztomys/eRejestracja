@@ -41,6 +41,15 @@ class Database
     }
 
     /**
+     * Pobranie wszystkich administratorów z bazy
+     *
+     * @return array
+     */
+    public function findAllAdmins() {
+        return \R::findAll( 'user', ' type = ? ', [ 'admin' ] );
+    }
+
+    /**
      * Pobranie usera z bazy
      *
      * @param $id bean

@@ -64,6 +64,14 @@ class Calls
             $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->editPatient($request, $response, $args); })->setName('editPatient');
         });
 
+        $this->_app->group('/admins', function () use ($db) {
+            $this->get('', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->getAdmins($request, $response, $args); })->setName('getAdmins');
+            $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->getAdmin($request, $response, $args); })->setName('getAdmin');
+            $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->deleteAdmin($request, $response, $args); })->setName('deleteAdmin');
+            $this->post('', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->addAdmin($request, $response, $args); })->setName('addAdmin');
+            $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->editAdmin($request, $response, $args); })->setName('editAdmin');
+        });
+
         $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');
 
         $this->_app->any('/', function () {
