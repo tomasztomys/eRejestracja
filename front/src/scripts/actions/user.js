@@ -99,7 +99,6 @@ export function logout(dispatch) {
 }
 
 export function changeUserPassword(parameters, userId) {
-  console.log(parameters);
   let url = `/user/${ userId }/password`;
   let body = JSON.stringify(
     parameters

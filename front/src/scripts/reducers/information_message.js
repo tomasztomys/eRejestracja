@@ -6,6 +6,7 @@ export default function informationMessage(state, action) {
     case ActionsTypes.DELETE_DOCTORS_SUCCESS:
     case ActionsTypes.DELETE_PATIENTS_SUCCESS:
     case ActionsTypes.CHANGE_PROFILE_SUCCESS:
+    case ActionsTypes.CHANGE_USER_PASSWORD_SUCCESS:
     case ActionsTypes.CHANGE_DOCTOR_PROFILE_SUCCESS:
     case ActionsTypes.CHANGE_PATIENT_PROFILE_SUCCESS:
     case ActionsTypes.ADD_PERSON_SUCCESS: {

@@ -11,24 +11,26 @@ export default class DoctorSpecific extends Component {
     super();
 
     this.state = {
-      source: [
-        {
-          label: 'dentist',
-          value: 'dentist'
-        },
-        {
-          label: 'surgeon',
-          value: 'surgeon'
-        },
-        {
-          label: 'dermatologist',
-          value: 'dermatologist'
-        },
-        {
-          label: 'pediatrician',
-          value: 'pediatrician'
-        }
-      ],
+      source: {
+        specialization: [
+          {
+            label: 'dentist',
+            value: 'dentist'
+          },
+          {
+            label: 'surgeon',
+            value: 'surgeon'
+          },
+          {
+            label: 'dermatologist',
+            value: 'dermatologist'
+          },
+          {
+            label: 'pediatrician',
+            value: 'pediatrician'
+          }
+        ]
+      },
       labels: {
         specialization: 'Specialization'
       },
@@ -44,7 +46,7 @@ export default class DoctorSpecific extends Component {
         <Dropdown
           label={ labels.specialization }
           error={ errors.specialization }
-          source={ source }
+          source={ source.specialization }
           value={ values.specialization }
           onChange={ onChange.bind(this, 'specialization') }
         />
