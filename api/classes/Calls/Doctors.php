@@ -311,4 +311,47 @@ class Doctors
         $response = $response->withStatus(422);
         return $response->withJson(['error' => 'Work hours not found']);
     }
+
+    public function _makeVisit($visitDB) {
+        if(!isset($visitDB->id) || !isset($visitDB->from) || !isset($visitDB->to)) {
+            throw new \Exception('Some of required values not passed');
+        }
+
+        $patientId = null;
+        $doctorId = null;
+        foreach($visitDB->sharedUserList as $user) {
+            if ($user->type == 'patient') {
+                $patientId = $user->id;
+            }
+            if ($user->type == 'doctor') {
+                $doctorId = $user->id;
+            }
+        }
+
+        $visit = [];
+        $visit['id'] = $visitDB->id;
+        $visit['doctor_id'] = $doctorId;
+        $visit['patient_id'] = $patientId;
+        $visit['from'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->from);
+        $visit['to'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->to);
+
+        return $visit;
+    }
+
+    public function getDoctorVisits($request, $response, $args) {
+        $doctorId = $args['id'];
+        $doctorDB = \R::load( 'user', $doctorId);
+
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        $result = [];
+        foreach($doctorDB->sharedVisit as $workHours) {
+            $result[] = $this->_makeVisit($workHours);
+        };
+
+        return $response->withJson($result);
+    }
 }

@@ -111,6 +111,7 @@ class Reset
       $doctorBeans[$i]->type = $doctor['type'];
       $doctorBeans[$i]->specialization = $doctor['specialization'];
       $doctorBeans[$i]->ownWorkhoursList = [];
+      $doctorBeans[$i]->ownVisitList = [];
       $i++;
     }
     return \R::storeAll($doctorBeans);
@@ -134,6 +135,7 @@ class Reset
       $patientBeans[$i]->password = $patient['password'];
       $patientBeans[$i]->pesel = $patient['pesel'];
       $patientBeans[$i]->type = $patient['type'];
+      $patientBeans[$i]->ownVisitList = [];
       $i++;
     }
     return \R::storeAll($patientBeans);
