@@ -268,9 +268,6 @@ class Doctors
         $doctor['from'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->from);
         $doctor['to'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->to);
 
-        //$from = $from);
-        //$to = \Utilities\Date::convertRFC3339ToISOFormat($to);
-
         return $doctor;
     }
 
@@ -282,7 +279,6 @@ class Doctors
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
         }
-
 
         $result = [];
         foreach($doctorDB->ownWorkhoursList as $workHours) {
