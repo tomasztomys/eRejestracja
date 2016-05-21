@@ -260,11 +260,13 @@ class Doctors
     }
 
     public function _makeWorkHours($workHoursDB) {
-        if(!isset($workHoursDB->from) || !isset($workHoursDB->to)) {
+        if(!isset($workHoursDB->id) || !isset($workHoursDB->from) || !isset($workHoursDB->to)) {
             throw new \Exception('Some of required values not passed');
         }
 
         $doctor = [];
+        $doctor['id'] = $workHoursDB->id;
+        $doctor['doctor_id'] = $workHoursDB->user_id;
         $doctor['from'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->from);
         $doctor['to'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->to);
 
@@ -286,5 +288,27 @@ class Doctors
         };
 
         return $response->withJson($result);
+    }
+
+    public function deleteWorkHoursId($request, $response, $args) {
+
+        $id = $args['id'];
+        $workHoursId = $args['work_hours_id'];
+        $doctorDB = \R::load( 'user', $id );
+
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        foreach($doctorDB->ownWorkhoursList as $workHours) {
+            if($workHours->id == $workHoursId) {
+                \R::trash($workHours);
+                return $response->withJson([]);
+            }
+        }
+
+        $response = $response->withStatus(422);
+        return $response->withJson(['error' => 'Work hours not found']);
     }
 }
