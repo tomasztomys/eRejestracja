@@ -57,6 +57,17 @@ class Visits
         return $visit;
     }
 
+    public function getVisits($request, $response, $args) {
+        $visitsDB = \R::findAll('visit');
+        $visits = [];
+        foreach($visitsDB as $visitDB) {
+            $visit = $this->_makeVisit($visitDB);
+            array_push($visits, $visit);
+        }
+
+        return $response->withJson($visits);
+    }
+
     public function getVisit($request, $response, $args) {
         $visitId = $args['id'];
         $visitDB = \R::load( 'visit', $visitId);
