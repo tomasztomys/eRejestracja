@@ -110,6 +110,7 @@ class Reset
       $doctorBeans[$i]->password = $doctor['password'];
       $doctorBeans[$i]->type = $doctor['type'];
       $doctorBeans[$i]->specialization = $doctor['specialization'];
+      $doctorBeans[$i]->ownWorkhoursList = [];
       $i++;
     }
     return \R::storeAll($doctorBeans);

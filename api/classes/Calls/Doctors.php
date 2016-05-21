@@ -232,4 +232,30 @@ class Doctors
         \R::store($doctorDB);
         return $response->withJson([]);
     }
+
+    public function addWorkHours($request, $response, $args) {
+        $doctorId = $args['id'];
+        $doctorDB = \R::load( 'user', $doctorId);
+
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        $from = $request->getParam('from');
+        $to = $request->getParam('to');
+
+        $workhoursDB = \R::dispense('workhours');
+
+        $from = \Utilities\Date::convertRFC3339ToISOFormat($from);
+        $to = \Utilities\Date::convertRFC3339ToISOFormat($to);
+        $workhoursDB->from = $from;
+        $workhoursDB->to = $to;
+
+        $doctorDB->ownWorkhoursList[] = $workhoursDB;
+
+        \R::store($doctorDB);
+
+        return $response->withJson([]);
+    }
 }

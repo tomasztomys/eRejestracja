@@ -54,6 +54,8 @@ class Calls
             $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->deleteDoctor($request, $response, $args); })->setName('deleteDoctor');
             $this->post('', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->addDoctor($request, $response, $args); })->setName('addDoctor');
             $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->editDoctor($request, $response, $args); })->setName('editDoctor');
+
+            $this->post('/{id:[0-9]+}/work_hours', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->addWorkHours($request, $response, $args); })->setName('addWorkHours');
         });
 
         $this->_app->group('/patients', function () use ($db) {
