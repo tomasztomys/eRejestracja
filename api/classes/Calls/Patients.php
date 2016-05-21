@@ -256,8 +256,8 @@ class Patients
         }
 
         $result = [];
-        foreach($patientDB->sharedVisit as $workHours) {
-            $result[] = $this->_makeVisit($workHours);
+        foreach($patientDB->sharedVisit as $visit) {
+            $result[] = $this->_makeVisit($visit);
         };
 
         return $response->withJson($result);

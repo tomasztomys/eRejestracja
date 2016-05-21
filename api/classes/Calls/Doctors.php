@@ -348,8 +348,8 @@ class Doctors
         }
 
         $result = [];
-        foreach($doctorDB->sharedVisit as $workHours) {
-            $result[] = $this->_makeVisit($workHours);
+        foreach($doctorDB->sharedVisit as $visit) {
+            $result[] = $this->_makeVisit($visit);
         };
 
         return $response->withJson($result);

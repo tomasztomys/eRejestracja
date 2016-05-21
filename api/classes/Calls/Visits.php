@@ -31,6 +31,46 @@ class Visits
         return true;
     }
 
+    public function _makeVisit($visitDB) {
+        if(!isset($visitDB->id) || !isset($visitDB->from) || !isset($visitDB->to)) {
+            throw new \Exception('Some of required values not passed');
+        }
+
+        $patientId = null;
+        $doctorId = null;
+        foreach($visitDB->sharedUserList as $user) {
+            if ($user->type == 'patient') {
+                $patientId = $user->id;
+            }
+            if ($user->type == 'doctor') {
+                $doctorId = $user->id;
+            }
+        }
+
+        $visit = [];
+        $visit['id'] = $visitDB->id;
+        $visit['doctor_id'] = $doctorId;
+        $visit['patient_id'] = $patientId;
+        $visit['from'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->from);
+        $visit['to'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->to);
+
+        return $visit;
+    }
+
+    public function getVisit($request, $response, $args) {
+        $visitId = $args['id'];
+        $visitDB = \R::load( 'visit', $visitId);
+
+        if($visitDB->id === 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Visit not found']);
+        }
+
+        $result = $this->_makeVisit($visitDB);
+
+        return $response->withJson($result);
+    }
+
     public function addVisit($request, $response, $args) {
         $patientId = $request->getParam('patient_id');
         $doctorId= $request->getParam('doctor_id');

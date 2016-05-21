@@ -73,7 +73,7 @@ class Calls
 
         $this->_app->group('/visits', function () use ($db) {
             //$this->get('', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->getPatients($request, $response, $args); })->setName('getPatients');
-            //$this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->getPatient($request, $response, $args); })->setName('getPatient');
+            $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->getVisit($request, $response, $args); })->setName('getVisit');
             $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->deleteVisit($request, $response, $args); })->setName('deleteVisit');
             $this->post('', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->addVisit($request, $response, $args); })->setName('addVisit');
             //$this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->editPatient($request, $response, $args); })->setName('editPatient');
