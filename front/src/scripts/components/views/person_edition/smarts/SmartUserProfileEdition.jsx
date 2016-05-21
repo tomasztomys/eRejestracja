@@ -6,7 +6,7 @@ import * as Action from '../../../../actions/Actions';
 import * as UserReducer from '../../../../reducers/user';
 
 export default class SmartUserProfileEdition extends Component {
-  onSave(values) {
+  onSaveProfileData(values) {
     let { personType, userId } = this.props;
     let parameters = {
       id: userId,
@@ -19,12 +19,24 @@ export default class SmartUserProfileEdition extends Component {
 
     this.props.dispatch(Action.changeProfileData(parameters, personType));
   }
+
+  onChangePassword(values) {
+    let { userId } = this.props;
+    let parameters = {
+      old_password: values.oldPassword,
+      new_password: values.password
+    };
+
+    this.props.dispatch(Action.changeUserPassword(parameters, userId));
+  }
+
   render() {
     return (
       <PersonEdition
         personType={ this.props.personType }
         values={ this.props.values }
-        onSave={ this.onSave.bind(this) }
+        onSave={ this.onSaveProfileData.bind(this) }
+        onChangePassword={ this.onChangePassword.bind(this) }
         changePassword
       />
     );

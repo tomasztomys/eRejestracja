@@ -75,6 +75,11 @@ export default class PersonEdition extends Component {
   onSave(values) {
     this.props.onSave(values);
   }
+
+  onChangePassword(values) {
+    this.props.onChangePassword(values);
+  }
+
   render() {
     let { values, errors } = this.state;
     let { personType, changePassword } = this.props;
@@ -102,7 +107,7 @@ export default class PersonEdition extends Component {
               values={ values }
               errors={ errors }
               onChange={ this.onChange.bind(this) }
-              onSave={ this.onSave.bind(this, values) }
+              onSave={ this.onChangePassword.bind(this, values) }
               oldPassword
             />
           </GridItem> : null
@@ -130,5 +135,6 @@ export default class PersonEdition extends Component {
 PersonEdition.propTypes = {
   personType: PropTypes.string,
   values: PropTypes.object,
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
+  onChangePassword: PropTypes.func
 };

@@ -23,6 +23,10 @@ export default class DoctorSpecific extends Component {
         {
           label: 'dermatologist',
           value: 'dermatologist'
+        },
+        {
+          label: 'pediatrician',
+          value: 'pediatrician'
         }
       ],
       labels: {
