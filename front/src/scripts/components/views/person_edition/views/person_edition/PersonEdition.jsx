@@ -47,12 +47,21 @@ export default class PersonEdition extends Component {
       }
     };
   }
-  componentDidMount() {
-    let { values } = this.props;
 
-    this.setState({
-      values
-    });
+  componentDidMount() {
+    this.setInitialValues(this.props.values);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setInitialValues(nextProps.values);
+  }
+
+  setInitialValues(values) {
+    if (values) {
+      this.setState({
+        values
+      });
+    }
   }
 
   onChange(type, value) {
