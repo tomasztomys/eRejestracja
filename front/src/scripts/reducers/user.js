@@ -11,7 +11,6 @@ export default function user(state, action) {
     case ActionsTypes.CHANGE_PROFILE_SUCCESS:
       return Immutable.fromJS({
         data: action.data.person,
-
         fetchSuccess: true
       });
   }

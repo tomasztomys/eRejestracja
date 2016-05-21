@@ -40,6 +40,15 @@ export function logoutSuccess() {
   };
 }
 
+export function logoutFailure() {
+  return {
+    type: LOGOUT_FAILURE,
+    data: {
+      message: 'Some error with logout.'
+    }
+  };
+}
+
 export function tryLogin(email, password, dispatch) {
   let url = '/authorizations';
   let body = JSON.stringify({

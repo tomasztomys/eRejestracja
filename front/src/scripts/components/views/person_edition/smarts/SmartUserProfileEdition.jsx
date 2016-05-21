@@ -14,7 +14,6 @@ export default class SmartUserProfileEdition extends Component {
       surname: values.surname,
       pesel: values.pesel,
       email: values.email,
-      password: values.password,
       specialization: values.specialization
     };
 
