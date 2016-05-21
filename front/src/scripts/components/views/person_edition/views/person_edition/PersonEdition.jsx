@@ -44,15 +44,29 @@ export default class PersonEdition extends Component {
         repeatPassword: 'Enter password again',
         oldPassword: 'Enter your old password',
         specialization: 'Enter specialization'
+      },
+      openBoxes: {
+        personData: true,
+        changePassword: false,
+        doctorSpecific: false
       }
     };
   }
-  componentDidMount() {
-    let { values } = this.props;
 
-    this.setState({
-      values
-    });
+  componentDidMount() {
+    this.setInitialValues(this.props.values);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setInitialValues(nextProps.values);
+  }
+
+  setInitialValues(values) {
+    if (values) {
+      this.setState({
+        values
+      });
+    }
   }
 
   onChange(type, value) {
@@ -63,56 +77,83 @@ export default class PersonEdition extends Component {
       values
     });
   }
+
+  onToogleBox(type) {
+    let { openBoxes } = this.state;
+
+    openBoxes[type] = !openBoxes[type];
+
+    this.setState({
+      openBoxes
+    });
+  }
+
   onSave(values) {
     this.props.onSave(values);
   }
+
+  onChangePassword(values) {
+    this.props.onChangePassword(values);
+  }
+
   render() {
-    let { values, errors } = this.state;
+    let { values, errors, openBoxes } = this.state;
     let { personType, changePassword } = this.props;
 
     return (
-      <Grid center>
-        <GridItem
-          xsSize="11"
-          mdSize="5"
-        >
-          <PersonDataBox
-            values={ values }
-            errors={ errors }
-            onChange={ this.onChange.bind(this) }
-            onSave={ this.onSave.bind(this, values) }
-            personType={ personType }
-          />
-        </GridItem>
+      <div>
+        <Grid center>
+          <GridItem
+            xsSize="11"
+            mdSize="5"
+          >
+            <PersonDataBox
+              values={ values }
+              errors={ errors }
+              onChange={ this.onChange.bind(this) }
+              onSave={ this.onSave.bind(this, values) }
+              personType={ personType }
+              onToogleBox={ this.onToogleBox.bind(this, 'personData') }
+              open={ openBoxes.personData }
+            />
+          </GridItem>
+        </Grid>
         { changePassword ?
-          <GridItem
-            xsSize="11"
-            mdSize="5"
-          >
-            <ChangePasswordBox
-              values={ values }
-              errors={ errors }
-              onChange={ this.onChange.bind(this) }
-              onSave={ this.onSave.bind(this, values) }
-              oldPassword
-            />
-          </GridItem> : null
+          <Grid center>
+            <GridItem
+              xsSize="11"
+              mdSize="5"
+            >
+              <ChangePasswordBox
+                values={ values }
+                errors={ errors }
+                onChange={ this.onChange.bind(this) }
+                onSave={ this.onChangePassword.bind(this, values) }
+                onToogleBox={ this.onToogleBox.bind(this, 'changePassword') }
+                open={ openBoxes.changePassword }
+                oldPassword
+              />
+            </GridItem>
+          </Grid> : null
         }
-
         { personType === 'doctor' ?
-          <GridItem
-            xsSize="11"
-            mdSize="5"
-          >
-            <DoctorSpecificBox
-              values={ values }
-              errors={ errors }
-              onChange={ this.onChange.bind(this) }
-              onSave={ this.onSave.bind(this, values) }
-            />
-          </GridItem> : null
+          <Grid center>
+            <GridItem
+              xsSize="11"
+              mdSize="5"
+            >
+              <DoctorSpecificBox
+                values={ values }
+                errors={ errors }
+                onChange={ this.onChange.bind(this) }
+                onSave={ this.onSave.bind(this, values) }
+                onToogleBox={ this.onToogleBox.bind(this, 'doctorSpecific') }
+                open={ openBoxes.doctorSpecific }
+              />
+            </GridItem>
+          </Grid> : null
         }
-      </Grid>
+      </div>
     );
   }
 
@@ -121,5 +162,7 @@ export default class PersonEdition extends Component {
 PersonEdition.propTypes = {
   personType: PropTypes.string,
   values: PropTypes.object,
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
+  onChangePassword: PropTypes.func,
+  changePassword: PropTypes.bool
 };

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  CardWithHeader,
+  CardWithClosing,
 } from 'ui';
 
 import { PersonData } from '../../subcomponents/person_data';
@@ -15,7 +15,9 @@ export default class PersonDataBox extends Component {
       errors,
       onChange,
       onSave,
-      personType
+      personType,
+      open,
+      onToogleBox
     } = this.props;
 
     let actions = [
@@ -26,10 +28,12 @@ export default class PersonDataBox extends Component {
     ];
 
     return (
-      <CardWithHeader className={ style['person-data'] }
+      <CardWithClosing className={ style['person-data'] }
         title="Chane profile data"
         subtitle={ 'Please write real personal data.' }
         actions={ actions }
+        open={ open }
+        onToogleBox={ onToogleBox }
       >
         <PersonData
           values={ values }
@@ -37,7 +41,7 @@ export default class PersonDataBox extends Component {
           onChange={ onChange }
           personType={ personType }
         />
-      </CardWithHeader>
+      </CardWithClosing>
     );
   }
 
@@ -55,5 +59,7 @@ PersonDataBox.propTypes = {
   errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
   personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ]),
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
+  open: PropTypes.bool,
+  onToogleBox: PropTypes.func
 };

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  CardWithHeader,
+  CardWithClosing,
 } from 'ui';
 
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
@@ -14,7 +14,9 @@ export default class DoctorSpecificBox extends Component {
       values,
       errors,
       onChange,
-      onSave
+      onSave,
+      open,
+      onToogleBox
     } = this.props;
 
     let actions = [
@@ -25,17 +27,19 @@ export default class DoctorSpecificBox extends Component {
     ];
 
     return (
-      <CardWithHeader
+      <CardWithClosing
         className={ style['doctor-specific-box'] }
-        title="Doctor"
+        title="Change docotor specifics data"
         actions={ actions }
+        open={ open }
+        onToogleBox={ onToogleBox }
       >
         <DoctorSpecific
           values={ values }
           errors={ errors }
           onChange={ onChange }
         />
-      </CardWithHeader>
+      </CardWithClosing>
     );
   }
 
@@ -48,5 +52,7 @@ DoctorSpecificBox.propTypes = {
   errors: PropTypes.shape(PropTypesStructure),
   values: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
+  open: PropTypes.bool,
+  onToogleBox: PropTypes.func
 };

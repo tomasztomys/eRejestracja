@@ -13,6 +13,7 @@ export default class Dropdown extends React.Component {
     return (
       <DropdownReactToolbox
         className={ dropdownStyle }
+        auto={ false }
         { ...otherProps }
       />
     );

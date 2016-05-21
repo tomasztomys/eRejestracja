@@ -6,7 +6,8 @@ import {
   CHANGE_PROFILE_FAILURE
 } from './ActionsTypes';
 
-export function changeProfileDataSuccess(person) {
+export function changeProfileDataSuccess(person, type) {
+  person.type = type;
   return {
     type: CHANGE_PROFILE_SUCCESS,
     data: {
@@ -39,7 +40,7 @@ export function changeProfileData(parameters, type) {
   return (dispatch) => {
     fetchData(url, 'PUT', body, '')
     .then((data) => {
-      dispatch(changeProfileDataSuccess(parameters));
+      dispatch(changeProfileDataSuccess(parameters, type));
     });
   };
 }

@@ -3,7 +3,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  CHANGE_USER_PASSWORD_SUCCESS,
+  CHANGE_USER_PASSWORD_FAILURE
 } from './ActionsTypes';
 
 import localStorage from 'store';
@@ -40,6 +42,35 @@ export function logoutSuccess() {
   };
 }
 
+export function logoutFailure() {
+  return {
+    type: LOGOUT_FAILURE,
+    data: {
+      message: 'Some error with logout.'
+    }
+  };
+}
+
+export function changeUserPasswordSuccess() {
+  localStorage.remove('user');
+
+  return {
+    type: CHANGE_USER_PASSWORD_SUCCESS,
+    data: {
+      message: 'Password changed correctly.'
+    }
+  };
+}
+
+export function changeUserPasswordFailure() {
+  return {
+    type: CHANGE_USER_PASSWORD_FAILURE,
+    data: {
+      message: 'Some error with change your password.'
+    }
+  };
+}
+
 export function tryLogin(email, password, dispatch) {
   let url = '/authorizations';
   let body = JSON.stringify({
@@ -65,4 +96,20 @@ export function tryLogin(email, password, dispatch) {
 export function logout(dispatch) {
   dispatch(logoutSuccess());
   return true;
+}
+
+export function changeUserPassword(parameters, userId) {
+  let url = `/user/${ userId }/password`;
+  let body = JSON.stringify(
+    parameters
+  );
+
+  return (dispatch) => {
+    fetchData(url, 'PUT', body, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(changeUserPasswordSuccess());
+      }
+    });
+  };
 }
