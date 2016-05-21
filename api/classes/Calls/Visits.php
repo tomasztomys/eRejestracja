@@ -56,4 +56,18 @@ class Visits
 
         return $response->withJson([]);
     }
+
+    public function deleteVisit($request, $response, $args) {
+
+        $id = $args['id'];
+        $visitDB = \R::load( 'visit', $id );
+
+        if($visitDB->id > 0) {
+            \R::trash($visitDB);
+            return $response->withJson([]);
+        }
+
+        $response = $response->withStatus(422);
+        return $response->withJson(['error' => 'Visit not found']);
+    }
 }
