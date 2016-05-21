@@ -258,4 +258,37 @@ class Doctors
 
         return $response->withJson([]);
     }
+
+    public function _makeWorkHours($workHoursDB) {
+        if(!isset($workHoursDB->from) || !isset($workHoursDB->to)) {
+            throw new \Exception('Some of required values not passed');
+        }
+
+        $doctor = [];
+        $doctor['from'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->from);
+        $doctor['to'] = \Utilities\Date::convertISOToRFC3339Format($workHoursDB->to);
+
+        //$from = $from);
+        //$to = \Utilities\Date::convertRFC3339ToISOFormat($to);
+
+        return $doctor;
+    }
+
+    public function getWorkHours($request, $response, $args) {
+        $doctorId = $args['id'];
+        $doctorDB = \R::load( 'user', $doctorId);
+
+        if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+
+        $result = [];
+        foreach($doctorDB->ownWorkhoursList as $workHours) {
+            $result[] = $this->_makeWorkHours($workHours);
+        };
+
+        return $response->withJson($result);
+    }
 }
