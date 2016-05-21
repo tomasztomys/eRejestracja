@@ -219,4 +219,47 @@ class Patients
         \R::store($patientDB);
         return $response->withJson([]);
     }
+
+    public function _makeVisit($visitDB) {
+        if(!isset($visitDB->id) || !isset($visitDB->from) || !isset($visitDB->to)) {
+            throw new \Exception('Some of required values not passed');
+        }
+
+        $patientId = null;
+        $doctorId = null;
+        foreach($visitDB->sharedUserList as $user) {
+            if ($user->type == 'patient') {
+                $patientId = $user->id;
+            }
+            if ($user->type == 'doctor') {
+                $doctorId = $user->id;
+            }
+        }
+
+        $visit = [];
+        $visit['id'] = $visitDB->id;
+        $visit['doctor_id'] = $doctorId;
+        $visit['patient_id'] = $patientId;
+        $visit['from'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->from);
+        $visit['to'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->to);
+
+        return $visit;
+    }
+
+    public function getPatientVisits($request, $response, $args) {
+        $patientId = $args['id'];
+        $patientDB = \R::load( 'user', $patientId);
+
+        if(!$this->_ifFoundPatient($patientDB->id, $patientDB->type)) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        $result = [];
+        foreach($patientDB->sharedVisit as $visit) {
+            $result[] = $this->_makeVisit($visit);
+        };
+
+        return $response->withJson($result);
+    }
 }

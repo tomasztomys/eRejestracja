@@ -44,7 +44,6 @@ class Calls
         });
 
         $this->_app->group('/user', function () {
-            $this->get('', '\Calls\User:user')->setName('user');
           $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
         });
 
@@ -54,6 +53,12 @@ class Calls
             $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->deleteDoctor($request, $response, $args); })->setName('deleteDoctor');
             $this->post('', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->addDoctor($request, $response, $args); })->setName('addDoctor');
             $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->editDoctor($request, $response, $args); })->setName('editDoctor');
+
+            $this->post('/{id:[0-9]+}/work_hours', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->addWorkHours($request, $response, $args); })->setName('addWorkHours');
+            $this->get('/{id:[0-9]+}/work_hours', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->getWorkHours($request, $response, $args); })->setName('getWorkHours');
+            $this->delete('/{id:[0-9]+}/work_hours/{work_hours_id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->deleteWorkHoursId($request, $response, $args); })->setName('deleteWorkHoursId');
+
+            $this->get('/{id:[0-9]+}/visits', function($request, $response, $args) use ($db) { $patients = new \Calls\Doctors($db); $patients->getDoctorVisits($request, $response, $args); })->setName('getDoctorVisits');
         });
 
         $this->_app->group('/patients', function () use ($db) {
@@ -62,6 +67,16 @@ class Calls
             $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->deletePatient($request, $response, $args); })->setName('deletePatient');
             $this->post('', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->addPatient($request, $response, $args); })->setName('addPatient');
             $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->editPatient($request, $response, $args); })->setName('editPatient');
+
+            $this->get('/{id:[0-9]+}/visits', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->getPatientVisits($request, $response, $args); })->setName('getPatientVisits');
+        });
+
+        $this->_app->group('/visits', function () use ($db) {
+            $this->get('', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->getVisits($request, $response, $args); })->setName('getVisits');
+            $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->getVisit($request, $response, $args); })->setName('getVisit');
+            $this->delete('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->deleteVisit($request, $response, $args); })->setName('deleteVisit');
+            $this->post('', function($request, $response, $args) use ($db) { $patients = new \Calls\Visits($db); $patients->addVisit($request, $response, $args); })->setName('addVisit');
+            //$this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $patients = new \Calls\Patients($db); $patients->editPatient($request, $response, $args); })->setName('editPatient');
         });
 
         $this->_app->group('/admins', function () use ($db) {

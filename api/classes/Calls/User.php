@@ -24,30 +24,6 @@ class User
     }
 
     /**
-     * Metoda do obsługi calla GET /user
-     *
-     * Zwraca listę użytkowników
-     *
-     * @param $request \Psr\Http\Message\ServerRequestInterface
-     * @param $response \Psr\Http\Message\ResponseInterface
-     * @param $args array
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function user($request, $response, $args) {
-        $userData = [
-            'id' => 1,
-            'name' => 'Tomasz',
-            'surname' => 'Tomys',
-            'email' => 'tomasz@tomys.pl',
-            'pesel' => '94050112153',
-            'type' => 'doctor',
-            'specialization' => 'chirurg'
-        ];
-        return $response->withJson($userData);
-    }
-
-    /**
      * Metoda do obsługi calla GET /user/{id}/password
      *
      * Zmiana hasła użytkownika
