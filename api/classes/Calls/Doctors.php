@@ -252,7 +252,7 @@ class Doctors
         $workhoursDB->from = $from;
         $workhoursDB->to = $to;
 
-        $doctorDB->ownWorkhoursList[] = $workhoursDB;
+        $doctorDB->noLoad()->ownWorkhoursList[] = $workhoursDB;
 
         \R::store($doctorDB);
 
@@ -273,6 +273,13 @@ class Doctors
         return $doctor;
     }
 
+    public function cmpWorkHours($a, $b) {
+        if ($a->from == $b->from) {
+            return 0;
+        }
+        return ($a->from < $b->from) ? -1 : 1;
+    }
+
     public function getWorkHours($request, $response, $args) {
         $doctorId = $args['id'];
         $doctorDB = \R::load( 'user', $doctorId);
@@ -283,7 +290,9 @@ class Doctors
         }
 
         $result = [];
-        foreach($doctorDB->ownWorkhoursList as $workHours) {
+        $workHoursFromDB = (array) $doctorDB->ownWorkhoursList;
+        uasort($workHoursFromDB, array($this, 'cmpWorkHours'));
+        foreach($workHoursFromDB as $workHours) {
             $result[] = $this->_makeWorkHours($workHours);
         };
 
