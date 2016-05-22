@@ -20,6 +20,19 @@ const MenuNavigationLinks = [
       }
     ]
   },
+ {
+    label: 'Visits',
+    active: true,
+    access: [ 'doctor' ],
+    children: [
+      {
+        label: 'Work hours',
+        path: Paths.doctors.workHours,
+        active: true,
+        access: [ 'doctor' ]
+      },
+    ]
+  },
   {
     label: 'Patients',
     active: true,

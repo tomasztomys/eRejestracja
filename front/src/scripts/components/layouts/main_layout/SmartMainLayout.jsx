@@ -6,12 +6,12 @@ import * as UserReducer from '../../../reducers/user';
 
 export default class SmartProfileEdition extends Component {
   render() {
-    let { user } = this.props;
+    let { user, userType } = this.props;
 
     return (
       <MainLayout
         user={ user }
-        userType="admin"
+        userType={ userType }
       >
         { this.props.children }
       </MainLayout>
