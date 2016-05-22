@@ -36,11 +36,11 @@ export function getWorkHours(id) {
   };
 }
 
-export function addWorkHours(parameters, id) {
+export function addWorkHours(data, id) {
   let url = `/doctors/${ id }/work_hours`;
-  let body = JSON.stringify(
-    parameters
-  );
+  let body = JSON.stringify({
+    'work_hours': data
+  });
 
   return (dispatch) => {
     fetchData(url, 'POST', body, '')

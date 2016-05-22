@@ -65,9 +65,7 @@ class AddWorkHoursBox extends Component {
       });
     }
 
-    for (let item of data) {
-      this.props.dispatch(Actions.addWorkHours(item, userId));
-    }
+    this.props.dispatch(Actions.addWorkHours(data, userId));
   }
 
   render() {
