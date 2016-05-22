@@ -91,10 +91,10 @@ export function changeDoctorProfile(parameters) {
   };
 }
 
-export function addWorkHours(data, id) {
+export function addWorkHours(parameters, id) {
   let url = `/doctors/${ id }/work_hours`;
   let body = JSON.stringify(
-    data[0]
+    parameters
   );
 
   return (dispatch) => {

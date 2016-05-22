@@ -75,7 +75,9 @@ class WorkHours extends Component {
       });
     }
 
-    this.props.dispatch(Actions.addWorkHours(data, userId));
+    for (let item of data) {
+      this.props.dispatch(Actions.addWorkHours(item, userId));
+    }
   }
 
   render() {
