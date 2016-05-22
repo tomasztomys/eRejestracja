@@ -31,6 +31,7 @@ import {
 } from './views/person_edition/smarts';
 import { MainSite } from './views/main_site';
 import { Dashboard } from './views/dashboard';
+import { WorkHours } from './views/work_hours';
 
 import { SmartPatientBookVisit } from './views/book_visit/smarts';
 
@@ -66,6 +67,9 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.doctors.edition }
           component={ SmartDoctorEdition }
+        />
+        <Route path={ Paths.doctors.workHours }
+          component={ WorkHours }
         />
         <Route path={ Paths.patients.list }
           component={ SmartPatientsList }

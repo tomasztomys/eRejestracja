@@ -19,6 +19,7 @@ import { DatePicker } from './date_picker';
 import { NavDrawer } from './nav_drawer';
 import { AppBar } from './app_bar';
 import { CircleAvatar } from './circle_avatar';
+import { TimePicker } from './time_picker';
 
 export {
   Input,
@@ -36,5 +37,6 @@ export {
   DatePicker,
   NavDrawer,
   AppBar,
-  CircleAvatar
+  CircleAvatar,
+  TimePicker
 };

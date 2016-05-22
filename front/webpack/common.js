@@ -50,7 +50,10 @@ module.exports = {
       assets: path.resolve('./src/assets'),
       styles: path.resolve('./src/styles'),
       ui: path.resolve('./src/scripts/lib/ui'),
-      constants: path.resolve('./src/scripts/constants')
+      constants: path.resolve('./src/scripts/constants'),
+      utilities: path.resolve('./src/scripts/utilities'),
+      actions: path.resolve('./src/scripts/actions'),
+      reducers: path.resolve('./src/scripts/reducers')
     },
     extensions: [
       '',

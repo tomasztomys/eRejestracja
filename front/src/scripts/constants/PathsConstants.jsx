@@ -18,7 +18,8 @@ const Paths = {
     list: '/doctors-list',
     registration: '/doctor-registration',
     add: '/add-doctor',
-    edition: '/doctor-edition/:id'
+    edition: '/doctor-edition/:id',
+    workHours: '/doctor-work-hours'
   },
   settings: {
     myProfile: '/my-profile',

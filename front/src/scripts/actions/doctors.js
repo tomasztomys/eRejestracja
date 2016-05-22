@@ -6,7 +6,9 @@ import {
   GET_DOCTORS_LIST_SUCCESS,
   GET_DOCTORS_LIST_FAILURE,
   CHANGE_DOCTOR_PROFILE_SUCCESS,
-  CHANGE_DOCTOR_PROFILE_FAILURE
+  CHANGE_DOCTOR_PROFILE_FAILURE,
+  ADD_WORK_HOURS_SUCCESS,
+  ADD_WORK_HOURS_FAILURE
 } from './ActionsTypes';
 
 export function getDoctorsListSuccess(data) {
@@ -34,6 +36,15 @@ export function changeDoctorProfileSuccess(person) {
     data: {
       message: 'Change Doctor profile data correctly',
       person
+    }
+  };
+}
+
+export function addWorkHoursSuccess() {
+  return {
+    type: ADD_WORK_HOURS_SUCCESS,
+    data: {
+      message: 'Work hours add correctly',
     }
   };
 }
@@ -74,6 +85,20 @@ export function changeDoctorProfile(parameters) {
 
   return (dispatch) => {
     fetchData(url, 'PUT', body, '')
+    .then((data) => {
+      dispatch(changeDoctorProfileSuccess(parameters));
+    });
+  };
+}
+
+export function addWorkHours(parameters, id) {
+  let url = `/doctors/${ id }/work_hours`;
+  let body = JSON.stringify(
+    parameters
+  );
+
+  return (dispatch) => {
+    fetchData(url, 'POST', body, '')
     .then((data) => {
       dispatch(changeDoctorProfileSuccess(parameters));
     });
