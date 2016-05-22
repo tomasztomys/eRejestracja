@@ -87,6 +87,8 @@ class Calls
             $this->put('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $admins = new \Calls\Admins($db); $admins->editAdmin($request, $response, $args); })->setName('editAdmin');
         });
 
+        $this->_app->get('/remainder', '\Remainder\Remainder:run')->setName('remainder');
+
         $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');
 
         $this->_app->any('/', function () {

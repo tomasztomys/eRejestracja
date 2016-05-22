@@ -334,6 +334,7 @@ class Doctors
         $visit['patient_id'] = $patientId;
         $visit['from'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->from);
         $visit['to'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->to);
+        $visit['remainded'] = $visitDB->remainded;
 
         return $visit;
     }

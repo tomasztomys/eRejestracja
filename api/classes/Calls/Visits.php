@@ -53,6 +53,7 @@ class Visits
         $visit['patient_id'] = $patientId;
         $visit['from'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->from);
         $visit['to'] = \Utilities\Date::convertISOToRFC3339Format($visitDB->to);
+        $visit['remainded'] = $visitDB->remainded;
 
         return $visit;
     }
@@ -101,6 +102,7 @@ class Visits
         $visitBean = \R::dispense('visit');
         $visitBean->from = \Utilities\Date::convertRFC3339ToISOFormat($request->getParam('from'));
         $visitBean->to = \Utilities\Date::convertRFC3339ToISOFormat($request->getParam('to'));
+        $visitBean->remainded = '0';
         $visitBean->sharedUserList = [$patientDB, $doctorDB];
 
         \R::store($visitBean);
