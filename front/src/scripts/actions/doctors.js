@@ -100,7 +100,7 @@ export function addWorkHours(parameters, id) {
   return (dispatch) => {
     fetchData(url, 'POST', body, '')
     .then((data) => {
-      dispatch(changeDoctorProfileSuccess());
+      dispatch(addWorkHoursSuccess());
     });
   };
 }
