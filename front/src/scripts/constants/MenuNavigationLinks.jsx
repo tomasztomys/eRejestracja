@@ -20,7 +20,7 @@ const MenuNavigationLinks = [
       }
     ]
   },
- {
+  {
     label: 'Visits',
     active: true,
     access: [ 'doctor' ],

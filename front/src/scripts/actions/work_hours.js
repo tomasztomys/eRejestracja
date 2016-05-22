@@ -10,9 +10,7 @@ import {
 export function getWorkHoursSuccess(data) {
   return {
     type: GET_WORK_HOURS_SUCCESS,
-    data: {
-      data
-    }
+    data
   };
 }
 
@@ -32,7 +30,7 @@ export function getWorkHours(id) {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
       if (data.status === 200) {
-        dispatch(getWorkHoursSuccess(data));
+        dispatch(getWorkHoursSuccess(data.data));
       }
     });
   };

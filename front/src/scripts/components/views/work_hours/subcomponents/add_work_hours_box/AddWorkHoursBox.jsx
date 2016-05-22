@@ -80,7 +80,7 @@ class AddWorkHoursBox extends Component {
 
     return (
       <CardWithHeader
-        title={ "Work hours" }
+        title={ "Add Work hours" }
         subtitle={ "Select which hours you seeing patients" }
         actions={ actions }
       >
