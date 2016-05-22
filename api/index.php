@@ -31,8 +31,14 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $next($request, $response);
 });
 
+R::begin();
+try {
+    $calls = new \Calls\Calls($app);
+    $calls->run();
 
-$calls = new \Calls\Calls($app);
-$calls->run();
+    $app->run();
 
-$app->run();
+    R::commit();
+} catch( Exception $e ) {
+    R::rollback();
+}
