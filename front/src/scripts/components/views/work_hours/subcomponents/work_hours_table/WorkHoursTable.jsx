@@ -38,6 +38,7 @@ class WorkHoursTable extends Component {
 
     let source = nextProps.workHours.map((item) => {
       return {
+        id: item.id,
         day: this.generateDateLabel(item.from),
         from: dateformat(item.from, 'HH:MM'),
         to: dateformat(item.to, 'HH:MM')
@@ -70,6 +71,14 @@ class WorkHoursTable extends Component {
     });
   }
 
+  onEditItem(id) {
+    console.log(id);
+  }
+
+  onDeleteItem(id) {
+    console.log(id);
+  }
+
   render() {
     let { model, source, selected } = this.state;
 
@@ -83,12 +92,15 @@ class WorkHoursTable extends Component {
           onSelect={ this.onSelect.bind(this) }
           selected={ selected }
           selectable={ false }
+          onEditItem={ this.onEditItem.bind(this) }
+          onDeleteItem={ this.onDeleteItem.bind(this) }
         />
       </CardWithHeader>
 
     );
   }
 }
+
 WorkHoursTable.propTypes = {
   userId: PropTypes.number
 };

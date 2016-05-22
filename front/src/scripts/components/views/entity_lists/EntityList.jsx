@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { IconButton } from 'react-toolbox';
 import {
   Table,
-  Button,
   CardWithHeader,
-  CardTitle,
   Grid,
   GridItem,
-  FontIcon,
   CircleAvatar
 } from 'ui';
 
@@ -27,7 +23,9 @@ export default class EntityList extends Component {
       selected,
       onChangeTable,
       buttons,
-      noDataMessage
+      noDataMessage,
+      onEditItem,
+      onDeleteItem
     } = this.props;
 
     let sourceData = source.map((item) => {
@@ -37,31 +35,12 @@ export default class EntityList extends Component {
           email={ item.email }
         />
       );
-
-      item.edit = (
-        <IconButton
-          icon="edit"
-          key={ `edit${ item.id }` }
-          className={ style['icon-cell'] }
-          onClick={ this.props.onEditItem.bind(this, item.id) }
-        />
-      );
-
-      item.delete = (
-        <IconButton
-          icon="delete"
-          key={ `delete${ item.id }` }
-          onClick={ this.props.onDeleteItem.bind(this, item.id) }
-          className={ style['icon-cell'] }
-        />
-      );
       return item;
     });
+
     let modelData = { avatar: { type: Object }};
 
     modelData = mergeObjects(modelData, model);
-    modelData.edit = { type: Object };
-    modelData.delete = { type: Object };
 
     return (
       <Grid center>
@@ -79,6 +58,8 @@ export default class EntityList extends Component {
                 selectable={ selectable }
                 selected={ selected }
                 onChange={ onChangeTable }
+                onEditItem={ onEditItem.bind(this) }
+                onDeleteItem={ onDeleteItem.bind(this) }
               /> : <div>{ noDataMessage }</div>
             }
           </CardWithHeader>
@@ -101,5 +82,7 @@ EntityList.propTypes = {
   source: PropTypes.array,
   className: PropTypes.string,
   buttons: PropTypes.array,
-  noDataMessage: PropTypes.string
+  noDataMessage: PropTypes.string,
+  onEditItem: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
