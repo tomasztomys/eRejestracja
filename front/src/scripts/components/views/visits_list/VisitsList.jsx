@@ -4,40 +4,40 @@ import dateformat from 'dateformat';
 
 import {
   CardWithHeader,
-  Table
+  Table,
+  Grid,
+  GridItem
 } from 'ui';
 
 import * as userReducer from 'reducers/user';
-import * as doctorsReducer from 'reducers/doctors';
-import * as workHoursReducer from 'reducers/work_hours';
+import * as visitsReducer from 'reducers/visits';
 
 import * as Actions from 'actions/Actions';
 
-class WorkHoursTable extends Component {
+class VisitsList extends Component {
 
   constructor() {
     super();
     this.state = {
       model: {
+        doctor: { type: String },
         day: { type: String },
         from: { type: String },
         to: { type: String }
       },
       source: [],
-      selected: [],
-      downloadedWorkHours: false
+      selected: []
     };
   }
 
   componentDidMount() {
-    this.getWorkHours(this.props.userId);
+    this.props.dispatch(Actions.getVisitsList(this.props.userId));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getWorkHours(nextProps.userId);
-
-    let source = nextProps.workHours.map((item) => {
+    let source = nextProps.visits.map((item) => {
       return {
+        doctor: item.doctor_id,
         day: this.generateDateLabel(item.from),
         from: dateformat(item.from, 'HH:MM'),
         to: dateformat(item.to, 'HH:MM')
@@ -47,17 +47,6 @@ class WorkHoursTable extends Component {
     this.setState({
       source
     });
-  }
-
-  getWorkHours(userId) {
-    let { downloadedWorkHours } = this.state;
-
-    if (Number.isInteger(userId) && !downloadedWorkHours) {
-      this.props.dispatch(Actions.getWorkHours(userId));
-      this.setState({
-        downloadedWorkHours: true
-      });
-    }
   }
 
   generateDateLabel(date) {
@@ -74,31 +63,36 @@ class WorkHoursTable extends Component {
     let { model, source, selected } = this.state;
 
     return (
-      <CardWithHeader
-        title={ "Your work hours" }
-      >
-        <Table
-          model={ model }
-          source={ source }
-          onSelect={ this.onSelect.bind(this) }
-          selected={ selected }
-          selectable={ false }
-        />
-      </CardWithHeader>
-
+      <Grid center>
+        <GridItem xsSize="6">
+          <CardWithHeader
+            title={ "Your visits" }
+          >
+            <Table
+              model={ model }
+              source={ source }
+              onSelect={ this.onSelect.bind(this) }
+              selected={ selected }
+              selectable={ false }
+            />
+          </CardWithHeader>
+        </GridItem>
+      </Grid>
     );
   }
 }
-WorkHoursTable.propTypes = {
-  userId: PropTypes.number
+
+VisitsList.propTypes = {
+  userId: PropTypes.number,
+  visits: PropTypes.array
 };
 
 function select(state) {
   state = state.toJS();
   return {
     userId: userReducer.getUserId(state),
-    workHours: workHoursReducer.getUserWorkHours(state)
+    visits: visitsReducer.getUserVisits(state)
   };
 }
 
-export default connect(select)(WorkHoursTable);
+export default connect(select)(VisitsList);

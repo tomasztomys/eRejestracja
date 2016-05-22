@@ -23,13 +23,18 @@ const MenuNavigationLinks = [
   {
     label: 'Visits',
     active: true,
-    access: [ 'doctor' ],
+    access: [ 'patient', 'doctor' ],
     children: [
+      {
+        label: 'My Visits',
+        path: Paths.visits,
+        access: [ 'patient', 'doctor' ]
+      },
       {
         label: 'Work hours',
         path: Paths.doctors.workHours,
         active: true,
-        access: [ 'doctor' ]
+        access: [ 'patient', 'doctor' ]
       },
     ]
   },

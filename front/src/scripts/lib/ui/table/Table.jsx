@@ -6,12 +6,14 @@ import style from './table.scss';
 
 export default class Table extends React.Component {
   render() {
-    let { className, ...otherProps } = this.props;
+    let { className, source, model, ...otherProps } = this.props;
     let tableStyle = classnames(style['table'], className);
 
     return (
       <TableReactToolbox
         className={ tableStyle }
+        source={ source }
+        model={ model }
         { ...otherProps }
       />
     );

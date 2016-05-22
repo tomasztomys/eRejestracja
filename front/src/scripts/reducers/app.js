@@ -5,6 +5,7 @@ import doctors from './doctors';
 import patients from './patients';
 import addPerson from './add_person';
 import workHours from './work_hours';
+import visits from './visits';
 import informationMessage from './information_message';
 import errorMessage from './error_message';
 
@@ -16,6 +17,7 @@ const initialState = Immutable.fromJS({
   doctors: [],
   patients: [],
   workHours: [],
+  visits: [],
   informationMessage: {
     active: false,
     message: ''
@@ -34,5 +36,7 @@ export default function app(state = initialState, action) {
   state = state.set('doctors', doctors(state.get('doctors'), action));
   state = state.set('patients', patients(state.get('patients'), action));
   state = state.set('workHours', workHours(state.get('workHours'), action));
+  state = state.set('visits', visits(state.get('visits'), action));
+
   return state;
 }
