@@ -20,23 +20,45 @@ const getNextDays = (startDate, numberOfDays) => {
   return days;
 };
 
-const pad = (n) => {
-  return n < 10 ? '0' + n : n;
-};
+const mergeDateWithTime = (date, time) => {
+  const stringToDate = (stringDate) => {
+    let outDate = new Date();
 
-const timezoneOffset = (offset) => {
- let sign = '';
+    outDate.setTime(Date.parse(stringDate));
+    return outDate;
+  };
 
-  if (offset === 0) {
-    return 'Z';
+  if (typeof date === 'string') {
+    date = stringToDate(date);
   }
-  sign = (offset > 0) ? '-' : '+';
-  offset = Math.abs(offset);
 
-  return sign + pad(Math.floor(offset / 60)) + ':' + pad(offset % 60);
+  if (typeof time === 'string') {
+    time = stringToDate(time);
+  }
+
+  date.setHours(time.getHours());
+  date.setMinutes(time.getMinutes());
+
+  return date;
 };
 
 const convertToRfc3339 = (date) => {
+  const pad = (n) => {
+    return n < 10 ? '0' + n : n;
+  };
+
+  const timezoneOffset = (offset) => {
+    let sign = '';
+
+    if (offset === 0) {
+      return 'Z';
+    }
+    sign = (offset > 0) ? '-' : '+';
+    offset = Math.abs(offset);
+
+    return sign + pad(Math.floor(offset / 60)) + ':' + pad(offset % 60);
+  };
+
   return date.getFullYear() + '-' +
     pad(date.getMonth() + 1) + '-' +
     pad(date.getDate()) + 'T' +
@@ -49,5 +71,6 @@ const convertToRfc3339 = (date) => {
 export {
   getDaysInMonth,
   convertToRfc3339,
-  getNextDays
+  getNextDays,
+  mergeDateWithTime
 };

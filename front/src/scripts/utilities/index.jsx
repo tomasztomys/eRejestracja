@@ -1,11 +1,12 @@
 import mergeObjects from './merge_objects';
 import checkData from './check_data';
-import { getDaysInMonth, convertToRfc3339, getNextDays } from './date_utilities';
+import { getDaysInMonth, convertToRfc3339, getNextDays, mergeDateWithTime } from './date_utilities';
 
 export {
   mergeObjects,
   checkData,
   getDaysInMonth,
   convertToRfc3339,
-  getNextDays
+  getNextDays,
+  mergeDateWithTime
 };
