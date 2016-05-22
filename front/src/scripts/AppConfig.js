@@ -1,5 +1,5 @@
 export default {
   apiToken: '',
-  apiUrl: 'http://api.iwm.tomys.me',
+  apiUrl: 'http://localhost:8000',
   authVersion: 1
 };

@@ -242,7 +242,7 @@ class Doctors
             return $response->withJson(['error' => 'Doctor not found']);
         }
 
-        $workHoursArray = $request->getParam('workHours');
+        $workHoursArray = $request->getParam('work_hours');
         foreach($workHoursArray as $workHours) {
             $from = $workHours['from'];
             $to = $workHours['to'];
