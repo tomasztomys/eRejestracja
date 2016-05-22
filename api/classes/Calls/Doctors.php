@@ -242,17 +242,20 @@ class Doctors
             return $response->withJson(['error' => 'Doctor not found']);
         }
 
-        $from = $request->getParam('from');
-        $to = $request->getParam('to');
+        $workHoursArray = $request->getParam('workHours');
+        foreach($workHoursArray as $workHours) {
+            $from = $workHours['from'];
+            $to = $workHours['to'];
 
-        $workhoursDB = \R::dispense('workhours');
+            $workhoursDB = \R::dispense('workhours');
 
-        $from = \Utilities\Date::convertRFC3339ToISOFormat($from);
-        $to = \Utilities\Date::convertRFC3339ToISOFormat($to);
-        $workhoursDB->from = $from;
-        $workhoursDB->to = $to;
+            $from = \Utilities\Date::convertRFC3339ToISOFormat($from);
+            $to = \Utilities\Date::convertRFC3339ToISOFormat($to);
+            $workhoursDB->from = $from;
+            $workhoursDB->to = $to;
 
-        $doctorDB->ownWorkhoursList[] = $workhoursDB;
+            $doctorDB->noLoad()->ownWorkhoursList[] = $workhoursDB;
+        }
 
         \R::store($doctorDB);
 
@@ -273,6 +276,13 @@ class Doctors
         return $doctor;
     }
 
+    public function cmpWorkHours($a, $b) {
+        if ($a->from == $b->from) {
+            return 0;
+        }
+        return ($a->from < $b->from) ? -1 : 1;
+    }
+
     public function getWorkHours($request, $response, $args) {
         $doctorId = $args['id'];
         $doctorDB = \R::load( 'user', $doctorId);
@@ -283,7 +293,9 @@ class Doctors
         }
 
         $result = [];
-        foreach($doctorDB->ownWorkhoursList as $workHours) {
+        $workHoursFromDB = (array) $doctorDB->ownWorkhoursList;
+        uasort($workHoursFromDB, array($this, 'cmpWorkHours'));
+        foreach($workHoursFromDB as $workHours) {
             $result[] = $this->_makeWorkHours($workHours);
         };
 
@@ -303,6 +315,33 @@ class Doctors
 
         foreach($doctorDB->ownWorkhoursList as $workHours) {
             if($workHours->id == $workHoursId) {
+                $from = $workHours->from;
+                $to = $workHours->to;
+                $visitsToRemove = \R::findAll('visit', ' (`from` >= :time AND `from` < :time2) OR (`to` > :time AND `to` < :time2)', [ 'time' => $from, 'time2' => $to]);
+                foreach($visitsToRemove as $visitToRemove) {
+                    $visitTime = $visitToRemove->from;
+                    $visitTimeTo = $visitToRemove->to;
+
+                    $patientId = null;
+                    $doctorId = null;
+                    foreach($visitToRemove->sharedUserList as $user) {
+                        if ($user->type == 'patient') {
+                            $patientId = $user->id;
+                        }
+                        if ($user->type == 'doctor') {
+                            $doctorId = $user->id;
+                        }
+                    }
+
+                    if($doctorId == $id) {
+                        $patientDB = \R::load('user', $patientId);
+
+                        $headers = "MIME-Version: 1.0" . "\r\n" .
+                            "Content-type: text/html; charset=UTF-8" . "\r\n";
+                        mail($patientDB->email, 'eRejestracja - Anulowanie wizyty', "Witaj $patientDB->name $patientDB->surname!<br /><br />Informujemy, że Twoja wizyta u lekarza $doctorDB->name $doctorDB->surname w ustalonym terminie: od $visitTime do $visitTimeTo, została anulowana.<br />Przepraszamy i prosimy o ponowne ustalenie wizyty lub kontakt z lekarzem.<br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
+                        \R::trash($visitToRemove);
+                    }
+                }
                 \R::trash($workHours);
                 return $response->withJson([]);
             }
