@@ -242,17 +242,20 @@ class Doctors
             return $response->withJson(['error' => 'Doctor not found']);
         }
 
-        $from = $request->getParam('from');
-        $to = $request->getParam('to');
+        $workHoursArray = $request->getParam('workHours');
+        foreach($workHoursArray as $workHours) {
+            $from = $workHours['from'];
+            $to = $workHours['to'];
 
-        $workhoursDB = \R::dispense('workhours');
+            $workhoursDB = \R::dispense('workhours');
 
-        $from = \Utilities\Date::convertRFC3339ToISOFormat($from);
-        $to = \Utilities\Date::convertRFC3339ToISOFormat($to);
-        $workhoursDB->from = $from;
-        $workhoursDB->to = $to;
+            $from = \Utilities\Date::convertRFC3339ToISOFormat($from);
+            $to = \Utilities\Date::convertRFC3339ToISOFormat($to);
+            $workhoursDB->from = $from;
+            $workhoursDB->to = $to;
 
-        $doctorDB->noLoad()->ownWorkhoursList[] = $workhoursDB;
+            $doctorDB->noLoad()->ownWorkhoursList[] = $workhoursDB;
+        }
 
         \R::store($doctorDB);
 
