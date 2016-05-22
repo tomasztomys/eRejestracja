@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import dateformat from 'dateformat';
 
 import {
   Grid,
   GridItem,
   CardWithHeader,
-  TimePicker
+  TimePicker,
+  Autocomplete
 } from 'ui';
 
 import {
-  getDaysInMonth,
-  convertToRfc3339
+  convertToRfc3339,
+  getNextDays
 } from 'utilities';
 
 import * as userReducer from 'reducers/user';
@@ -24,12 +26,8 @@ class WorkHours extends Component {
     this.state = {
       startTime: new Date(),
       endTime: new Date(),
-      sourceMonth: [],
-      sourceDays: [],
-      sourceYear: [],
-      selectedMonth: undefined,
-      selectedYear: undefined,
-      selectedDay: undefined
+      sourceDays: this.generateDays(60),
+      selectedDays: []
     };
   }
 
@@ -39,24 +37,52 @@ class WorkHours extends Component {
     });
   }
 
-  onAddTerm() {
-    let { startTime, endTime } = this.state;
+  generateDateLabel(date) {
+    return dateformat(date, 'dddd, mmmm dS, yyyy');
+  }
+
+  generateDays(numberOfDays) {
+    let days = getNextDays(new Date(), numberOfDays);
+    let sourceDays = {};
+
+    for (let item of days) {
+      sourceDays[item] = this.generateDateLabel(item);
+    }
+    return sourceDays;
+  }
+
+  onAddTerms() {
+    let { startTime, endTime, selectedDays } = this.state;
     let { userId } = this.props;
-    let parameters = {
-      from: convertToRfc3339(startTime),
-      to: convertToRfc3339(endTime)
-    };
+    let data = [];
 
-    console.log(Actions);
+    for (let item of selectedDays) {
+      let start = new Date();
 
-    this.props.dispatch(Actions.addWorkHours(parameters, userId));
+      start.setTime(Date.parse(item));
+      start.setHours(startTime.getHours());
+      start.setMinutes(startTime.getMinutes());
+
+      let end = new Date();
+
+      end.setTime(Date.parse(item));
+      end.setHours(endTime.getHours());
+      end.setMinutes(endTime.getMinutes());
+
+      data.push({
+        from: convertToRfc3339(start),
+        to: convertToRfc3339(end)
+      });
+    }
+
+    this.props.dispatch(Actions.addWorkHours(data, userId));
   }
 
   render() {
     let actions = [
       {
         label: 'Add',
-        onClick: this.onAddTerm.bind(this)
+        onClick: this.onAddTerms.bind(this)
       }
     ];
 
@@ -68,6 +94,12 @@ class WorkHours extends Component {
             subtitle={ "Select which hours you seeing patients" }
             actions={ actions }
           >
+            <Autocomplete
+              label="Days"
+              source={ this.state.sourceDays }
+              value={ this.state.selectedDays }
+              onChange={ this.onChange.bind(this, 'selectedDays') }
+            />
             <TimePicker
               label="Start work time"
               onChange={ this.onChange.bind(this, 'startTime') }

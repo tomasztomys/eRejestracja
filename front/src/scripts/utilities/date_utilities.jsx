@@ -9,6 +9,17 @@ const getDaysInMonth = (month, year) => {
   return days;
 };
 
+const getNextDays = (startDate, numberOfDays) => {
+  let date = startDate;
+  let days = [];
+
+  while(days.length <= numberOfDays) {
+    days.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return days;
+};
+
 const pad = (n) => {
   return n < 10 ? '0' + n : n;
 };
@@ -37,5 +48,6 @@ const convertToRfc3339 = (date) => {
 
 export {
   getDaysInMonth,
-  convertToRfc3339
+  convertToRfc3339,
+  getNextDays
 };

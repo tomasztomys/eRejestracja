@@ -20,6 +20,7 @@ import { NavDrawer } from './nav_drawer';
 import { AppBar } from './app_bar';
 import { CircleAvatar } from './circle_avatar';
 import { TimePicker } from './time_picker';
+import { Autocomplete } from './autocomplete';
 
 export {
   Input,
@@ -38,5 +39,6 @@ export {
   NavDrawer,
   AppBar,
   CircleAvatar,
-  TimePicker
+  TimePicker,
+  Autocomplete
 };
