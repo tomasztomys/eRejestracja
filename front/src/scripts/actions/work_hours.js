@@ -4,7 +4,9 @@ import {
   ADD_WORK_HOURS_SUCCESS,
   ADD_WORK_HOURS_FAILURE,
   GET_WORK_HOURS_SUCCESS,
-  GET_WORK_HOURS_FAILURE
+  GET_WORK_HOURS_FAILURE,
+  DELETE_WORK_HOURS_SUCCESS,
+  DELETE_WORK_HOURS_FAILURE
 } from './ActionsTypes';
 
 export function getWorkHoursSuccess(data) {
@@ -19,6 +21,16 @@ export function addWorkHoursSuccess() {
     type: ADD_WORK_HOURS_SUCCESS,
     data: {
       message: 'Work hours add correctly',
+    }
+  };
+}
+
+export function deleteWorkHoursSuccess(id) {
+  return {
+    type: DELETE_WORK_HOURS_SUCCESS,
+    data: {
+      id: id,
+      message: 'The work hours removed properly'
     }
   };
 }
@@ -46,6 +58,19 @@ export function addWorkHours(data, id) {
     fetchData(url, 'POST', body, '')
     .then(() => {
       dispatch(addWorkHoursSuccess());
+    });
+  };
+}
+
+export function deleteWorkHours(doctorId, id) {
+  let url = `/doctors/${ doctorId }/work_hours/${ id }`;
+
+  return (dispatch) => {
+    fetchData(url, 'DELETE', {}, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(deleteWorkHoursSuccess(id));
+      }
     });
   };
 }

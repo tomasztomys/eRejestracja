@@ -6,6 +6,11 @@ export default function workHours(state, action) {
     case ActionsTypes.GET_WORK_HOURS_SUCCESS: {
       return Immutable.fromJS(action.data);
     }
+    case ActionsTypes.DELETE_WORK_HOURS_SUCCESS: {
+      return state.filter((item) => {
+        return (item.get('id') !== action.data.id);
+      });
+    }
     default: {
       return state;
     }

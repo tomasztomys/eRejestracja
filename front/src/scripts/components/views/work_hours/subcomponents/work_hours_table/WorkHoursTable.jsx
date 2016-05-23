@@ -78,12 +78,14 @@ class WorkHoursTable extends Component {
 
   onDeleteItem(id) {
     console.log(id);
+    this.props.dispatch(Actions.deleteWorkHours(this.props.userId, id));
   }
 
   prepareEvents(source) {
     return source.map((item, index) => {
       return {
         index: index,
+        id: item.id,
         title: 'PRACA',
         start: new Date(item.from),
         end: new Date(item.to),
@@ -99,6 +101,7 @@ class WorkHoursTable extends Component {
       source,
       tableSource: [
         {
+          id: event.id,
           day: this.generateDateLabel(event.start),
           start: dateformat(event.start, 'HH:MM'),
           end: dateformat(event.end, 'HH:MM')
