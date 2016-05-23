@@ -18,6 +18,7 @@ class BookVisitBox extends Component {
     super();
     this.state = {
       doctors: [],
+      specializations: [],
       labels: {
         specialization: 'Choose doctor type',
         doctor: 'Choose a doctor you want to visit.',
@@ -39,25 +40,39 @@ class BookVisitBox extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let { doctors } = nextProps;
+
     this.setState({
-      doctors: this._onPrepareDoctors(nextProps.doctors)
+      doctors: this._onPrepareDoctors(doctors),
+      specializations: this.getUniqueSpecializations(doctors)
     });
+  }
+
+  getUniqueSpecializations(doctors) {
+    let specializationsSource = [];
+    let specializations = [];
+
+    for (let doctor of doctors) {
+      let specialization = doctor.specialization;
+
+      if (specializations.indexOf(specialization) === -1) {
+        specializations.push(specialization);
+        specializationsSource.push({
+          label: specialization,
+          value: specialization
+        });
+      }
+    }
+
+    return specializationsSource;
   }
 
   _onPrepareDoctors(doctors) {
     return doctors.map((doctor) => {
       return {
         value: doctor.id,
-        label: `${ doctor.name } ${ doctor.surname }`
-      };
-    });
-  }
-
-  _onPrepareSpecializations(specializations) {
-    return specializations.map((specialization) => {
-      return {
-        value: specialization.value,
-        label: specialization.name
+        label: `${ doctor.name } ${ doctor.surname }`,
+        specialization: doctor.specialization
       };
     });
   }
@@ -85,8 +100,14 @@ class BookVisitBox extends Component {
     }
   }
 
+  filterDoctors(doctors, specialization) {
+    return doctors.filter((doctor) => {
+      return (doctor.specialization === specialization);
+    });
+  }
+
   render() {
-    let { labels, errors, doctors } = this.state;
+    let { labels, errors, doctors, specializations } = this.state;
     let {
       sources,
       selectedDoctorId,
@@ -96,9 +117,6 @@ class BookVisitBox extends Component {
       onNextStep,
       onBackStep
     } = this.props;
-      console.log(this.props.doctors);
-
-
     return (
       <PickerBox
         title="Book visit to doctor."
@@ -107,14 +125,14 @@ class BookVisitBox extends Component {
         onBackStep={ onBackStep }
       >
         <Dropdown
-          source={ this._onPrepareSpecializations(sources.specializations) }
+          source={ specializations }
           label={ labels.specialization }
           value={ selectedSpecialization }
           error={ errors.specialization }
           onChange={ onSpecializationChange.bind(this) }
         />
         <Dropdown
-          source={ doctors }
+          source={ this.filterDoctors(doctors, selectedSpecialization) }
           label={ labels.doctor }
           value={ selectedDoctorId }
           error={ errors.doctor }
