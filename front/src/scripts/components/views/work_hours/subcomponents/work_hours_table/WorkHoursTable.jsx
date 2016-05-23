@@ -7,6 +7,11 @@ import {
   Table
 } from 'ui';
 
+import {
+  BigCalendar
+} from 'lib/big_calendar';
+import moment from 'moment';
+
 import * as userReducer from 'reducers/user';
 import * as doctorsReducer from 'reducers/doctors';
 import * as workHoursReducer from 'reducers/work_hours';
@@ -20,10 +25,11 @@ class WorkHoursTable extends Component {
     this.state = {
       model: {
         day: { type: String },
-        from: { type: String },
-        to: { type: String }
+        start: { type: String },
+        end: { type: String }
       },
       source: [],
+      tableSource: [],
       selected: [],
       downloadedWorkHours: false
     };
@@ -36,14 +42,7 @@ class WorkHoursTable extends Component {
   componentWillReceiveProps(nextProps) {
     this.getWorkHours(nextProps.userId);
 
-    let source = nextProps.workHours.map((item) => {
-      return {
-        id: item.id,
-        day: this.generateDateLabel(item.from),
-        from: dateformat(item.from, 'HH:MM'),
-        to: dateformat(item.to, 'HH:MM')
-      };
-    });
+    let source = this.prepareEvents(nextProps.workHours);
 
     this.setState({
       source
@@ -65,11 +64,13 @@ class WorkHoursTable extends Component {
     return dateformat(date, 'dddd, mmmm dS, yyyy');
   }
 
-  onSelect(value) {
-    this.setState({
-      selected: value
-    });
-  }
+  // onSelect(value) {
+  //   console.log(value);
+
+  //   this.setState({
+  //     selected: value
+  //   });
+  // }
 
   onEditItem(id) {
     console.log(id);
@@ -79,17 +80,48 @@ class WorkHoursTable extends Component {
     console.log(id);
   }
 
+  prepareEvents(source) {
+    return source.map((item) => {
+      return {
+        title: 'PRACA',
+        start: new Date(item.from),
+        end: new Date(item.to),
+      };
+    });
+  }
+
+  onSelectEvent(event) {
+    console.log(event);
+    this.setState({
+      tableSource: [
+        {
+          day: this.generateDateLabel(event.start),
+          start: dateformat(event.start, 'HH:MM'),
+          end: dateformat(event.end, 'HH:MM')
+        }
+      ]
+    });
+  }
+
   render() {
-    let { model, source, selected } = this.state;
+    let { model, source, tableSource, selected } = this.state;
+    let minHours = new Date();
+    minHours.setHours(7);
+    minHours.setMinutes(0);
 
     return (
       <CardWithHeader
         title={ "Your work hours" }
       >
+        <BigCalendar
+          defaultDate={ new Date() }
+          events={ source }
+          min={ minHours }
+          onSelectEvent={ this.onSelectEvent.bind(this) }
+        />
         <Table
           model={ model }
-          source={ source }
-          onSelect={ this.onSelect.bind(this) }
+          source={ tableSource }
           selected={ selected }
           selectable={ false }
           onEditItem={ this.onEditItem.bind(this) }

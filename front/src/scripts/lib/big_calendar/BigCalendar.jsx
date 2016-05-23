@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import classnames from 'classnames';
 
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
@@ -13,11 +14,16 @@ export default class BigCalendarWrap extends Component {
   }
 
   render() {
+    let { className, defaultDate, view, events, min, onSelectEvent } = this.props;
+    let bigCalendarStyle = classnames(style['big-calendar'], className);
     return (
-      <div className={ style['big-calendar'] }>
+      <div className={ bigCalendarStyle }>
         <BigCalendar
-          defaultDate={ new Date(2015, 3, 1) }
-          events={ [] }
+          defaultDate={ defaultDate }
+          events={ events }
+          min={ min }
+          onSelectEvent={ onSelectEvent }
+          selectable
         />
       </div>
     );
@@ -25,4 +31,7 @@ export default class BigCalendarWrap extends Component {
 }
 
 BigCalendarWrap.propTypes = {
+  className: PropTypes.string,
+  defaultDate: PropTypes.object,
+  events: PropTypes.array
 };

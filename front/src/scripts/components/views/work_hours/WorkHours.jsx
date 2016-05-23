@@ -20,7 +20,7 @@ export default class WorkHours extends Component {
           </GridItem>
         </Grid>
         <Grid center>
-          <GridItem xsSize="6">
+          <GridItem xsSize="8">
             <WorkHoursTable />
           </GridItem>
         </Grid>
