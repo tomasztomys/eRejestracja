@@ -81,8 +81,9 @@ class WorkHoursTable extends Component {
   }
 
   prepareEvents(source) {
-    return source.map((item) => {
+    return source.map((item, index) => {
       return {
+        index: index,
         title: 'PRACA',
         start: new Date(item.from),
         end: new Date(item.to),
@@ -91,8 +92,11 @@ class WorkHoursTable extends Component {
   }
 
   onSelectEvent(event) {
-    console.log(event);
+    let source = this.state.source;
+
+    source[event.index].selected = true;
     this.setState({
+      source,
       tableSource: [
         {
           day: this.generateDateLabel(event.start),
