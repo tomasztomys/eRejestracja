@@ -9,6 +9,7 @@
     width: 100%;
     height: calc(100% - 60px);
     position: absolute;
+    overflow-x: hidden;
 
     & > div {
       overflow-x: hidden;

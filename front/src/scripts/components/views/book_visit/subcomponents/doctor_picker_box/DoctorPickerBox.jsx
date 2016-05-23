@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import {
   CardWithHeader,
@@ -9,10 +10,14 @@ import {
   PickerBox
 } from '../';
 
-export default class BookVisitBox extends Component {
+import * as doctorsReducer from 'reducers/doctors';
+import * as Actions from 'actions/Actions';
+
+class BookVisitBox extends Component {
   constructor() {
     super();
     this.state = {
+      doctors: [],
       labels: {
         specialization: 'Choose doctor type',
         doctor: 'Choose a doctor you want to visit.',
@@ -29,11 +34,21 @@ export default class BookVisitBox extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.dispatch(Actions.fetchDoctorsList());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      doctors: this._onPrepareDoctors(nextProps.doctors)
+    });
+  }
+
   _onPrepareDoctors(doctors) {
     return doctors.map((doctor) => {
       return {
         value: doctor.id,
-        label: `${ doctor.name } - ${ doctor.specialization }`
+        label: `${ doctor.name } ${ doctor.surname }`
       };
     });
   }
@@ -71,7 +86,7 @@ export default class BookVisitBox extends Component {
   }
 
   render() {
-    let { labels, errors } = this.state;
+    let { labels, errors, doctors } = this.state;
     let {
       sources,
       selectedDoctorId,
@@ -81,6 +96,8 @@ export default class BookVisitBox extends Component {
       onNextStep,
       onBackStep
     } = this.props;
+      console.log(this.props.doctors);
+
 
     return (
       <PickerBox
@@ -97,7 +114,7 @@ export default class BookVisitBox extends Component {
           onChange={ onSpecializationChange.bind(this) }
         />
         <Dropdown
-          source={ this._onPrepareDoctors(sources.doctors) }
+          source={ doctors }
           label={ labels.doctor }
           value={ selectedDoctorId }
           error={ errors.doctor }
@@ -119,3 +136,12 @@ BookVisitBox.propTypes = {
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func
 };
+
+function select(state) {
+  state = state.toJS();
+  return {
+    doctors: doctorsReducer.getDoctorsList(state)
+  };
+}
+
+export default connect(select)(BookVisitBox);
