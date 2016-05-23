@@ -43,37 +43,6 @@ export default class PatientBookVisit extends Component {
             value: '8/00'
           }
         ],
-        doctors: [
-          {
-            name: 'Natalia Nowak',
-            workDaysDescription: 'WorkDays: Mon 15:00-17:15, Wen 15:00-19:00',
-            id: 15
-          },
-          {
-            name: 'Bartosz Bąk',
-            workDaysDescription: 'WorkDays: Thu 12:00-14:15, Fri 13:00-18:00',
-            id: 16
-          },
-          {
-            name: 'Tomasz Lewandowski',
-            workDaysDescription: 'WorkDays: Mon 10:00-17:00, Wen 10:00-19:00',
-            id: 21
-          }
-        ],
-        specializations: [
-          {
-            name: 'Chirurg',
-            value: 'surgeon'
-          },
-          {
-            name: 'Pediatra',
-            value: 'pediatrician'
-          },
-          {
-            name: 'Dentysta',
-            value: 'dentist'
-          }
-        ]
       }
     };
   }
@@ -123,7 +92,6 @@ export default class PatientBookVisit extends Component {
             <DoctorPickerBox
               selectedDoctorId={ values.doctor }
               selectedSpecialization={ values.specialization }
-              sources={ sources }
               onDoctorChange={ onChange.bind(this, 'doctor') }
               onSpecializationChange={ onChange.bind(this, 'specialization') }
               onNextStep={ this.onNextStep.bind(this) }

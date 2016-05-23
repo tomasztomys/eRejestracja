@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  CardWithHeader,
   Dropdown
 } from 'ui';
 
@@ -13,9 +12,12 @@ import {
 import * as doctorsReducer from 'reducers/doctors';
 import * as Actions from 'actions/Actions';
 
+import { capitalizeFirstLetter } from 'utilities';
+
 class BookVisitBox extends Component {
   constructor() {
     super();
+
     this.state = {
       doctors: [],
       specializations: [],
@@ -58,7 +60,7 @@ class BookVisitBox extends Component {
       if (specializations.indexOf(specialization) === -1) {
         specializations.push(specialization);
         specializationsSource.push({
-          label: specialization,
+          label: capitalizeFirstLetter(specialization),
           value: specialization
         });
       }
@@ -109,14 +111,13 @@ class BookVisitBox extends Component {
   render() {
     let { labels, errors, doctors, specializations } = this.state;
     let {
-      sources,
       selectedDoctorId,
       selectedSpecialization,
       onDoctorChange,
       onSpecializationChange,
-      onNextStep,
       onBackStep
     } = this.props;
+
     return (
       <PickerBox
         title="Book visit to doctor."
@@ -145,9 +146,8 @@ class BookVisitBox extends Component {
 }
 
 BookVisitBox.propTypes = {
-  sources: PropTypes.object,
-  selectedDoctorId: PropTypes.number,
   doctors: PropTypes.array,
+  selectedDoctorId: PropTypes.number,
   selectedSpecialization: PropTypes.string,
   onDoctorChange: PropTypes.func,
   onSpecializationChange: PropTypes.func,
