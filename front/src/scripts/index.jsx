@@ -10,6 +10,7 @@ import ReduxDevTools from './ReduxDevTools';
 //injectTapEventPlugin();
 
 import 'styles/index';
+import 'styles/calendar';
 
 let reduxDevTools = '';
 
