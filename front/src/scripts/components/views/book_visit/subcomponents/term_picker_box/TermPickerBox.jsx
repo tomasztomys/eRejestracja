@@ -92,17 +92,15 @@ class TermPickerBox extends Component {
   }
 
   onNextStep() {
-    let { selectedDate, selectedTime } = this.props;
+    let { availableTimes } = this.state;
+    let selecteds = availableTimes.filter((item) => {
+      return item.selected;
+    });
 
-    // if (selectedDate === undefined) {
-    //   this.setError('date');
-    // }
-    // else if (selectedTime === '') {
-    //   this.setError('time');
-    // }
-    // else {
+    if (selecteds.length > 0) {
+      this.props.onChangeDate(selecteds[0]);
       this.props.onNextStep();
-    // }
+    }
   }
 
   addMinutes(source, minutes) {
@@ -180,13 +178,12 @@ class TermPickerBox extends Component {
 
   onSelectEvent(event) {
     let source = this.state.availableTimes;
+    source = this.cleanSelectedEvents(source);
 
     source[event.index].selected = true;
     this.setState({
       availableTimes: source
     });
-
-    this.props.onChangeDate(event);
   }
 
   render() {
@@ -217,7 +214,6 @@ class TermPickerBox extends Component {
 
 TermPickerBox.propTypes = {
   doctorId: PropTypes.number,
-  selectedDate: PropTypes.object,
   onChangeDate: PropTypes.func,
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func,

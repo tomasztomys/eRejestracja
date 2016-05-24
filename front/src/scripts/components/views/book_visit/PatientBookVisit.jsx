@@ -83,7 +83,6 @@ export default class PatientBookVisit extends Component {
         >
           <GridItem xsSize="6">
             <TermPickerBox
-              selectedDate={ values.selectedDate }
               onChangeDate={ onChange.bind(this, 'selectedDate') }
               doctorId={ values.doctor }
               onNextStep={ this.onNextStep.bind(this) }

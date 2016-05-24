@@ -42,7 +42,7 @@ export default class BigCalendarWrap extends Component {
           view={ view }
           onView={ this.onViewChange.bind(this) }
           onSelectEvent={ onSelectEvent }
-          selectable={ true }
+          selectable={ selectable || true }
         />
       </div>
     );
