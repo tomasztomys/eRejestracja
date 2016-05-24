@@ -5,11 +5,13 @@ import {
   CardWithHeader,
   Grid,
   GridItem,
-  CircleAvatar
+  CircleAvatar,
+  IconButton
 } from 'ui';
 
 import { mergeObjects } from '../../../utilities';
 import * as userReducer from 'reducers/user';
+import Paths from 'constants/PathsConstants';
 import style from './entity_list.scss';
 
 class EntityList extends Component {
@@ -34,6 +36,10 @@ class EntityList extends Component {
       showEdit: true,
       showDelete: true
     });
+  }
+
+  onAssignPatientToVisit(id) {
+    this.context.router.push(`${ Paths.doctors.bookVisit }/${ id }`);
   }
 
   render() {
@@ -70,6 +76,26 @@ class EntityList extends Component {
     let modelData = { avatar: { type: Object }};
 
     modelData = mergeObjects(modelData, model);
+
+    if (this.props.userType === 'doctor') {
+      modelData.assignToVisit = {
+        type: Object,
+        title: 'Assign to visit'
+      };
+
+      sourceData = sourceData.map((item) => {
+        item.assignToVisit = (
+          <IconButton
+            icon="assignment returned"
+            key={ `assignToVisit${ item.id }` }
+            className={ style['icon-cell'] }
+            onClick={ this.onAssignPatientToVisit.bind(this, item.id) }
+          />
+        );
+
+        return item;
+      });
+    }
 
     return (
       <Grid center>
@@ -122,5 +148,9 @@ function select(state) {
     userType: userReducer.getUserType(state),
   };
 }
+
+EntityList.contextTypes = {
+  router: React.PropTypes.object
+};
 
 export default connect(select)(EntityList);

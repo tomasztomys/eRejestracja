@@ -7,39 +7,41 @@ import * as userReducer from 'reducers/user';
 
 import { convertToRfc3339 } from 'utilities';
 
+import { TermPickerBox } from '../subcomponents';
+
 import * as Actions from 'actions/Actions';
 import Paths from 'constants/PathsConstants';
+
+import {
+  Grid,
+  GridItem,
+  Input,
+  CardWithHeader
+} from 'ui';
 
 class SmartDoctorBookVisit extends Component {
   constructor() {
     super();
     this.state = {
-      values: {
-        doctor: 0,
-        selectedDate: undefined,
-        description: ''
-      },
+      selectedDate: undefined,
+      visitTime: 30
     };
   }
 
-  _onValuesChange(key, value) {
-    console.log(key, value);
-    let { values } = this.state;
-
-    values[key] = value;
-    this.setState(
-      values
-    );
+  onChange(type, value) {
+    this.setState({
+      [type]: value
+    });
   }
 
   _onSignUp() {
-    let { values } = this.state;
+    let { selectedDate } = this.state;
     let { userId } = this.props;
     let parameters = {
-      doctor_id: values.doctor,
-      patient_id: userId,
-      from: convertToRfc3339(values.selectedDate.start),
-      to: convertToRfc3339(values.selectedDate.end)
+      doctor_id: userId,
+      patient_id: this.props.params.id,
+      from: convertToRfc3339(selectedDate.start),
+      to: convertToRfc3339(selectedDate.end)
     };
 
     Actions.addVisit(parameters, this.props.dispatch).then((data) => {
@@ -50,14 +52,31 @@ class SmartDoctorBookVisit extends Component {
   }
 
   render() {
-    let { values } = this.state;
+    let { selectedDate, visitTime } = this.state;
+    let { userId } = this.props;
 
     return (
-      <PatientBookVisit
-        values={ values }
-        onChange={ this._onValuesChange.bind(this) }
-        signUp={ this._onSignUp.bind(this) }
-      />
+      <Grid center>
+        <GridItem xsSize="6">
+          <CardWithHeader
+            title="Visit time"
+            subtitle="You can change visit's time (default 30 minutes)"
+          >
+            <Input
+              label="Visit's time"
+              value={ visitTime }
+              onChange={ this.onChange.bind(this, 'visitTime') }
+            />
+          </CardWithHeader>
+          <TermPickerBox
+            selectedDate={ selectedDate }
+            onChangeDate={ this.onChange.bind(this, 'selectedDate') }
+            doctorId={ userId }
+            onNextStep={ this._onSignUp.bind(this) }
+            visitTime={ visitTime }
+          />
+        </GridItem>
+      </Grid>
     );
   }
 }
