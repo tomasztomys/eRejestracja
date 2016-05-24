@@ -9,10 +9,6 @@ import {
   Dropdown
 } from 'ui';
 
-import doctorAvatar from '../../../../../assets/doctor.jpg';
-import patientMenAvatar from '../../../../../assets/patient_men.png';
-import patientWomanAvatar from '../../../../../assets/patient_woman.png';
-
 import { BigCalendar } from 'lib/big_calendar';
 
 export default class Demo extends Component {
