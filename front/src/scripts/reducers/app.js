@@ -11,7 +11,9 @@ import errorMessage from './error_message';
 
 const initialState = Immutable.fromJS({
   user: {
-    data: {},
+    data: {
+      id: 0
+    },
     fetchSuccess: false
   },
   doctors: [],

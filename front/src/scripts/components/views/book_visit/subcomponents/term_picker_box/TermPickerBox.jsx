@@ -50,13 +50,14 @@ class TermPickerBox extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { doctorId, workHours } = nextProps;
+    let { doctorId, workHours, visitTime } = nextProps;
+    let { timeVisitMinutes } = this.state;
 
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
     this.setState({
-      availableTimes: this.generateFreeTerms(workHours.terms, this.state.timeVisitMinutes)
+      availableTimes: this.generateFreeTerms(workHours.terms, visitTime || timeVisitMinutes)
     });
   }
 
@@ -197,7 +198,7 @@ class TermPickerBox extends Component {
           defaultDate={ new Date() }
           events={ availableTimes }
           min={ minHours }
-          defaultView="week"
+          defaultView="month"
           onSelectEvent={ this.onSelectEvent.bind(this) }
         />
       </PickerBox>
