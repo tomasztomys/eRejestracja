@@ -134,7 +134,7 @@ class BookVisitBox extends Component {
     return (
       <PickerBox
         title="Book visit to doctor."
-        subtitle="You can select doctor and book a visit on select term."
+        subtitle="You can select specialization, then select doctor."
         onNextStep={ this.onNextStep.bind(this) }
         onBackStep={ onBackStep }
       >

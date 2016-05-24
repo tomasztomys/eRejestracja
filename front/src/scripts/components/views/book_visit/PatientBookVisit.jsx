@@ -82,6 +82,8 @@ export default class PatientBookVisit extends Component {
     let { sources, stepsNumber } = this.state;
     let { values, onChange } = this.props;
 
+    console.log(values.doctor);
+
     return (
       <div className={ style['book-visit'] }>
         <Grid
@@ -106,6 +108,7 @@ export default class PatientBookVisit extends Component {
               availableTerms={ sources.terms }
               selectedDate={ values.selectedDate }
               onChangeDate={ onChange.bind(this, 'selectedDate') }
+              doctorId={ values.doctor }
               onNextStep={ this.onNextStep.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
             />

@@ -16,7 +16,10 @@ const initialState = Immutable.fromJS({
   },
   doctors: [],
   patients: [],
-  workHours: [],
+  workHours: {
+    doctorId: -1,
+    terms: []
+  },
   visits: [],
   informationMessage: {
     active: false,

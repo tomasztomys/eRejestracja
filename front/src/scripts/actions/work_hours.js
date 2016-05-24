@@ -9,10 +9,13 @@ import {
   DELETE_WORK_HOURS_FAILURE
 } from './ActionsTypes';
 
-export function getWorkHoursSuccess(data) {
+export function getWorkHoursSuccess(doctorId, data) {
   return {
     type: GET_WORK_HOURS_SUCCESS,
-    data
+    data: {
+      doctorId: doctorId,
+      terms: data
+    }
   };
 }
 
@@ -42,7 +45,7 @@ export function getWorkHours(id) {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
       if (data.status === 200) {
-        dispatch(getWorkHoursSuccess(data.data));
+        dispatch(getWorkHoursSuccess(id, data.data));
       }
     });
   };

@@ -18,5 +18,19 @@ export default function workHours(state, action) {
 }
 
 export function getUserWorkHours(state) {
-  return state.workHours;
+  let terms = state.workHours.terms.map((item) => {
+    return {
+      id: item.id,
+      doctorId: item.doctor_id,
+      start: new Date(item.from),
+      end: new Date(item.to)
+    };
+  });
+
+  let doctorId = state.workHours.doctorId;
+
+  return {
+    terms,
+    doctorId
+  };
 }

@@ -42,7 +42,7 @@ class WorkHoursTable extends Component {
   componentWillReceiveProps(nextProps) {
     this.getWorkHours(nextProps.userId);
 
-    let source = this.prepareEvents(nextProps.workHours);
+    let source = this.prepareEvents(nextProps.workHours.terms);
 
     this.setState({
       source
@@ -87,8 +87,8 @@ class WorkHoursTable extends Component {
         index: index,
         id: item.id,
         title: 'PRACA',
-        start: new Date(item.from),
-        end: new Date(item.to),
+        start: item.start,
+        end: item.end
       };
     });
   }
