@@ -118,10 +118,6 @@ class TermPickerBox extends Component {
           (busy.start < term.end && term.end <= busy.end)) {
           return false;
         }
-
-        if (term.start > busy.start) {
-          return true;
-        }
       }
       return true;
     });
@@ -130,18 +126,30 @@ class TermPickerBox extends Component {
   generateFreeTerms(doctorWorkHours, time) {
     let freeTerms = [];
     let tempStart = new Date();
+    tempStart.setMilliseconds(0);
+    tempStart.setSeconds(0);
     let tempEnd = new Date();
+    tempEnd.setMilliseconds(0);
+    tempEnd.setSeconds(0);
 
     for (let workHours of doctorWorkHours) {
       let start = new Date(workHours.start);
+      start.setMilliseconds(0);
+      start.setSeconds(0);
       let end = new Date(workHours.end);
+      end.setMilliseconds(0);
+      end.setSeconds(0);
 
       tempStart.setTime(start.getTime());
       tempStart.setMinutes(0);
       tempEnd.setTime(start.getTime());
       tempEnd = this.addMinutes(start, time);
 
-      while(tempEnd < end) {
+      while(tempStart >= start && tempEnd <= end) {
+        tempStart.setMilliseconds(0);
+        tempStart.setSeconds(0);
+        tempEnd.setMilliseconds(0);
+        tempEnd.setSeconds(0);
         freeTerms.push({
           id: freeTerms.length,
           start: tempStart,
@@ -169,7 +177,6 @@ class TermPickerBox extends Component {
   }
 
   onSelectEvent(event) {
-    console.log('select', event);
     let source = this.state.availableTimes;
 
     source[event.index].selected = true;

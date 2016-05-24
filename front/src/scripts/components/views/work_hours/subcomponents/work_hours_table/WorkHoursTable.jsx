@@ -65,7 +65,6 @@ class WorkHoursTable extends Component {
   }
 
   // onSelect(value) {
-  //   console.log(value);
 
   //   this.setState({
   //     selected: value
