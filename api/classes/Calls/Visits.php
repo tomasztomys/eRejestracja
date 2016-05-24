@@ -61,12 +61,21 @@ class Visits
     public function getVisits($request, $response, $args) {
         $visitsDB = \R::findAll('visit');
         $visits = [];
-        foreach($visitsDB as $visitDB) {
+        $visitsFromDB = (array) $visitsDB;
+        uasort($visitsFromDB, array($this, 'cmp'));
+        foreach($visitsFromDB as $visitDB) {
             $visit = $this->_makeVisit($visitDB);
             array_push($visits, $visit);
         }
 
         return $response->withJson($visits);
+    }
+
+    public function cmp($a, $b) {
+        if ($a->from == $b->from) {
+            return 0;
+        }
+        return ($a->from < $b->from) ? -1 : 1;
     }
 
     public function getVisit($request, $response, $args) {

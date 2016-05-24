@@ -247,6 +247,13 @@ class Patients
         return $visit;
     }
 
+    public function cmp($a, $b) {
+        if ($a->from == $b->from) {
+            return 0;
+        }
+        return ($a->from < $b->from) ? -1 : 1;
+    }
+
     public function getPatientVisits($request, $response, $args) {
         $patientId = $args['id'];
         $patientDB = \R::load( 'user', $patientId);
@@ -257,7 +264,9 @@ class Patients
         }
 
         $result = [];
-        foreach($patientDB->sharedVisit as $visit) {
+        $visitsFromDB = (array) $patientDB->sharedVisit;
+        uasort($visitsFromDB, array($this, 'cmp'));
+        foreach($visitsFromDB as $visit) {
             $result[] = $this->_makeVisit($visit);
         };
 
