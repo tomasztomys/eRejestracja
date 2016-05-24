@@ -17,8 +17,8 @@
   }
   .body {
     max-height: 0;
-    transition: max-height 0.6s ease;
-    overflow-y: hidden;
+    transition: max-height 0.1s ease;
+    overflow-y: auto;
 
     &.open {
       max-height: 2000px;

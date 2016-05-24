@@ -29,7 +29,7 @@ export default class DoctorSpecificBox extends Component {
     return (
       <CardWithClosing
         className={ style['doctor-specific-box'] }
-        title="Change docotor specifics data"
+        title="Change doctor specifics data"
         actions={ actions }
         open={ open }
         onToogleBox={ onToogleBox }

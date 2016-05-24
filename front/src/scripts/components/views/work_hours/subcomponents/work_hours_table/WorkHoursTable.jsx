@@ -87,7 +87,7 @@ class WorkHoursTable extends Component {
       return {
         index: index,
         id: item.id,
-        title: 'PRACA',
+        title: 'WORK',
         start: item.start,
         end: item.end
       };
