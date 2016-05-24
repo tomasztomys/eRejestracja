@@ -91,9 +91,7 @@ export default class PatientBookVisit extends Component {
           <GridItem xsSize="6">
             <DoctorPickerBox
               selectedDoctorId={ values.doctor }
-              selectedSpecialization={ values.specialization }
               onDoctorChange={ onChange.bind(this, 'doctor') }
-              onSpecializationChange={ onChange.bind(this, 'specialization') }
               onNextStep={ this.onNextStep.bind(this) }
             />
           </GridItem>
@@ -105,11 +103,9 @@ export default class PatientBookVisit extends Component {
         >
           <GridItem xsSize="6">
             <TermPickerBox
-              selectedDate={ values.date }
-              onDateChange={ onChange.bind(this, 'date') }
-              availableTimes={ sources.time }
-              selectedTime={ values.time }
-              onTimeChange={ onChange.bind(this, 'time') }
+              availableTerms={ sources.terms }
+              selectedDate={ values.selectedDate }
+              onChangeDate={ onChange.bind(this, 'selectedDate') }
               onNextStep={ this.onNextStep.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
             />

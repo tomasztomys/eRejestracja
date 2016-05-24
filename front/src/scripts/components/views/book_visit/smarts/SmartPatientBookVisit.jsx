@@ -10,7 +10,7 @@ export default class SmartPatientBookVisit extends Component {
         date: undefined,
         time: '',
         doctor: 0,
-        specialization: '',
+        selectedDate: undefined,
         description: ''
       },
     };

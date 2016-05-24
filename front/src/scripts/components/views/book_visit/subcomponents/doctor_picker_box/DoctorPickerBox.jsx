@@ -21,6 +21,7 @@ class BookVisitBox extends Component {
     this.state = {
       doctors: [],
       specializations: [],
+      selectedSpecialization: '',
       labels: {
         specialization: 'Choose doctor type',
         doctor: 'Choose a doctor you want to visit.',
@@ -89,7 +90,8 @@ class BookVisitBox extends Component {
   }
 
   onNextStep() {
-    let { selectedDoctorId, selectedSpecialization } = this.props;
+    let { selectedDoctorId } = this.props;
+    let { selectedSpecialization } = this.state;
 
     if (selectedSpecialization.length === 0) {
       this.setError('specialization');
@@ -108,13 +110,24 @@ class BookVisitBox extends Component {
     });
   }
 
+  onSpecializationChange(value) {
+    this.setState({
+      selectedSpecialization: value
+    });
+  }
+
   render() {
-    let { labels, errors, doctors, specializations } = this.state;
+    let {
+      labels,
+      errors,
+      doctors,
+      specializations,
+      selectedSpecialization
+    } = this.state;
+
     let {
       selectedDoctorId,
-      selectedSpecialization,
       onDoctorChange,
-      onSpecializationChange,
       onBackStep
     } = this.props;
 
@@ -130,7 +143,7 @@ class BookVisitBox extends Component {
           label={ labels.specialization }
           value={ selectedSpecialization }
           error={ errors.specialization }
-          onChange={ onSpecializationChange.bind(this) }
+          onChange={ this.onSpecializationChange.bind(this) }
         />
         <Dropdown
           source={ this.filterDoctors(doctors, selectedSpecialization) }
@@ -148,9 +161,7 @@ class BookVisitBox extends Component {
 BookVisitBox.propTypes = {
   doctors: PropTypes.array,
   selectedDoctorId: PropTypes.number,
-  selectedSpecialization: PropTypes.string,
   onDoctorChange: PropTypes.func,
-  onSpecializationChange: PropTypes.func,
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func
 };
