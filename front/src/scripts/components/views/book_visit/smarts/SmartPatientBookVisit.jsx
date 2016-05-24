@@ -31,6 +31,7 @@ class SmartPatientBookVisit extends Component {
   }
 
   _onSignUp() {
+    console.log('start');
     let { values } = this.state;
     let { userId } = this.props;
     console.log(values);
@@ -42,6 +43,7 @@ class SmartPatientBookVisit extends Component {
     };
 
     this.props.dispatch(Actions.addVisit(parameters));
+    console.log('end');
   }
 
   render() {

@@ -18,7 +18,6 @@ import * as workHoursReducer from 'reducers/work_hours';
 import * as visitsReducer from 'reducers/visits';
 import * as Actions from 'actions/Actions';
 
-
 class TermPickerBox extends Component {
   constructor() {
     super();
@@ -47,21 +46,21 @@ class TermPickerBox extends Component {
     let { doctorId } = this.props;
 
     this.getWorkHours(this.props.doctorId);
-    this.getDoctorBusyVisits(doctorId);
+    this.getDoctorBusyTerms(doctorId);
   }
 
   componentWillReceiveProps(nextProps) {
     let { doctorId, workHours } = nextProps;
 
     this.getWorkHours(doctorId);
-    this.getDoctorBusyVisits(doctorId);
+    this.getDoctorBusyTerms(doctorId);
 
     this.setState({
       availableTimes: this.generateFreeTerms(workHours.terms, this.state.timeVisitMinutes)
     });
   }
 
-  getDoctorBusyVisits(id) {
+  getDoctorBusyTerms(id) {
     if (id !== this.state.downloadedVisitsId) {
       this.props.dispatch(Actions.getVisitsList(id, 'doctor'));
 
@@ -111,6 +110,24 @@ class TermPickerBox extends Component {
     return newDate;
   }
 
+  removeBusyTerms(terms, busyTerms) {
+    console.log('terms', terms);
+    console.log('busy-terms', busyTerms);
+    return terms.filter((term) => {
+      for (let busy of busyTerms) {
+        if ((busy.start <= term.start && term.start < busy.end) ||
+          (busy.start < term.end && term.end <= busy.end)) {
+          return false;
+        }
+
+        if (term.start > item.start) {
+          return true;
+        }
+      }
+      return true;
+    });
+  }
+
   generateFreeTerms(doctorWorkHours, time) {
     let freeTerms = [];
     let tempStart = new Date();
@@ -140,7 +157,7 @@ class TermPickerBox extends Component {
       }
     }
 
-    return freeTerms;
+    return this.removeBusyTerms(freeTerms, this.props.busyTerms);
   }
 
   cleanSelectedEvents(events) {
@@ -197,9 +214,10 @@ TermPickerBox.propTypes = {
 
 function select(state) {
   state = state.toJS();
+
   return {
     workHours: workHoursReducer.getUserWorkHours(state),
-    busyTerms: visitsReducer.getVisitsData(state)
+    busyTerms: visitsReducer.getVisitsData(state).visits
   };
 }
 
