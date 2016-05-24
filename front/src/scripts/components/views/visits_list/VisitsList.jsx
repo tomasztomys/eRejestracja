@@ -26,15 +26,21 @@ class VisitsList extends Component {
         end: { type: String }
       },
       source: [],
-      selected: []
+      selected: [],
+      downloadedVisits: false
     };
   }
 
   componentDidMount() {
-    this.props.dispatch(Actions.getVisitsList(this.props.userId));
+    let { userId, userType } = this.props;
+
+    this.getVisitsList(userId, userType);
   }
 
   componentWillReceiveProps(nextProps) {
+    let { userId, userType } = nextProps;
+
+    this.getVisitsList(userId, userType);
     let source = nextProps.visits.map((item) => {
       return {
         doctor: item.doctorId,
@@ -47,6 +53,15 @@ class VisitsList extends Component {
     this.setState({
       source
     });
+  }
+
+  getVisitsList(userId, userType) {
+    if (userId > 0 && !this.state.downloadedVisits) {
+      this.props.dispatch(Actions.getVisitsList(userId, userType));
+      this.setState({
+        downloadedVisits: true
+      });
+    }
   }
 
   generateDateLabel(date) {
@@ -84,13 +99,15 @@ class VisitsList extends Component {
 
 VisitsList.propTypes = {
   userId: PropTypes.number,
-  visits: PropTypes.array
+  visits: PropTypes.array,
+  userType: PropTypes.oneOf([ 'doctor', 'patient' ])
 };
 
 function select(state) {
   state = state.toJS();
   return {
     userId: userReducer.getUserId(state),
+    userType: userReducer.getUserType(state),
     visits: visitsReducer.getVisitsData(state).visits
   };
 }
