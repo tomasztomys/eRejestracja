@@ -126,7 +126,6 @@ class TermPickerBox extends Component {
 
   generateFreeTerms(doctorWorkHours, time) {
     time = Number(time);
-    console.log(time);
     let freeTerms = [];
     let tempStart = new Date();
     tempStart.setMilliseconds(0);
@@ -159,7 +158,6 @@ class TermPickerBox extends Component {
           end: tempEnd,
           selected: false
         });
-        console.log(freeTerms);
 
         tempStart = this.addMinutes(tempStart, time);
         tempEnd = this.addMinutes(tempEnd, time);
