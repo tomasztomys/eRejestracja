@@ -34,7 +34,10 @@ import { Dashboard } from './views/dashboard';
 import { WorkHours } from './views/work_hours';
 import { VisitsList } from './views/visits_list';
 
-import { SmartPatientBookVisit } from './views/book_visit/smarts';
+import {
+  SmartPatientBookVisit,
+  SmartDoctorBookVisit
+} from './views/book_visit/smarts';
 
 export default class Routes extends React.Component {
   _redirectIfUserIsNotLogged(nextState, replace) {
@@ -80,6 +83,9 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.patients.bookVisit }
           component={ SmartPatientBookVisit }
+        />
+        <Route path={ `${ Paths.doctors.bookVisit }/:id` }
+          component={ SmartDoctorBookVisit }
         />
         <Route path={ Paths.patients.add }
           component={ SmartAddPatient }

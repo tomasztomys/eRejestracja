@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import AutocompleteReactToolbox from 'react-toolbox/lib/autocomplete';
 import classnames from 'classnames';
 
-import style from './Autocomplete.scss';
+import style from './autocomplete.scss';
 
 export default class Autocomplete extends React.Component {
 
