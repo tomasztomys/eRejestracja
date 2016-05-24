@@ -2,12 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import dateformat from 'dateformat';
 
+import Switch from 'react-toolbox/lib/switch';
+
 import {
   CardWithHeader,
   Table,
   Grid,
-  GridItem
+  GridItem,
 } from 'ui';
+
+import {
+  BigCalendar
+} from 'lib/big_calendar';
 
 import * as userReducer from 'reducers/user';
 import * as visitsReducer from 'reducers/visits';
@@ -25,7 +31,8 @@ class VisitsList extends Component {
       labels: {
         patient: 'Your visits',
         doctor: 'Your patients visits'
-      }
+      },
+      showCalendar: false,
     };
   }
 
@@ -78,9 +85,15 @@ class VisitsList extends Component {
     this.props.dispatch(Actions.deleteVisit(id));
   }
 
+  onChangeSwitch(value) {
+    this.setState({
+      showCalendar: value
+    });
+  }
+
   render() {
-    let { source, selected, labels } = this.state;
-    let { userType } = this.props;
+    let { source, selected, labels, showCalendar } = this.state;
+    let { userType, visits } = this.props;
     let model = {};
 
     if (userType === 'doctor') {
@@ -94,20 +107,38 @@ class VisitsList extends Component {
     model.start = { type: String };
     model.end = { type: String };
 
+    let minHours = new Date();
+
+    minHours.setHours(7);
+    minHours.setMinutes(0);
+
     return (
       <Grid center>
         <GridItem xsSize="6">
           <CardWithHeader
             title={ labels[userType] }
           >
-            <Table
-              model={ model }
-              source={ source }
-              onSelect={ this.onSelect.bind(this) }
-              selected={ selected }
-              selectable={ false }
-              onDeleteItem={ this.onDeleteItem.bind(this) }
+            <Switch
+              checked={ showCalendar }
+              label="Show calendar"
+              onChange={ this.onChangeSwitch.bind(this) }
             />
+            { showCalendar ?
+              <BigCalendar
+                defaultDate={ new Date() }
+                events={ visits }
+                min={ minHours }
+                defaultView="month"
+              /> :
+              <Table
+                model={ model }
+                source={ source }
+                onSelect={ this.onSelect.bind(this) }
+                selected={ selected }
+                selectable={ false }
+                onDeleteItem={ this.onDeleteItem.bind(this) }
+              />
+            }
           </CardWithHeader>
         </GridItem>
       </Grid>

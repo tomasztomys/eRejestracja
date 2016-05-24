@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { PersonRegistration } from '../views/person_registration';
 import * as Action from '../../../../actions/Actions';
 
+import Paths from '../../../../constants/PathsConstants';
+
 class SmartAddPatient extends Component {
   onAddUser(values) {
     let parameters = {
@@ -14,10 +16,16 @@ class SmartAddPatient extends Component {
       password: values.password,
     };
 
-    this.props.dispatch(Action.addUser(parameters, 'patient'));
-    if (this.props.nextStep) {
-      this.props.nextStep();
-    }
+    Action.addUser(parameters, 'patient', this.props.dispatch).then((data) => {
+      if (data) {
+        if (this.props.nextStep) {
+          this.props.nextStep();
+        }
+        else {
+          this.context.router.push(Paths.patients.list);
+        }
+      }
+    });
   }
 
   render() {

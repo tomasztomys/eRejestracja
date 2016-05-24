@@ -23,24 +23,23 @@ export function addUserFailure() {
   };
 }
 
-export function addUser(parameters, type) {
+export function addUser(parameters, type, dispatch) {
   let url = type === 'doctor' ? '/doctors' : '/patients';
   let body = JSON.stringify(
     parameters
   );
 
-  return (dispatch) => {
-    fetchData(url, 'POST', body, '')
+  return fetchData(url, 'POST', body, '')
     .then((data) => {
       switch(data.status) {
         case 200: {
           dispatch(addUserSuccess());
-          break;
+          return true;
         }
         default: {
           dispatch(addUserFailure());
+          return false;
         }
       }
     });
-  };
 }
