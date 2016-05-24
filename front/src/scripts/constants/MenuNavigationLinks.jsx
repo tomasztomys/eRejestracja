@@ -34,7 +34,7 @@ const MenuNavigationLinks = [
         label: 'Work hours',
         path: Paths.doctors.workHours,
         active: true,
-        access: [ 'patient', 'doctor' ]
+        access: [ 'doctor' ]
       },
     ]
   },
@@ -53,7 +53,7 @@ const MenuNavigationLinks = [
         label: 'Book visit',
         path: Paths.patients.bookVisit,
         active: true,
-        access: [ 'admin', 'doctor', 'patient' ]
+        access: [ 'patient' ]
       },
       {
         label: 'Add Patient',

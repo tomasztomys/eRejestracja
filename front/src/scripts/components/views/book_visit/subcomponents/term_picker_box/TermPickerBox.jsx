@@ -15,6 +15,7 @@ import {
 } from 'lib/big_calendar';
 
 import * as workHoursReducer from 'reducers/work_hours';
+import * as visitsReducer from 'reducers/visits';
 import * as Actions from 'actions/Actions';
 
 
@@ -36,21 +37,38 @@ class TermPickerBox extends Component {
         date: 'Please choose day of visit.',
         time: 'Please choose time of visit.'
       },
-      downloadedWorkHoursId: 0
+      downloadedWorkHoursId: 0,
+      downloadedVisitsId: 0,
+      timeVisitMinutes: 30,
     };
   }
 
   componentDidMount() {
+    let { doctorId } = this.props;
+
     this.getWorkHours(this.props.doctorId);
+    this.getDoctorBusyVisits(doctorId);
   }
 
   componentWillReceiveProps(nextProps) {
     let { doctorId, workHours } = nextProps;
 
     this.getWorkHours(doctorId);
+    this.getDoctorBusyVisits(doctorId);
+
     this.setState({
-      availableTimes: this.generateFreeTerms(workHours.terms)
+      availableTimes: this.generateFreeTerms(workHours.terms, this.state.timeVisitMinutes)
     });
+  }
+
+  getDoctorBusyVisits(id) {
+    if (id !== this.state.downloadedVisitsId) {
+      this.props.dispatch(Actions.getVisitsList(id, 'doctor'));
+
+      this.setState({
+        downloadedVisitsId: id
+      });
+    }
   }
 
   getWorkHours(id) {
@@ -75,15 +93,15 @@ class TermPickerBox extends Component {
   onNextStep() {
     let { selectedDate, selectedTime } = this.props;
 
-    if (selectedDate === undefined) {
-      this.setError('date');
-    }
-    else if (selectedTime === '') {
-      this.setError('time');
-    }
-    else {
+    // if (selectedDate === undefined) {
+    //   this.setError('date');
+    // }
+    // else if (selectedTime === '') {
+    //   this.setError('time');
+    // }
+    // else {
       this.props.onNextStep();
-    }
+    // }
   }
 
   addMinutes(source, minutes) {
@@ -93,7 +111,7 @@ class TermPickerBox extends Component {
     return newDate;
   }
 
-  generateFreeTerms(doctorWorkHours) {
+  generateFreeTerms(doctorWorkHours, time) {
     let freeTerms = [];
     let tempStart = new Date();
     let tempEnd = new Date();
@@ -105,24 +123,41 @@ class TermPickerBox extends Component {
       tempStart.setTime(start.getTime());
       tempStart.setMinutes(0);
       tempEnd.setTime(start.getTime());
-      tempEnd = this.addMinutes(start, 15);
+      tempEnd = this.addMinutes(start, time);
 
       while(tempEnd < end) {
         freeTerms.push({
           index: freeTerms.length,
+          id: freeTerms.length,
+          title: 'aaa',
           start: tempStart,
-          end: tempEnd
+          end: tempEnd,
+          selected: false
         });
 
-        tempStart = this.addMinutes(tempStart, 15);
-        tempEnd = this.addMinutes(tempEnd, 15);
+        tempStart = this.addMinutes(tempStart, time);
+        tempEnd = this.addMinutes(tempEnd, time);
       }
     }
 
     return freeTerms;
   }
 
+  cleanSelectedEvents(events) {
+    return events.map((item) => {
+      item.selected = false;
+      return item;
+    });
+  }
+
   onSelectEvent(event) {
+    let source = this.state.availableTimes;
+
+    source[event.index].selected = true;
+    this.setState({
+      availableTimes: source
+    });
+
     this.props.onChangeDate(event);
   }
 
@@ -163,7 +198,8 @@ TermPickerBox.propTypes = {
 function select(state) {
   state = state.toJS();
   return {
-    workHours: workHoursReducer.getUserWorkHours(state)
+    workHours: workHoursReducer.getUserWorkHours(state),
+    busyTerms: visitsReducer.getVisitsData(state)
   };
 }
 

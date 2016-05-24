@@ -131,7 +131,6 @@ class WorkHoursTable extends Component {
           model={ model }
           source={ tableSource }
           selected={ selected }
-          selectable={ false }
           onEditItem={ this.onEditItem.bind(this) }
           onDeleteItem={ this.onDeleteItem.bind(this) }
         />

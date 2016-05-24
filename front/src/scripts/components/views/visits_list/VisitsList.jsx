@@ -22,8 +22,8 @@ class VisitsList extends Component {
       model: {
         doctor: { type: String },
         day: { type: String },
-        from: { type: String },
-        to: { type: String }
+        start: { type: String },
+        end: { type: String }
       },
       source: [],
       selected: []
@@ -37,10 +37,10 @@ class VisitsList extends Component {
   componentWillReceiveProps(nextProps) {
     let source = nextProps.visits.map((item) => {
       return {
-        doctor: item.doctor_id,
-        day: this.generateDateLabel(item.from),
-        from: dateformat(item.from, 'HH:MM'),
-        to: dateformat(item.to, 'HH:MM')
+        doctor: item.doctorId,
+        day: this.generateDateLabel(item.start),
+        start: dateformat(item.start, 'HH:MM'),
+        end: dateformat(item.end, 'HH:MM')
       };
     });
 
@@ -91,7 +91,7 @@ function select(state) {
   state = state.toJS();
   return {
     userId: userReducer.getUserId(state),
-    visits: visitsReducer.getUserVisits(state)
+    visits: visitsReducer.getVisitsData(state).visits
   };
 }
 

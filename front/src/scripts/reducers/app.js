@@ -20,7 +20,10 @@ const initialState = Immutable.fromJS({
     doctorId: -1,
     terms: []
   },
-  visits: [],
+  visitsData: {
+    visits: [],
+    personId: -1
+  },
   informationMessage: {
     active: false,
     message: ''
@@ -39,7 +42,7 @@ export default function app(state = initialState, action) {
   state = state.set('doctors', doctors(state.get('doctors'), action));
   state = state.set('patients', patients(state.get('patients'), action));
   state = state.set('workHours', workHours(state.get('workHours'), action));
-  state = state.set('visits', visits(state.get('visits'), action));
+  state = state.set('visitsData', visits(state.get('visitsData'), action));
 
   return state;
 }

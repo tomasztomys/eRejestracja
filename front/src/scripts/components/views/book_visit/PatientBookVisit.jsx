@@ -24,26 +24,6 @@ export default class PatientBookVisit extends Component {
         datePicker: 1,
         descriptionBox: 2
       },
-      sources: {
-        time: [
-          {
-            label: '6:15',
-            value: '6/15'
-          },
-          {
-            label: '6:30',
-            value: '6/30'
-          },
-          {
-            label: '7:45',
-            value: '7/45'
-          },
-          {
-            label: '8:00',
-            value: '8/00'
-          }
-        ],
-      }
     };
   }
 
@@ -103,7 +83,6 @@ export default class PatientBookVisit extends Component {
         >
           <GridItem xsSize="6">
             <TermPickerBox
-              availableTerms={ sources.terms }
               selectedDate={ values.selectedDate }
               onChangeDate={ onChange.bind(this, 'selectedDate') }
               doctorId={ values.doctor }
@@ -120,7 +99,7 @@ export default class PatientBookVisit extends Component {
             <VisitDescriptionBox
               visitDescription={ values.description }
               onDescriptionChange={ onChange.bind(this, 'description') }
-              onNextStep={ this.onNextStep.bind(this) }
+              onNextStep={ this._onSignUp.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
             />
           </GridItem>

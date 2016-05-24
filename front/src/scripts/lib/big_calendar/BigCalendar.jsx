@@ -30,8 +30,9 @@ export default class BigCalendarWrap extends Component {
 
   render() {
     let { view } = this.state;
-    let { className, defaultDate, events, min, onSelectEvent } = this.props;
+    let { className, defaultDate, events, min, onSelectEvent, selectable } = this.props;
     let bigCalendarStyle = classnames(style['big-calendar'], className);
+
     return (
       <div className={ bigCalendarStyle }>
         <BigCalendar
@@ -41,7 +42,7 @@ export default class BigCalendarWrap extends Component {
           view={ view }
           onView={ this.onViewChange.bind(this) }
           onSelectEvent={ onSelectEvent }
-          selectable
+          selectable={ true }
         />
       </div>
     );
@@ -52,5 +53,8 @@ BigCalendarWrap.propTypes = {
   className: PropTypes.string,
   defaultDate: PropTypes.object,
   events: PropTypes.array,
-  defaultView: PropTypes.oneOf([ 'month', 'week', 'day', 'agenda' ])
+  defaultView: PropTypes.oneOf([ 'month', 'week', 'day', 'agenda' ]),
+  selectable: PropTypes.bool,
+  onSelectEvent: PropTypes.func,
+  min: PropTypes.object
 };
