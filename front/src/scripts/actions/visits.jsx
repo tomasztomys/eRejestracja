@@ -4,7 +4,9 @@ import {
   GET_VISITS_LIST_SUCCESS,
   GET_VISITS_LIST_FAILURE,
   ADD_VISIT_SUCCESS,
-  ADD_VISIT_FAILURE
+  ADD_VISIT_FAILURE,
+  DELETE_VISIT_SUCCESS,
+  DELETE_VISIT_FAILURE
 } from './ActionsTypes';
 
 export function getVisitsListSuccess(data, id) {
@@ -13,6 +15,25 @@ export function getVisitsListSuccess(data, id) {
     data: {
       visits: data,
       id: id
+    }
+  };
+}
+
+export function addVisitSuccess() {
+  return {
+    type: ADD_VISIT_SUCCESS,
+    data: {
+      message: 'Visit add correctly',
+    }
+  };
+}
+
+export function deleteVisitSuccess(id) {
+  return {
+    type: DELETE_VISIT_SUCCESS,
+    data: {
+      id: id,
+      message: 'The visit removed properly'
     }
   };
 }
@@ -31,15 +52,6 @@ export function getVisitsList(id, userType) {
   };
 }
 
-export function addVisitSuccess() {
-  return {
-    type: ADD_VISIT_SUCCESS,
-    data: {
-      message: 'Visit add correctly',
-    }
-  };
-}
-
 export function addVisit(parameters) {
   let url = '/visits';
   let body = JSON.stringify(parameters);
@@ -48,6 +60,19 @@ export function addVisit(parameters) {
     fetchData(url, 'POST', body, '')
     .then(() => {
       dispatch(addVisitSuccess());
+    });
+  };
+}
+
+export function deleteVisit(id) {
+  let url = `/visits/${ id }`;
+
+  return (dispatch) => {
+    fetchData(url, 'DELETE', {}, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(deleteVisitSuccess(id));
+      }
     });
   };
 }

@@ -9,6 +9,16 @@ export default function visits(state, action) {
         personId: action.data.id
       });
     }
+    case ActionsTypes.DELETE_VISIT_SUCCESS: {
+      let visits = state.get('visits').filter((item) => {
+        return (item.get('id') !== action.data.id);
+      });
+
+      return Immutable.fromJS({
+        visits,
+        personId: state.get('personId')
+      });
+    }
     default: {
       return state;
     }

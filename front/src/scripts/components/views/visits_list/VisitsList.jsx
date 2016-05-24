@@ -43,6 +43,7 @@ class VisitsList extends Component {
     this.getVisitsList(userId, userType);
     let source = nextProps.visits.map((item) => {
       return {
+        id: item.id,
         doctor: item.doctorId,
         day: this.generateDateLabel(item.start),
         start: dateformat(item.start, 'HH:MM'),
@@ -74,6 +75,10 @@ class VisitsList extends Component {
     });
   }
 
+  onDeleteItem(id) {
+    this.props.dispatch(Actions.deleteVisit(id));
+  }
+
   render() {
     let { model, source, selected } = this.state;
 
@@ -89,6 +94,7 @@ class VisitsList extends Component {
               onSelect={ this.onSelect.bind(this) }
               selected={ selected }
               selectable={ false }
+              onDeleteItem={ this.onDeleteItem.bind(this) }
             />
           </CardWithHeader>
         </GridItem>

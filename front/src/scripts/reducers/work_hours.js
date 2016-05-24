@@ -7,8 +7,13 @@ export default function workHours(state, action) {
       return Immutable.fromJS(action.data);
     }
     case ActionsTypes.DELETE_WORK_HOURS_SUCCESS: {
-      return state.filter((item) => {
+      let terms = state.get('terms').filter((item) => {
         return (item.get('id') !== action.data.id);
+      });
+
+      return Immutable.fromJS({
+        terms,
+        doctorId: state.get('doctorId')
       });
     }
     default: {

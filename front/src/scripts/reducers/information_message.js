@@ -12,6 +12,7 @@ export default function informationMessage(state, action) {
     case ActionsTypes.ADD_WORK_HOURS_SUCCESS:
     case ActionsTypes.DELETE_WORK_HOURS_SUCCESS:
     case ActionsTypes.ADD_VISIT_SUCCESS:
+    case ActionsTypes.DELETE_VISIT_SUCCESS:
     case ActionsTypes.ADD_PERSON_SUCCESS: {
       let informationMessage = Immutable.fromJS({
         active: false,
