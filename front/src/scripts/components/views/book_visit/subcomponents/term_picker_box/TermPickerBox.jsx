@@ -111,8 +111,6 @@ class TermPickerBox extends Component {
   }
 
   removeBusyTerms(terms, busyTerms) {
-    console.log('terms', terms);
-    console.log('busy-terms', busyTerms);
     return terms.filter((term) => {
       for (let busy of busyTerms) {
         if ((busy.start <= term.start && term.start < busy.end) ||
@@ -120,7 +118,7 @@ class TermPickerBox extends Component {
           return false;
         }
 
-        if (term.start > item.start) {
+        if (term.start > busy.start) {
           return true;
         }
       }
@@ -146,7 +144,6 @@ class TermPickerBox extends Component {
         freeTerms.push({
           index: freeTerms.length,
           id: freeTerms.length,
-          title: 'aaa',
           start: tempStart,
           end: tempEnd,
           selected: false

@@ -8,6 +8,7 @@ import * as userReducer from 'reducers/user';
 import { convertToRfc3339 } from 'utilities';
 
 import * as Actions from 'actions/Actions';
+import Paths from 'constants/PathsConstants';
 
 class SmartPatientBookVisit extends Component {
   constructor() {
@@ -31,10 +32,8 @@ class SmartPatientBookVisit extends Component {
   }
 
   _onSignUp() {
-    console.log('start');
     let { values } = this.state;
     let { userId } = this.props;
-    console.log(values);
     let parameters = {
       doctor_id: values.doctor,
       patient_id: userId,
@@ -42,8 +41,11 @@ class SmartPatientBookVisit extends Component {
       to: convertToRfc3339(values.selectedDate.end)
     };
 
-    this.props.dispatch(Actions.addVisit(parameters));
-    console.log('end');
+    Actions.addVisit(parameters, this.props.dispatch).then((data) => {
+      if (data) {
+        this.context.router.push(Paths.visits);
+      }
+    });
   }
 
   render() {
@@ -61,6 +63,10 @@ class SmartPatientBookVisit extends Component {
 
 SmartPatientBookVisit.propTypes = {
   userId: PropTypes.number
+};
+
+SmartPatientBookVisit.contextTypes = {
+  router: React.PropTypes.object
 };
 
 function select(state) {

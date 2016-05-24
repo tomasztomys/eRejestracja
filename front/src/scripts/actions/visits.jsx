@@ -52,16 +52,20 @@ export function getVisitsList(id, userType) {
   };
 }
 
-export function addVisit(parameters) {
+export function addVisit(parameters, dispatch) {
   let url = '/visits';
   let body = JSON.stringify(parameters);
 
-  return (dispatch) => {
-    fetchData(url, 'POST', body, '')
-    .then(() => {
-      dispatch(addVisitSuccess());
+  return fetchData(url, 'POST', body, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(addVisitSuccess());
+        return true;
+      }
+      else {
+        return false;
+      }
     });
-  };
 }
 
 export function deleteVisit(id) {
