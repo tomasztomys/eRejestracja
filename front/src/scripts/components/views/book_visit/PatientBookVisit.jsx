@@ -82,8 +82,6 @@ export default class PatientBookVisit extends Component {
     let { sources, stepsNumber } = this.state;
     let { values, onChange } = this.props;
 
-    console.log(values.doctor);
-
     return (
       <div className={ style['book-visit'] }>
         <Grid

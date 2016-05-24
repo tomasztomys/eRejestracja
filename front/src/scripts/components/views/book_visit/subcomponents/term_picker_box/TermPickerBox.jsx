@@ -45,7 +45,12 @@ class TermPickerBox extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getWorkHours(nextProps.doctorId);
+    let { doctorId, workHours } = nextProps;
+
+    this.getWorkHours(doctorId);
+    this.setState({
+      availableTimes: this.generateFreeTerms(workHours.terms)
+    });
   }
 
   getWorkHours(id) {
@@ -80,22 +85,27 @@ class TermPickerBox extends Component {
       this.props.onNextStep();
     }
   }
+
+  addMinutes(source, minutes) {
+    let newDate = new Date(source);
+
+    newDate.setMinutes(source.getMinutes() + minutes);
+    return newDate;
+  }
+
   generateFreeTerms(doctorWorkHours) {
-    console.log(doctorWorkHours);
-    console.log('date');
     let freeTerms = [];
     let tempStart = new Date();
     let tempEnd = new Date();
 
     for (let workHours of doctorWorkHours) {
-      console.log('aaa');
-      console.log(workHours);
-      let start = workHours.start;
-      let end = workHours.end;
-      tempStart = start;
+      let start = new Date(workHours.start);
+      let end = new Date(workHours.end);
+
+      tempStart.setTime(start.getTime());
       tempStart.setMinutes(0);
-      tempEnd = start;
-      tempEnd.setMinutes(start.getMinutes() + 15);
+      tempEnd.setTime(start.getTime());
+      tempEnd = this.addMinutes(start, 15);
 
       while(tempEnd < end) {
         freeTerms.push({
@@ -104,8 +114,8 @@ class TermPickerBox extends Component {
           end: tempEnd
         });
 
-        tempStart.setMinutes(tempStart.getMinutes() + 15);
-        tempEnd.setMinutes(tempEnd.getMinutes() + 15)
+        tempStart = this.addMinutes(tempStart, 15);
+        tempEnd = this.addMinutes(tempEnd, 15);
       }
     }
 
@@ -119,9 +129,6 @@ class TermPickerBox extends Component {
   render() {
     let { onBackStep } = this.props;
     let { labels, errors, availableTimes } = this.state;
-    console.log(this.props.workHours.terms);
-    console.log('DANEEEE');
-    console.log(this.generateFreeTerms(this.props.workHours.terms));
     let minHours = new Date();
 
     minHours.setHours(7);
