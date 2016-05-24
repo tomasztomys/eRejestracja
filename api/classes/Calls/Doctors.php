@@ -276,7 +276,7 @@ class Doctors
         return $doctor;
     }
 
-    public function cmpWorkHours($a, $b) {
+    public function cmp($a, $b) {
         if ($a->from == $b->from) {
             return 0;
         }
@@ -294,7 +294,7 @@ class Doctors
 
         $result = [];
         $workHoursFromDB = (array) $doctorDB->ownWorkhoursList;
-        uasort($workHoursFromDB, array($this, 'cmpWorkHours'));
+        uasort($workHoursFromDB, array($this, 'cmp'));
         foreach($workHoursFromDB as $workHours) {
             $result[] = $this->_makeWorkHours($workHours);
         };
@@ -388,7 +388,9 @@ class Doctors
         }
 
         $result = [];
-        foreach($doctorDB->sharedVisit as $visit) {
+        $visitsFromDB = (array) $doctorDB->sharedVisit;
+        uasort($visitsFromDB, array($this, 'cmp'));
+        foreach($visitsFromDB as $visit) {
             $result[] = $this->_makeVisit($visit);
         };
 
