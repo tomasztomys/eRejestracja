@@ -33,7 +33,7 @@ export default class Input extends React.Component {
 Input.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   onChange: PropTypes.func,
   error: PropTypes.string,
   icon: PropTypes.string
