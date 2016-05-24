@@ -125,6 +125,7 @@ class WorkHoursTable extends Component {
           events={ source }
           min={ minHours }
           onSelectEvent={ this.onSelectEvent.bind(this) }
+          defaultView="week"
         />
         <Table
           model={ model }

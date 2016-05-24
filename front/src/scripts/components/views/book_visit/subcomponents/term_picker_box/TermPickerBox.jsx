@@ -144,6 +144,7 @@ class TermPickerBox extends Component {
           defaultDate={ new Date() }
           events={ availableTimes }
           min={ minHours }
+          defaultView="week"
           onSelectEvent={ this.onSelectEvent.bind(this) }
         />
       </PickerBox>
