@@ -5,7 +5,8 @@ import {
   CardWithHeader,
   Grid,
   GridItem,
-  CircleAvatar
+  CircleAvatar,
+  IconButton
 } from 'ui';
 
 import { mergeObjects } from '../../../utilities';
@@ -34,6 +35,10 @@ class EntityList extends Component {
       showEdit: true,
       showDelete: true
     });
+  }
+
+  onAssignPatientToVisit(id) {
+
   }
 
   render() {
@@ -70,6 +75,26 @@ class EntityList extends Component {
     let modelData = { avatar: { type: Object }};
 
     modelData = mergeObjects(modelData, model);
+
+    if (this.props.userType === 'doctor') {
+      modelData.assignToVisit = {
+        type: Object,
+        title: 'Assign to visit'
+      };
+
+      sourceData = sourceData.map((item) => {
+        item.assignToVisit = (
+          <IconButton
+            icon="assignment returned"
+            key={ `assignToVisit${ item.id }` }
+            className={ style['icon-cell'] }
+            onClick={ this.onAssignPatientToVisit.bind(this, item.id) }
+          />
+        );
+
+        return item;
+      });
+    }
 
     return (
       <Grid center>
