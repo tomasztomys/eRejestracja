@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {
   Table,
   CardWithHeader,
@@ -8,10 +9,33 @@ import {
 } from 'ui';
 
 import { mergeObjects } from '../../../utilities';
-
+import * as userReducer from 'reducers/user';
 import style from './entity_list.scss';
 
-export default class EntityList extends Component {
+class EntityList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectable: false,
+      showEdit: false,
+      showDelete: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userType === 'admin') {
+      this.turnOnAdminOptions();
+    }
+  }
+
+  turnOnAdminOptions() {
+    this.setState({
+      selectable: true,
+      showEdit: true,
+      showDelete: true
+    });
+  }
+
   render() {
     let {
       title,
@@ -19,7 +43,6 @@ export default class EntityList extends Component {
       source,
       model,
       onSelect,
-      selectable,
       selected,
       onChangeTable,
       buttons,
@@ -27,6 +50,12 @@ export default class EntityList extends Component {
       onEditItem,
       onDeleteItem
     } = this.props;
+
+    let {
+      selectable,
+      showEdit,
+      showDelete
+    } = this.state;
 
     let sourceData = source.map((item) => {
       item.avatar = (
@@ -48,7 +77,7 @@ export default class EntityList extends Component {
           <CardWithHeader
             title={ title }
             subtitle={ subtitle }
-            actions={ source.length ? buttons : [] }
+            actions={ (source.length && showDelete) ? buttons : [] }
           >
             { source.length > 0 ?
               <Table
@@ -58,8 +87,8 @@ export default class EntityList extends Component {
                 selectable={ selectable }
                 selected={ selected }
                 onChange={ onChangeTable }
-                onEditItem={ onEditItem.bind(this) }
-                onDeleteItem={ onDeleteItem.bind(this) }
+                onEditItem={ showEdit ? onEditItem.bind(this) : null }
+                onDeleteItem={ showDelete ? onDeleteItem.bind(this) : null }
               /> : <div>{ noDataMessage }</div>
             }
           </CardWithHeader>
@@ -77,7 +106,6 @@ EntityList.propTypes = {
   onChangeTable: PropTypes.func,
   heading: PropTypes.bool,
   onSelect: PropTypes.func,
-  selectable: PropTypes.bool,
   selected: PropTypes.array,
   source: PropTypes.array,
   className: PropTypes.string,
@@ -86,3 +114,13 @@ EntityList.propTypes = {
   onEditItem: PropTypes.func,
   onDeleteItem: PropTypes.func
 };
+
+function select(state) {
+
+  state = state.toJS();
+  return {
+    userType: userReducer.getUserType(state),
+  };
+}
+
+export default connect(select)(EntityList);

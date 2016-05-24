@@ -73,7 +73,6 @@ class SmartDoctorsList extends Component {
         source={ doctorsList }
         onSelect={ this._handleSelect.bind(this) }
         selected={ selected }
-        selectable
         buttons={ [
           { label: 'Remove selected doctors', onClick: this._onRemove.bind(this), primary: true }
         ] }
