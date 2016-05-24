@@ -7,6 +7,7 @@ const Paths = {
   demo: '/demo',
   userPanel: '/testingUserPanel',
   doctorsList: '/doctors-list',
+  visits: '/visits',
   patients: {
     list: '/patients-list',
     bookVisit: '/book-visit',

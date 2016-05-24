@@ -1,22 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import PatientBookVisit from '../PatientBookVisit';
 
-export default class SmartPatientBookVisit extends Component {
+import * as userReducer from 'reducers/user';
+
+import { convertToRfc3339 } from 'utilities';
+
+import * as Actions from 'actions/Actions';
+import Paths from 'constants/PathsConstants';
+
+class SmartPatientBookVisit extends Component {
   constructor() {
     super();
     this.state = {
       values: {
-        date: undefined,
-        time: '',
         doctor: 0,
-        specialization: '',
+        selectedDate: undefined,
         description: ''
       },
     };
   }
 
   _onValuesChange(key, value) {
+    console.log(key, value);
     let { values } = this.state;
 
     values[key] = value;
@@ -26,6 +33,20 @@ export default class SmartPatientBookVisit extends Component {
   }
 
   _onSignUp() {
+    let { values } = this.state;
+    let { userId } = this.props;
+    let parameters = {
+      doctor_id: values.doctor,
+      patient_id: userId,
+      from: convertToRfc3339(values.selectedDate.start),
+      to: convertToRfc3339(values.selectedDate.end)
+    };
+
+    Actions.addVisit(parameters, this.props.dispatch).then((data) => {
+      if (data) {
+        this.context.router.push(Paths.visits);
+      }
+    });
   }
 
   render() {
@@ -35,8 +56,26 @@ export default class SmartPatientBookVisit extends Component {
       <PatientBookVisit
         values={ values }
         onChange={ this._onValuesChange.bind(this) }
-        signUp={ this._onSignUp }
+        signUp={ this._onSignUp.bind(this) }
       />
     );
   }
 }
+
+SmartPatientBookVisit.propTypes = {
+  userId: PropTypes.number
+};
+
+SmartPatientBookVisit.contextTypes = {
+  router: React.PropTypes.object
+};
+
+function select(state) {
+  state = state.toJS();
+
+  return {
+    userId: userReducer.getUserId(state)
+  };
+}
+
+export default connect(select)(SmartPatientBookVisit);

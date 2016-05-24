@@ -155,7 +155,7 @@ class MenuDrawer extends Component {
             <ListItem
               className={ style['main-item'] }
               key="logout-item"
-              caption="Lgout"
+              caption="Logout"
               onClick={ this.onLogout.bind(this) }
             />
           </List>

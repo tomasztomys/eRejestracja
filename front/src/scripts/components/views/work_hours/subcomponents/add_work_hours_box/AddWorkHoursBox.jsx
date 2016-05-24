@@ -15,19 +15,37 @@ import {
 } from 'utilities';
 
 import * as userReducer from 'reducers/user';
+import * as workHoursReducer from 'reducers/work_hours';
 
 import * as Actions from 'actions/Actions';
 
 class AddWorkHoursBox extends Component {
   constructor() {
     super();
-
     this.state = {
-      startTime: new Date(),
-      endTime: new Date(),
-      sourceDays: this.generateDays(60),
+      startTime: undefined,
+      endTime: undefined,
+      sourceDays: {},
       selectedDays: []
     };
+  }
+
+  componentDidMount() {
+    let { filledWorkhours } = this.props;
+
+    this.generateSourceDays(60, filledWorkhours);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { filledWorkhours } = nextProps;
+
+    this.generateSourceDays(60, filledWorkhours);
+  }
+
+  generateSourceDays(numberOfDays, filledWorkhours) {
+    this.setState({
+      sourceDays: this.generateDays(numberOfDays, filledWorkhours)
+    });
   }
 
   onChange(key, value) {
@@ -40,11 +58,27 @@ class AddWorkHoursBox extends Component {
     return dateformat(date, 'dddd, mmmm dS, yyyy');
   }
 
-  generateDays(numberOfDays) {
+  removeFilledDays(days, filledDays) {
+    return days.filter((day) => {
+      for (let filled of filledDays) {
+        if ((day.getDate() === filled.start.getDate()) &&
+          (day.getMonth() === filled.start.getMonth()) &&
+          (day.getFullYear() === filled.start.getFullYear())) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }
+
+  generateDays(numberOfDays, filledWorkhours) {
+
     let days = getNextDays(new Date(), numberOfDays);
+    let noFillDays = this.removeFilledDays(days, filledWorkhours);
     let sourceDays = {};
 
-    for (let item of days) {
+    for (let item of noFillDays) {
       sourceDays[item] = this.generateDateLabel(item);
     }
     return sourceDays;
@@ -65,9 +99,18 @@ class AddWorkHoursBox extends Component {
       });
     }
 
-    for (let item of data) {
-      this.props.dispatch(Actions.addWorkHours(item, userId));
-    }
+    Actions.addWorkHours(data, userId, this.props.dispatch).then((data) => {
+      if (data) {
+        this.props.dispatch(Actions.getWorkHours(userId));
+      }
+    });
+
+    this.setState({
+      startTime: undefined,
+      endTime: undefined,
+      sourceDays: {},
+      selectedDays: []
+    });
   }
 
   render() {
@@ -80,7 +123,7 @@ class AddWorkHoursBox extends Component {
 
     return (
       <CardWithHeader
-        title={ "Work hours" }
+        title={ "Add Work hours" }
         subtitle={ "Select which hours you seeing patients" }
         actions={ actions }
       >
@@ -107,13 +150,15 @@ class AddWorkHoursBox extends Component {
   }
 }
 AddWorkHoursBox.propTypes = {
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  filledWorkhours : PropTypes.array
 };
 
 function select(state) {
   state = state.toJS();
   return {
-    userId: userReducer.getUserId(state)
+    userId: userReducer.getUserId(state),
+    filledWorkhours: workHoursReducer.getUserWorkHours(state).terms
   };
 }
 

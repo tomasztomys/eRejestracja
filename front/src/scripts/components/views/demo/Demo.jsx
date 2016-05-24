@@ -9,9 +9,7 @@ import {
   Dropdown
 } from 'ui';
 
-import doctorAvatar from '../../../../../assets/doctor.jpg';
-import patientMenAvatar from '../../../../../assets/patient_men.png';
-import patientWomanAvatar from '../../../../../assets/patient_woman.png';
+import { BigCalendar } from 'lib/big_calendar';
 
 export default class Demo extends Component {
   constructor() {
@@ -63,6 +61,7 @@ export default class Demo extends Component {
   render() {
     return (
       <div>
+      {/*
         <Button
           label="LARGE"
           sizeType="large"
@@ -123,7 +122,8 @@ export default class Demo extends Component {
           ] }
           value={ this.state.dropdownValue }
           onChange={ this._onDropdownChange.bind(this) }
-        />
+        /> */}
+        <BigCalendar />
       </div>
     );
   }

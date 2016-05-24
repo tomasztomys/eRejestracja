@@ -3,6 +3,7 @@ $blue-color: #354458;
 $blighteen-blue-color: #3a9ad9;
 $red-color: #eb7260;
 $light-color: #e9e0d6;
+$light-gray: #E8E8E8;
 
 $beige-color: #f2ebc7;
 $gray-color: #979c9c;
@@ -11,6 +12,8 @@ $graphite-color: #343642;
 $font-colot: #757575;
 
 $button-color: $blighteen-green;
+$button-hover-color: darken($button-color, 10%);
+$button-font-color: white;
 $button-secondary-color: $gray-color;
 
 /* buttons */
@@ -44,7 +47,7 @@ $drawer-menu-item-focus-background-color: #eeeeee;
 $drawer-menu-item-left-border-color: #00c8e7;
 $drawer-menu-submenu-open-background-color: white;
 
-$card-header-background: #E8E8E8;
+$card-header-background: $light-gray;
 
 $login-header-background: $blighteen-green;
 $login-header-font-color: white;
@@ -54,3 +57,6 @@ $registration-header-font-color: white;
 
 $input-text-inactive-font-color: rgba(0, 0, 0, 0.35);
 $input-text-label-color: rgba(0, 0, 0, 0.35);
+
+$calendar-event: $blighteen-green;
+$calendar-event-selected: darken($blighteen-green, 10%);

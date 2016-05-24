@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import {
-  CardWithHeader,
   Dropdown
 } from 'ui';
 
@@ -9,10 +9,19 @@ import {
   PickerBox
 } from '../';
 
-export default class BookVisitBox extends Component {
+import * as doctorsReducer from 'reducers/doctors';
+import * as Actions from 'actions/Actions';
+
+import { capitalizeFirstLetter } from 'utilities';
+
+class BookVisitBox extends Component {
   constructor() {
     super();
+
     this.state = {
+      doctors: [],
+      specializations: [],
+      selectedSpecialization: '',
       labels: {
         specialization: 'Choose doctor type',
         doctor: 'Choose a doctor you want to visit.',
@@ -29,20 +38,44 @@ export default class BookVisitBox extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.dispatch(Actions.fetchDoctorsList());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { doctors } = nextProps;
+
+    this.setState({
+      doctors: this._onPrepareDoctors(doctors),
+      specializations: this.getUniqueSpecializations(doctors)
+    });
+  }
+
+  getUniqueSpecializations(doctors) {
+    let specializationsSource = [];
+    let specializations = [];
+
+    for (let doctor of doctors) {
+      let specialization = doctor.specialization;
+
+      if (specializations.indexOf(specialization) === -1) {
+        specializations.push(specialization);
+        specializationsSource.push({
+          label: capitalizeFirstLetter(specialization),
+          value: specialization
+        });
+      }
+    }
+
+    return specializationsSource;
+  }
+
   _onPrepareDoctors(doctors) {
     return doctors.map((doctor) => {
       return {
         value: doctor.id,
-        label: `${ doctor.name } - ${ doctor.specialization }`
-      };
-    });
-  }
-
-  _onPrepareSpecializations(specializations) {
-    return specializations.map((specialization) => {
-      return {
-        value: specialization.value,
-        label: specialization.name
+        label: `${ doctor.name } ${ doctor.surname }`,
+        specialization: doctor.specialization
       };
     });
   }
@@ -57,7 +90,8 @@ export default class BookVisitBox extends Component {
   }
 
   onNextStep() {
-    let { selectedDoctorId, selectedSpecialization } = this.props;
+    let { selectedDoctorId } = this.props;
+    let { selectedSpecialization } = this.state;
 
     if (selectedSpecialization.length === 0) {
       this.setError('specialization');
@@ -70,34 +104,49 @@ export default class BookVisitBox extends Component {
     }
   }
 
+  filterDoctors(doctors, specialization) {
+    return doctors.filter((doctor) => {
+      return (doctor.specialization === specialization);
+    });
+  }
+
+  onSpecializationChange(value) {
+    this.setState({
+      selectedSpecialization: value
+    });
+  }
+
   render() {
-    let { labels, errors } = this.state;
     let {
-      sources,
+      labels,
+      errors,
+      doctors,
+      specializations,
+      selectedSpecialization
+    } = this.state;
+
+    let {
       selectedDoctorId,
-      selectedSpecialization,
       onDoctorChange,
-      onSpecializationChange,
-      onNextStep,
       onBackStep
     } = this.props;
 
     return (
       <PickerBox
         title="Book visit to doctor."
-        subtitle="You can select doctor and book a visit on select term."
+        subtitle="You can select specialization, then select doctor."
         onNextStep={ this.onNextStep.bind(this) }
         onBackStep={ onBackStep }
       >
         <Dropdown
-          source={ this._onPrepareSpecializations(sources.specializations) }
+          source={ specializations }
           label={ labels.specialization }
           value={ selectedSpecialization }
           error={ errors.specialization }
-          onChange={ onSpecializationChange.bind(this) }
+          onChange={ this.onSpecializationChange.bind(this) }
         />
         <Dropdown
-          source={ this._onPrepareDoctors(sources.doctors) }
+          source={ this.filterDoctors(doctors, selectedSpecialization) }
           label={ labels.doctor }
           value={ selectedDoctorId }
           error={ errors.doctor }
@@ -110,12 +159,18 @@ export default class BookVisitBox extends Component {
 }
 
 BookVisitBox.propTypes = {
-  sources: PropTypes.object,
-  selectedDoctorId: PropTypes.number,
   doctors: PropTypes.array,
-  selectedSpecialization: PropTypes.string,
+  selectedDoctorId: PropTypes.number,
   onDoctorChange: PropTypes.func,
-  onSpecializationChange: PropTypes.func,
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func
 };
+
+function select(state) {
+  state = state.toJS();
+  return {
+    doctors: doctorsReducer.getDoctorsList(state)
+  };
+}
+
+export default connect(select)(BookVisitBox);

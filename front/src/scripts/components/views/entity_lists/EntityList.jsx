@@ -1,21 +1,41 @@
 import React, { Component, PropTypes } from 'react';
-import { IconButton } from 'react-toolbox';
+import { connect } from 'react-redux';
 import {
   Table,
-  Button,
   CardWithHeader,
-  CardTitle,
   Grid,
   GridItem,
-  FontIcon,
   CircleAvatar
 } from 'ui';
 
 import { mergeObjects } from '../../../utilities';
-
+import * as userReducer from 'reducers/user';
 import style from './entity_list.scss';
 
-export default class EntityList extends Component {
+class EntityList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectable: false,
+      showEdit: false,
+      showDelete: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userType === 'admin') {
+      this.turnOnAdminOptions();
+    }
+  }
+
+  turnOnAdminOptions() {
+    this.setState({
+      selectable: true,
+      showEdit: true,
+      showDelete: true
+    });
+  }
+
   render() {
     let {
       title,
@@ -23,12 +43,19 @@ export default class EntityList extends Component {
       source,
       model,
       onSelect,
-      selectable,
       selected,
       onChangeTable,
       buttons,
-      noDataMessage
+      noDataMessage,
+      onEditItem,
+      onDeleteItem
     } = this.props;
+
+    let {
+      selectable,
+      showEdit,
+      showDelete
+    } = this.state;
 
     let sourceData = source.map((item) => {
       item.avatar = (
@@ -37,31 +64,12 @@ export default class EntityList extends Component {
           email={ item.email }
         />
       );
-
-      item.edit = (
-        <IconButton
-          icon="edit"
-          key={ `edit${ item.id }` }
-          className={ style['icon-cell'] }
-          onClick={ this.props.onEditItem.bind(this, item.id) }
-        />
-      );
-
-      item.delete = (
-        <IconButton
-          icon="delete"
-          key={ `delete${ item.id }` }
-          onClick={ this.props.onDeleteItem.bind(this, item.id) }
-          className={ style['icon-cell'] }
-        />
-      );
       return item;
     });
+
     let modelData = { avatar: { type: Object }};
 
     modelData = mergeObjects(modelData, model);
-    modelData.edit = { type: Object };
-    modelData.delete = { type: Object };
 
     return (
       <Grid center>
@@ -69,7 +77,7 @@ export default class EntityList extends Component {
           <CardWithHeader
             title={ title }
             subtitle={ subtitle }
-            actions={ source.length ? buttons : [] }
+            actions={ (source.length && showDelete) ? buttons : [] }
           >
             { source.length > 0 ?
               <Table
@@ -79,6 +87,8 @@ export default class EntityList extends Component {
                 selectable={ selectable }
                 selected={ selected }
                 onChange={ onChangeTable }
+                onEditItem={ showEdit ? onEditItem.bind(this) : null }
+                onDeleteItem={ showDelete ? onDeleteItem.bind(this) : null }
               /> : <div>{ noDataMessage }</div>
             }
           </CardWithHeader>
@@ -96,10 +106,21 @@ EntityList.propTypes = {
   onChangeTable: PropTypes.func,
   heading: PropTypes.bool,
   onSelect: PropTypes.func,
-  selectable: PropTypes.bool,
   selected: PropTypes.array,
   source: PropTypes.array,
   className: PropTypes.string,
   buttons: PropTypes.array,
-  noDataMessage: PropTypes.string
+  noDataMessage: PropTypes.string,
+  onEditItem: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
+
+function select(state) {
+
+  state = state.toJS();
+  return {
+    userType: userReducer.getUserType(state),
+  };
+}
+
+export default connect(select)(EntityList);

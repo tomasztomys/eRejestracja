@@ -53,7 +53,8 @@ module.exports = {
       constants: path.resolve('./src/scripts/constants'),
       utilities: path.resolve('./src/scripts/utilities'),
       actions: path.resolve('./src/scripts/actions'),
-      reducers: path.resolve('./src/scripts/reducers')
+      reducers: path.resolve('./src/scripts/reducers'),
+      lib: path.resolve('./src/scripts/lib'),
     },
     extensions: [
       '',
