@@ -122,9 +122,31 @@ class Visits
     public function deleteVisit($request, $response, $args) {
 
         $id = $args['id'];
+        $params = $request->getParams();
         $visitDB = \R::load( 'visit', $id );
 
         if($visitDB->id > 0) {
+
+            if(isset($params['mail_notification']) && $params['mail_notification'] == "1") {
+                $patientId = null;
+                $doctorId = null;
+                foreach($visitDB->sharedUserList as $user) {
+                    if ($user->type == 'patient') {
+                        $patientId = $user->id;
+                    }
+                    if ($user->type == 'doctor') {
+                        $doctorId = $user->id;
+                    }
+                }
+                $patientDB = \R::load('user', $patientId);
+                $doctorDB = \R::load('user', $doctorId);
+                $visitTime = $visitDB->from;
+                $visitTimeTo = $visitDB->to;
+                $headers = "MIME-Version: 1.0" . "\r\n" .
+                    "Content-type: text/html; charset=UTF-8" . "\r\n";
+                mail($patientDB->email, 'eRejestracja - Anulowanie wizyty', "Witaj $patientDB->name $patientDB->surname!<br /><br />Informujemy, że Twoja wizyta u lekarza $doctorDB->name $doctorDB->surname w ustalonym terminie: od $visitTime do $visitTimeTo, została anulowana.<br />Przepraszamy i prosimy o ponowne ustalenie wizyty lub kontakt z lekarzem.<br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
+
+            }
             \R::trash($visitDB);
             return $response->withJson([]);
         }
