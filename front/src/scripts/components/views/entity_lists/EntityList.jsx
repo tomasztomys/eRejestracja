@@ -11,6 +11,7 @@ import {
 
 import { mergeObjects } from '../../../utilities';
 import * as userReducer from 'reducers/user';
+import Paths from 'constants/PathsConstants';
 import style from './entity_list.scss';
 
 class EntityList extends Component {
@@ -38,7 +39,7 @@ class EntityList extends Component {
   }
 
   onAssignPatientToVisit(id) {
-
+    this.context.router.push(`${ Paths.doctors.bookVisit }/${ id }`);
   }
 
   render() {
@@ -147,5 +148,9 @@ function select(state) {
     userType: userReducer.getUserType(state),
   };
 }
+
+EntityList.contextTypes = {
+  router: React.PropTypes.object
+};
 
 export default connect(select)(EntityList);
