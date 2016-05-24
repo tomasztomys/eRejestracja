@@ -17,7 +17,7 @@ const Paths = {
   },
   doctors: {
     list: '/doctors-list',
-    bookVisit: 'set-patient-to-visit',
+    bookVisit: '/set-patient-to-visit',
     registration: '/doctor-registration',
     add: '/add-doctor',
     edition: '/doctor-edition/:id',

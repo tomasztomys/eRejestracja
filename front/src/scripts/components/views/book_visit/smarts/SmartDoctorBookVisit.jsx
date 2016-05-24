@@ -63,9 +63,11 @@ class SmartDoctorBookVisit extends Component {
             subtitle="You can change visit's time (default 30 minutes)"
           >
             <Input
-              label="Visit's time"
+              label="Visit's time (min 30 minutes)"
               value={ visitTime }
               onChange={ this.onChange.bind(this, 'visitTime') }
+              error={ visitTime < 30 ? 'Wrong visit time' : '' }
+              type="number"
             />
           </CardWithHeader>
           <TermPickerBox

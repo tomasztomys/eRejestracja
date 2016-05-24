@@ -56,8 +56,9 @@ class TermPickerBox extends Component {
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
+    let time = visitTime > 10 ? visitTime : timeVisitMinutes;
     this.setState({
-      availableTimes: this.generateFreeTerms(workHours.terms, visitTime || timeVisitMinutes)
+      availableTimes: this.generateFreeTerms(workHours.terms, time)
     });
   }
 
@@ -118,36 +119,47 @@ class TermPickerBox extends Component {
           (busy.start < term.end && term.end <= busy.end)) {
           return false;
         }
-
-        if (term.start > busy.start) {
-          return true;
-        }
       }
       return true;
     });
   }
 
   generateFreeTerms(doctorWorkHours, time) {
+    time = Number(time);
+    console.log(time);
     let freeTerms = [];
     let tempStart = new Date();
+    tempStart.setMilliseconds(0);
+    tempStart.setSeconds(0);
     let tempEnd = new Date();
+    tempEnd.setMilliseconds(0);
+    tempEnd.setSeconds(0);
 
     for (let workHours of doctorWorkHours) {
       let start = new Date(workHours.start);
+      start.setMilliseconds(0);
+      start.setSeconds(0);
       let end = new Date(workHours.end);
+      end.setMilliseconds(0);
+      end.setSeconds(0);
 
       tempStart.setTime(start.getTime());
       tempStart.setMinutes(0);
       tempEnd.setTime(start.getTime());
       tempEnd = this.addMinutes(start, time);
 
-      while(tempEnd < end) {
+      while(tempStart >= start && tempEnd <= end) {
+        tempStart.setMilliseconds(0);
+        tempStart.setSeconds(0);
+        tempEnd.setMilliseconds(0);
+        tempEnd.setSeconds(0);
         freeTerms.push({
           id: freeTerms.length,
           start: tempStart,
           end: tempEnd,
           selected: false
         });
+        console.log(freeTerms);
 
         tempStart = this.addMinutes(tempStart, time);
         tempEnd = this.addMinutes(tempEnd, time);
@@ -169,7 +181,6 @@ class TermPickerBox extends Component {
   }
 
   onSelectEvent(event) {
-    console.log('select', event);
     let source = this.state.availableTimes;
 
     source[event.index].selected = true;
