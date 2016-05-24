@@ -19,15 +19,13 @@ class VisitsList extends Component {
   constructor() {
     super();
     this.state = {
-      model: {
-        doctor: { type: String },
-        day: { type: String },
-        start: { type: String },
-        end: { type: String }
-      },
       source: [],
       selected: [],
-      downloadedVisits: false
+      downloadedVisits: false,
+      labels: {
+        patient: 'Your visits',
+        doctor: 'Your patients visits'
+      }
     };
   }
 
@@ -45,6 +43,7 @@ class VisitsList extends Component {
       return {
         id: item.id,
         doctor: item.doctorId,
+        patient: item.patientId,
         day: this.generateDateLabel(item.start),
         start: dateformat(item.start, 'HH:MM'),
         end: dateformat(item.end, 'HH:MM')
@@ -80,13 +79,26 @@ class VisitsList extends Component {
   }
 
   render() {
-    let { model, source, selected } = this.state;
+    let { source, selected, labels } = this.state;
+    let { userType } = this.props;
+    let model = {};
+
+    if (userType === 'doctor') {
+      model.doctor = { type: String };
+    }
+    else {
+      model.patient = { type: String };
+    }
+
+    model.day = { type: String };
+    model.start = { type: String };
+    model.end = { type: String };
 
     return (
       <Grid center>
         <GridItem xsSize="6">
           <CardWithHeader
-            title={ "Your visits" }
+            title={ labels[userType] }
           >
             <Table
               model={ model }
