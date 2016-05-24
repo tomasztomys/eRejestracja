@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { PersonRegistration } from '../views/person_registration';
 import * as Action from '../../../../actions/Actions';
 
+import Paths from '../../../../constants/PathsConstants';
+
 class SmartAddDoctor extends Component {
   onAddUser(values) {
     let parameters = {
@@ -14,10 +16,16 @@ class SmartAddDoctor extends Component {
       specialization: values.specialization
     };
 
-    this.props.dispatch(Action.addUser(parameters, 'doctor'));
-    if (this.props.nextStep) {
-      this.props.nextStep();
-    }
+    Action.addUser(parameters, 'doctor', this.props.dispatch).then((data) => {
+      if (data) {
+        if (this.props.nextStep) {
+          this.props.nextStep();
+        }
+        else {
+          this.context.router.push(Paths.doctors.list);
+        }
+      }
+    });
   }
 
   render() {
@@ -41,5 +49,10 @@ SmartAddDoctor.propTypes = {
   buttonAddLabel: PropTypes.string,
   registration: PropTypes.bool
 };
+
+SmartAddDoctor.contextTypes = {
+  router: React.PropTypes.object
+};
+
 
 export default connect()(SmartAddDoctor);

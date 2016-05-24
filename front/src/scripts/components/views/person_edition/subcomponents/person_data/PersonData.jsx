@@ -75,5 +75,5 @@ PersonData.propTypes = {
   values: PropTypes.shape(PropTypesStructure),
   errors: PropTypes.shape(PropTypesStructure),
   onChange: PropTypes.func,
-  personType: PropTypes.oneOf([ 'patient', 'doctor' ])
+  personType: PropTypes.oneOf([ 'patient', 'doctor', 'admin' ])
 };
