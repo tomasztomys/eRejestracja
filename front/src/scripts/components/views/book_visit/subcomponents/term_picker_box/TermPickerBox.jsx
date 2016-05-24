@@ -142,7 +142,6 @@ class TermPickerBox extends Component {
 
       while(tempEnd < end) {
         freeTerms.push({
-          index: freeTerms.length,
           id: freeTerms.length,
           start: tempStart,
           end: tempEnd,
@@ -153,8 +152,12 @@ class TermPickerBox extends Component {
         tempEnd = this.addMinutes(tempEnd, time);
       }
     }
+    let outData = this.removeBusyTerms(freeTerms, this.props.busyTerms);
 
-    return this.removeBusyTerms(freeTerms, this.props.busyTerms);
+    return outData.map((item, index) => {
+      item.index = index;
+      return item;
+    });
   }
 
   cleanSelectedEvents(events) {
@@ -165,6 +168,7 @@ class TermPickerBox extends Component {
   }
 
   onSelectEvent(event) {
+    console.log('select', event);
     let source = this.state.availableTimes;
 
     source[event.index].selected = true;
@@ -206,7 +210,8 @@ TermPickerBox.propTypes = {
   selectedDate: PropTypes.object,
   onChangeDate: PropTypes.func,
   onNextStep: PropTypes.func,
-  onBackStep: PropTypes.func
+  onBackStep: PropTypes.func,
+  busyTerms: PropTypes.array
 };
 
 function select(state) {

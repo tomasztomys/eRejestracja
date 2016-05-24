@@ -73,12 +73,13 @@ class WorkHoursTable extends Component {
   // }
 
   onEditItem(id) {
-    console.log(id);
   }
 
   onDeleteItem(id) {
-    console.log(id);
     this.props.dispatch(Actions.deleteWorkHours(this.props.userId, id));
+    this.setState({
+      tableSource: []
+    });
   }
 
   prepareEvents(source) {
@@ -113,6 +114,7 @@ class WorkHoursTable extends Component {
   render() {
     let { model, source, tableSource, selected } = this.state;
     let minHours = new Date();
+
     minHours.setHours(7);
     minHours.setMinutes(0);
 
@@ -127,13 +129,16 @@ class WorkHoursTable extends Component {
           onSelectEvent={ this.onSelectEvent.bind(this) }
           defaultView="month"
         />
-        <Table
-          model={ model }
-          source={ tableSource }
-          selected={ selected }
-          onEditItem={ this.onEditItem.bind(this) }
-          onDeleteItem={ this.onDeleteItem.bind(this) }
-        />
+        {
+          tableSource > 0 ?
+            <Table
+              model={ model }
+              source={ tableSource }
+              selected={ selected }
+              selectable={ false }
+              onDeleteItem={ this.onDeleteItem.bind(this) }
+            /> : null
+        }
       </CardWithHeader>
 
     );

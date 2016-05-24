@@ -22,10 +22,9 @@ import * as Actions from 'actions/Actions';
 class AddWorkHoursBox extends Component {
   constructor() {
     super();
-
     this.state = {
-      startTime: new Date(),
-      endTime: new Date(),
+      startTime: undefined,
+      endTime: undefined,
       sourceDays: {},
       selectedDays: []
     };
@@ -100,7 +99,18 @@ class AddWorkHoursBox extends Component {
       });
     }
 
-    this.props.dispatch(Actions.addWorkHours(data, userId));
+    Actions.addWorkHours(data, userId, this.props.dispatch).then((data) => {
+      if (data) {
+        this.props.dispatch(Actions.getWorkHours(userId));
+      }
+    });
+
+    this.setState({
+      startTime: undefined,
+      endTime: undefined,
+      sourceDays: {},
+      selectedDays: []
+    });
   }
 
   render() {

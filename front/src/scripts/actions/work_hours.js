@@ -51,18 +51,22 @@ export function getWorkHours(id) {
   };
 }
 
-export function addWorkHours(data, id) {
+export function addWorkHours(data, id, dispatch) {
   let url = `/doctors/${ id }/work_hours`;
   let body = JSON.stringify({
     work_hours: data
   });
 
-  return (dispatch) => {
-    fetchData(url, 'POST', body, '')
-    .then(() => {
-      dispatch(addWorkHoursSuccess());
+  return fetchData(url, 'POST', body, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(addWorkHoursSuccess());
+        return true;
+      }
+      else {
+        return false;
+      }
     });
-  };
 }
 
 export function deleteWorkHours(doctorId, id) {

@@ -23,6 +23,7 @@ class SmartPatientBookVisit extends Component {
   }
 
   _onValuesChange(key, value) {
+    console.log(key, value);
     let { values } = this.state;
 
     values[key] = value;

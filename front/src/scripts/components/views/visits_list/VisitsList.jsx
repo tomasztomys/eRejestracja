@@ -84,10 +84,10 @@ class VisitsList extends Component {
     let model = {};
 
     if (userType === 'doctor') {
-      model.doctor = { type: String };
+      model.patient = { type: String };
     }
     else {
-      model.patient = { type: String };
+      model.doctor = { type: String };
     }
 
     model.day = { type: String };
