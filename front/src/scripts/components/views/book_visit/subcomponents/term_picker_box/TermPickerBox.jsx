@@ -56,7 +56,7 @@ class TermPickerBox extends Component {
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
-    let time = (visitTime >= 15 && visitTime < 60) ? visitTime : timeVisitMinutes;
+    let time = (visitTime >= 30 && visitTime < 60) ? visitTime : timeVisitMinutes;
 
     this.setState({
       availableTimes: this.generateFreeTerms(workHours.terms, time)
