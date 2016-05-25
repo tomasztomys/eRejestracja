@@ -22,3 +22,14 @@ export default function doctors(state, action) {
 export function getPatientsList(state) {
   return state.patients;
 }
+
+export function getPatientsNames(state) {
+  console.log('PATIENT');
+  let outData = {};
+
+  for (let person of state.patients) {
+    outData[person.id] = `${ person.name } ${ person.surname }`;
+  }
+
+  return outData;
+}

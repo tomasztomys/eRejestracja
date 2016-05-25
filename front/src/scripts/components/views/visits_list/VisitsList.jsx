@@ -17,6 +17,8 @@ import {
 
 import * as userReducer from 'reducers/user';
 import * as visitsReducer from 'reducers/visits';
+import * as doctorsReducer from 'reducers/doctors';
+import * as patientsReducer from 'reducers/patients';
 
 import * as Actions from 'actions/Actions';
 
@@ -38,19 +40,19 @@ class VisitsList extends Component {
 
   componentDidMount() {
     let { userId, userType } = this.props;
-
+    this.props.dispatch(Actions.fetchPatientsList());
+    this.props.dispatch(Actions.fetchDoctorsList());
     this.getVisitsList(userId, userType);
   }
 
   componentWillReceiveProps(nextProps) {
-    let { userId, userType } = nextProps;
-
+    let { userId, userType, doctorsNames, patientsNames } = nextProps;
     this.getVisitsList(userId, userType);
     let source = nextProps.visits.map((item) => {
       return {
         id: item.id,
-        doctor: item.doctorId,
-        patient: item.patientId,
+        doctor: doctorsNames[item.doctorId],
+        patient: patientsNames[item.patientId],
         day: this.generateDateLabel(item.start),
         start: dateformat(item.start, 'HH:MM'),
         end: dateformat(item.end, 'HH:MM')
@@ -149,7 +151,14 @@ class VisitsList extends Component {
 VisitsList.propTypes = {
   userId: PropTypes.number,
   visits: PropTypes.array,
-  userType: PropTypes.oneOf([ 'doctor', 'patient' ])
+  userType: PropTypes.oneOf([ 'doctor', 'patient' ]),
+  doctorsNames: PropTypes.object,
+  patientsNames: PropTypes.object
+};
+
+VisitsList.defaultProps = {
+  doctorsNames: {},
+  patientsNames: {}
 };
 
 function select(state) {
@@ -157,7 +166,9 @@ function select(state) {
   return {
     userId: userReducer.getUserId(state),
     userType: userReducer.getUserType(state),
-    visits: visitsReducer.getVisitsData(state).visits
+    visits: visitsReducer.getVisitsData(state).visits,
+    doctorsNames: doctorsReducer.getDoctorsNames(state),
+    patientsNames: patientsReducer.getPatientsNames(state)
   };
 }
 
