@@ -66,7 +66,7 @@ class SmartDoctorBookVisit extends Component {
               label="Visit's time (30-60 minutes)"
               value={ visitTime }
               onChange={ this.onChange.bind(this, 'visitTime') }
-              error={ (visitTime < 15 || visitTime >= 60) ? 'Wrong visit time' : '' }
+              error={ (visitTime < 30 || visitTime >= 60) ? 'Wrong visit time' : '' }
               type="number"
             />
           </CardWithHeader>
