@@ -24,7 +24,7 @@ class SmartDoctorBookVisit extends Component {
     super();
     this.state = {
       selectedDate: undefined,
-      visitTime: 30
+      visitTime: 15
     };
   }
 
@@ -63,10 +63,10 @@ class SmartDoctorBookVisit extends Component {
             subtitle="You can change visit's time (default 30 minutes)"
           >
             <Input
-              label="Visit's time (min 30 minutes)"
+              label="Visit's time (15-60 minutes)"
               value={ visitTime }
               onChange={ this.onChange.bind(this, 'visitTime') }
-              error={ visitTime < 30 ? 'Wrong visit time' : '' }
+              error={ (visitTime < 15 || visitTime >= 60) ? 'Wrong visit time' : '' }
               type="number"
             />
           </CardWithHeader>
