@@ -125,6 +125,7 @@ class TermPickerBox extends Component {
 
   generateFreeTerms(doctorWorkHours, time) {
     time = Number(time);
+    let now = new Date();
     let freeTerms = [];
     let tempStart = new Date();
     tempStart.setMilliseconds(0);
@@ -134,32 +135,34 @@ class TermPickerBox extends Component {
     tempEnd.setSeconds(0);
 
     for (let workHours of doctorWorkHours) {
-      let start = new Date(workHours.start);
-      start.setMilliseconds(0);
-      start.setSeconds(0);
-      let end = new Date(workHours.end);
-      end.setMilliseconds(0);
-      end.setSeconds(0);
+      if (workHours.start > now) {
+        let start = new Date(workHours.start);
+        start.setMilliseconds(0);
+        start.setSeconds(0);
+        let end = new Date(workHours.end);
+        end.setMilliseconds(0);
+        end.setSeconds(0);
 
-      tempStart.setTime(start.getTime());
-      tempStart.setMinutes(0);
-      tempEnd.setTime(start.getTime());
-      tempEnd = this.addMinutes(start, time);
+        tempStart.setTime(start.getTime());
+        tempStart.setMinutes(0);
+        tempEnd.setTime(start.getTime());
+        tempEnd = this.addMinutes(start, time);
 
-      while(tempStart >= start && tempEnd <= end) {
-        tempStart.setMilliseconds(0);
-        tempStart.setSeconds(0);
-        tempEnd.setMilliseconds(0);
-        tempEnd.setSeconds(0);
-        freeTerms.push({
-          id: freeTerms.length,
-          start: tempStart,
-          end: tempEnd,
-          selected: false
-        });
+        while(tempStart >= start && tempEnd <= end) {
+          tempStart.setMilliseconds(0);
+          tempStart.setSeconds(0);
+          tempEnd.setMilliseconds(0);
+          tempEnd.setSeconds(0);
+          freeTerms.push({
+            id: freeTerms.length,
+            start: tempStart,
+            end: tempEnd,
+            selected: false
+          });
 
-        tempStart = this.addMinutes(tempStart, time);
-        tempEnd = this.addMinutes(tempEnd, time);
+          tempStart = this.addMinutes(tempStart, time);
+          tempEnd = this.addMinutes(tempEnd, time);
+        }
       }
     }
     let outData = this.removeBusyTerms(freeTerms, this.props.busyTerms);
