@@ -5,20 +5,10 @@ import * as userReducer from 'reducers/user';
 
 import { convertToRfc3339 } from 'utilities';
 
-import { TermPickerBox } from '../subcomponents';
-
 import * as Actions from 'actions/Actions';
 import Paths from 'constants/PathsConstants';
 
-import {
-  Input,
-  CardWithHeader
-} from 'lib/ui';
-
-import {
-  Grid,
-  GridItem
-} from 'lib/grid';
+import { DoctorBookVisit } from '../views/doctor_book_visit';
 
 class SmartDoctorBookVisit extends Component {
   constructor() {
@@ -35,12 +25,12 @@ class SmartDoctorBookVisit extends Component {
     });
   }
 
-  _onSignUp() {
+  onAddVisit() {
     let { selectedDate } = this.state;
     let { userId } = this.props;
     let parameters = {
-      doctor_id: userId,
-      patient_id: this.props.params.id,
+      'doctor_id': userId,
+      'patient_id': this.props.params.id,
       from: convertToRfc3339(selectedDate.start),
       to: convertToRfc3339(selectedDate.end)
     };
@@ -57,29 +47,13 @@ class SmartDoctorBookVisit extends Component {
     let { userId } = this.props;
 
     return (
-      <Grid center>
-        <GridItem xsSize="6">
-          <CardWithHeader
-            title="Visit time"
-            subtitle="You can change visit's time (default 30 minutes)"
-          >
-            <Input
-              label="Visit's time (15-60 minutes)"
-              value={ visitTime }
-              onChange={ this.onChange.bind(this, 'visitTime') }
-              error={ (visitTime < 15 || visitTime >= 60) ? 'Wrong visit time' : '' }
-              type="number"
-            />
-          </CardWithHeader>
-          <TermPickerBox
-            selectedDate={ selectedDate }
-            onChangeDate={ this.onChange.bind(this, 'selectedDate') }
-            doctorId={ userId }
-            onNextStep={ this._onSignUp.bind(this) }
-            visitTime={ visitTime }
-          />
-        </GridItem>
-      </Grid>
+      <DoctorBookVisit
+        selectedDate={ selectedDate }
+        visitTime={ visitTime }
+        userId={ userId }
+        onChange={ this.onChange.bind(this) }
+        onAddVisit={ this.onAddVisit.bind(this) }
+      />
     );
   }
 }
