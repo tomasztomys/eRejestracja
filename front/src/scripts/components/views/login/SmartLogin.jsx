@@ -12,8 +12,8 @@ class SmartLogin extends Component {
 
     this.state = {
       values: {
-        email: 'tomasz@tomys.pl',
-        password: 'tomasz',
+        email: '',
+        password: '',
       },
       labels: {
         email: 'Email',

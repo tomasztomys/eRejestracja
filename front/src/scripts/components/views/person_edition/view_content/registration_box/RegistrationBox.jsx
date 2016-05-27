@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import {
-  Grid,
-  GridItem,
-  Button,
-  Card,
-  CardTitle,
   CardWithHeader
 } from 'lib/ui';
+
+import {
+  Grid,
+  GridItem
+} from 'lib/grid';
 
 import { ChangePassword } from '../../subcomponents/change_password';
 import { PersonData } from '../../subcomponents/person_data';

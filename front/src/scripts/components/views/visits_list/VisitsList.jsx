@@ -7,9 +7,12 @@ import Switch from 'react-toolbox/lib/switch';
 import {
   CardWithHeader,
   Table,
-  Grid,
-  GridItem,
 } from 'lib/ui';
+
+import {
+  Grid,
+  GridItem
+} from 'lib/grid';
 
 import {
   BigCalendar

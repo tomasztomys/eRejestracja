@@ -11,11 +11,14 @@ import * as Actions from 'actions/Actions';
 import Paths from 'constants/PathsConstants';
 
 import {
-  Grid,
-  GridItem,
   Input,
   CardWithHeader
 } from 'lib/ui';
+
+import {
+  Grid,
+  GridItem
+} from 'lib/grid';
 
 class SmartDoctorBookVisit extends Component {
   constructor() {

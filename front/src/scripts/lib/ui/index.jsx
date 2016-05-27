@@ -13,7 +13,6 @@ import {
   CardWithHeader,
   CardWithClosing
 } from './card';
-import { Grid, GridItem } from './grid';
 import { Dropdown } from './dropdown';
 import { DatePicker } from './date_picker';
 import { NavDrawer } from './nav_drawer';
@@ -34,7 +33,6 @@ export {
   Avatar,
   FontIcon,
   Card, CardTitle, CardWithHeader, CardWithClosing,
-  Grid, GridItem,
   Dropdown,
   DatePicker,
   NavDrawer,

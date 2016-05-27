@@ -5,9 +5,12 @@ import {
   Button,
   Card,
   CardTitle,
+} from 'lib/ui';
+
+import {
   Grid,
   GridItem
-} from 'lib/ui';
+} from 'lib/grid';
 
 import style from './login.scss';
 
