@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem
-} from 'ui';
+} from 'lib/ui';
 
 import {
   AddWorkHoursBox,

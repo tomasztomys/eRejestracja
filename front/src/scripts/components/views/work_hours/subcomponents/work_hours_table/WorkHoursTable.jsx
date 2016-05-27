@@ -5,7 +5,7 @@ import dateformat from 'dateformat';
 import {
   CardWithHeader,
   Table
-} from 'ui';
+} from 'lib/ui';
 
 import {
   BigCalendar

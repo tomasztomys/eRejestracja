@@ -4,13 +4,13 @@ import classnames from 'classnames';
 import {
   Grid,
   GridItem
-} from 'ui';
+} from 'lib/ui';
 
 import {
   DoctorPickerBox,
   TermPickerBox,
   VisitDescriptionBox
-} from './subcomponents';
+} from '../../subcomponents';
 
 import style from './patient_book_visit.scss';
 
@@ -59,7 +59,7 @@ export default class PatientBookVisit extends Component {
   }
 
   render() {
-    let { sources, stepsNumber } = this.state;
+    let { stepsNumber } = this.state;
     let { values, onChange } = this.props;
 
     return (

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Dropdown
-} from 'ui';
+} from 'lib/ui';
 
 import style from './doctor_specific.scss';
 

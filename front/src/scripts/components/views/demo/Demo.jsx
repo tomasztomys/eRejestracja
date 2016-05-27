@@ -7,7 +7,7 @@ import {
   Drawer,
   Avatar,
   Dropdown
-} from 'ui';
+} from 'lib/ui';
 
 import { BigCalendar } from 'lib/big_calendar';
 

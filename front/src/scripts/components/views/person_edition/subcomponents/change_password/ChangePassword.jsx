@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Input,
-} from 'ui';
+} from 'lib/ui';
 
 import style from './change_password.scss';
 

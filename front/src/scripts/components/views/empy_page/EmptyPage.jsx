@@ -3,7 +3,7 @@ import Paths from '../../../constants/PathsConstants';
 
 import {
   Button,
-} from 'ui';
+} from 'lib/ui';
 
 export default class EmptyPage extends Component {
 

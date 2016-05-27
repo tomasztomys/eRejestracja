@@ -49,7 +49,6 @@ module.exports = {
     alias: {
       assets: path.resolve('./src/assets'),
       styles: path.resolve('./src/styles'),
-      ui: path.resolve('./src/scripts/lib/ui'),
       constants: path.resolve('./src/scripts/constants'),
       utilities: path.resolve('./src/scripts/utilities'),
       actions: path.resolve('./src/scripts/actions'),

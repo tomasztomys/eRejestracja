@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import PatientBookVisit from '../PatientBookVisit';
-
 import * as userReducer from 'reducers/user';
 
 import { convertToRfc3339 } from 'utilities';
@@ -17,7 +15,7 @@ import {
   GridItem,
   Input,
   CardWithHeader
-} from 'ui';
+} from 'lib/ui';
 
 class SmartDoctorBookVisit extends Component {
   constructor() {
@@ -84,7 +82,8 @@ class SmartDoctorBookVisit extends Component {
 }
 
 SmartDoctorBookVisit.propTypes = {
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  params: PropTypes.string
 };
 
 SmartDoctorBookVisit.contextTypes = {

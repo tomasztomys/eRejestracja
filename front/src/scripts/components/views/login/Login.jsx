@@ -7,7 +7,7 @@ import {
   CardTitle,
   Grid,
   GridItem
-} from 'ui';
+} from 'lib/ui';
 
 import style from './login.scss';
 

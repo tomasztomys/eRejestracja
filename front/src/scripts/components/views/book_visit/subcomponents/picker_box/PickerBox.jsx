@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   CardWithHeader,
-} from 'ui';
+} from 'lib/ui';
 
 import style from './picker_box.scss';
 

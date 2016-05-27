@@ -7,7 +7,7 @@ import {
   GridItem,
   CircleAvatar,
   IconButton
-} from 'ui';
+} from 'lib/ui';
 
 import { mergeObjects } from '../../../utilities';
 import * as userReducer from 'reducers/user';

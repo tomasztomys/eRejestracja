@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   CardWithClosing,
-} from 'ui';
+} from 'lib/ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
 

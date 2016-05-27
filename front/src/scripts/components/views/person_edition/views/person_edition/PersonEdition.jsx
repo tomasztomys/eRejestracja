@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Grid,
   GridItem,
-} from 'ui';
+} from 'lib/ui';
 
 import { ChangePasswordBox } from '../../view_content/change_password_box';
 import { PersonDataBox } from '../../view_content/person_data_box';

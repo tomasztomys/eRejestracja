@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import SVG from 'svg-inline-react';
 
 import { Panel, Layout, IconButton } from 'react-toolbox';
-import { AppBar, CircleAvatar } from 'ui';
+import { AppBar, CircleAvatar } from 'lib/ui';
 
 import style from './app_bar_content.scss';
 

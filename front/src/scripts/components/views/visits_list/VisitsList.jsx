@@ -9,7 +9,7 @@ import {
   Table,
   Grid,
   GridItem,
-} from 'ui';
+} from 'lib/ui';
 
 import {
   BigCalendar

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   CardWithClosing,
-} from 'ui';
+} from 'lib/ui';
 
 import { DoctorSpecific } from '../../subcomponents/doctor_specific';
 
