@@ -30,10 +30,11 @@ export default class DoctorBookVisit extends Component {
             subtitle="You can change visit's time (default 30 minutes)"
           >
             <Input
-              label="Visit's time (15-60 minutes)"
+              label="Visit's time [minutes]"
               value={ visitTime }
               onChange={ onChange.bind(this, 'visitTime') }
-              error={ (visitTime < 15 || visitTime >= 60) ? 'Wrong visit time' : '' }
+              error={ visitTime < 15 ?
+                'Wrong visit time, (min 15 minutes)' : '' }
               type="number"
             />
           </CardWithHeader>
