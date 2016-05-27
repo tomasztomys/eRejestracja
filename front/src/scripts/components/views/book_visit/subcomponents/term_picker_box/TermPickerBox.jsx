@@ -2,11 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  DatePicker,
-  Dropdown
-} from 'lib/ui';
-
-import {
   PickerBox
 } from '../';
 
@@ -18,9 +13,12 @@ import * as workHoursReducer from 'reducers/work_hours';
 import * as visitsReducer from 'reducers/visits';
 import * as Actions from 'actions/Actions';
 
+import generateTerms from './generateTerms.jsx';
+
 class TermPickerBox extends Component {
   constructor() {
     super();
+
     this.state = {
       source: [],
       availableTimes: [],
@@ -50,16 +48,16 @@ class TermPickerBox extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { doctorId, workHours, visitTime } = nextProps;
+    let { doctorId, workHours, visitTime, busyTerms } = nextProps;
     let { timeVisitMinutes } = this.state;
 
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
-    let time = (visitTime >= 15 && visitTime < 60) ? visitTime : timeVisitMinutes;
+    let time = (visitTime >= 15) ? visitTime : timeVisitMinutes;
 
     this.setState({
-      availableTimes: this.generateFreeTerms(workHours.terms, time)
+      availableTimes: generateTerms(workHours.terms, busyTerms, time)
     });
   }
 
@@ -102,72 +100,6 @@ class TermPickerBox extends Component {
       this.props.onChangeDate(selecteds[0]);
       this.props.onNextStep();
     }
-  }
-
-  addMinutes(source, minutes) {
-    let newDate = new Date(source);
-
-    newDate.setMinutes(source.getMinutes() + minutes);
-    return newDate;
-  }
-
-  removeBusyTerms(terms, busyTerms) {
-    return terms.filter((term) => {
-      for (let busy of busyTerms) {
-        if ((busy.start <= term.start && term.start < busy.end) ||
-          (busy.start < term.end && term.end <= busy.end)) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }
-
-  generateFreeTerms(doctorWorkHours, time) {
-    time = Number(time);
-    let freeTerms = [];
-    let tempStart = new Date();
-    tempStart.setMilliseconds(0);
-    tempStart.setSeconds(0);
-    let tempEnd = new Date();
-    tempEnd.setMilliseconds(0);
-    tempEnd.setSeconds(0);
-
-    for (let workHours of doctorWorkHours) {
-      let start = new Date(workHours.start);
-      start.setMilliseconds(0);
-      start.setSeconds(0);
-      let end = new Date(workHours.end);
-      end.setMilliseconds(0);
-      end.setSeconds(0);
-
-      tempStart.setTime(start.getTime());
-      tempStart.setMinutes(0);
-      tempEnd.setTime(start.getTime());
-      tempEnd = this.addMinutes(start, time);
-
-      while(tempStart >= start && tempEnd <= end) {
-        tempStart.setMilliseconds(0);
-        tempStart.setSeconds(0);
-        tempEnd.setMilliseconds(0);
-        tempEnd.setSeconds(0);
-        freeTerms.push({
-          id: freeTerms.length,
-          start: tempStart,
-          end: tempEnd,
-          selected: false
-        });
-
-        tempStart = this.addMinutes(tempStart, time);
-        tempEnd = this.addMinutes(tempEnd, time);
-      }
-    }
-    let outData = this.removeBusyTerms(freeTerms, this.props.busyTerms);
-
-    return outData.map((item, index) => {
-      item.index = index;
-      return item;
-    });
   }
 
   cleanSelectedEvents(events) {
