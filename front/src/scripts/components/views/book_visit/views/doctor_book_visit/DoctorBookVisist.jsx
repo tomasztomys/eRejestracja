@@ -24,7 +24,7 @@ export default class DoctorBookVisit extends Component {
 
     return (
       <Grid center>
-        <GridItem xsSize="6">
+        <GridItem xsSize="12">
           <CardWithHeader
             title="Visit time"
             subtitle="You can change visit's time (default 30 minutes)"

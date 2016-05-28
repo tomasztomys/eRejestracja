@@ -121,7 +121,7 @@ class TermPickerBox extends Component {
 
   render() {
     let { onBackStep } = this.props;
-    let { labels, errors, availableTimes } = this.state;
+    let { availableTimes } = this.state;
     let minHours = new Date();
 
     minHours.setHours(7);
