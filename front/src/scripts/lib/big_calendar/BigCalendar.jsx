@@ -44,7 +44,6 @@ export default class BigCalendarWrap extends Component {
           onView={ this.onViewChange.bind(this) }
           onSelectEvent={ onSelectEvent }
           selectable={ selectable || true }
-          toolbar={ true }
         />
       </div>
     );
