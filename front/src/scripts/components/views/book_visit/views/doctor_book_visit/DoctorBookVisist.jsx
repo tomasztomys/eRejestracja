@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { TermPickerBox } from '../../subcomponents';
 
 import {
-  Input,
-  CardWithHeader
+  CardWithHeader,
+  Slider
 } from 'lib/ui';
 
 import {
@@ -29,13 +29,13 @@ export default class DoctorBookVisit extends Component {
             title="Visit time"
             subtitle="You can change visit's time (default 30 minutes)"
           >
-            <Input
+            <Slider
               label="Visit's time [minutes]"
               value={ visitTime }
               onChange={ onChange.bind(this, 'visitTime') }
-              error={ visitTime < 15 ?
-                'Wrong visit time, (min 15 minutes)' : '' }
-              type="number"
+              min={ 30 }
+              max={ 180 }
+              step={ 5 }
             />
           </CardWithHeader>
           <TermPickerBox

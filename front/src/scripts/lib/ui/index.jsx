@@ -21,6 +21,7 @@ import { CircleAvatar } from './circle_avatar';
 import { TimePicker } from './time_picker';
 import { Autocomplete } from './autocomplete';
 import { IconButton } from './icon_button';
+import { Slider } from './slider';
 
 export {
   Input,
@@ -40,5 +41,6 @@ export {
   CircleAvatar,
   TimePicker,
   Autocomplete,
-  IconButton
+  IconButton,
+  Slider
 };

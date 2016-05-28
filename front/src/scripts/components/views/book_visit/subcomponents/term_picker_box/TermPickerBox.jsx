@@ -36,7 +36,7 @@ class TermPickerBox extends Component {
       },
       downloadedWorkHoursId: 0,
       downloadedVisitsId: 0,
-      timeVisitMinutes: 15,
+      timeVisitMinutes: 30,
     };
   }
 
@@ -54,7 +54,7 @@ class TermPickerBox extends Component {
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
-    let time = (visitTime >= 15) ? visitTime : timeVisitMinutes;
+    let time = (visitTime >= timeVisitMinutes) ? visitTime : timeVisitMinutes;
 
     this.setState({
       availableTimes: generateTerms(workHours.terms, busyTerms, time)
