@@ -42,9 +42,7 @@ export default class Slider extends React.Component {
           max={ max }
           min={ min }
           onChange={ this.onChange.bind(this) }
-          snaps={ snaps }
           pinned
-          snaps
           editable
           { ...otherProps }
         />

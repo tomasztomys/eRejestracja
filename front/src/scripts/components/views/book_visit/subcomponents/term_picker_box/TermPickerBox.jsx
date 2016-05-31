@@ -53,13 +53,14 @@ class TermPickerBox extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { doctorId, workHours, visitTime, busyTerms } = nextProps;
+    let { doctorId, workHours, visitTime, visitsData } = nextProps;
 
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
+    let doctorBusyTerms = visitsData[doctorId] ? visitsData[doctorId] : [];
 
     this.setState({
-      availableTimes: generateTerms(workHours.terms, busyTerms, visitTime)
+      availableTimes: generateTerms(workHours.terms, doctorBusyTerms, visitTime)
     });
   }
 
@@ -127,7 +128,6 @@ class TermPickerBox extends Component {
   render() {
     let { onBackStep } = this.props;
     let { availableTimes, showWarning } = this.state;
-    console.log(showWarning);
     let minHours = new Date();
 
     minHours.setHours(7);
@@ -157,6 +157,7 @@ class TermPickerBox extends Component {
 
 TermPickerBox.propTypes = {
   doctorId: PropTypes.number,
+  patientId: PropTypes.number,
   onChangeDate: PropTypes.func,
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func,
@@ -168,7 +169,7 @@ function select(state) {
 
   return {
     workHours: workHoursReducer.getUserWorkHours(state),
-    busyTerms: visitsReducer.getVisitsData(state).visits
+    visitsData: visitsReducer.getVisitsData(state)
   };
 }
 

@@ -36,7 +36,6 @@ export default class DoctorBookVisit extends Component {
               min={ 30 }
               max={ 180 }
               step={ 15 }
-              pinned
             />
           </CardWithHeader>
           <TermPickerBox
