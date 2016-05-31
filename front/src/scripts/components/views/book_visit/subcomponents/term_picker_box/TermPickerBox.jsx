@@ -66,9 +66,10 @@ class TermPickerBox extends Component {
     let patientBusyTerms = visitsData[patientId] ? visitsData[patientId] : [];
 
     let busyTerms = doctorBusyTerms.concat(patientBusyTerms);
+    let time = visitTime ? visitTime : 30;
 
     this.setState({
-      availableTimes: generateTerms(workHours.terms, busyTerms, visitTime)
+      availableTimes: generateTerms(workHours.terms, busyTerms, time)
     });
   }
 
@@ -164,7 +165,7 @@ class TermPickerBox extends Component {
           defaultView="month"
           onSelectEvent={ this.onSelectEvent.bind(this) }
         />
-        <p>Yuor select term:</p>
+        <p>Your select term:</p>
         <p className={ showWarning ? style['warning'] : '' }>
           { this.generateSelectedDateLabel(this.state.selected) }
         </p>

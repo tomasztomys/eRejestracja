@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import PatientBookVisit from '../views/patient_book_visit';
+import { PatientBookVisit } from '../views/patient_book_visit';
 
 import * as userReducer from 'reducers/user';
 

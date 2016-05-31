@@ -19,8 +19,6 @@ class SmartDoctorBookVisit extends Component {
   }
 
   onChange(type, value) {
-    console.log(type, value);
-
     this.setState({
       [type]: value
     });
