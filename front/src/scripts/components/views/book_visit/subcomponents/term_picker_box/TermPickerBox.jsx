@@ -39,47 +39,65 @@ class TermPickerBox extends Component {
         date: 'Please choose day of visit.',
         time: 'Please choose time of visit.'
       },
-      downloadedWorkHoursId: 0,
-      downloadedVisitsId: 0,
+      downloadedDoctorWorkHoursId: 0,
+      downloadedDoctorVisits: 0,
+      downloadedPatientVisits: 0,
       showWarning: false
     };
   }
 
   componentDidMount() {
-    let { doctorId } = this.props;
+    let { doctorId, patientId } = this.props;
 
-    this.getWorkHours(this.props.doctorId);
-    this.getDoctorBusyTerms(doctorId);
+    this.getWorkHours(doctorId);
+
+    this.getDoctorVisits(doctorId);
+    this.getPatientVisits(patientId);
   }
 
   componentWillReceiveProps(nextProps) {
-    let { doctorId, workHours, visitTime, visitsData } = nextProps;
+    let { doctorId, patientId, workHours, visitTime, visitsData } = nextProps;
 
     this.getWorkHours(doctorId);
-    this.getDoctorBusyTerms(doctorId);
+    this.getDoctorVisits(doctorId);
+    this.getPatientVisits(patientId);
+
     let doctorBusyTerms = visitsData[doctorId] ? visitsData[doctorId] : [];
+    let patientBusyTerms = visitsData[patientId] ? visitsData[patientId] : [];
+
+    let busyTerms = doctorBusyTerms.concat(patientBusyTerms);
 
     this.setState({
-      availableTimes: generateTerms(workHours.terms, doctorBusyTerms, visitTime)
+      availableTimes: generateTerms(workHours.terms, busyTerms, visitTime)
     });
   }
 
-  getDoctorBusyTerms(id) {
-    if (id !== this.state.downloadedVisitsId) {
+  getPatientVisits(id) {
+    if (id !== this.state.downloadedPatientVisits) {
+      this.props.dispatch(Actions.getVisitsList(id, 'patient'));
+
+      this.setState({
+        downloadedPatientVisits: id
+      });
+    }
+  }
+
+  getDoctorVisits(id) {
+    if (id !== this.state.downloadedDoctorVisits) {
       this.props.dispatch(Actions.getVisitsList(id, 'doctor'));
 
       this.setState({
-        downloadedVisitsId: id
+        downloadedDoctorVisits: id
       });
     }
   }
 
   getWorkHours(id) {
-    if (id !== this.state.downloadedWorkHoursId) {
+    if (id !== this.state.downloadedDoctorWorkHoursId) {
       this.props.dispatch(Actions.getWorkHours(id));
 
       this.setState({
-        downloadedWorkHoursId: id
+        downloadedDoctorWorkHoursId: id
       });
     }
   }
@@ -161,7 +179,6 @@ TermPickerBox.propTypes = {
   onChangeDate: PropTypes.func,
   onNextStep: PropTypes.func,
   onBackStep: PropTypes.func,
-  busyTerms: PropTypes.array
 };
 
 function select(state) {

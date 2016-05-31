@@ -17,7 +17,8 @@ export default class DoctorBookVisit extends Component {
     let {
       selectedDate,
       visitTime,
-      userId,
+      doctorId,
+      patientId,
       onChange,
       onAddVisit,
     } = this.props;
@@ -39,7 +40,8 @@ export default class DoctorBookVisit extends Component {
             />
           </CardWithHeader>
           <TermPickerBox
-            doctorId={ userId }
+            doctorId={ doctorId }
+            patientId={ patientId }
             onNextStep={ onAddVisit }
             visitTime={ visitTime }
           />
