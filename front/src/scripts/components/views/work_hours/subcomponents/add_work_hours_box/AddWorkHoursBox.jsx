@@ -25,11 +25,7 @@ class AddWorkHoursBox extends Component {
     this.state = {
       sourceDays: {},
       selectedDays: [],
-      values: {
-        startTime: undefined,
-        endTime: undefined,
-        days: []
-      },
+      values: this.initValues(),
       errors: {
         startTime: '',
         endTime: '',
@@ -42,8 +38,8 @@ class AddWorkHoursBox extends Component {
         endTimeValue: 'End time must be after start time'
       },
       validations: {
-        startTime: false,
-        endTime: false,
+        startTime: true,
+        endTime: true,
         days: false
       }
     };
@@ -61,14 +57,18 @@ class AddWorkHoursBox extends Component {
     this.generateSourceDays(60, filledWorkhours);
   }
 
-  clearValues() {
-    this.setState({
-      values: {
-        startTime: undefined,
-        endTime: undefined,
-        days: []
-      }
-    });
+  initValues() {
+    let startTime = new Date(0);
+    let endTime = new Date(0);
+
+    startTime.setHours(8);
+    endTime.setHours(18);
+
+    return {
+      startTime,
+      endTime,
+      days: []
+    };
   }
 
   generateSourceDays(numberOfDays, filledWorkhours) {
@@ -163,14 +163,13 @@ class AddWorkHoursBox extends Component {
     let validation = true;
 
     for (let key in validations) {
-      console.log(key, validations[key]);
       let value = validations[key];
+
       if (validation) {
         validation = value;
       }
     }
 
-    console.log(validation);
     return (validation);
   }
 
@@ -208,9 +207,9 @@ class AddWorkHoursBox extends Component {
         }
       });
 
-      this.clearValues();
       this.setState({
-        selectedDays: []
+        selectedDays: [],
+        values: this.initValues()
       });
     }
     else {
