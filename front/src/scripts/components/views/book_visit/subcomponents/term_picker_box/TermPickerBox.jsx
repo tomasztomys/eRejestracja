@@ -9,11 +9,15 @@ import {
   BigCalendar
 } from 'lib/big_calendar';
 
+import dateFormat from 'dateformat';
+
 import * as workHoursReducer from 'reducers/work_hours';
 import * as visitsReducer from 'reducers/visits';
 import * as Actions from 'actions/Actions';
 
 import generateTerms from './generateTerms.jsx';
+
+import style from './term_picker.scss';
 
 class TermPickerBox extends Component {
   constructor() {
@@ -21,6 +25,7 @@ class TermPickerBox extends Component {
 
     this.state = {
       source: [],
+      selected: {},
       availableTimes: [],
       labels: {
         date: 'Day of vist',
@@ -36,7 +41,7 @@ class TermPickerBox extends Component {
       },
       downloadedWorkHoursId: 0,
       downloadedVisitsId: 0,
-      timeVisitMinutes: 30,
+      showWarning: false
     };
   }
 
@@ -49,15 +54,12 @@ class TermPickerBox extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { doctorId, workHours, visitTime, busyTerms } = nextProps;
-    let { timeVisitMinutes } = this.state;
 
     this.getWorkHours(doctorId);
     this.getDoctorBusyTerms(doctorId);
 
-    let time = (visitTime >= timeVisitMinutes) ? visitTime : timeVisitMinutes;
-
     this.setState({
-      availableTimes: generateTerms(workHours.terms, busyTerms, time)
+      availableTimes: generateTerms(workHours.terms, busyTerms, visitTime)
     });
   }
 
@@ -91,37 +93,41 @@ class TermPickerBox extends Component {
   }
 
   onNextStep() {
-    let { availableTimes } = this.state;
-    let selecteds = availableTimes.filter((item) => {
-      return item.selected;
-    });
+    let { selected } = this.state;
 
-    if (selecteds.length > 0) {
-      this.props.onChangeDate(selecteds[0]);
-      this.props.onNextStep();
+    if (selected.start) {
+      this.props.onNextStep(selected);
+    }
+    else {
+      this.setState({
+        showWarning: true
+      });
     }
   }
 
-  cleanSelectedEvents(events) {
-    return events.map((item) => {
-      item.selected = false;
-      return item;
+  onSelectEvent(event) {
+    this.setState({
+      selected: event
     });
   }
 
-  onSelectEvent(event) {
-    let source = this.state.availableTimes;
-    source = this.cleanSelectedEvents(source);
+  generateSelectedDateLabel(date) {
+    if (date.start) {
+      let day = dateFormat(date.start, 'dddd, mmmm dS, yyyy');
+      let start = dateFormat(date.start, 'h:MM');
+      let end = dateFormat(date.end, 'h:MM');
 
-    source[event.index].selected = true;
-    this.setState({
-      availableTimes: source
-    });
+      return `${ day } ${ start } - ${ end }`;
+    }
+    else {
+      return 'You do not select any date';
+    }
   }
 
   render() {
     let { onBackStep } = this.props;
-    let { availableTimes } = this.state;
+    let { availableTimes, showWarning } = this.state;
+    console.log(showWarning);
     let minHours = new Date();
 
     minHours.setHours(7);
@@ -140,6 +146,10 @@ class TermPickerBox extends Component {
           defaultView="month"
           onSelectEvent={ this.onSelectEvent.bind(this) }
         />
+        <p>Yuor select term:</p>
+        <p className={ { [style['warning']]: showWarning } }>
+          { this.generateSelectedDateLabel(this.state.selected) }
+        </p>
       </PickerBox>
     );
   }

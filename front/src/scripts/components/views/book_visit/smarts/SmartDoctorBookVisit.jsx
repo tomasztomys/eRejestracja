@@ -14,8 +14,7 @@ class SmartDoctorBookVisit extends Component {
   constructor() {
     super();
     this.state = {
-      selectedDate: undefined,
-      visitTime: 15
+      visitTime: 30
     };
   }
 
@@ -25,8 +24,7 @@ class SmartDoctorBookVisit extends Component {
     });
   }
 
-  onAddVisit() {
-    let { selectedDate } = this.state;
+  onAddVisit(selectedDate) {
     let { userId } = this.props;
     let parameters = {
       'doctor_id': userId,
@@ -51,8 +49,8 @@ class SmartDoctorBookVisit extends Component {
         selectedDate={ selectedDate }
         visitTime={ visitTime }
         userId={ userId }
-        onChange={ this.onChange.bind(this) }
         onAddVisit={ this.onAddVisit.bind(this) }
+        onChange={ this.onChange.bind(this) }
       />
     );
   }

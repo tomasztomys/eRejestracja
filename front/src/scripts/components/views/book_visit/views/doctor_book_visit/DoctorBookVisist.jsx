@@ -39,10 +39,8 @@ export default class DoctorBookVisit extends Component {
             />
           </CardWithHeader>
           <TermPickerBox
-            selectedDate={ selectedDate }
-            onChangeDate={ onChange.bind(this, 'selectedDate') }
             doctorId={ userId }
-            onNextStep={ onAddVisit.bind(this) }
+            onNextStep={ onAddVisit }
             visitTime={ visitTime }
           />
         </GridItem>
@@ -53,7 +51,6 @@ export default class DoctorBookVisit extends Component {
 
 DoctorBookVisit.propTypes = {
   userId: PropTypes.number,
-  selectedDate: PropTypes.string,
   visitTime: PropTypes.number,
   onChange: PropTypes.func,
   onAddVisit: PropTypes.func,
