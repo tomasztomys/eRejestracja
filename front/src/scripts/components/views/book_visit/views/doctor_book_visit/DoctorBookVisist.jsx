@@ -35,7 +35,8 @@ export default class DoctorBookVisit extends Component {
               onChange={ onChange.bind(this, 'visitTime') }
               min={ 30 }
               max={ 180 }
-              step={ 5 }
+              step={ 15 }
+              pinned
             />
           </CardWithHeader>
           <TermPickerBox

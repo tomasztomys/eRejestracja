@@ -54,6 +54,6 @@ const generateTerms = (doctorWorkHours, busyTerms, time) => {
     item.index = index;
     return item;
   });
-}
+};
 
 export default generateTerms;
