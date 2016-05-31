@@ -6,18 +6,17 @@ import style from './slider.scss';
 
 export default class Slider extends React.Component {
 
-  onChange(value) {
-    let { step, onChange } = this.props;
+  onChange(step, func, value) {
     let modValue = value % step;
 
     if (modValue === 0) {
-      onChange(value);
+      func(value);
     }
     else if (modValue <= (step / 2)) {
-      onChange(value - modValue);
+      func(value - modValue);
     }
     else {
-      onChange(value - modValue + step);
+      func(value - modValue + step);
     }
   }
 
@@ -27,8 +26,9 @@ export default class Slider extends React.Component {
       label,
       max,
       min,
-      onChange,
       snaps,
+      onChange,
+      step,
       ...otherProps
     } = this.props;
 
@@ -41,8 +41,10 @@ export default class Slider extends React.Component {
           className={ sliderStyle }
           max={ max }
           min={ min }
-          onChange={ this.onChange.bind(this) }
+          onChange={ this.onChange.bind(this, step, onChange) }
           pinned
+          snaps={ snaps }
+          step={ step }
           editable
           { ...otherProps }
         />
@@ -57,5 +59,6 @@ Slider.propTypes = {
   max: PropTypes.number,
   min: PropTypes.number,
   onChange: PropTypes.func,
-  snaps: PropTypes.bool
+  snaps: PropTypes.bool,
+  step: PropTypes.number
 };

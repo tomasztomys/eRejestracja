@@ -50,10 +50,12 @@ class SmartPatientBookVisit extends Component {
 
   render() {
     let { values } = this.state;
+    let { userId } = this.props;
 
     return (
       <PatientBookVisit
         values={ values }
+        patientId={ userId }
         onChange={ this._onValuesChange.bind(this) }
         signUp={ this._onSignUp.bind(this) }
       />

@@ -60,7 +60,7 @@ export default class PatientBookVisit extends Component {
 
   render() {
     let { stepsNumber } = this.state;
-    let { values, onChange } = this.props;
+    let { values, onChange, patientId } = this.props;
 
     return (
       <div className={ style['book-visit'] }>
@@ -85,6 +85,7 @@ export default class PatientBookVisit extends Component {
             <TermPickerBox
               onChangeDate={ onChange.bind(this, 'selectedDate') }
               doctorId={ values.doctor }
+              patientId={ patientId }
               onNextStep={ this.onNextStep.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
             />
@@ -111,5 +112,6 @@ export default class PatientBookVisit extends Component {
 PatientBookVisit.propTypes = {
   values: PropTypes.object,
   onChange: PropTypes.func,
-  signUp: PropTypes.func
+  signUp: PropTypes.func,
+  patientId: PropTypes.number
 };

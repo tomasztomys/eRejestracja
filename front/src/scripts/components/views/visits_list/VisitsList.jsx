@@ -43,15 +43,18 @@ class VisitsList extends Component {
 
   componentDidMount() {
     let { userId, userType } = this.props;
+
     this.props.dispatch(Actions.fetchPatientsList());
     this.props.dispatch(Actions.fetchDoctorsList());
     this.getVisitsList(userId, userType);
   }
 
   componentWillReceiveProps(nextProps) {
-    let { userId, userType, doctorsNames, patientsNames } = nextProps;
+    let { userId, userType, doctorsNames, patientsNames, visitsData } = nextProps;
+
     this.getVisitsList(userId, userType);
-    let source = nextProps.visits.map((item) => {
+
+    let source = visitsData[userId] ? visitsData[userId].map((item) => {
       return {
         id: item.id,
         doctor: doctorsNames[item.doctorId],
@@ -60,7 +63,7 @@ class VisitsList extends Component {
         start: dateformat(item.start, 'HH:MM'),
         end: dateformat(item.end, 'HH:MM')
       };
-    });
+    }) : [];
 
     this.setState({
       source
@@ -98,7 +101,7 @@ class VisitsList extends Component {
 
   render() {
     let { source, selected, labels, showCalendar } = this.state;
-    let { userType, visits } = this.props;
+    let { userType, visitsData, userId } = this.props;
     let model = {};
 
     if (userType === 'doctor') {
@@ -117,6 +120,8 @@ class VisitsList extends Component {
     minHours.setHours(7);
     minHours.setMinutes(0);
 
+    let events = visitsData[userId] ? visitsData[userId] : [];
+
     return (
       <Grid center>
         <GridItem xsSize="6">
@@ -131,7 +136,7 @@ class VisitsList extends Component {
             { showCalendar ?
               <BigCalendar
                 defaultDate={ new Date() }
-                events={ visits }
+                events={ events }
                 min={ minHours }
                 defaultView="month"
               /> :
@@ -153,7 +158,7 @@ class VisitsList extends Component {
 
 VisitsList.propTypes = {
   userId: PropTypes.number,
-  visits: PropTypes.array,
+  visitsData: PropTypes.array,
   userType: PropTypes.oneOf([ 'doctor', 'patient' ]),
   doctorsNames: PropTypes.object,
   patientsNames: PropTypes.object
@@ -169,7 +174,7 @@ function select(state) {
   return {
     userId: userReducer.getUserId(state),
     userType: userReducer.getUserType(state),
-    visits: visitsReducer.getVisitsData(state).visits,
+    visitsData: visitsReducer.getVisitsData(state),
     doctorsNames: doctorsReducer.getDoctorsNames(state),
     patientsNames: patientsReducer.getPatientsNames(state)
   };

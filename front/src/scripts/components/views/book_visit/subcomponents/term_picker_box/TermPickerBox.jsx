@@ -165,7 +165,7 @@ class TermPickerBox extends Component {
           onSelectEvent={ this.onSelectEvent.bind(this) }
         />
         <p>Yuor select term:</p>
-        <p className={ { [style['warning']]: showWarning } }>
+        <p className={ showWarning ? style['warning'] : '' }>
           { this.generateSelectedDateLabel(this.state.selected) }
         </p>
       </PickerBox>
