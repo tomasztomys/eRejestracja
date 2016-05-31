@@ -52,7 +52,7 @@ class WorkHoursTable extends Component {
   getWorkHours(userId) {
     let { downloadedWorkHours } = this.state;
 
-    if (Number.isInteger(userId) && !downloadedWorkHours) {
+    if (Number.isInteger(userId) && userId > 0 && !downloadedWorkHours) {
       this.props.dispatch(Actions.getWorkHours(userId));
       this.setState({
         downloadedWorkHours: true
