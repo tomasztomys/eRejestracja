@@ -31,7 +31,7 @@ class Doctors
      * @throws \Exception
      */
     public function _makeDoctor($doctorDB) {
-        if(!isset($doctorDB->id) || !isset($doctorDB->name) || !isset($doctorDB->surname) || !isset($doctorDB->email) || !isset($doctorDB->type) || !isset($doctorDB->specialization)) {
+        if(!isset($doctorDB->id) || !isset($doctorDB->name) || !isset($doctorDB->surname) || !isset($doctorDB->email) || !isset($doctorDB->type) || !isset($doctorDB->specialization) || !isset($doctorDB->email_confirmed)) {
             if(isset($doctorDB->type) && $doctorDB->type !== 'doctor') {
                 throw new \Exception("It's not a doctor");
             }
@@ -45,6 +45,7 @@ class Doctors
         $doctor['email'] = $doctorDB->email;
         $doctor['type'] = $doctorDB->type;
         $doctor['specialization'] = $doctorDB->specialization;
+        $doctor['email_confirmed'] = $doctorDB->email_confirmed;
 
         return $doctor;
     }
@@ -198,6 +199,8 @@ class Doctors
         $doctorBean->password = $request->getParam('password');
         $doctorBean->specialization = $request->getParam('specialization');
         $doctorBean->type = 'doctor';
+        $doctorBean->email_confirmed = false;
+        $doctorBean->email_token = md5(uniqid(rand(), true));
 
         \R::store($doctorBean);
         return $response->withJson([]);
