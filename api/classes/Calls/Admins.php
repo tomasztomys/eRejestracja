@@ -146,6 +146,8 @@ class Admins
         $adminBean->email_confirmed = false;
         $adminBean->email_token = md5(uniqid(rand(), true));
 
+
+
         \R::store($adminBean);
         return $response->withJson([]);
     }

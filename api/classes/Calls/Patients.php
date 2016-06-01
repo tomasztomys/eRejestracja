@@ -148,6 +148,10 @@ class Patients
         $patientBean->email_confirmed = false;
         $patientBean->email_token = md5(uniqid(rand(), true));
 
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($patientBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $patientBean->name $patientBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$patientBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
+
         \R::store($patientBean);
         return $response->withJson([]);
     }
