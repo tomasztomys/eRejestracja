@@ -50,6 +50,11 @@ class Calls
             $this->get('/{id:[0-9]+}/reset_password', '\Calls\User:resetPassword')->setName('resetPassword');
         });
 
+        $this->_app->group('/institute', function () {
+            $this->get('', '\Calls\Institute:getInstitute')->setName('getInstitute');
+            $this->put('', '\Calls\Institute:editInstitute')->setName('editInstitute');
+        });
+
         $this->_app->group('/doctors', function () use ($db) {
             $this->get('', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->getDoctors($request, $response, $args); })->setName('getDoctors');
             $this->get('/{id:[0-9]+}', function($request, $response, $args) use ($db) { $doctors = new \Calls\Doctors($db); $doctors->getDoctor($request, $response, $args); })->setName('getDoctor');
