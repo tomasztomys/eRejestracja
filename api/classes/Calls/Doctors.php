@@ -191,6 +191,18 @@ class Doctors
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addDoctor($request, $response, $args) {
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
+        }
+
         $doctorBean = \R::dispense('user');
 
         $doctorBean->name = $request->getParam('name');
@@ -228,6 +240,18 @@ class Doctors
         if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
         }
 
         $doctorDB->name = $request->getParam('name');

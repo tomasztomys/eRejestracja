@@ -136,6 +136,19 @@ class Admins
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addAdmin($request, $response, $args) {
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
+        }
+
         $adminBean = \R::dispense('user');
 
         $adminBean->name = $request->getParam('name');
@@ -207,12 +220,25 @@ class Admins
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function editAdmin($request, $response, $args) {
+
         $id = $args['id'];
         $adminDB = \R::load( 'user', $id );
 
         if(!$this->_ifFoundAdmin($adminDB->id, $adminDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Admin not found']);
+        }
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
         }
 
         $adminDB->name = $request->getParam('name');
