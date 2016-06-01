@@ -34,7 +34,6 @@ class Institute
         }
 
         $patient = [];
-        $patient['id'] = (int)$instituteDB->id;
         $patient['name'] = $instituteDB->name;
         $patient['ltd'] = $instituteDB->ltd;
         $patient['lng'] = $instituteDB->lng;
