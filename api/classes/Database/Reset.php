@@ -177,6 +177,24 @@ class Reset
   }
 
   /**
+   * Dodaje placówkę do bazy danych
+   *
+   * @return array
+   */
+  public function _addInstitute() {
+
+    $instituteBean = \R::dispense('institute', 1);
+
+    $instituteBean->name = 'Przychodnia lekarska';
+    $instituteBean->ltd = '52.3871569';
+    $instituteBean->lng = '16.9716026';
+    $instituteBean->address = 'Osiedle Lecha 121/1, 61-299 Poznań';
+    $instituteBean->contact = '+48 695 157 493';
+
+    return \R::store($instituteBean);
+  }
+
+  /**
    * Metoda służaca do przywrócenia domyślnych danych w bazie danych
    *
    * @return void
@@ -184,7 +202,7 @@ class Reset
   public function run() {
     \R::nuke();
 
-    if (is_array($this->_addDoctors()) && is_array($this->_addPatients()) && is_array($this->_addAdmins())) {
+    if (is_array($this->_addDoctors()) && is_array($this->_addPatients()) && is_array($this->_addAdmins()) && $this->_addInstitute() !== 0) {
       echo json_encode([]);
     } else {
       echo json_encode(['reset' => 'error']);
