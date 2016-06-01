@@ -29,7 +29,7 @@ class Patients
      * @throws \Exception
      */
     public function _makePatient($patientDB) {
-        if(!isset($patientDB->id) || !isset($patientDB->name) || !isset($patientDB->surname) || !isset($patientDB->email) || !isset($patientDB->type) || !isset($patientDB->pesel)) {
+        if(!isset($patientDB->id) || !isset($patientDB->name) || !isset($patientDB->surname) || !isset($patientDB->email) || !isset($patientDB->type) || !isset($patientDB->pesel) || !isset($patientDB->email_confirmed)) {
             if(isset($patientDB->type) && $patientDB->type !== 'patient') {
                 throw new \Exception("It's not a patient");
             }
@@ -43,6 +43,7 @@ class Patients
         $patient['email'] = $patientDB->email;
         $patient['pesel'] = $patientDB->pesel;
         $patient['type'] = $patientDB->type;
+        $patient['email_confirmed'] = $patientDB->email_confirmed;
 
         return $patient;
     }
@@ -144,6 +145,8 @@ class Patients
         $patientBean->password = $request->getParam('password');
         $patientBean->pesel = $request->getParam('pesel');
         $patientBean->type = 'patient';
+        $patientBean->email_confirmed = false;
+        $patientBean->email_token = md5(uniqid(rand(), true));
 
         \R::store($patientBean);
         return $response->withJson([]);

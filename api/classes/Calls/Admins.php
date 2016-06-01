@@ -29,7 +29,7 @@ class Admins
      * @throws \Exception
      */
     public function _makeAdmin($adminDB) {
-        if(!isset($adminDB->id) || !isset($adminDB->name) || !isset($adminDB->surname) || !isset($adminDB->email) || !isset($adminDB->type)) {
+        if(!isset($adminDB->id) || !isset($adminDB->name) || !isset($adminDB->surname) || !isset($adminDB->email) || !isset($adminDB->type) || !isset($adminDB->email_confirmed)) {
             if(isset($adminDB->type) && $adminDB->type !== 'admin') {
                 throw new \Exception("It's not a admin");
             }
@@ -42,6 +42,7 @@ class Admins
         $admin['surname'] = $adminDB->surname;
         $admin['email'] = $adminDB->email;
         $admin['type'] = $adminDB->type;
+        $admin['email_confirmed'] = $adminDB->email_confirmed;
 
         return $admin;
     }
@@ -142,6 +143,8 @@ class Admins
         $adminBean->email = $request->getParam('email');
         $adminBean->password = $request->getParam('password');
         $adminBean->type = 'admin';
+        $adminBean->email_confirmed = false;
+        $adminBean->email_token = md5(uniqid(rand(), true));
 
         \R::store($adminBean);
         return $response->withJson([]);
