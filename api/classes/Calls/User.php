@@ -24,7 +24,7 @@ class User
     }
 
     /**
-     * Metoda do obsługi calla GET /user/{id}/password
+     * Metoda do obsługi calla POST /user/{id}/password
      *
      * Zmiana hasła użytkownika
      *
@@ -51,6 +51,35 @@ class User
             return $response->withJson([]);
         } else {
             return $response->withJson(['old_password' => 'is wrong']);
+        }
+    }
+
+    /**
+     * Metoda do obsługi calla GET /confirm-email
+     *
+     * Potwierdzenie maila użytkownika
+     *
+     * @param $request \Psr\Http\Message\ServerRequestInterface
+     * @param $response \Psr\Http\Message\ResponseInterface
+     * @param $args array
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function confirmEmail($request, $response, $args) {
+
+        $token= $request->getParam('token');
+        $user = \R::findOne( 'user', ' email_token = ? ', [ $token ] );
+
+        if($user === null) {
+            return $response->withJson(['error' => 'Token invalid']);
+        }
+
+        if($user->email_confirmed == false) {
+            $user->email_confirmed = true;
+            \R::store($user);
+            return $response->withJson([]);
+        } else {
+            return $response->withJson(['error' => 'Email has been already confirmed.']);
         }
     }
 }
