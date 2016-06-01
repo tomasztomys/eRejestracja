@@ -146,7 +146,9 @@ class Admins
         $adminBean->email_confirmed = false;
         $adminBean->email_token = md5(uniqid(rand(), true));
 
-
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($adminBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $adminBean->name $adminBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$adminBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
 
         \R::store($adminBean);
         return $response->withJson([]);

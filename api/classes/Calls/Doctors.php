@@ -202,6 +202,10 @@ class Doctors
         $doctorBean->email_confirmed = false;
         $doctorBean->email_token = md5(uniqid(rand(), true));
 
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($doctorBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $doctorBean->name $doctorBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$doctorBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
+
         \R::store($doctorBean);
         return $response->withJson([]);
     }
