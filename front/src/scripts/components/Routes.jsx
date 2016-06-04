@@ -39,6 +39,8 @@ import {
   SmartDoctorBookVisit
 } from './views/book_visit/smarts';
 
+import { SmartContact } from './views/contact';
+
 export default class Routes extends React.Component {
   _redirectIfUserIsNotLogged(nextState, replace) {
     if (!localStorage.get('user')) {
@@ -98,6 +100,9 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.settings.myProfile }
           component={ SmartUserProfileEdition }
+        />
+        <Route path={ Paths.contact }
+          component={ SmartContact }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }

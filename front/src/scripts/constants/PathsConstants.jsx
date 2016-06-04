@@ -23,6 +23,7 @@ const Paths = {
     edition: '/doctor-edition/:id',
     workHours: '/doctor-work-hours'
   },
+  contact: '/contact',
   settings: {
     myProfile: '/my-profile',
     logout: '/logout'
