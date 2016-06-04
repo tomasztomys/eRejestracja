@@ -22,7 +22,8 @@ class Reset
       'email' => 'tomasz@tomys.pl',
       'password' => 'tomasz',
       'type' => 'doctor',
-      'specialization' => 'surgeon'
+      'specialization' => 'surgeon',
+      'email_confirmed' => true
     ];
     $doctor2 = [
       'name' => 'Dariusz',
@@ -30,7 +31,8 @@ class Reset
       'email' => 'dariusz.paluch@hotmail.com',
       'password' => 'darek123',
       'type' => 'doctor',
-      'specialization' => 'pediatrician'
+      'specialization' => 'pediatrician',
+      'email_confirmed' => true
     ];
     $doctor3 = [
       'name' => 'Adam',
@@ -38,7 +40,8 @@ class Reset
       'email' => 'doktor@hotmail.com',
       'password' => 'doktor',
       'type' => 'doctor',
-      'specialization' => 'dentist'
+      'specialization' => 'dentist',
+      'email_confirmed' => true
     ];
 
     return [$doctor1, $doctor2, $doctor3];
@@ -56,7 +59,8 @@ class Reset
       'email' => 'kamil@kazmierczak.pl',
       'password' => 'kamil123',
       'pesel' => '92060112652',
-      'type' => 'patient'
+      'type' => 'patient',
+      'email_confirmed' => true
     ];
     $patient2 = [
       'name' => 'Natalia',
@@ -64,7 +68,8 @@ class Reset
       'email' => 'kaczorek@hotmail.com',
       'password' => 'poznan123',
       'pesel' => '96021532532',
-      'type' => 'patient'
+      'type' => 'patient',
+      'email_confirmed' => true
     ];
     $patient3 = {
       'name' => 'Adam',
@@ -89,13 +94,15 @@ class Reset
         'email' => 'admin@gmail.com',
         'password' => 'admin',
         'type' => 'admin'
+        'email_confirmed' => true
     ];
     $admin2 = [
         'name' => 'Julia',
         'surname' => 'Nowicka',
         'email' => 'julia.nowicka@interia.pl',
         'password' => 'julianowicka',
-        'type' => 'admin'
+        'type' => 'admin',
+        'email_confirmed' => true
     ];
 
     return [$admin1, $admin2];
@@ -119,6 +126,8 @@ class Reset
       $doctorBeans[$i]->password = $doctor['password'];
       $doctorBeans[$i]->type = $doctor['type'];
       $doctorBeans[$i]->specialization = $doctor['specialization'];
+      $doctorBeans[$i]->email_confirmed = $doctor['email_confirmed'];
+      $doctorBeans[$i]->email_token = md5(uniqid(rand(), true));
       $doctorBeans[$i]->ownWorkhoursList = [];
       $doctorBeans[$i]->ownVisitList = [];
       $i++;
@@ -144,6 +153,8 @@ class Reset
       $patientBeans[$i]->password = $patient['password'];
       $patientBeans[$i]->pesel = $patient['pesel'];
       $patientBeans[$i]->type = $patient['type'];
+      $patientBeans[$i]->email_confirmed = $patient['email_confirmed'];
+      $patientBeans[$i]->email_token = md5(uniqid(rand(), true));
       $patientBeans[$i]->ownVisitList = [];
       $i++;
     }
@@ -167,9 +178,29 @@ class Reset
       $adminBeans[$i]->email = $admin['email'];
       $adminBeans[$i]->password = $admin['password'];
       $adminBeans[$i]->type = $admin['type'];
+      $adminBeans[$i]->email_confirmed = $admin['email_confirmed'];
+      $adminBeans[$i]->email_token = md5(uniqid(rand(), true));
       $i++;
     }
     return \R::storeAll($adminBeans);
+  }
+
+  /**
+   * Dodaje placówkę do bazy danych
+   *
+   * @return array
+   */
+  public function _addInstitute() {
+
+    $instituteBean = \R::dispense('institute', 1);
+
+    $instituteBean->name = 'Przychodnia lekarska';
+    $instituteBean->ltd = '52.3871569';
+    $instituteBean->lng = '16.9716026';
+    $instituteBean->address = 'Osiedle Lecha 121/1, 61-299 Poznań';
+    $instituteBean->contact = '+48 695 157 493';
+
+    return \R::store($instituteBean);
   }
 
   /**
@@ -180,7 +211,7 @@ class Reset
   public function run() {
     \R::nuke();
 
-    if (is_array($this->_addDoctors()) && is_array($this->_addPatients()) && is_array($this->_addAdmins())) {
+    if (is_array($this->_addDoctors()) && is_array($this->_addPatients()) && is_array($this->_addAdmins()) && $this->_addInstitute() !== 0) {
       echo json_encode([]);
     } else {
       echo json_encode(['reset' => 'error']);

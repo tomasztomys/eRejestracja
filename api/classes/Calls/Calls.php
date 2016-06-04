@@ -44,7 +44,15 @@ class Calls
         });
 
         $this->_app->group('/user', function () {
-          $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
+            $this->get('/confirm_email', '\Calls\User:confirmEmail')->setName('confirmEmail');
+            $this->post('/new_password', '\Calls\User:newPassword')->setName('newPassword');
+            $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
+            $this->get('/{id:[0-9]+}/reset_password', '\Calls\User:resetPassword')->setName('resetPassword');
+        });
+
+        $this->_app->group('/institute', function () {
+            $this->get('', '\Calls\Institute:getInstitute')->setName('getInstitute');
+            $this->put('', '\Calls\Institute:editInstitute')->setName('editInstitute');
         });
 
         $this->_app->group('/doctors', function () use ($db) {

@@ -31,7 +31,7 @@ class Doctors
      * @throws \Exception
      */
     public function _makeDoctor($doctorDB) {
-        if(!isset($doctorDB->id) || !isset($doctorDB->name) || !isset($doctorDB->surname) || !isset($doctorDB->email) || !isset($doctorDB->type) || !isset($doctorDB->specialization)) {
+        if(!isset($doctorDB->id) || !isset($doctorDB->name) || !isset($doctorDB->surname) || !isset($doctorDB->email) || !isset($doctorDB->type) || !isset($doctorDB->specialization) || !isset($doctorDB->email_confirmed)) {
             if(isset($doctorDB->type) && $doctorDB->type !== 'doctor') {
                 throw new \Exception("It's not a doctor");
             }
@@ -45,6 +45,7 @@ class Doctors
         $doctor['email'] = $doctorDB->email;
         $doctor['type'] = $doctorDB->type;
         $doctor['specialization'] = $doctorDB->specialization;
+        $doctor['email_confirmed'] = $doctorDB->email_confirmed;
 
         return $doctor;
     }
@@ -190,6 +191,18 @@ class Doctors
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addDoctor($request, $response, $args) {
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
+        }
+
         $doctorBean = \R::dispense('user');
 
         $doctorBean->name = $request->getParam('name');
@@ -198,6 +211,12 @@ class Doctors
         $doctorBean->password = $request->getParam('password');
         $doctorBean->specialization = $request->getParam('specialization');
         $doctorBean->type = 'doctor';
+        $doctorBean->email_confirmed = false;
+        $doctorBean->email_token = md5(uniqid(rand(), true));
+
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($doctorBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $doctorBean->name $doctorBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$doctorBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
 
         \R::store($doctorBean);
         return $response->withJson([]);
@@ -221,6 +240,18 @@ class Doctors
         if(!$this->_ifFoundDoctor($doctorDB->id, $doctorDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Doctor not found']);
+        }
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
         }
 
         $doctorDB->name = $request->getParam('name');

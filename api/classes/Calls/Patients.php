@@ -29,7 +29,7 @@ class Patients
      * @throws \Exception
      */
     public function _makePatient($patientDB) {
-        if(!isset($patientDB->id) || !isset($patientDB->name) || !isset($patientDB->surname) || !isset($patientDB->email) || !isset($patientDB->type) || !isset($patientDB->pesel)) {
+        if(!isset($patientDB->id) || !isset($patientDB->name) || !isset($patientDB->surname) || !isset($patientDB->email) || !isset($patientDB->type) || !isset($patientDB->pesel) || !isset($patientDB->email_confirmed)) {
             if(isset($patientDB->type) && $patientDB->type !== 'patient') {
                 throw new \Exception("It's not a patient");
             }
@@ -43,6 +43,7 @@ class Patients
         $patient['email'] = $patientDB->email;
         $patient['pesel'] = $patientDB->pesel;
         $patient['type'] = $patientDB->type;
+        $patient['email_confirmed'] = $patientDB->email_confirmed;
 
         return $patient;
     }
@@ -136,6 +137,19 @@ class Patients
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addPatient($request, $response, $args) {
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
+        }
+
         $patientBean = \R::dispense('user');
 
         $patientBean->name = $request->getParam('name');
@@ -144,6 +158,12 @@ class Patients
         $patientBean->password = $request->getParam('password');
         $patientBean->pesel = $request->getParam('pesel');
         $patientBean->type = 'patient';
+        $patientBean->email_confirmed = false;
+        $patientBean->email_token = md5(uniqid(rand(), true));
+
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($patientBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $patientBean->name $patientBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$patientBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
 
         \R::store($patientBean);
         return $response->withJson([]);
@@ -208,6 +228,18 @@ class Patients
         if(!$this->_ifFoundPatient($patientDB->id, $patientDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Patient not found']);
+        }
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
         }
 
         $patientDB->name = $request->getParam('name');
