@@ -25,14 +25,15 @@ class ContactEdition extends Component {
     super();
     this.state = {
       initialInstituteData: false,
+      defaultPosition: {
+        ltd: 0,
+        lng: 0
+      },
+      markers: [],
       values : {
         name: '',
         address: '',
-        contact: '',
-        position: {
-          ltd: 0,
-          lng: 0,
-        }
+        contact: ''
       },
       errors: {
         name: '',
@@ -52,18 +53,28 @@ class ContactEdition extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { initialInstituteData} = this.state;
+    let { initialInstituteData, defaultPosition } = this.state;
     let { instituteData } = nextProps;
     if (!initialInstituteData && instituteData.name) {
       this.setState({
+        defaultPosition: {
+          lat: Number(instituteData.ltd),
+          lng: Number(instituteData.lng)
+        },
+        markers: [
+          {
+            position : {
+              lat: Number(instituteData.ltd),
+              lng: Number(instituteData.lng)
+            },
+            key: instituteData.name,
+            defaultAnimation: 2
+          },
+        ],
         values: {
           name: instituteData.name,
           address: instituteData.address,
           contact: instituteData.contact,
-          position : {
-            lat: Number(instituteData.ltd),
-            lng: Number(instituteData.lng)
-          }
         },
         initialInstituteData: true
       });
@@ -79,25 +90,18 @@ class ContactEdition extends Component {
   }
 
   handleMapClick(event) {
-    console.log(event.latLng);
-    let { values } = this.state;
-    values.position = event.latLng;
-
+    let marker = {
+      position: event.latLng,
+      key: Date.now(),
+      defaultAnimation: 2
+    }
     this.setState({
-      values
+      markers: [ marker ]
     });
   }
 
   render() {
-    let { values, errors, labels } = this.state;
-
-    let markers = [
-      {
-        position: values.position,
-        key: values.position.lng + values.position.lng || '',
-        defaultAnimation: 2
-      }
-    ];
+    let { values, errors, labels, defaultPosition, markers } = this.state;
 
     return (
       <Grid center>
@@ -129,8 +133,8 @@ class ContactEdition extends Component {
             />
             <GoogleMaps
               className={ style['map'] }
-              defaultCenter={ values.position }
-              zoom={ 12 }
+              defaultCenter={ defaultPosition }
+              defaultZoom={ 12 }
               markers={ markers }
               onClick={ this.handleMapClick.bind(this) }
             />
