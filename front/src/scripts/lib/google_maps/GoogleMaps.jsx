@@ -21,9 +21,9 @@ export default class GoogleMaps extends React.Component {
   }
 
   render() {
-    console.log(GoogleMaps);
-    let { className, defaultCenter, markers, zoom } = this.props;
+    let { className, defaultCenter, markers, zoom, onClick } = this.props;
 
+    console.log(defaultCenter);
     if (!defaultCenter.lat && !defaultCenter.lng)
       return null;
 
@@ -56,6 +56,7 @@ export default class GoogleMaps extends React.Component {
                   zoomControl: true
                 }
               }
+              onClick={ onClick }
               zoom={ zoom }
               center={ defaultCenter }
               disableDefaultUI={ true }
@@ -74,6 +75,7 @@ GoogleMaps.defaultProps = {
   className: PropTypes.string,
   zoom: PropTypes.number,
   markers: PropTypes.array,
+  onClick: PropTypes.func,
   defaultCenter: PropTypes.shape({
     lat: PropTypes.number,
     lng: PropTypes.number

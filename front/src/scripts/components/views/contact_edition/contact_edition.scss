@@ -1,0 +1,13 @@
+$map-height: 300px;
+
+.map {
+  cursor: pointer !important;
+  * {
+    cursor: pointer !important;
+  }
+  height: $map-height;
+
+  & > div {
+    height: $map-height;
+  }
+}

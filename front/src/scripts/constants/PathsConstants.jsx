@@ -24,6 +24,7 @@ const Paths = {
     workHours: '/doctor-work-hours'
   },
   contact: '/contact',
+  contactEdition: '/contact-edition',
   settings: {
     myProfile: '/my-profile',
     logout: '/logout'

@@ -40,6 +40,7 @@ import {
 } from './views/book_visit/smarts';
 
 import { SmartContact } from './views/contact';
+import { ContactEdition } from './views/contact_edition';
 
 export default class Routes extends React.Component {
   _redirectIfUserIsNotLogged(nextState, replace) {
@@ -103,6 +104,9 @@ export default class Routes extends React.Component {
         />
         <Route path={ Paths.contact }
           component={ SmartContact }
+        />
+        <Route path={ Paths.contactEdition }
+          component={ ContactEdition }
         />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
