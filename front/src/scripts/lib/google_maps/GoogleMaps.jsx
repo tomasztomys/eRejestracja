@@ -23,9 +23,9 @@ export default class GoogleMaps extends React.Component {
   render() {
     let { className, defaultCenter, markers, zoom, onClick, defaultZoom } = this.props;
 
-    console.log(defaultCenter);
-    if (!defaultCenter.lat && !defaultCenter.lng)
+    if (!defaultCenter.lat && !defaultCenter.lng) {
       return null;
+    }
 
     return (
       <div className={ classnames(style['react-google-maps'], className) }>

@@ -30,15 +30,25 @@ class ContactEdition extends Component {
         lng: 0
       },
       markers: [],
-      values : {
+      values: {
         name: '',
         address: '',
         contact: ''
+      },
+      validations: {
+        name: true,
+        address: true,
+        contact: true,
       },
       errors: {
         name: '',
         address: '',
         contact: '',
+      },
+      errorsMessages: {
+        name: 'Please fill name of institute.',
+        address: 'Please fill address of institute.',
+        contact: 'Please fill phone number correct.'
       },
       labels: {
         name: 'Institude name',
@@ -89,19 +99,43 @@ class ContactEdition extends Component {
     });
   }
 
+  onBlur(type) {
+    let { validations, values } = this.state;
+
+    switch(type) {
+      case 'name':
+      case 'address': {
+        validations[type] = values[type].length > 0;
+        break;
+      }
+      case 'contact': {
+        validations[type] = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(values[type]);
+        break;
+      }
+    }
+
+    this.setState({
+      validations
+    });
+  }
+
   handleMapClick(event) {
     let marker = {
-      position: event.latLng,
+      position: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      },
       key: Date.now(),
       defaultAnimation: 2
-    }
+    };
+
     this.setState({
       markers: [ marker ]
     });
   }
 
   render() {
-    let { values, errors, labels, defaultPosition, markers } = this.state;
+    let { values, errors, validations, errorsMessages, labels, defaultPosition, markers } = this.state;
 
     return (
       <Grid center>
@@ -110,26 +144,29 @@ class ContactEdition extends Component {
             title="Contact edition"
             subtitle="Description our institute"
           >
-          <Input
-            key={ labels.name }
-            label={ labels.name }
-            error={ errors.name }
-            value={ values.name }
-            onChange={ this.onChange.bind(this, 'name') }
-           />
-           <Input
+            <Input
+              key={ labels.name }
+              label={ labels.name }
+              error={ validations.name ? '' : errorsMessages.name }
+              value={ values.name }
+              onChange={ this.onChange.bind(this, 'name') }
+              onBlur={ this.onBlur.bind(this, 'name') }
+            />
+            <Input
               key={ labels.address }
               label={ labels.address }
-              error={ errors.address }
+              error={ validations.address ? '' : errorsMessages.address }
               value={ values.address }
               onChange={ this.onChange.bind(this, 'address') }
+              onBlur={ this.onBlur.bind(this, 'address') }
             />
             <Input
               key={ labels.contact }
               label={ labels.contact }
-              error={ errors.contact }
+              error={ validations.contact ? '' : errorsMessages.contact }
               value={ values.contact }
               onChange={ this.onChange.bind(this, 'contact') }
+              onBlur={ this.onBlur.bind(this, 'contact') }
             />
             <GoogleMaps
               className={ style['map'] }
