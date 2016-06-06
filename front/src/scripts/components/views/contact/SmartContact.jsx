@@ -37,25 +37,28 @@ class SmartContact extends Component {
         key: instituteData.name || '',
       }
     ];
-    console.log(instituteLocalization);
-    console.log(this.props.instituteData);
+
     return (
-      <Grid center>
-        <GridItem xsSize="8">
+      <Grid center className={ style['contact'] }>
+        <GridItem xsSize="6">
           <CardWithHeader
             title="Contact"
             subtitle="Description our institute"
           >
             <GoogleMaps
-              className={ style['map']}
+              className={ style['map'] }
               defaultCenter={ instituteLocalization }
-              zoom={ 12 }
+              defaultZoom={ 12 }
               markers={ markers }
             />
             <div className={ style['contact-data'] }>
               <p>{ instituteData.name }</p>
               <p>{ instituteData.address }</p>
-              <p>{ instituteData.contact }</p>
+              <p className={ style['phone'] }>
+                <a href={ `tel:${ instituteData.contact.replace(/\s/g, '') }` }>
+                  { instituteData.contact }
+                </a>
+              </p>
             </div>
           </CardWithHeader>
         </GridItem>

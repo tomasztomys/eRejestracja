@@ -30,8 +30,8 @@ export default class GoogleMaps extends React.Component {
     return (
       <div className={ classnames(style['react-google-maps'], className) }>
         <ScriptjsLoader
-          hostname={ 'maps.googleapis.com'}
-          pathname={ '/maps/api/js'}
+          hostname={ 'maps.googleapis.com' }
+          pathname={ '/maps/api/js' }
           query={
             {
               v: '3.22',
@@ -58,7 +58,7 @@ export default class GoogleMaps extends React.Component {
               }
               onClick={ onClick }
               defaultZoom={ defaultZoom }
-              center={ defaultCenter }
+              defaultCenter={ defaultCenter }
               disableDefaultUI={ true }
             >
               { this._renderMarkers(markers) }

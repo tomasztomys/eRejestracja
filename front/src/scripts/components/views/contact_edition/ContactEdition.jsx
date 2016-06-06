@@ -109,7 +109,7 @@ class ContactEdition extends Component {
         break;
       }
       case 'contact': {
-        validations[type] = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(values[type]);
+        validations[type] = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(values[type]) && values[type].length >= 9;
         break;
       }
     }
@@ -134,15 +134,52 @@ class ContactEdition extends Component {
     });
   }
 
+  checkValidations() {
+    let { validations } = this.state;
+    let validation = true;
+
+    for (let key in validations) {
+      if (validation && !validations[key]) {
+        validation = false;
+      }
+    }
+
+    return validation;
+  }
+
+  onSave() {
+    if (this.checkValidations()) {
+      let { values, markers } = this.state;
+
+      let parameters = {
+        name: values.name,
+        address: values.address,
+        contact: values.contact,
+        ltd: markers[0].position.lat,
+        lng: markers[0].position.lng
+      };
+
+      this.props.dispatch(Actions.changeInstituteData(parameters));
+    }
+  }
+
   render() {
-    let { values, errors, validations, errorsMessages, labels, defaultPosition, markers } = this.state;
+    let { values, validations, errorsMessages, labels, defaultPosition, markers } = this.state;
+    let actions = [
+      {
+        label: 'Save',
+        onClick: this.onSave.bind(this),
+        className: style['save-button']
+      }
+    ];
 
     return (
       <Grid center>
-        <GridItem xsSize="8">
+        <GridItem xsSize="6">
           <CardWithHeader
             title="Contact edition"
             subtitle="Description our institute"
+            actions={ actions }
           >
             <Input
               key={ labels.name }

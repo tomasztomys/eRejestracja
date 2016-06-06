@@ -27,19 +27,43 @@ class SmartLogin extends Component {
       errors: {
         email: '',
         password: ''
-      }
+      },
+      showForgotPassword: false
     };
+  }
+  showErrors() {
+    let { errorMessages, errors, values } = this.state;
+
+    for (let key in values) {
+      if (values[key].length === 0) {
+        errors[key] = errorMessages[key];
+      }
+    }
+
+    this.setState({
+      errors,
+      showForgotPassword: true
+    });
   }
 
   _logInHandle() {
-    let { email, password } = this.state.values;
+    let { values } = this.state;
+    let { email, password } = values;
 
     if (email.length > 0 && password.length > 0) {
       Action.tryLogin(email, password, this.props.dispatch).then((data) => {
         if (data) {
           this.context.router.push(Paths.dashboard);
         }
+        else {
+          this.setState({
+            showForgotPassword: true
+          });
+        }
       });
+    }
+    else {
+      this.showErrors();
     }
   }
 

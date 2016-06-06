@@ -14,7 +14,7 @@ import {
 
 import style from './login.scss';
 
-export default class Login extends Component {
+export default class ForgotPasswordModal extends Component {
 
   render() {
     let {
@@ -87,21 +87,5 @@ export default class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  labels: PropTypes.shape({
-    login: PropTypes.string,
-    password: PropTypes.string,
-    loginButton: PropTypes.string
-  }),
-  values: PropTypes.shape({
-    login: PropTypes.string,
-    password: PropTypes.string
-  }).isRequired,
-  errors: PropTypes.shape({
-    login: PropTypes.string,
-    password: PropTypes.string
-  }),
-  inputChange: PropTypes.func,
-  logInHandle: PropTypes.func,
-  showForgotPassword: PropTypes.bool
+ForgotPasswordModal.propTypes = {
 };
