@@ -123,10 +123,10 @@ class User
      */
     public function resetPassword($request, $response, $args) {
 
-        $id = $args['id'];
-        $user = \R::load( 'user', $id );
+        $email = $request->getParam('email');
+        $user = \R::findOne( 'user', ' email = ? ', [ $email ] );
 
-        if($user->id === 0) {
+        if($user === null) {
             return $response->withJson(['error' => 'User not found']);
         }
 
