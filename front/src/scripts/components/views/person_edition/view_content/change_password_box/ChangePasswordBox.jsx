@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   CardWithClosing,
-} from 'ui';
+} from 'lib/ui';
 
 import { ChangePassword } from '../../subcomponents/change_password';
 
@@ -16,7 +16,8 @@ export default class ChangePasswordBox extends Component {
       onSave,
       onChange,
       open,
-      onToogleBox
+      onToogleBox,
+      oldPassword
     } = this.props;
 
     let actions = [
@@ -40,7 +41,7 @@ export default class ChangePasswordBox extends Component {
           values={ values }
           errors={ errors }
           onChange={ onChange }
-          oldPassword
+          oldPassword={ oldPassword }
         />
       </CardWithClosing>
     );
@@ -60,5 +61,6 @@ ChangePasswordBox.propTypes = {
   onChange: PropTypes.func,
   onSave: PropTypes.func,
   open: PropTypes.bool,
-  onToogleBox: PropTypes.func
+  onToogleBox: PropTypes.func,
+  oldPassword: PropTypes.bool
 };

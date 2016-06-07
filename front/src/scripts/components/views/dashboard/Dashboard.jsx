@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
   Button,
-} from 'ui';
+} from 'lib/ui';
 
 import style from './dashboard.scss';
 

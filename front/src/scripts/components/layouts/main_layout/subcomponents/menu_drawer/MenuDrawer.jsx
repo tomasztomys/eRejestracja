@@ -7,7 +7,7 @@ import {
   ListItem,
   FontIcon,
   NavDrawer,
-} from 'ui';
+} from 'lib/ui';
 
 import classnames from 'classnames';
 

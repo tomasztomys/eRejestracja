@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Button,
-} from 'ui';
+} from 'lib/ui';
 
 import SVG from 'svg-inline-react';
 

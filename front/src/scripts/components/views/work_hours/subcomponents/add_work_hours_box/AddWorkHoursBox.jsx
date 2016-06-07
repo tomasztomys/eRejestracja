@@ -6,7 +6,7 @@ import {
   CardWithHeader,
   TimePicker,
   Autocomplete
-} from 'ui';
+} from 'lib/ui';
 
 import {
   convertToRfc3339,

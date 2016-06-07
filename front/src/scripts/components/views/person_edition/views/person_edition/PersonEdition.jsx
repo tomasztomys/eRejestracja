@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Grid,
-  GridItem,
-} from 'ui';
+  GridItem
+} from 'lib/grid';
 
 import { ChangePasswordBox } from '../../view_content/change_password_box';
 import { PersonDataBox } from '../../view_content/person_data_box';
@@ -105,7 +105,9 @@ export default class PersonEdition extends Component {
         <Grid center>
           <GridItem
             xsSize="11"
-            mdSize="5"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
           >
             <PersonDataBox
               values={ values }
@@ -122,7 +124,9 @@ export default class PersonEdition extends Component {
           <Grid center>
             <GridItem
               xsSize="11"
-              mdSize="5"
+              smSize="9"
+              mdSize="7"
+              lgSize="6"
             >
               <ChangePasswordBox
                 values={ values }
@@ -140,7 +144,9 @@ export default class PersonEdition extends Component {
           <Grid center>
             <GridItem
               xsSize="11"
-              mdSize="5"
+              smSize="9"
+              mdSize="7"
+              lgSize="6"
             >
               <DoctorSpecificBox
                 values={ values }

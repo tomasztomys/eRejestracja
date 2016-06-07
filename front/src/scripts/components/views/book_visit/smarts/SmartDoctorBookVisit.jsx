@@ -1,29 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import PatientBookVisit from '../PatientBookVisit';
-
 import * as userReducer from 'reducers/user';
 
 import { convertToRfc3339 } from 'utilities';
 
-import { TermPickerBox } from '../subcomponents';
-
 import * as Actions from 'actions/Actions';
 import Paths from 'constants/PathsConstants';
 
-import {
-  Grid,
-  GridItem,
-  Input,
-  CardWithHeader
-} from 'ui';
+import { DoctorBookVisit } from '../views/doctor_book_visit';
 
 class SmartDoctorBookVisit extends Component {
   constructor() {
     super();
     this.state = {
-      selectedDate: undefined,
       visitTime: 30
     };
   }
@@ -34,12 +24,11 @@ class SmartDoctorBookVisit extends Component {
     });
   }
 
-  _onSignUp() {
-    let { selectedDate } = this.state;
+  onAddVisit(selectedDate) {
     let { userId } = this.props;
     let parameters = {
-      doctor_id: userId,
-      patient_id: this.props.params.id,
+      'doctor_id': userId,
+      'patient_id': this.props.params.id,
       from: convertToRfc3339(selectedDate.start),
       to: convertToRfc3339(selectedDate.end)
     };
@@ -56,35 +45,20 @@ class SmartDoctorBookVisit extends Component {
     let { userId } = this.props;
 
     return (
-      <Grid center>
-        <GridItem xsSize="6">
-          <CardWithHeader
-            title="Visit time"
-            subtitle="You can change visit's time (default 30 minutes)"
-          >
-            <Input
-              label="Visit's time (30-60 minutes)"
-              value={ visitTime }
-              onChange={ this.onChange.bind(this, 'visitTime') }
-              error={ (visitTime < 30 || visitTime >= 60) ? 'Wrong visit time' : '' }
-              type="number"
-            />
-          </CardWithHeader>
-          <TermPickerBox
-            selectedDate={ selectedDate }
-            onChangeDate={ this.onChange.bind(this, 'selectedDate') }
-            doctorId={ userId }
-            onNextStep={ this._onSignUp.bind(this) }
-            visitTime={ visitTime }
-          />
-        </GridItem>
-      </Grid>
+      <DoctorBookVisit
+        selectedDate={ selectedDate }
+        visitTime={ visitTime }
+        userId={ userId }
+        onAddVisit={ this.onAddVisit.bind(this) }
+        onChange={ this.onChange.bind(this) }
+      />
     );
   }
 }
 
 SmartDoctorBookVisit.propTypes = {
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  params: PropTypes.string
 };
 
 SmartDoctorBookVisit.contextTypes = {

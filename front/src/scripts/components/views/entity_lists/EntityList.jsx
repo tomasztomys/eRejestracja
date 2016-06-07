@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import {
   Table,
   CardWithHeader,
-  Grid,
-  GridItem,
   CircleAvatar,
   IconButton
-} from 'ui';
+} from 'lib/ui';
+
+import {
+  Grid,
+  GridItem
+} from 'lib/grid';
 
 import { mergeObjects } from '../../../utilities';
 import * as userReducer from 'reducers/user';

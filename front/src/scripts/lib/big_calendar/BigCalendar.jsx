@@ -39,6 +39,7 @@ export default class BigCalendarWrap extends Component {
           defaultDate={ defaultDate }
           events={ events }
           min={ min }
+          views={ [ 'month', 'week', 'day' ] }
           view={ view }
           onView={ this.onViewChange.bind(this) }
           onSelectEvent={ onSelectEvent }

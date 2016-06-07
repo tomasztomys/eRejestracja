@@ -29,7 +29,7 @@ class Reset
       'name' => 'Dariusz',
       'surname' => 'Paluch',
       'email' => 'dariusz.paluch@hotmail.com',
-      'password' => 'tomasz',
+      'password' => 'darek123',
       'type' => 'doctor',
       'specialization' => 'pediatrician',
       'email_confirmed' => true
@@ -37,8 +37,8 @@ class Reset
     $doctor3 = [
       'name' => 'Adam',
       'surname' => 'Nowak',
-      'email' => 'adam.nowak@hotmail.com',
-      'password' => 'nowaczek123',
+      'email' => 'doktor@gmail.com',
+      'password' => 'doktor',
       'type' => 'doctor',
       'specialization' => 'dentist',
       'email_confirmed' => true
@@ -71,7 +71,15 @@ class Reset
       'type' => 'patient',
       'email_confirmed' => true
     ];
-    return [$patient1, $patient2];
+    $patient3 = {
+      'name' => 'Adam',
+      'surname' => 'Nowak',
+      'email' => 'pacjent@gmail.com',
+      'password' => 'pacjent',
+      'pesel' => '95013505234',
+      'type' => 'patient'
+    }
+    return [$patient1, $patient2, $patient3];
   }
 
   /**
@@ -83,9 +91,9 @@ class Reset
     $admin1 = [
         'name' => 'Jacek',
         'surname' => 'Nowak',
-        'email' => 'jacek@nowak.com',
-        'password' => 'jacek123',
-        'type' => 'admin',
+        'email' => 'admin@gmail.com',
+        'password' => 'admin',
+        'type' => 'admin'
         'email_confirmed' => true
     ];
     $admin2 = [
@@ -96,6 +104,7 @@ class Reset
         'type' => 'admin',
         'email_confirmed' => true
     ];
+
     return [$admin1, $admin2];
   }
 

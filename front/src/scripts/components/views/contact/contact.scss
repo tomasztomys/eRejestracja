@@ -1,0 +1,30 @@
+@import '~styles/colors';
+@import '~styles/config';
+
+$map-height: 300px;
+.contact {
+  .contact-data {
+    margin-top: 20px;
+    p.phone a {
+      color: black;
+      font-weight: bold;
+    }
+    p {
+      padding: 3px;
+      font-size: 15px;
+      .phone {}
+      &:first-child {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .map {
+    height: $map-height;
+
+    & > div {
+      height: $map-height;
+    }
+  }
+}
+

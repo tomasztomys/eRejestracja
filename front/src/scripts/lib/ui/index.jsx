@@ -13,7 +13,6 @@ import {
   CardWithHeader,
   CardWithClosing
 } from './card';
-import { Grid, GridItem } from './grid';
 import { Dropdown } from './dropdown';
 import { DatePicker } from './date_picker';
 import { NavDrawer } from './nav_drawer';
@@ -22,6 +21,8 @@ import { CircleAvatar } from './circle_avatar';
 import { TimePicker } from './time_picker';
 import { Autocomplete } from './autocomplete';
 import { IconButton } from './icon_button';
+import { Slider } from './slider';
+import { Dialog } from './dialog';
 
 export {
   Input,
@@ -34,7 +35,6 @@ export {
   Avatar,
   FontIcon,
   Card, CardTitle, CardWithHeader, CardWithClosing,
-  Grid, GridItem,
   Dropdown,
   DatePicker,
   NavDrawer,
@@ -42,5 +42,7 @@ export {
   CircleAvatar,
   TimePicker,
   Autocomplete,
-  IconButton
+  IconButton,
+  Slider,
+  Dialog
 };

@@ -64,6 +64,18 @@ const MenuNavigationLinks = [
     ]
   },
   {
+    label: 'Contact',
+    path: Paths.contact,
+    access: [ 'admin', 'doctor', 'patient'],
+    active: true,
+  },
+  {
+    label: 'Contact edition',
+    path: Paths.contactEdition,
+    access: [ 'admin' ],
+    active: true,
+  },
+  {
     label: 'Settings',
     access: [ 'admin', 'doctor', 'patient' ],
     children: [
