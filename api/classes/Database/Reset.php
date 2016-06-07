@@ -37,7 +37,7 @@ class Reset
     $doctor3 = [
       'name' => 'Adam',
       'surname' => 'Nowak',
-      'email' => 'doktor@hotmail.com',
+      'email' => 'doktor@gmail.com',
       'password' => 'doktor',
       'type' => 'doctor',
       'specialization' => 'dentist',

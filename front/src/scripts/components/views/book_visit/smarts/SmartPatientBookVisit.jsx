@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import PatientBookVisit from '../views/patient_book_visit';
+import { PatientBookVisit } from '../views/patient_book_visit';
 
 import * as userReducer from 'reducers/user';
 
@@ -23,6 +23,8 @@ class SmartPatientBookVisit extends Component {
   }
 
   _onValuesChange(key, value) {
+    console.log(key);
+    console.log(value);
     let { values } = this.state;
 
     values[key] = value;
@@ -50,12 +52,13 @@ class SmartPatientBookVisit extends Component {
 
   render() {
     let { values } = this.state;
-
+    console.log(PatientBookVisit);
     return (
       <PatientBookVisit
         values={ values }
         onChange={ this._onValuesChange.bind(this) }
         signUp={ this._onSignUp.bind(this) }
+        visitTime={ 30 }
       />
     );
   }

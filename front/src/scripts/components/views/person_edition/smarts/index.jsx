@@ -5,6 +5,7 @@ import SmartAddPatient from './SmartAddPatient';
 import SmartUserProfileEdition from './SmartUserProfileEdition';
 import SmartPatientEdition from './SmartPatientEdition';
 import SmartDoctorEdition from './SmartDoctorEdition';
+import SmartResetPassword from './SmartResetPassword';
 
 export {
   SmartDoctorRegistration,
@@ -13,5 +14,6 @@ export {
   SmartAddPatient,
   SmartUserProfileEdition,
   SmartPatientEdition,
-  SmartDoctorEdition
+  SmartDoctorEdition,
+  SmartResetPassword
 };

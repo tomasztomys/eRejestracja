@@ -47,6 +47,11 @@ export default class PatientBookVisit extends Component {
     this.props.signUp();
   }
 
+  onNextStepTermPicker(values) {
+    this.onNextStep();
+    this.props.onChange('selectedDate', values);
+  }
+
   generateItemClassName(itemStep) {
     let { step } = this.state;
 
@@ -60,7 +65,7 @@ export default class PatientBookVisit extends Component {
 
   render() {
     let { stepsNumber } = this.state;
-    let { values, onChange } = this.props;
+    let { values, onChange, visitTime } = this.props;
 
     return (
       <div className={ style['book-visit'] }>
@@ -68,7 +73,12 @@ export default class PatientBookVisit extends Component {
           center
           className={ this.generateItemClassName(stepsNumber.doctorPicker) }
         >
-          <GridItem xsSize="6">
+          <GridItem
+            xsSize="11"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
+          >
             <DoctorPickerBox
               selectedDoctorId={ values.doctor }
               onDoctorChange={ onChange.bind(this, 'doctor') }
@@ -81,12 +91,18 @@ export default class PatientBookVisit extends Component {
           center
           className={ this.generateItemClassName(stepsNumber.datePicker) }
         >
-          <GridItem xsSize="6">
+          <GridItem
+            xsSize="11"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
+          >
             <TermPickerBox
               onChangeDate={ onChange.bind(this, 'selectedDate') }
               doctorId={ values.doctor }
-              onNextStep={ this.onNextStep.bind(this) }
+              onNextStep={ this.onNextStepTermPicker.bind(this) }
               onBackStep={ this.onBackStep.bind(this) }
+              visitTime={ visitTime }
             />
           </GridItem>
         </Grid>
@@ -94,7 +110,12 @@ export default class PatientBookVisit extends Component {
           center
           className={ this.generateItemClassName(stepsNumber.descriptionBox) }
         >
-          <GridItem xsSize="6">
+          <GridItem
+            xsSize="11"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
+          >
             <VisitDescriptionBox
               visitDescription={ values.description }
               onDescriptionChange={ onChange.bind(this, 'description') }

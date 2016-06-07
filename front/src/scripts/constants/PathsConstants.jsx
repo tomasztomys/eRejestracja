@@ -4,6 +4,7 @@ const Paths = {
   notFound: '*',
   navigation: '/navigation',
   login: '/login',
+  resetPassword: '/reset-password',
   demo: '/demo',
   userPanel: '/testingUserPanel',
   doctorsList: '/doctors-list',

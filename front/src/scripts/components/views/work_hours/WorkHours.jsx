@@ -15,12 +15,22 @@ export default class WorkHours extends Component {
     return (
       <div>
         <Grid center>
-          <GridItem xsSize="6">
+          <GridItem
+            xsSize="11"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
+          >
             <AddWorkHoursBox />
           </GridItem>
         </Grid>
         <Grid center>
-          <GridItem xsSize="8">
+          <GridItem
+            xsSize="11"
+            smSize="9"
+            mdSize="7"
+            lgSize="6"
+          >
             <WorkHoursTable />
           </GridItem>
         </Grid>

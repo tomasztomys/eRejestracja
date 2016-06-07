@@ -47,7 +47,9 @@ export default class RegistrationBox extends Component {
       >
         <GridItem
           xsSize="11"
-          mdSize="5"
+          smSize="9"
+          mdSize="7"
+          lgSize="6"
         >
           <CardWithHeader
             className={ style['card'] }

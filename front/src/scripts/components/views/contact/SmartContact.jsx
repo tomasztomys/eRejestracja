@@ -40,7 +40,12 @@ class SmartContact extends Component {
 
     return (
       <Grid center className={ style['contact'] }>
-        <GridItem xsSize="6">
+        <GridItem
+          xsSize="11"
+          smSize="9"
+          mdSize="7"
+          lgSize="6"
+        >
           <CardWithHeader
             title="Contact"
             subtitle="Description our institute"
@@ -55,7 +60,7 @@ class SmartContact extends Component {
               <p>{ instituteData.name }</p>
               <p>{ instituteData.address }</p>
               <p className={ style['phone'] }>
-                <a href={ `tel:${ instituteData.contact.replace(/\s/g, '') }` }>
+                <a href={ `tel:${ instituteData.contact && instituteData.contact.replace(/\s/g, '') }` }>
                   { instituteData.contact }
                 </a>
               </p>

@@ -119,7 +119,12 @@ class VisitsList extends Component {
 
     return (
       <Grid center>
-        <GridItem xsSize="6">
+        <GridItem
+          xsSize="11"
+          smSize="9"
+          mdSize="7"
+          lgSize="6"
+        >
           <CardWithHeader
             title={ labels[userType] }
           >

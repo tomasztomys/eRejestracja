@@ -27,7 +27,8 @@ import {
   SmartAddPatient,
   SmartUserProfileEdition,
   SmartPatientEdition,
-  SmartDoctorEdition
+  SmartDoctorEdition,
+  SmartResetPassword
 } from './views/person_edition/smarts';
 import { MainSite } from './views/main_site';
 import { SmartDashboard } from './views/dashboard/smarts';
@@ -132,6 +133,10 @@ export default class Routes extends React.Component {
             path={ Paths.login }
             component={ SmartLogin }
             onEnter={ this._redirectIfUserIsLogged }
+          />
+          <Route
+            path={ Paths.resetPassword }
+            component={ SmartResetPassword }
           />
           <Route
             path={ Paths.demo }

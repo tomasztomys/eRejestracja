@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardTitle,
+  Dialog
 } from 'lib/ui';
 
 import {
@@ -16,6 +17,51 @@ import style from './login.scss';
 
 export default class Login extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      forgotPasswordModalActive: false
+    };
+  }
+
+  handleToogleResetPasswordModal() {
+    this.setState({
+      forgotPasswordModalActive: !this.state.forgotPasswordModalActive
+    });
+  }
+
+  renderResetPasswordModal() {
+    let { forgotPasswordModalActive } = this.state;
+    let {
+      onResetPassword,
+      modalInput,
+      onChangeModalValues
+    } = this.props;
+
+    let actions = [
+      { label: 'Cancel', onClick: this.handleToogleResetPasswordModal.bind(this) },
+      { label: 'Reset password', onClick: onResetPassword }
+    ];
+
+    return (
+      <Dialog
+        actions={ actions }
+        active={ forgotPasswordModalActive }
+        onOverlayClick={ this.handleToogleResetPasswordModal.bind(this) }
+        title=" Reset Password"
+      >
+        <Input
+          key={ modalInput.label }
+          label={ modalInput.label }
+          value={ modalInput.value }
+          icon="email"
+          error={ modalInput.error }
+          onChange={ onChangeModalValues.bind(this) }
+        />
+      </Dialog>
+    );
+  }
+
   render() {
     let {
       labels,
@@ -23,66 +69,74 @@ export default class Login extends Component {
       errors,
       inputChange,
       logInHandle,
-      showForgotPassword
+      showForgotPassword,
     } = this.props;
 
     return (
-      <Grid
-        className={ style['login'] }
-        xsPosition="top"
-        smPosition="middle"
-        center
-      >
-        <GridItem
-          xsSize="12"
-          smSize="6"
-          mdSize="4"
+      <div>
+        {/* MODALS */}
+        { this.renderResetPasswordModal() }
+        {/* --------- */}
+        <Grid
+          className={ style['login'] }
+          xsPosition="top"
+          smPosition="middle"
+          center
         >
-          <Card
-            className={ style['login-card'] }
+          <GridItem
+            xsSize="12"
+            smSize="6"
+            mdSize="4"
           >
-            <CardTitle
-              className={ style['login-card-title'] }
-              title="SIGN IN"
-            />
-            <div className={ style['login-card-body'] }>
-              <Input
-                key={ labels.email }
-                label={ labels.email }
-                value={ values.email }
-                icon="email"
-                error={ errors.email }
-                onChange={ inputChange.bind(this, 'email') }
+            <Card
+              className={ style['login-card'] }
+            >
+              <CardTitle
+                className={ style['login-card-title'] }
+                title="SIGN IN"
               />
-              <Input
-                key={ labels.password }
-                label={ labels.password }
-                value={ values.password }
-                icon="lock"
-                error={ errors.password }
-                type="password"
-                onChange={ inputChange.bind(this, 'password') }
-              />
-              <p
-                className={
-                  classnames(
-                    style['forgot-password'],
-                    { [style['show']]: showForgotPassword }
-                  )
-                }
-              ><a >I forgot my password.</a></p>
-            </div>
-            <div>
-              <Button
-                className={ style['login-card-button'] }
-                label={ labels.loginButton }
-                onClick={ logInHandle.bind(this) }
-              />
-            </div>
-          </Card>
-        </GridItem>
-      </Grid>
-
+              <div className={ style['login-card-body'] }>
+                <Input
+                  key={ labels.email }
+                  label={ labels.email }
+                  value={ values.email }
+                  icon="email"
+                  error={ errors.email }
+                  onChange={ inputChange.bind(this, 'email') }
+                />
+                <Input
+                  key={ labels.password }
+                  label={ labels.password }
+                  value={ values.password }
+                  icon="lock"
+                  error={ errors.password }
+                  type="password"
+                  onChange={ inputChange.bind(this, 'password') }
+                />
+                <p
+                  className={
+                    classnames(
+                      style['forgot-password'],
+                      { [style['show']]: showForgotPassword }
+                    )
+                  }
+                >
+                  <a onClick={ this.handleToogleResetPasswordModal.bind(this) }>
+                    I forgot my password.
+                  </a>
+                </p>
+              </div>
+              <div>
+                <Button
+                  className={ style['login-card-button'] }
+                  label={ labels.loginButton }
+                  onClick={ logInHandle.bind(this) }
+                />
+              </div>
+            </Card>
+          </GridItem>
+        </Grid>
+      </div>
     );
   }
 }
@@ -103,5 +157,8 @@ Login.propTypes = {
   }),
   inputChange: PropTypes.func,
   logInHandle: PropTypes.func,
-  showForgotPassword: PropTypes.bool
+  showForgotPassword: PropTypes.bool,
+  onResetPassword: PropTypes.func,
+  modalInput: PropTypes.object,
+  onChangeModalValues: PropTypes.func
 };
