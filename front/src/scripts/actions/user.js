@@ -1,4 +1,5 @@
 import { fetchData } from './fetchData';
+import Qs from 'qs';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -116,7 +117,10 @@ export function tryLogin(email, password, dispatch) {
 }
 
 export function resetPassword(email) {
-  let url = `user/2/reset_password`;
+  let parameters = {
+    email
+  };
+  let url = '/user/reset_password?' + Qs.stringify(parameters, { arrayFormat: 'brackets' });
 
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')

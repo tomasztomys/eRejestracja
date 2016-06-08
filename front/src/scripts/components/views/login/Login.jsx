@@ -30,17 +30,21 @@ export default class Login extends Component {
     });
   }
 
+  onResetPassword() {
+    this.handleToogleResetPasswordModal();
+    this.props.onResetPassword();
+  }
+
   renderResetPasswordModal() {
     let { forgotPasswordModalActive } = this.state;
     let {
-      onResetPassword,
       modalInput,
       onChangeModalValues
     } = this.props;
 
     let actions = [
       { label: 'Cancel', onClick: this.handleToogleResetPasswordModal.bind(this) },
-      { label: 'Reset password', onClick: onResetPassword }
+      { label: 'Reset password', onClick: this.onResetPassword.bind(this) }
     ];
 
     return (
