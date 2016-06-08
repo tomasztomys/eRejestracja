@@ -94,7 +94,7 @@ class Reset
         'surname' => 'Nowak',
         'email' => 'admin@gmail.com',
         'password' => 'admin',
-        'type' => 'admin'
+        'type' => 'admin',
         'email_confirmed' => true
     ];
     $admin2 = [
