@@ -77,7 +77,7 @@ class Reset
       'email' => 'pacjent@gmail.com',
       'password' => 'pacjent',
       'pesel' => '95013505234',
-      'type' => 'patient'
+      'type' => 'patient',
       'email_confirmed' => true
     }
     return [$patient1, $patient2, $patient3];
