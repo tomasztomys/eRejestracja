@@ -71,7 +71,7 @@ class Reset
       'type' => 'patient',
       'email_confirmed' => true
     ];
-    $patient3 = {
+    $patient3 = [
       'name' => 'Adam',
       'surname' => 'Nowak',
       'email' => 'pacjent@gmail.com',
@@ -79,7 +79,7 @@ class Reset
       'pesel' => '95013505234',
       'type' => 'patient',
       'email_confirmed' => true
-    }
+    ]
     return [$patient1, $patient2, $patient3];
   }
 
