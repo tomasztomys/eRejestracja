@@ -78,6 +78,7 @@ class Reset
       'password' => 'pacjent',
       'pesel' => '95013505234',
       'type' => 'patient'
+      'email_confirmed' => true
     }
     return [$patient1, $patient2, $patient3];
   }

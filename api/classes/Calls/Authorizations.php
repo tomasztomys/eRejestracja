@@ -50,9 +50,9 @@ class Authorizations
             $result = [
                 'login' => false
             ];
-            if(!$user->email_confirmed) {
-                $result['error'] = 'Email hasn\'t confirmed yet.';
-            }
+            // if(!$user->email_confirmed) {
+                // $result['error'] = 'Email hasn\'t confirmed yet.';
+            // }
             return $newResponse->withJson($result);
         }
     }
