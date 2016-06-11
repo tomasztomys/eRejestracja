@@ -43,7 +43,7 @@ class Patients
         $patient['email'] = $patientDB->email;
         $patient['pesel'] = $patientDB->pesel;
         $patient['type'] = $patientDB->type;
-        $patient['email_confirmed'] = $patientDB->email_confirmed;
+        $patient['email_confirmed'] = (bool)$patientDB->email_confirmed;
 
         return $patient;
     }

@@ -42,7 +42,7 @@ class Admins
         $admin['surname'] = $adminDB->surname;
         $admin['email'] = $adminDB->email;
         $admin['type'] = $adminDB->type;
-        $admin['email_confirmed'] = $adminDB->email_confirmed;
+        $admin['email_confirmed'] = (bool)$adminDB->email_confirmed;
 
         return $admin;
     }

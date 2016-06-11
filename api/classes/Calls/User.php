@@ -101,7 +101,7 @@ class User
             return $response->withJson(['error' => 'Token invalid']);
         }
 
-        if($user->email_confirmed == false) {
+        if((bool)$user->email_confirmed == false) {
             $user->email_confirmed = true;
             \R::store($user);
             return $response->withJson([]);

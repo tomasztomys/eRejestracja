@@ -45,7 +45,7 @@ class Doctors
         $doctor['email'] = $doctorDB->email;
         $doctor['type'] = $doctorDB->type;
         $doctor['specialization'] = $doctorDB->specialization;
-        $doctor['email_confirmed'] = $doctorDB->email_confirmed;
+        $doctor['email_confirmed'] = (bool)$doctorDB->email_confirmed;
 
         return $doctor;
     }
