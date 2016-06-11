@@ -40,7 +40,7 @@ class Authorizations
 
         $user = \R::findOne('user', ' email = ? && password = ?', [ $email, $password ] );
 
-        if($user !== null && $user->email_confirmed) {
+        if($user !== null && (bool)$user->email_confirmed) {
             $entityClass = '\Calls\\'.ucfirst($user->type).'s';
             $method = '_make'.ucfirst($user->type);
             $userArray = $entityClass::$method($user);
@@ -50,9 +50,10 @@ class Authorizations
             $result = [
                 'login' => false
             ];
-            // if(!$user->email_confirmed) {
-                // $result['error'] = 'Email hasn\'t confirmed yet.';
-            // }
+
+            if(!(bool)$user->email_confirmed) {
+                $result['error'] = 'Email hasn\'t confirmed yet.';
+            }
             return $newResponse->withJson($result);
         }
     }
