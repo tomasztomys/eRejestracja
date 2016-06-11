@@ -46,6 +46,7 @@ class Authorizations
             $userArray = $entityClass::$method($user);
             $token = md5(uniqid(rand(), true));
             $user->token = $token;
+            \R::store($user);
             return $response->withJson(['login' => true, 'token'=> $token,'user' => $userArray]);
         } else {
             $newResponse = $response->withStatus(422);
