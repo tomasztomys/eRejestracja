@@ -39,6 +39,16 @@ class Calls
 
         $db = new \Database\Database();
 
+
+        $token = $_SERVER['HTTP_AUTHORIZATION'];
+        $user = \R::findOne( 'user', ' token = ? ', [ $token ]);
+        $userType = 'anonymous';
+        $userId = 0;
+        if(isset($user->type)) {
+            $userId = $user->id;
+            $userType = $user->type;
+        }
+
         $this->_app->group('/authorizations', function () {
             $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
         });
