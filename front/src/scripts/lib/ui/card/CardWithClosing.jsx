@@ -54,17 +54,19 @@ export default class CardWithClosing extends Component {
               subtitle={ subtitle }
             /> : ''
           }
-          <IconButton
-            className={ style['open-icon'] }
-            icon={ openIcon }
-            onClick={ onToogleBox }
-          />
+          { onToogleBox ?
+            <IconButton
+              className={ style['open-icon'] }
+              icon={ openIcon }
+              onClick={ onToogleBox }
+            /> : null
+          }
         </div>
         <div
           className={
             classnames(
               style['body'],
-              { [style['open']]: open }
+              { [style['open']]: open || !onToogleBox }
             )
           }
         >

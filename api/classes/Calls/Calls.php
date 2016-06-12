@@ -39,12 +39,30 @@ class Calls
 
         $db = new \Database\Database();
 
+
+        $token = $_SERVER['HTTP_AUTHORIZATION'];
+        $user = \R::findOne( 'user', ' token = ? ', [ $token ]);
+        $userType = 'anonymous';
+        $userId = 0;
+        if(isset($user->type)) {
+            $userId = $user->id;
+            $userType = $user->type;
+        }
+
         $this->_app->group('/authorizations', function () {
             $this->post('', '\Calls\Authorizations:authorizations')->setName('authorizations');
         });
 
         $this->_app->group('/user', function () {
-          $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
+            $this->get('/confirm_email', '\Calls\User:confirmEmail')->setName('confirmEmail');
+            $this->get('/reset_password', '\Calls\User:resetPassword')->setName('resetPassword');
+            $this->post('/new_password', '\Calls\User:newPassword')->setName('newPassword');
+            $this->put('/{id:[0-9]+}/password', '\Calls\User:changePassword')->setName('changePassword');
+        });
+
+        $this->_app->group('/institute', function () {
+            $this->get('', '\Calls\Institute:getInstitute')->setName('getInstitute');
+            $this->put('', '\Calls\Institute:editInstitute')->setName('editInstitute');
         });
 
         $this->_app->group('/doctors', function () use ($db) {

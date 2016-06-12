@@ -16,7 +16,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
             'surname' => 'Tomys',
             'email' => 'tomasz@tomys.pl',
             'type' => 'doctor',
-            'specialization' => 'surgeon'
+            'specialization' => 'surgeon',
+            'email_confirmed' => true
         ];
 
         $array = $doctors->_makeDoctor($obj);
@@ -40,7 +41,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
             'email' => 'tomasz@tomys.pl',
             'password' => '123456',
             'type' => 'doctor',
-            'specialization' => 'surgeon'
+            'specialization' => 'surgeon',
+            'email_confirmed' => true
         ];
 
         $expObj = [
@@ -49,7 +51,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
             'surname' => 'Tomys',
             'email' => 'tomasz@tomys.pl',
             'type' => 'doctor',
-            'specialization' => 'surgeon'
+            'specialization' => 'surgeon',
+            'email_confirmed' => true
         ];
 
         $array = $doctors->_makeDoctor($obj);
@@ -144,7 +147,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
             'email' => 'tomasz@tomys.pl',
             'password' => '123456',
             'type' => 'doctor',
-            'specialization' => 'surgeon'
+            'specialization' => 'surgeon',
+            'email_confirmed' => true
         ]];
 
         $mock->expects($this->once())
@@ -162,7 +166,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
             'surname' => 'Tomys',
             'email' => 'tomasz@tomys.pl',
             'type' => 'doctor',
-            'specialization' => 'surgeon'
+            'specialization' => 'surgeon',
+            'email_confirmed' => true
         ]];
 
         $this->assertEquals($arrayExp, $array);
@@ -180,7 +185,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'email' => 'tomasz@tomys.pl',
                 'password' => '123456',
                 'type' => 'doctor',
-                'specialization' => 'surgeon'
+                'specialization' => 'surgeon',
+                'email_confirmed' => true
             ],
             (object)[
                 'id' => 2,
@@ -189,7 +195,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'email' => 'dariusz@paluch.pl',
                 'password' => '12345622',
                 'type' => 'doctor',
-                'specialization' => 'xxx'
+                'specialization' => 'xxx',
+                'email_confirmed' => true
             ]
         ];
 
@@ -209,7 +216,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'surname' => 'Tomys',
                 'email' => 'tomasz@tomys.pl',
                 'type' => 'doctor',
-                'specialization' => 'surgeon'
+                'specialization' => 'surgeon',
+                'email_confirmed' => true
             ],
             [
                 'id' => 2,
@@ -217,7 +225,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'surname' => 'Paluch',
                 'email' => 'dariusz@paluch.pl',
                 'type' => 'doctor',
-                'specialization' => 'xxx'
+                'specialization' => 'xxx',
+                'email_confirmed' => true
             ]
         ];
 
@@ -260,7 +269,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'email' => 'tomasz@tomys.pl',
                 'password' => '123456',
                 'type' => 'doctor',
-                'specialization' => 'surgeon'
+                'specialization' => 'surgeon',
+                'email_confirmed' => true
             ],
             (object)[
                 'id' => 2,
@@ -269,7 +279,8 @@ class DoctorsTest extends PHPUnit_Framework_TestCase
                 'email' => 'dariusz@paluch.pl',
                 'password' => '12345622',
                 'type' => 'patient',
-                'pesel' => '11123232323'
+                'pesel' => '11123232323',
+                'email_confirmed' => true
             ]
         ];
 

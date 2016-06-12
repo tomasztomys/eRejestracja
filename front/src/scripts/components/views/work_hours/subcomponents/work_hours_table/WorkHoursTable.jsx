@@ -94,6 +94,7 @@ class WorkHoursTable extends Component {
   }
 
   onSelectEvent(event) {
+    console.log(event);
     let source = this.state.source;
 
     source[event.index].selected = true;
@@ -129,7 +130,7 @@ class WorkHoursTable extends Component {
           defaultView="month"
         />
         {
-          tableSource > 0 ?
+          tableSource.length > 0 ?
             <Table
               model={ model }
               source={ tableSource }

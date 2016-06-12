@@ -4,6 +4,7 @@ const Paths = {
   notFound: '*',
   navigation: '/navigation',
   login: '/login',
+  resetPassword: '/reset-password',
   demo: '/demo',
   userPanel: '/testingUserPanel',
   doctorsList: '/doctors-list',
@@ -23,6 +24,8 @@ const Paths = {
     edition: '/doctor-edition/:id',
     workHours: '/doctor-work-hours'
   },
+  contact: '/contact',
+  contactEdition: '/contact-edition',
   settings: {
     myProfile: '/my-profile',
     logout: '/logout'

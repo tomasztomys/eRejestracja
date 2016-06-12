@@ -27,7 +27,8 @@ import {
   SmartAddPatient,
   SmartUserProfileEdition,
   SmartPatientEdition,
-  SmartDoctorEdition
+  SmartDoctorEdition,
+  SmartResetPassword
 } from './views/person_edition/smarts';
 import { MainSite } from './views/main_site';
 import { SmartDashboard } from './views/dashboard/smarts';
@@ -38,6 +39,9 @@ import {
   SmartPatientBookVisit,
   SmartDoctorBookVisit
 } from './views/book_visit/smarts';
+
+import { SmartContact } from './views/contact';
+import { ContactEdition } from './views/contact_edition';
 
 export default class Routes extends React.Component {
   _redirectIfUserIsNotLogged(nextState, replace) {
@@ -99,6 +103,12 @@ export default class Routes extends React.Component {
         <Route path={ Paths.settings.myProfile }
           component={ SmartUserProfileEdition }
         />
+        <Route path={ Paths.contact }
+          component={ SmartContact }
+        />
+        <Route path={ Paths.contactEdition }
+          component={ ContactEdition }
+        />
         <Route path={ Paths.settings.logout }
           component={ EmptyPage }
         />
@@ -123,6 +133,10 @@ export default class Routes extends React.Component {
             path={ Paths.login }
             component={ SmartLogin }
             onEnter={ this._redirectIfUserIsLogged }
+          />
+          <Route
+            path={ Paths.resetPassword }
+            component={ SmartResetPassword }
           />
           <Route
             path={ Paths.demo }

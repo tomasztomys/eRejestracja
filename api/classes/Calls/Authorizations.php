@@ -38,16 +38,26 @@ class Authorizations
         $email = $request->getParam('email');
         $password = $request->getParam('password');
 
-        $user = \R::findOne('user', ' email = ? && password = ? ', [ $email, $password ] );
+        $user = \R::findOne('user', ' email = ? && password = ?', [ $email, $password ] );
 
-        if($user !== null) {
+        if($user !== null && (bool)$user->email_confirmed) {
             $entityClass = '\Calls\\'.ucfirst($user->type).'s';
             $method = '_make'.ucfirst($user->type);
             $userArray = $entityClass::$method($user);
-            return $response->withJson(['login' => true, 'user' => $userArray]);
+            $token = md5(uniqid(rand(), true));
+            $user->token = $token;
+            \R::store($user);
+            return $response->withJson(['login' => true, 'token'=> $token,'user' => $userArray]);
         } else {
             $newResponse = $response->withStatus(422);
-            return $newResponse->withJson(['login' => false]);
+            $result = [
+                'login' => false
+            ];
+
+            if(!(bool)$user->email_confirmed) {
+                $result['error'] = 'Email hasn\'t confirmed yet.';
+            }
+            return $newResponse->withJson($result);
         }
     }
 }

@@ -23,6 +23,8 @@ class SmartPatientBookVisit extends Component {
   }
 
   _onValuesChange(key, value) {
+    console.log(key);
+    console.log(value);
     let { values } = this.state;
 
     values[key] = value;
@@ -58,6 +60,7 @@ class SmartPatientBookVisit extends Component {
         patientId={ userId }
         onChange={ this._onValuesChange.bind(this) }
         signUp={ this._onSignUp.bind(this) }
+        visitTime={ 30 }
       />
     );
   }

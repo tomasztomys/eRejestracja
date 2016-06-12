@@ -22,6 +22,7 @@ import { TimePicker } from './time_picker';
 import { Autocomplete } from './autocomplete';
 import { IconButton } from './icon_button';
 import { Slider } from './slider';
+import { Dialog } from './dialog';
 
 export {
   Input,
@@ -42,5 +43,6 @@ export {
   TimePicker,
   Autocomplete,
   IconButton,
-  Slider
+  Slider,
+  Dialog
 };

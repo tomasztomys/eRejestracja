@@ -29,7 +29,7 @@ class Admins
      * @throws \Exception
      */
     public function _makeAdmin($adminDB) {
-        if(!isset($adminDB->id) || !isset($adminDB->name) || !isset($adminDB->surname) || !isset($adminDB->email) || !isset($adminDB->type)) {
+        if(!isset($adminDB->id) || !isset($adminDB->name) || !isset($adminDB->surname) || !isset($adminDB->email) || !isset($adminDB->type) || !isset($adminDB->email_confirmed)) {
             if(isset($adminDB->type) && $adminDB->type !== 'admin') {
                 throw new \Exception("It's not a admin");
             }
@@ -42,6 +42,7 @@ class Admins
         $admin['surname'] = $adminDB->surname;
         $admin['email'] = $adminDB->email;
         $admin['type'] = $adminDB->type;
+        $admin['email_confirmed'] = (bool)$adminDB->email_confirmed;
 
         return $admin;
     }
@@ -135,6 +136,19 @@ class Admins
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function addAdmin($request, $response, $args) {
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
+        }
+
         $adminBean = \R::dispense('user');
 
         $adminBean->name = $request->getParam('name');
@@ -142,6 +156,12 @@ class Admins
         $adminBean->email = $request->getParam('email');
         $adminBean->password = $request->getParam('password');
         $adminBean->type = 'admin';
+        $adminBean->email_confirmed = false;
+        $adminBean->email_token = md5(uniqid(rand(), true));
+
+        $headers = "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+        mail($adminBean->email, 'eRejestracja - Potwierdzenie maila', "Witaj $adminBean->name $adminBean->surname!<br /><br />Dziękujęmy za rejestrację w systemie eRejestracja. Prosimy o potwierdzenie maila, klikając w poniższy link:<br /><a href='http://iwm.tomys.me/confirm-email?token=$adminBean->email_token'>Potwierdzam</a><br /><br />Pozdrawiamy,<br />Zespół eRejestracja", $headers);
 
         \R::store($adminBean);
         return $response->withJson([]);
@@ -200,12 +220,25 @@ class Admins
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function editAdmin($request, $response, $args) {
+
         $id = $args['id'];
         $adminDB = \R::load( 'user', $id );
 
         if(!$this->_ifFoundAdmin($adminDB->id, $adminDB->type)) {
             $response = $response->withStatus(422);
             return $response->withJson(['error' => 'Admin not found']);
+        }
+
+        $users = \R::findAll( 'user', ' pesel = ? ', [ $request->getParam('pesel') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['pesel' => 'has been already in db']);
+        }
+
+        $users = \R::findAll( 'user', ' email = ? ', [ $request->getParam('email') ]);
+        if(sizeof($users) > 0) {
+            $response = $response->withStatus(422);
+            return $response->withJson(['email' => 'has been already in db']);
         }
 
         $adminDB->name = $request->getParam('name');
