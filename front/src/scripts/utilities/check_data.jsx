@@ -3,12 +3,14 @@ const checkData = (values, errors, errorsMessages) => {
   let status = true;
 
   for (let key in values) {
-    if (values[key] === null || values[key].length > 0) {
+    if (values[key].length > 0) {
       outErrors[key] = '';
     }
     else {
       outErrors[key] = errorsMessages[key];
-      status = false;
+      if (status) {
+        status = false;
+      }
     }
   }
 

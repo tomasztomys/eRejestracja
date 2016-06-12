@@ -43,6 +43,8 @@ import {
 import { SmartContact } from './views/contact';
 import { ContactEdition } from './views/contact_edition';
 
+import { ConfirmEmail } from './views/confirm_email';
+
 export default class Routes extends React.Component {
   _redirectIfUserIsNotLogged(nextState, replace) {
     if (!localStorage.get('user')) {
@@ -149,6 +151,10 @@ export default class Routes extends React.Component {
           <Route
             path={ Paths.patients.registration }
             component={ SmartPatientRegistration }
+          />
+          <Route
+            path={ '/confirm-email' }
+            component={ ConfirmEmail }
           />
           { registeredSection }
         </Route>

@@ -10,7 +10,8 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
   SET_NEW_PASSWORD_SUCCESS,
-  SET_NEW_PASSWORD_FAILURE
+  SET_NEW_PASSWORD_FAILURE,
+  CONFIRM_EMAIL_SUCCESS
 } from './ActionsTypes';
 
 import localStorage from 'store';
@@ -94,6 +95,15 @@ export function setNewPasswordSuccess() {
   };
 }
 
+export function confirmEmailSuccess() {
+  return {
+    type: CONFIRM_EMAIL_SUCCESS,
+    data: {
+      message: 'Your email wass confirm. Now you can sign in.'
+    }
+  };
+}
+
 export function tryLogin(email, password, dispatch) {
   let url = '/authorizations';
   let body = JSON.stringify({
@@ -168,4 +178,21 @@ export function setNewPassword(token, newPassword) {
       }
     });
   };
+}
+
+export function confirmEmail(token, dispatch) {
+  let parameters = {
+    token
+  };
+
+  let url = '/user/confirm_email?' + Qs.stringify(parameters, { arrayFormat: 'brackets' });
+
+  return fetchData(url, 'GET', {}, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(confirmEmailSuccess());
+        return true
+      }
+      return false
+    });
 }
