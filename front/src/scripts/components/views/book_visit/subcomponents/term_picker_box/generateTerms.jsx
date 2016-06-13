@@ -1,11 +1,11 @@
 const addTime = (source, minutes) => {
   let newDate = new Date(source);
 
-  let addhHours = minutes % 60;
-  let addTime = minutes - (addhHours * 60);
+  let addHours = minutes % 60;
+  let addMinutes = minutes - (addHours * 60);
 
-  newDate.setHours(source.getHours() + addhHours);
-  newDate.setMinutes(source.getMinutes() + addTime);
+  newDate.setHours(source.getHours() + addHours);
+  newDate.setMinutes(source.getMinutes() + addMinutes);
   return newDate;
 };
 
@@ -54,6 +54,6 @@ const generateTerms = (doctorWorkHours, busyTerms, time) => {
     item.index = index;
     return item;
   });
-}
+};
 
 export default generateTerms;

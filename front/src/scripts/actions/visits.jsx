@@ -6,10 +6,11 @@ import {
   ADD_VISIT_SUCCESS,
   ADD_VISIT_FAILURE,
   DELETE_VISIT_SUCCESS,
-  DELETE_VISIT_FAILURE
+  DELETE_VISIT_FAILURE,
 } from './ActionsTypes';
 
 export function getVisitsListSuccess(data, id) {
+  console.log('wow');
   return {
     type: GET_VISITS_LIST_SUCCESS,
     data: {
@@ -42,11 +43,14 @@ export function getVisitsList(id, userType) {
   let type = userType === 'doctor' ? '/doctors' : '/patients';
   let url = `/${ type }/${ id }/visits`;
 
+  console.log('run action');
   return (dispatch) => {
     fetchData(url, 'GET', {}, '')
     .then((data) => {
       if (data.status === 200) {
+        console.log(data);
         dispatch(getVisitsListSuccess(data.data, id));
+
       }
     });
   };

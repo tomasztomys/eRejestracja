@@ -24,8 +24,6 @@ const initialState = Immutable.fromJS({
     terms: []
   },
   visitsData: {
-    visits: [],
-    personId: -1
   },
   institute: {
   },

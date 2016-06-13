@@ -10,7 +10,8 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
   SET_NEW_PASSWORD_SUCCESS,
-  SET_NEW_PASSWORD_FAILURE
+  SET_NEW_PASSWORD_FAILURE,
+  CONFIRM_EMAIL_SUCCESS
 } from './ActionsTypes';
 
 import localStorage from 'store';
@@ -71,7 +72,7 @@ export function changeUserPasswordFailure() {
   return {
     type: CHANGE_USER_PASSWORD_FAILURE,
     data: {
-      message: 'Some error with change your password.'
+      message: 'Wrong old password, try again.'
     }
   };
 }
@@ -90,6 +91,15 @@ export function setNewPasswordSuccess() {
     type: SET_NEW_PASSWORD_SUCCESS,
     data: {
       message: 'Your password was changed. Now you can log in with new password.'
+    }
+  };
+}
+
+export function confirmEmailSuccess() {
+  return {
+    type: CONFIRM_EMAIL_SUCCESS,
+    data: {
+      message: 'Your email wass confirm. Now you can sign in.'
     }
   };
 }
@@ -146,7 +156,10 @@ export function changeUserPassword(parameters, userId) {
   return (dispatch) => {
     fetchData(url, 'PUT', body, '')
     .then((data) => {
-      if (data.status === 200) {
+      if (Object.keys(data.data).length > 0) { ///
+        dispatch(changeUserPasswordFailure());
+      }
+      else {
         dispatch(changeUserPasswordSuccess());
       }
     });
@@ -168,4 +181,21 @@ export function setNewPassword(token, newPassword) {
       }
     });
   };
+}
+
+export function confirmEmail(token, dispatch) {
+  let parameters = {
+    token
+  };
+
+  let url = '/user/confirm_email?' + Qs.stringify(parameters, { arrayFormat: 'brackets' });
+
+  return fetchData(url, 'GET', {}, '')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(confirmEmailSuccess());
+        return true
+      }
+      return false
+    });
 }

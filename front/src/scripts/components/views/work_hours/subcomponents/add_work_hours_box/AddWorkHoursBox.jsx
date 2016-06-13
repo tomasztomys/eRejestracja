@@ -23,10 +23,25 @@ class AddWorkHoursBox extends Component {
   constructor() {
     super();
     this.state = {
-      startTime: undefined,
-      endTime: undefined,
       sourceDays: {},
-      selectedDays: []
+      selectedDays: [],
+      values: this.initValues(),
+      errors: {
+        startTime: '',
+        endTime: '',
+        days: ''
+      },
+      errorsMessages: {
+        startTime: 'You have to choose start time.',
+        endTime: 'You have to choose end time.',
+        days: 'You need to select days to add work hours.',
+        endTimeValue: 'End time must be after start time'
+      },
+      validations: {
+        startTime: true,
+        endTime: true,
+        days: false
+      }
     };
   }
 
@@ -42,16 +57,73 @@ class AddWorkHoursBox extends Component {
     this.generateSourceDays(60, filledWorkhours);
   }
 
+  initValues() {
+    let startTime = new Date(0);
+    let endTime = new Date(0);
+
+    startTime.setHours(8);
+    endTime.setHours(18);
+
+    return {
+      startTime,
+      endTime,
+      days: []
+    };
+  }
+
   generateSourceDays(numberOfDays, filledWorkhours) {
     this.setState({
       sourceDays: this.generateDays(numberOfDays, filledWorkhours)
     });
   }
 
-  onChange(key, value) {
+  onValidation(key, value) {
+    let validation = value.toString().length > 0;
+    let { validations, errors, errorsMessages } = this.state;
+
+    validations[key] = validation;
+    errors[key] = validation ? '' : errorsMessages[key];
+
     this.setState({
-      [key]: value
+      validations,
+      errors
     });
+  }
+
+  onChange(key, value) {
+    let { values } = this.state;
+
+    this.onValidation(key, value);
+    values[key] = value;
+    this.setState({
+      values,
+    });
+    this.onValidationEndTime(values.endTime);
+  }
+
+  onValidationEndTime(value) {
+    let { values, validations, errors, errorsMessages } = this.state;
+    let validation = value.toString().length > 0;
+    let validationValue = value > values.startTime;
+
+    validations.endTime = validation && validationValue;
+    errors.endTime = validation ? '' : `${ errorsMessages.endTime } `;
+    errors.endTime += validationValue ? '' : errorsMessages.endTimeValue;
+
+    this.setState({
+      validations,
+      errors
+    });
+  }
+
+  onChangeEndTime(value) {
+    let { values } = this.state;
+
+    values.endTime = value;
+    this.setState({
+      values,
+    });
+    this.onValidationEndTime(value);
   }
 
   generateDateLabel(date) {
@@ -72,6 +144,35 @@ class AddWorkHoursBox extends Component {
     });
   }
 
+  showErrorMessages() {
+    let { validations, errors, errorsMessages } = this.state;
+
+    for (let key in validations) {
+      if (!validations[key]) {
+        errors[key] = errorsMessages[key];
+      }
+    }
+
+    this.setState({
+      errors
+    });
+  }
+
+  checkValidations() {
+    let { validations } = this.state;
+    let validation = true;
+
+    for (let key in validations) {
+      let value = validations[key];
+
+      if (validation) {
+        validation = value;
+      }
+    }
+
+    return (validation);
+  }
+
   generateDays(numberOfDays, filledWorkhours) {
 
     let days = getNextDays(new Date(), numberOfDays);
@@ -85,35 +186,51 @@ class AddWorkHoursBox extends Component {
   }
 
   onAddTerms() {
-    let { startTime, endTime, selectedDays } = this.state;
-    let { userId } = this.props;
-    let data = [];
+    let { values } = this.state;
+    this.onValidationEndTime(values.endTime);
+    if (this.checkValidations()) {
+      let { values } = this.state;
+      let { userId } = this.props;
+      let data = [];
 
-    for (let item of selectedDays) {
-      let start = mergeDateWithTime(item, startTime);
-      let end = mergeDateWithTime(item, endTime);
+      for (let item of values.days) {
+        let start = mergeDateWithTime(item, values.startTime);
+        let end = mergeDateWithTime(item, values.endTime);
 
-      data.push({
-        from: convertToRfc3339(start),
-        to: convertToRfc3339(end)
+        data.push({
+          from: convertToRfc3339(start),
+          to: convertToRfc3339(end)
+        });
+      }
+
+      Actions.addWorkHours(data, userId, this.props.dispatch).then((data) => {
+        if (data) {
+          this.props.dispatch(Actions.getWorkHours(userId));
+        }
+      });
+
+      this.setState({
+        selectedDays: [],
+        values: this.initValues(),
+        validations: {
+          startTime: true,
+          endTime: true,
+          days: false
+        },
+        errors: {
+          startTime: '',
+          endTime: '',
+          days: ''
+        },
       });
     }
-
-    Actions.addWorkHours(data, userId, this.props.dispatch).then((data) => {
-      if (data) {
-        this.props.dispatch(Actions.getWorkHours(userId));
-      }
-    });
-
-    this.setState({
-      startTime: undefined,
-      endTime: undefined,
-      sourceDays: {},
-      selectedDays: []
-    });
+    else {
+      this.showErrorMessages();
+    }
   }
 
   render() {
+    let { values, errors } = this.state;
     let actions = [
       {
         label: 'Add',
@@ -130,18 +247,21 @@ class AddWorkHoursBox extends Component {
         <Autocomplete
           label="Days"
           source={ this.state.sourceDays }
-          value={ this.state.selectedDays }
-          onChange={ this.onChange.bind(this, 'selectedDays') }
+          value={ values.days }
+          onChange={ this.onChange.bind(this, 'days') }
+          error={ errors.days }
         />
         <TimePicker
           label="Start work time"
           onChange={ this.onChange.bind(this, 'startTime') }
-          value={ this.state.startTime }
+          value={ values.startTime }
+          error={ errors.startTime }
         />
         <TimePicker
           label="End work"
-          onChange={ this.onChange.bind(this, 'endTime') }
-          value={ this.state.endTime }
+          onChange={ this.onChangeEndTime.bind(this) }
+          value={ values.endTime }
+          error={ errors.endTime }
         />
 
       </CardWithHeader>
@@ -151,7 +271,7 @@ class AddWorkHoursBox extends Component {
 }
 AddWorkHoursBox.propTypes = {
   userId: PropTypes.number,
-  filledWorkhours : PropTypes.array
+  filledWorkhours: PropTypes.array
 };
 
 function select(state) {

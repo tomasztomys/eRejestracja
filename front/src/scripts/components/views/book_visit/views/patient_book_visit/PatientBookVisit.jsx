@@ -65,9 +65,9 @@ export default class PatientBookVisit extends Component {
 
   render() {
     let { stepsNumber } = this.state;
-    let { values, onChange, visitTime } = this.props;
-
+    let { values, onChange, visitTime, patientId } = this.props;
     return (
+
       <div className={ style['book-visit'] }>
         <Grid
           center
@@ -132,5 +132,6 @@ export default class PatientBookVisit extends Component {
 PatientBookVisit.propTypes = {
   values: PropTypes.object,
   onChange: PropTypes.func,
-  signUp: PropTypes.func
+  signUp: PropTypes.func,
+  patientId: PropTypes.number
 };

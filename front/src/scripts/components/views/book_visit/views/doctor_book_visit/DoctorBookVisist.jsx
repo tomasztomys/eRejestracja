@@ -15,9 +15,9 @@ import {
 export default class DoctorBookVisit extends Component {
   render() {
     let {
-      selectedDate,
       visitTime,
-      userId,
+      doctorId,
+      patientId,
       onChange,
       onAddVisit,
     } = this.props;
@@ -34,12 +34,14 @@ export default class DoctorBookVisit extends Component {
               value={ visitTime }
               onChange={ onChange.bind(this, 'visitTime') }
               min={ 30 }
-              max={ 180 }
-              step={ 5 }
+              max={ 240 }
+              step={ 15 }
+              snaps
             />
           </CardWithHeader>
           <TermPickerBox
-            doctorId={ userId }
+            doctorId={ doctorId }
+            patientId={ patientId }
             onNextStep={ onAddVisit }
             visitTime={ visitTime }
           />
@@ -50,8 +52,9 @@ export default class DoctorBookVisit extends Component {
 }
 
 DoctorBookVisit.propTypes = {
-  userId: PropTypes.number,
   visitTime: PropTypes.number,
   onChange: PropTypes.func,
   onAddVisit: PropTypes.func,
+  doctorId: PropTypes.number,
+  patientId: PropTypes.number
 };

@@ -42,13 +42,14 @@ class SmartDoctorBookVisit extends Component {
 
   render() {
     let { selectedDate, visitTime } = this.state;
-    let { userId } = this.props;
+    let { userId, params } = this.props;
 
     return (
       <DoctorBookVisit
         selectedDate={ selectedDate }
         visitTime={ visitTime }
-        userId={ userId }
+        doctorId={ userId }
+        patientId={ params.id }
         onAddVisit={ this.onAddVisit.bind(this) }
         onChange={ this.onChange.bind(this) }
       />

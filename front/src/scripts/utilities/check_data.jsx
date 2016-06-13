@@ -3,12 +3,14 @@ const checkData = (values, errors, errorsMessages) => {
   let status = true;
 
   for (let key in values) {
-    if (values[key] === null || values[key].length > 0) {
+    if (values[key].length > 0) {
       outErrors[key] = '';
     }
     else {
       outErrors[key] = errorsMessages[key];
-      status = false;
+      if (status) {
+        status = false;
+      }
     }
   }
 
@@ -18,5 +20,31 @@ const checkData = (values, errors, errorsMessages) => {
   };
 };
 
-export default checkData;
+const checkValidations = (validations, errors, errorsMessages) => {
+  let outErrors = {};
+  let status = true;
+
+  for (let key in validations) {
+    if (validations[key]) {
+      outErrors[key] = '';
+    }
+    else {
+      outErrors[key] = errorsMessages[key];
+      if (status) {
+        status = false;
+      }
+    }
+  }
+
+  return {
+    errors: outErrors,
+    status
+  };
+};
+
+
+export {
+  checkValidations,
+  checkData
+}
 

@@ -9,6 +9,8 @@ import { ChangePasswordBox } from '../../view_content/change_password_box';
 import { PersonDataBox } from '../../view_content/person_data_box';
 import { DoctorSpecificBox } from '../../view_content/doctor_specific_box';
 
+import { checkData, checkValidations, mergeObjects } from 'utilities';
+
 export default class PersonEdition extends Component {
 
   constructor() {
@@ -45,6 +47,16 @@ export default class PersonEdition extends Component {
         oldPassword: 'Enter your old password',
         specialization: 'Enter specialization'
       },
+      validations: {
+        name: true,
+        surname: true,
+        email: true,
+        pesel: true,
+        password: false,
+        repeatPassword: false,
+        oldPassword: false,
+        specialization: true
+      },
       openBoxes: {
         personData: true,
         changePassword: false,
@@ -70,11 +82,18 @@ export default class PersonEdition extends Component {
   }
 
   onChange(type, value) {
-    let { values } = this.state;
+    let { values, errors, errorsMessages, validations } = this.state;
 
+    let validation = (value.length > 0 || value > 0);
+    errors[type] = validation ? '' : errorsMessages[type];
+    validations[type] = validation;
     values[type] = value;
+
+
     this.setState({
-      values
+      values,
+      errors,
+      validations
     });
   }
 
@@ -88,12 +107,50 @@ export default class PersonEdition extends Component {
     });
   }
 
+  onSavePersonData() {
+    let { values, errors, errorsMessages, validations } = this.state;
+    let personValidation = {};
+    personValidation.name = validations.name;
+    personValidation.surname = validations.surname;
+    personValidation.email = validations.email;
+    if ( this.props.personType === 'patient') {
+      personValidation.pesel = validations.pesel;
+    }
+
+    let data = checkValidations(personValidation, errors, errorsMessages);
+    errors = mergeObjects(errors, data.errors);
+
+    this.setState({
+      errors
+    });
+
+    if (data.status) {
+      this.props.onSave(values);
+    }
+  }
+
   onSave(values) {
     this.props.onSave(values);
   }
 
-  onChangePassword(values) {
-    this.props.onChangePassword(values);
+  onSavePassword() {
+    let { values, errors, errorsMessages, validations } = this.state;
+
+    let passwordValidation = {};
+    passwordValidation.password = validations.password;
+    passwordValidation.repeatPassword = validations.repeatPassword;
+    passwordValidation.oldPassword = validations.oldPassword;
+
+    let data = checkValidations(passwordValidation, errors, errorsMessages);
+    errors = mergeObjects(errors, data.errors);
+
+    this.setState({
+      errors
+    });
+    if (data.status && values.password === values.repeatPassword) {
+      this.props.onChangePassword(values);
+
+    }
   }
 
   render() {
@@ -113,7 +170,7 @@ export default class PersonEdition extends Component {
               values={ values }
               errors={ errors }
               onChange={ this.onChange.bind(this) }
-              onSave={ this.onSave.bind(this, values) }
+              onSave={ this.onSavePersonData.bind(this) }
               personType={ personType }
               onToogleBox={ this.onToogleBox.bind(this, 'personData') }
               open={ openBoxes.personData }
@@ -132,7 +189,7 @@ export default class PersonEdition extends Component {
                 values={ values }
                 errors={ errors }
                 onChange={ this.onChange.bind(this) }
-                onSave={ this.onChangePassword.bind(this, values) }
+                onSave={ this.onSavePassword.bind(this)}
                 onToogleBox={ this.onToogleBox.bind(this, 'changePassword') }
                 open={ openBoxes.changePassword }
                 oldPassword
