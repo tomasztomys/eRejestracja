@@ -157,11 +157,9 @@ export function changeUserPassword(parameters, userId) {
     fetchData(url, 'PUT', body, '')
     .then((data) => {
       if (Object.keys(data.data).length > 0) { ///
-        console.log('WRONG');
         dispatch(changeUserPasswordFailure());
       }
       else {
-        console.log('GOOD');
         dispatch(changeUserPasswordSuccess());
       }
     });
