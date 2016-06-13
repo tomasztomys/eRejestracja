@@ -72,7 +72,7 @@ export function changeUserPasswordFailure() {
   return {
     type: CHANGE_USER_PASSWORD_FAILURE,
     data: {
-      message: 'Some error with change your password.'
+      message: 'Wrong old password, try again.'
     }
   };
 }
@@ -156,7 +156,12 @@ export function changeUserPassword(parameters, userId) {
   return (dispatch) => {
     fetchData(url, 'PUT', body, '')
     .then((data) => {
-      if (data.status === 200) {
+      if (Object.keys(data.data).length > 0) { ///
+        console.log('WRONG');
+        dispatch(changeUserPasswordFailure());
+      }
+      else {
+        console.log('GOOD');
         dispatch(changeUserPasswordSuccess());
       }
     });

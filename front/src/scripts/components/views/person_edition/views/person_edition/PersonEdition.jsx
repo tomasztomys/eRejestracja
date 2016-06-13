@@ -133,8 +133,24 @@ export default class PersonEdition extends Component {
     this.props.onSave(values);
   }
 
-  onChangePassword(values) {
-    this.props.onChangePassword(values);
+  onSavePassword() {
+    let { values, errors, errorsMessages, validations } = this.state;
+
+    let passwordValidation = {};
+    passwordValidation.password = validations.password;
+    passwordValidation.repeatPassword = validations.repeatPassword;
+    passwordValidation.oldPassword = validations.oldPassword;
+
+    let data = checkValidations(passwordValidation, errors, errorsMessages);
+    errors = mergeObjects(errors, data.errors);
+
+    this.setState({
+      errors
+    });
+    if (data.status && values.password === values.repeatPassword) {
+      this.props.onChangePassword(values);
+
+    }
   }
 
   render() {
@@ -154,7 +170,7 @@ export default class PersonEdition extends Component {
               values={ values }
               errors={ errors }
               onChange={ this.onChange.bind(this) }
-              onSave={ this.onSavePersonData.bind(this, values) }
+              onSave={ this.onSavePersonData.bind(this) }
               personType={ personType }
               onToogleBox={ this.onToogleBox.bind(this, 'personData') }
               open={ openBoxes.personData }
@@ -173,7 +189,7 @@ export default class PersonEdition extends Component {
                 values={ values }
                 errors={ errors }
                 onChange={ this.onChange.bind(this) }
-                onSave={ this.onChangePassword.bind(this, values) }
+                onSave={ this.onSavePassword.bind(this)}
                 onToogleBox={ this.onToogleBox.bind(this, 'changePassword') }
                 open={ openBoxes.changePassword }
                 oldPassword
