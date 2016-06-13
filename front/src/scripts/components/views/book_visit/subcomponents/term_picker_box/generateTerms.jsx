@@ -44,8 +44,8 @@ const generateTerms = (doctorWorkHours, busyTerms, time) => {
         selected: false
       });
 
-      tempStart = addTime(tempStart, 30);
-      tempEnd = addTime(tempEnd, 30);
+      tempStart = addTime(tempStart, time);
+      tempEnd = addTime(tempEnd, time);
     }
   }
   let outData = removeBusyTerms(freeTerms, busyTerms);

@@ -25,6 +25,7 @@ export default class PersonData extends Component {
     let { labels } = this.state;
     let { values, errors, onChange, personType } = this.props;
 
+    let peselError = (values.pesel.length === 0 || values.pesel.length === 9) ? '' : 'Pesel must have 9 characters';
     return (
       <div className={ style['change-person-data'] }>
         <Input
@@ -53,7 +54,7 @@ export default class PersonData extends Component {
           <Input
             key={ labels.pesel }
             label={ labels.pesel }
-            error={ errors.pesel }
+            error={ errors.pesel + peselError }
             value={ values.pesel }
             type="number"
             onChange={ onChange.bind(this, 'pesel') }

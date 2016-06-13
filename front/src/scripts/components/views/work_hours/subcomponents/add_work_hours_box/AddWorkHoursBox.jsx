@@ -94,11 +94,11 @@ class AddWorkHoursBox extends Component {
     let { values } = this.state;
 
     this.onValidation(key, value);
-
     values[key] = value;
     this.setState({
       values,
     });
+    this.onValidationEndTime(values.endTime);
   }
 
   onValidationEndTime(value) {
@@ -186,6 +186,8 @@ class AddWorkHoursBox extends Component {
   }
 
   onAddTerms() {
+    let { values } = this.state;
+    this.onValidationEndTime(values.endTime);
     if (this.checkValidations()) {
       let { values } = this.state;
       let { userId } = this.props;
@@ -209,7 +211,17 @@ class AddWorkHoursBox extends Component {
 
       this.setState({
         selectedDays: [],
-        values: this.initValues()
+        values: this.initValues(),
+        validations: {
+          startTime: true,
+          endTime: true,
+          days: false
+        },
+        errors: {
+          startTime: '',
+          endTime: '',
+          days: ''
+        },
       });
     }
     else {

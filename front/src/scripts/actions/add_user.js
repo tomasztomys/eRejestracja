@@ -9,7 +9,7 @@ export function addUserSuccess() {
   return {
     type: ADD_PERSON_SUCCESS,
     data: {
-      message: 'The person added correctly to the database.'
+      message: 'The person added correctly to the database. Please confirm email.'
     }
   };
 }
