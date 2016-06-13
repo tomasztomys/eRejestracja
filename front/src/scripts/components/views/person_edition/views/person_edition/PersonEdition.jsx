@@ -9,7 +9,7 @@ import { ChangePasswordBox } from '../../view_content/change_password_box';
 import { PersonDataBox } from '../../view_content/person_data_box';
 import { DoctorSpecificBox } from '../../view_content/doctor_specific_box';
 
-import { checkData } from 'utilities';
+import { checkData, checkValidations, mergeObjects } from 'utilities';
 
 export default class PersonEdition extends Component {
 
@@ -48,14 +48,14 @@ export default class PersonEdition extends Component {
         specialization: 'Enter specialization'
       },
       validations: {
-        name: false,
-        surname: false,
-        email: false,
-        pesel: false,
+        name: true,
+        surname: true,
+        email: true,
+        pesel: true,
         password: false,
         repeatPassword: false,
         oldPassword: false,
-        specialization: false
+        specialization: true
       },
       openBoxes: {
         personData: true,
@@ -89,6 +89,7 @@ export default class PersonEdition extends Component {
     validations[type] = validation;
     values[type] = value;
 
+
     this.setState({
       values,
       errors,
@@ -107,11 +108,27 @@ export default class PersonEdition extends Component {
   }
 
   onSavePersonData() {
-    let { values, errors, errorsMessages } = this.state;
+    let { values, errors, errorsMessages, validations } = this.state;
+    let personValidation = {};
+    personValidation.name = validations.name;
+    personValidation.surname = validations.surname;
+    personValidation.email = validations.email;
+    if ( this.props.personType === 'patient') {
+      personValidation.pesel = validations.pesel;
+    }
 
-    let data = checkData(values, errors, errorsMessages);
-    console.log(data);
+    let data = checkValidations(personValidation, errors, errorsMessages);
+    errors = mergeObjects(errors, data.errors);
+
+    this.setState({
+      errors
+    });
+
+    if (data.status) {
+      this.props.onSave(values);
+    }
   }
+
   onSave(values) {
     this.props.onSave(values);
   }

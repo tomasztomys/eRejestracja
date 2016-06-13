@@ -127,7 +127,8 @@ class TermPickerBox extends Component {
 
   onSelectEvent(event) {
     this.setState({
-      selected: event
+      selected: event,
+      showWarning: false
     });
   }
 
