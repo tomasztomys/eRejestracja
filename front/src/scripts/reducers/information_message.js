@@ -16,6 +16,7 @@ export default function informationMessage(state, action) {
     case ActionsTypes.RESET_PASSWORD_SUCCESS:
     case ActionsTypes.SET_NEW_PASSWORD_SUCCESS:
     case ActionsTypes.CONFIRM_EMAIL_SUCCESS:
+    case ActionsTypes.CHANGE_INSTITUTE_DATA_SUCCESS:
     case ActionsTypes.ADD_PERSON_SUCCESS: {
       let informationMessage = Immutable.fromJS({
         active: false,
