@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { PersonRegistration } from '../views/person_registration';
 import * as Action from '../../../../actions/Actions';
 
-import Paths from '../../../../constants/PathsConstants';
+import Paths from 'constants/PathsConstants';
 
 class SmartAddPatient extends Component {
   onAddUser(values) {
@@ -22,6 +22,7 @@ class SmartAddPatient extends Component {
           this.props.nextStep();
         }
         else {
+          console.log(Paths.patients.list);
           this.context.router.push(Paths.patients.list);
         }
       }
@@ -42,6 +43,10 @@ class SmartAddPatient extends Component {
     );
   }
 }
+
+SmartAddPatient.contextTypes = {
+  router: React.PropTypes.object
+};
 
 SmartAddPatient.propTypes = {
   title: PropTypes.string,
