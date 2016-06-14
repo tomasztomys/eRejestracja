@@ -107,7 +107,7 @@ class Calls
 
         $this->_app->get('/remainder', '\Remainder\Remainder:run')->setName('remainder');
 
-        $this->_app->post('/reset', '\Database\Reset:run')->setName('resetDatabase');
+        $this->_app->get('/reset', '\Database\Reset:run')->setName('resetDatabase');
 
         $this->_app->any('/', function () {
             echo "eRejestracja";
