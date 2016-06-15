@@ -1,0 +1,5 @@
+projectKey=erejestracja
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/erejestracja
+ceTaskId=AVVRaYvTVidfvM9p74Wx
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVVRaYvTVidfvM9p74Wx
